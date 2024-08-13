@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 
-function Header(){  
+function AdminHeader(){  
     return(
        <header>
-            헤더민입니다.
-
+            어드민헤더입니다.
        </header>
     );
 }
-export default Header;
+export default AdminHeader;

@@ -19,4 +19,9 @@ public class ProServiceImpl implements ProService {
     public User userCheck(String userId) {
         return um.userCheck(userId);
     }
+
+    @Override
+    public int userJoin(User user) {
+        return um.userJoin(user);
+    }
 }
