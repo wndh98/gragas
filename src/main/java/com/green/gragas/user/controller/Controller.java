@@ -35,6 +35,11 @@ public class Controller {
 
         int result = 0;
         result = ps.userJoin(user);
+        if(result > 0) {
+
+        } else {
+
+        }
     }
 
 }
