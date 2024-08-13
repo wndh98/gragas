@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 function Header(){  
     return(
        <header>
-            <Link to="/">1</Link>
-            <Link to="/admin">2</Link>
+            헤더민입니다.
 
        </header>
     );
