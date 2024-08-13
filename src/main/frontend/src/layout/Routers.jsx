@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import Layout from "./Layout";
+import App from "./App";
+import AdminLayout from "./AdminLayout";
 function Routers(){
     return(
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<h2>home</h2>}/>
-                <Route path="/test1" element={<h2>test1</h2>}/>
-                <Route path="/test2" element={<h2>test2</h2>}/>
-                <Route path="/test2" element={<h2>test2</h2>}/>
+                <Route path="/*" element={<Layout><App/></Layout>}/>
+                <Route path="/admin/*" element={<AdminLayout><App></App></AdminLayout>}/>
+                
             </Routes>
         </BrowserRouter>
     );

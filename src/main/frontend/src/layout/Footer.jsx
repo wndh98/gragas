@@ -1,8 +1,7 @@
-import FooterRouters from "./FooterRouters";
 
 function Footer(){
     return(
-        <FooterRouters/>
+       <footer>풋터입니다</footer>
     );
 }
 export default Footer;

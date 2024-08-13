@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Routers from "./Routers";
 function App() {
-  return <Routers />;
+  return (<div>내용</div>);
 }
 
 // function App() {
