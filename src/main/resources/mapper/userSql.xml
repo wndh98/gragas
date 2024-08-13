@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.user.mappers.UserMapper">
+    <select id="userList" resultType="user">
+        select * from User
+    </select>
+    <select id="userCheck" resultType="user" parameterType="string">
+        select * from User where USER_ID=#{userId}
+    </select>
+    <insert id="userJoin" parameterType="user">
+        insert into User values(#{#userId}, 'YELLOW')
+    </insert>
+</mapper>
