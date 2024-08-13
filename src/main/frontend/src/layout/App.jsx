@@ -6,11 +6,11 @@ import Routers from "./Routers";
 // }
 
 function Test() {
-  const [hello, setHello] = useState([{ userName: "1", userId: "2" }])
+  const [hello, setHello] = useState([])
   console.log(hello);
   /*  const [test,setTest]=useState(<Test></Test>); */
 
-    axios.get('/main')
+    axios.get('/user/view/userId')
       .then(response => {
         setHello(response.data); console.log(hello);
       })

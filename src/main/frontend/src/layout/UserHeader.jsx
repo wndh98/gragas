@@ -13,3 +13,14 @@ function UserHeader() {
   );
 }
 export default UserHeader;
+
+<div >
+  <header>
+  </header>
+  <main>
+
+  </main>
+  <footer>
+
+  </footer>
+</div>
