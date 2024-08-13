@@ -11,5 +11,6 @@ import java.util.List;
 public class SubscribeServiceImpl implements SubscribeService{
     @Autowired
     SubscribeMapper sm;
+
     public List<SubscribeItem> itemList() {return sm.itemList();}
 }
