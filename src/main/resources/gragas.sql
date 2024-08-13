@@ -63,10 +63,10 @@ create table user (
 	USER_PW VARCHAR(255) not null,
 	USER_NAME VARCHAR(50) not null,
 	USER_PHONE VARCHAR(50) not null,
-	USER_EMAIL VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
 	USER_COUPON VARCHAR(1) not null default 'N',
-	USER_DEL VARCHAR(1) not null default 'N'
+	USER_DEL VARCHAR(1) not null default 'N',
+	USER_REGIST DATETIME not null default NOW()
 );
 -- 배송지 테이블
 

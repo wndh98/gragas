@@ -10,7 +10,7 @@ function Test() {
   console.log(hello);
   /*  const [test,setTest]=useState(<Test></Test>); */
 
-    axios.get('/main')
+    axios.get('/user/view')
       .then(response => {
         setHello(response.data); console.log(hello);
       })

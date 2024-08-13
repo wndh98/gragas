@@ -9,4 +9,6 @@ public interface ProService {
     List<User> userList();
 
     User userCheck(String userId);
+
+    int userJoin(User user);
 }
