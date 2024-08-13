@@ -1,6 +1,7 @@
+import AdminFooter from "./AdminFooter";
 import AdminHeader from "./AdminHeader";
-import Footer from "./Footer";
-function AdminLayout(props){
+
+function AdminLayout(props) {
   return (
     <div>
       <AdminHeader/>
