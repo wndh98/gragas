@@ -19,7 +19,7 @@ public class Controller {
         List<User> list=ps.userList();
         return list;
     }
-    @GetMapping("/view")
+    @GetMapping("/view/{userId}")
     public User userView(@RequestParam(value="userId") String userId){
         User user=ps.userCheck(userId);
         return user;
