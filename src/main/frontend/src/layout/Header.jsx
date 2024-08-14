@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 function Header(){  
     return(
        <header>
-            헤더
-            <Link to="/">1</Link>
-            <Link to="/admin">2</Link>
-            <Link to="/login">3</Link>
+            <Link to="/">1.main</Link>&nbsp;&nbsp;
+            <Link to="/admin">2.admin</Link>&nbsp;&nbsp;
+            <Link to="/login">3.login</Link>&nbsp;&nbsp;
+            <Link to="/myPage">4.mypage</Link>
 
        </header>
     );

@@ -1,12 +1,10 @@
 package com.green.gragas.user.controller;
 
+import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.user.service.ProService;
 import com.green.gragas.user.dto.User;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,17 +24,23 @@ public class Controller {
         return user;
     }
 
-    @PostMapping("/joinForm")
-    public int userJoin(@RequestParam(value="userId") String userId, @RequestParam(value="userPw") String userPw,
-                         @RequestParam(value="userName") String userName, @RequestParam(value="userPhone") String userPhone) {
-        User user = new User();
-        user.setUserId(userId);
-        user.setUserPw(userPw);
-        user.setUserName(userName);
-        user.setUserPhone(userPhone);
-
+    @PostMapping("/user/joinForm")
+    public int userJoin(@RequestBody User user) {
         int result = 0;
         result = ps.userJoin(user);
+        return result;
+    }
+
+    @PostMapping("/emailLogin")
+    public int userLogin(@PathVariable String userId, @PathVariable String userPw) {
+        int result = 0;
+
+        User user=ps.userCheck(userId);
+        if(user.getUserPw().equals(userPw)) {
+            result = 1;
+        } else {
+            result = -1;
+        }
 
         return result;
     }
