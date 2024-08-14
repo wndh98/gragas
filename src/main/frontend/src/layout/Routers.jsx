@@ -1,8 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import Index from "../components/Index";
-import AdminIndex from "../components/Admin/AdminIndex";
+import AdminIndex from "../components/admin/AdminIndex";
 import AdminLayout from "./AdminLayout";
+import AdminProductMain from "../components/admin/product/AdminProductMain";
+import AdminProductCreate from "../components/admin/product/AdminProductCreate";
+import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
 import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import Basic from "../components/subscribe/Basic";
@@ -17,6 +20,9 @@ function Routers(){
                 <Route path="/subscribe/subsReview" element={<Layout><ItemList/></Layout>}/>
                 <Route path="/subscribe/basic" element={<Layout><Basic/></Layout>}/>
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
+                <Route path="/create" element={<AdminLayout><AdminProductCreate/></AdminLayout>}/>
+                <Route path="/main" element={<AdminLayout><AdminProductMain/></AdminLayout>}/>
+                <Route path="/update" element={<AdminLayout><AdminProductUpdate/></AdminLayout>}/>
             </Routes>
         </BrowserRouter>
     );
