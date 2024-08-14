@@ -3,12 +3,10 @@ package com.green.gragas.product.controller;
 import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProductController {
@@ -25,5 +23,23 @@ public class ProductController {
     public ProductItem productView(@PathVariable int piNum) {
         ProductItem productItem = ps.productCheck(piNum);
         return productItem;
+    }
+
+    @PostMapping("/product/insert")
+    public int productInsert(@RequestBody ProductItem product) {
+        int result = ps.productInsert(product);
+
+        return result;
+    }
+
+    @PutMapping("/product/update/{piNum}")
+    public int productUpdate(@PathVariable int piNum, @RequestBody ProductItem product) {
+        int result = ps.productUpdate(piNum,product);
+        return result;
+    }
+    @DeleteMapping("/product/delete/{piNum}")
+    public int productDelete(@PathVariable int piNum){
+        int result = ps.productDelete(piNum);
+        return result;
     }
 }
