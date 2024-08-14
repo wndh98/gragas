@@ -3,13 +3,15 @@ import Layout from "./Layout";
 import Index from "../components/Index";
 import AdminIndex from "../components/Admin/AdminIndex";
 import AdminLayout from "./AdminLayout";
-function Routers(){
-    return(
+import Test from "../components/Test";
+import BoardList from "../components/board/BoardList";
+function Routers() {
+    return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout><Index/></Layout>}/>
-                <Route path="/test1" element={<Layout><Index/></Layout>}/>
-                <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
+                <Route path="/" element={<Layout><Index /></Layout>} /><Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardList /></Layout>} />
+
+                <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
             </Routes>
         </BrowserRouter>
     );

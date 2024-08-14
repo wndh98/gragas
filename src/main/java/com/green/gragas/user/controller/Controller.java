@@ -1,8 +1,7 @@
 package com.green.gragas.user.controller;
 
-import com.green.gragas.user.service.ProService;
 import com.green.gragas.user.dto.User;
-import lombok.Data;
+import com.green.gragas.user.service.ProService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,17 +23,5 @@ public class Controller {
         return user;
     }
 
-    @PostMapping("/joinForm")
-    public void userJoin(@RequestParam(value="userId") String userId, @RequestParam(value="userPw") String userPw,
-                         @RequestParam(value="userName") String userName, @RequestParam(value="userPhone") String userPhone) {
-        User user = new User();
-        user.setUserId(userId);
-        user.setUserPw(userPw);
-        user.setUserName(userName);
-        user.setUserPhone(userPhone);
-
-        int result = 0;
-        result = ps.userJoin(user);
-    }
 
 }

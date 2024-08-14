@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.board.mapper.BoardMapper">
+    <select id="selectList" resultType="board" parameterType="boardSearch">
+        select * from board_${boardType}
+        <if test="keyword!=null and searchType!=null">
+            where ${searchType} like concat('%',#{keyword},'%')
+        </if>
+        order by ${orderType} ${orderAsc};
+    </select>
+    <select id="totalCnt" resultType="integer" parameterType="string">
+        select count(*) from board_${boardType};
+    </select>
+
+</mapper>
