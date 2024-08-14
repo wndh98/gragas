@@ -5,6 +5,7 @@ import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 @Data
+@Alias("subscribeItem")
 public class SubscribeItem {
     private int siNum;
     private String siSubject;

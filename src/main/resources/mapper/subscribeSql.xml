@@ -17,5 +17,7 @@
     <select id="itemList" resultMap="subscribeItemResult">
         select * from SUBSCRIBE_ITEM
     </select>
-
+    <select id="selectSubsItem" parameterType="integer" resultType="subscribeItem">
+        select * from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
+    </select>
 </mapper>

@@ -8,7 +8,7 @@ import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
 import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
-import Basic from "../components/subscribe/Basic";
+import SubsDescription from "../components/subscribe/SubsDescription";
 function Routers(){
     return(
         <BrowserRouter>
@@ -17,8 +17,7 @@ function Routers(){
                 <Route path="/test1" element={<Layout><Index/></Layout>}/>
                 <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
                 <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
-                <Route path="/subscribe/subsReview" element={<Layout><ItemList/></Layout>}/>
-                <Route path="/subscribe/basic" element={<Layout><Basic/></Layout>}/>
+                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
                 <Route path="/create" element={<AdminLayout><AdminProductCreate/></AdminLayout>}/>
                 <Route path="/main" element={<AdminLayout><AdminProductMain/></AdminLayout>}/>

@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface SubscribeMapper {
     List<SubscribeItem> itemList();
+    SubscribeItem selectSubsItem(int siNum);
 }

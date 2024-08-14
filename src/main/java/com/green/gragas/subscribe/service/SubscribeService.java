@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SubscribeService {
     List<SubscribeItem> itemList();
+    SubscribeItem selectSubsItem(int siNum);
 }
