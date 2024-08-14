@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.product.mappers.ProductMapper">
+    <select id="productList" resultType="productItem">
+        select * from Product_Item
+    </select>
+
+    <select id="productCheck" resultType="productItem" parameterType="integer">
+        select * from Product_Item where PI_NUM=#{piNum}
+    </select>
+    <insert id="productInsert" parameterType="productItem">
+        insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT)
+        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},'',#{piContent});
+    </insert>
+    <update id="productUpdate" parameterType="productItem">
+        update PRODUCT_ITEM set PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
+        PI_CARBONATED=#{piCarbonated},PI_CONTENT=#{piContent}
+        <if test="piImg!=null">
+            ,PI_IMG=#{piImg}
+        </if>
+        where PI_NUM=#{piNum}
+    </update>
+    <delete id="productDelete" parameterType="integer">
+        delete from PRODUCT_ITEM where PI_NUM=#{piNum}
+    </delete>
+</mapper>
