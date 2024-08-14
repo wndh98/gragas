@@ -13,10 +13,10 @@ public class SubscribeController {
     @Autowired
     private SubscribeService ss;
 
-    @GetMapping("/subscribe/productList")
+    @GetMapping("/subscribe/itemList")
     public List<SubscribeItem> itemList(){
-        List<SubscribeItem> list = ss.itemList();
-        return list;
-    };
+        List<SubscribeItem> sublist = ss.itemList();
+        return sublist;
+    }
 
 }

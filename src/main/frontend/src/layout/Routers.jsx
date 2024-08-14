@@ -3,12 +3,19 @@ import Layout from "./Layout";
 import Index from "../components/Index";
 import AdminIndex from "../components/Admin/AdminIndex";
 import AdminLayout from "./AdminLayout";
+import SubscribeMain from "../components/subscribe/SubscribeMain";
+import ItemList from "../components/subscribe/ItemList";
+import Basic from "../components/subscribe/Basic";
 function Routers(){
     return(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index/></Layout>}/>
                 <Route path="/test1" element={<Layout><Index/></Layout>}/>
+                <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
+                <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
+                <Route path="/subscribe/subsReview" element={<Layout><ItemList/></Layout>}/>
+                <Route path="/subscribe/basic" element={<Layout><Basic/></Layout>}/>
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
             </Routes>
         </BrowserRouter>
