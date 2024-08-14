@@ -25,7 +25,7 @@ public class Controller {
     }
 
     @PostMapping("/joinForm")
-    public void userJoin(@RequestParam(value="userId") String userId, @RequestParam(value="userPw") String userPw,
+    public int userJoin(@RequestParam(value="userId") String userId, @RequestParam(value="userPw") String userPw,
                          @RequestParam(value="userName") String userName, @RequestParam(value="userPhone") String userPhone) {
         User user = new User();
         user.setUserId(userId);
@@ -35,11 +35,8 @@ public class Controller {
 
         int result = 0;
         result = ps.userJoin(user);
-        if(result > 0) {
 
-        } else {
-
-        }
+        return result;
     }
 
 }

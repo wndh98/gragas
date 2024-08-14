@@ -11,6 +11,6 @@
         select * from User where USER_ID=#{userId}
     </select>
     <insert id="userJoin" parameterType="user">
-        insert into User values(#{#userId}, 'Yellow', #{userPw}, #{userName}, #{userPhone}, 0, 'n', 'n', sysdate)
+        insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userPhone}, 0, 'n', 'n', sysdate)
     </insert>
 </mapper>
