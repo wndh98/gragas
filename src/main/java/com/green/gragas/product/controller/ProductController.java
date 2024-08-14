@@ -32,14 +32,21 @@ public class ProductController {
         return result;
     }
 
-    @PutMapping("/product/update/{piNum}")
+    @PostMapping("/product/update/{piNum}")
     public int productUpdate(@PathVariable int piNum, @RequestBody ProductItem product) {
         int result = ps.productUpdate(piNum,product);
         return result;
     }
-    @DeleteMapping("/product/delete/{piNum}")
+    @GetMapping("/product/delete/{piNum}")
     public int productDelete(@PathVariable int piNum){
         int result = ps.productDelete(piNum);
         return result;
     }
+    @PostMapping("/product/deleteList")
+    public int productDelete(@RequestBody List<Integer> piNum){
+
+        int result = ps.productDeleteList(piNum);
+        return result;
+    }
+
 }

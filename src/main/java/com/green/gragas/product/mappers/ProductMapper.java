@@ -6,7 +6,6 @@ import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper
 public interface ProductMapper {
@@ -18,4 +17,5 @@ public interface ProductMapper {
     int productUpdate(ProductItem product);
 
     int productDelete(int piNum);
+
 }

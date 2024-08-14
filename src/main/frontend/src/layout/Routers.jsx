@@ -6,16 +6,16 @@ import AdminLayout from "./AdminLayout";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
-function Routers(){
-    return(
+function Routers() {
+    return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout><Index/></Layout>}/>
-                <Route path="/test1" element={<Layout><Index/></Layout>}/>
-                <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
-                <Route path="/create" element={<AdminLayout><AdminProductCreate/></AdminLayout>}/>
-                <Route path="/main" element={<AdminLayout><AdminProductMain/></AdminLayout>}/>
-                <Route path="/update" element={<AdminLayout><AdminProductUpdate/></AdminLayout>}/>
+                <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/test1" element={<Layout><Index /></Layout>} />
+                <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
+                <Route path="/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
+                <Route path="/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
+                <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />
             </Routes>
         </BrowserRouter>
     );

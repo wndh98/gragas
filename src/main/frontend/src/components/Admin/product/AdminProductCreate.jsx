@@ -24,16 +24,28 @@ function AdminProductCreate(params) {
             [inputId]: event.target.value,
         })));
     }
-    const loc=useNavigate();
+    const loc = useNavigate();
     function handleSubmit(event) {
         event.preventDefault();
         console.log(productInput);
-        axios.post('/product/insert', productInput)
+        axios.post("/product/insert", productInput)
             .then(response => {
-                if(response.data==1){
+                if (response.data == 1) {
                     alert("성공");
                     loc("/main");
-                }else{
+                } else {
+                    alert("실패");
+                }
+            })
+    }
+    function productDelete(piNum, event) {
+        event.preventDefault();
+        axios.get('/product/delete/' + piNum)
+            .then(response => {
+                if (response.data == 1) {
+                    alert("성공");
+                    loc("/main");
+                } else {
                     alert("실패");
                 }
             })
@@ -69,6 +81,7 @@ function AdminProductCreate(params) {
                             <td><input type="file" name="piPhoto"></input></td>
                         </tr> */}
                         <tr>
+                            <td><button type="button" onClick={(e) => { productDelete(1, e) }}>삭제</button></td>
                             <td><input type="submit" value="전송" /></td>
                         </tr>
                     </thead>
