@@ -1,21 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
-import Index from "../components/Index";
-import AdminIndex from "../components/admin/AdminIndex";
+import AdminIndex from "../components/Admin/AdminIndex";
+import Index from "../components/Index"
 import AdminLayout from "./AdminLayout";
-import AdminProductMain from "../components/admin/product/AdminProductMain";
-import AdminProductCreate from "../components/admin/product/AdminProductCreate";
-import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
+import Login from "../components/user/Login";
+import JoinForm from "../components/user/JoinForm";
+import MyPage from "../components/user/MyPage";
+
 function Routers(){
     return(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index/></Layout>}/>
-                <Route path="/test1" element={<Layout><Index/></Layout>}/>
+                <Route path="/login/*" element={<Layout><Login/></Layout>}/>
+                <Route path="/myPage" element={<Layout><MyPage/></Layout>}/>
+                <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
-                <Route path="/create" element={<AdminLayout><AdminProductCreate/></AdminLayout>}/>
-                <Route path="/main" element={<AdminLayout><AdminProductMain/></AdminLayout>}/>
-                <Route path="/update" element={<AdminLayout><AdminProductUpdate/></AdminLayout>}/>
+
             </Routes>
         </BrowserRouter>
     );
