@@ -9,6 +9,10 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     int totalCnt(String boardType);
-
+    int nextBNum(String boardType);
     List<Board> selectList(SearchDTO search);
+
+    int insertBoard(Board board);
+
+    Board selectBoard(Board board);
 }

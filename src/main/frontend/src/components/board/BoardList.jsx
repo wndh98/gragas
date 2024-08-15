@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 function BoardList() {
     const pathParam = useParams();
@@ -8,31 +8,36 @@ function BoardList() {
     const pageNum = pathParam.pageNum;
     const listUrl = "/board/" + boardType + "/list/" + pageNum;
     const [boardList, setBoardList] = useState([]);
-    axios.get(listUrl)
-        .then((result) => {
-            setBoardList(result.data);
-        });
+    useEffect(() => {
+        axios.get(listUrl)
+            .then((result) => {
+                setBoardList(result.data);
+                console.log(1)
+            });
+    }, [])
 
-    return (
-        <table>
+    if (boardList.length == 0) {
+        return(
             <tr>
-                <td>게시글번호</td>
-                <td>게시글제목</td>
-                <td>작성자</td>
-                <td>등록일</td>
-                <td>조회수</td>
+                <td colspan="5">등록된 게시글이 없습니다.</td>
             </tr>
-            {boardList.map(board => {
-                <tr>
-                    <td>{board.bNum}</td>
-                    <td>{board.bSubject}</td>
-                    <td>{board.bWrtier}</td>
-                    <td>{board.bRegist}</td>
-                    <td>{board.bView}</td>
-                </tr>
+        )
+    } else {
+        return (
+            <>
+                {boardList.map(board => {
+                    <tr>
+                        <td>{board.bNum}</td>
+                        <td>{board.bSubject}</td>
+                        <td>{board.bWrtier}</td>
+                        <td>{board.bRegist}</td>
+                        <td>{board.bView}</td>
+                    </tr>
 
-            })}
-        </table>
-    );
+                })}
+            </>
+        );
+    }
+
 }
 export default BoardList;

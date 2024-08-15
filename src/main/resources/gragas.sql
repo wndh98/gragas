@@ -214,9 +214,9 @@ references `SUBSCRIBE_ITEM` (`SI_NUM`);
 create table `BOARD_REVIEW` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
-	`B_REF` INT null,
+	`B_REF` INT not null,
 	`B_SUBJECT` VARCHAR(255) not null,
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
@@ -235,7 +235,7 @@ create table `COMMENT_REVIEW` (
 create table `BOARD_QA` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
@@ -256,7 +256,7 @@ create table `COMMENT_QA` (
 create table `BOARD_FREE` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
@@ -277,7 +277,7 @@ create table `COMMENT_FREE` (
 create table `BOARD_NOTICE` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
@@ -307,12 +307,16 @@ create table `BOARD_FILE` (
 
 ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_B_NUM` foreign key(B_NUM) references BOARD_REVIEW(B_NUM);
 ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_USER_ID` foreign key(USER_ID) references USER(USER_ID);

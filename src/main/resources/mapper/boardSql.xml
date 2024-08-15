@@ -9,10 +9,34 @@
         <if test="keyword!=null and searchType!=null">
             where ${searchType} like concat('%',#{keyword},'%')
         </if>
-        order by ${orderType} ${orderAsc};
+        order by ${orderType} ${orderAsc}
     </select>
     <select id="totalCnt" resultType="integer" parameterType="string">
-        select count(*) from board_${boardType};
+        select count(*) from board_${boardType}
     </select>
-
+    <select id="nextBNum" resultType="integer" parameterType="string">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name=concat('BOARD_',#{boardType})
+    </select>
+    <select id="selectBoard" resultType="board" parameterType="board">
+        select * from board_${boardType} where B_NUM=#{bNum}
+    </select>
+    <insert id="insertBoard" parameterType="board">
+        insert into Board_${boardType}(
+        <if test="siNum!=0">
+            SI_NUM,
+        </if>
+        <if test="piNum!=0">
+            PI_NUM,
+        </if>
+        USER_ID,B_REF,B_SUBJECT,B_WRITER,B_CONTENT,B_STAR) values(
+        <if test="siNum!=0">
+            #{siNum},
+        </if>
+        <if test="piNum!=0">
+            #{piNum},
+        </if>
+        #{userId},#{bRef},#{bSubject},#{bWriter},#{bContent},#{bStar}
+        )
+    </insert>
 </mapper>

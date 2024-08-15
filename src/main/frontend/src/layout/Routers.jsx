@@ -6,23 +6,21 @@ import AdminLayout from "./AdminLayout";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
-function Routers(){
-    return(
-import Test from "../components/Test";
-import BoardList from "../components/board/BoardList";
+import BoardListLayout from "../components/board/BoardListLayout";
+import BoardForm from "../components/board/BoardForm";
 function Routers() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout><Index/></Layout>}/>
-                <Route path="/test1" element={<Layout><Index/></Layout>}/>
-                <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
-                <Route path="/create" element={<AdminLayout><AdminProductCreate/></AdminLayout>}/>
-                <Route path="/main" element={<AdminLayout><AdminProductMain/></AdminLayout>}/>
-                <Route path="/update" element={<AdminLayout><AdminProductUpdate/></AdminLayout>}/>
-                <Route path="/" element={<Layout><Index /></Layout>} /><Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardList /></Layout>} />
-
+                <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
+                <Route path="/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
+                <Route path="/update" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
+            </Routes>
+            <Routes>
+                <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />
+                <Route path="/board/:boardType/write/:pageNum" element={<Layout><BoardForm/></Layout>} />
             </Routes>
         </BrowserRouter>
     );

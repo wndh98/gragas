@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface BoardService {
     List<Board> boardList(String boardType, int pageNum);
+
+    int boardWrite(String boardType, Board board);
+
+    Board boardSearch(String boardType, int bNum);
 }

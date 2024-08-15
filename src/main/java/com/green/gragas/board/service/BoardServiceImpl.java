@@ -22,4 +22,24 @@ public class BoardServiceImpl implements  BoardService{
         SearchDTO search = new SearchDTO(totalCnt,pageNum,boardType);
         return bm.selectList(search);
     }
+
+    @Override
+    public int boardWrite(String boardType, Board board) {
+        if(board.getBNum()==0){
+            int ref = bm.nextBNum(boardType);
+            board.setBRef(ref);
+        }else{
+            board.setBRef(board.getBNum());
+        }
+        board.setBoardType(boardType);
+        return bm.insertBoard(board);
+    }
+
+    @Override
+    public Board boardSearch(String boardType, int bNum) {
+        Board board=new Board();
+        board.setBoardType(boardType);
+        board.setBNum(bNum);
+        return bm.selectBoard(board);
+    }
 }
