@@ -28,8 +28,9 @@ public class BoardContoller {
         int result = bs.boardWrite(boardType, board);
         return result;
     }
-    @GetMapping("/board/{boardType}/select")
-    public Board getBoardList(@PathVariable("boardType") String boardType, @RequestParam int bNum) {
+
+    @GetMapping("/board/{boardType}/select/{bNum}")
+    public Board getBoard(@PathVariable("boardType") String boardType,@PathVariable("bNum") int bNum) {
         Board board = bs.boardSearch(boardType, bNum);
         return board;
     }

@@ -3,44 +3,52 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 
-function BoardForm() {
+function BoardWriteForm() {
     const pathParam = useParams();
     const boardType = pathParam.boardType;
     const pageNum = pathParam.pageNum;
     const bNum = pathParam.bNum;
     const writeUrl = "/board/" + boardType + "/write";
-    const selectUrl = "/board/" + boardType + "/update/"+bNum;
+    const selectUrl = "/board/" + boardType + "/select/" + bNum;
+    const selectUserUrl = "/user/select/111@111.11";
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [board, setBoard] = useState([]);
+    const [user, setUser] = useState([]);
     useEffect(() => {
         axios.get(selectUrl)
             .then((result) => {
                 setBoard(result.data);
             });
+        axios.get(selectUserUrl)
+            .then((result) => {
+                setUser(result.data);
+            });
     }, [])
     function onSubmit(data) {
         console.log(data);
-        axios.post(writeUrl,data)
-        .then((result) => {
-            console.log(result);
-            if(result.data==1){
-                alert("성공");
-            }
-            else{
-                alert("실패");
-            }
-        });
+        axios.post(writeUrl, data)
+            .then((result) => {
+                console.log(result);
+                if (result.data == 1) {
+                    alert("성공");
+                }
+                else {
+                    alert("실패");
+                }
+            });
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input type="hidden"  {...register("userId", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.userId}/>
-            <input type="hidden"  {...register("bWriter", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bWriter}/>
+            {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
+            <input type="hidden"  {...register("userId", { required: { value: true } })} value={user.userId} />
+            <input type="hidden"  {...register("bWriter", { required: { value: true } })} value={user.userName} />
+            <input type="hidden"  {...register("bNum", { required: { value: true } })} value={board.bNum} />
             <table>
                 <tr>
                     <th>제목</th>
                     <td>
-                        <input {...register("bSubject", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bSubject}/>
+                        <input {...register("bSubject", { required: true, message: "제목을 입력해 주세요." })} value={board.bSubject} />
                         {errors.bSubject && <p>{errors.bSubject.message}</p>}
                     </td>
                 </tr>
@@ -52,12 +60,16 @@ function BoardForm() {
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        <th>파일1</th>
+                        <td><input type="file" {...register("bFile1")} /></td>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2"><input type="submit" /></td>
                 </tr>
             </table>
         </form>
     );
-
-
 }
-export default BoardForm;
+export default BoardWriteForm;

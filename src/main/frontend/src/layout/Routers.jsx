@@ -7,7 +7,7 @@ import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
 import BoardListLayout from "../components/board/BoardListLayout";
-import BoardForm from "../components/board/BoardForm";
+import BoardWriteForm from "../components/board/BoardWriteForm";
 function Routers() {
     return (
         <BrowserRouter>
@@ -20,7 +20,8 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />
-                <Route path="/board/:boardType/write/:pageNum" element={<Layout><BoardForm/></Layout>} />
+                <Route path="/board/:boardType/write/:pageNum" element={<Layout><BoardWriteForm /></Layout>} />
+                {/* <Route path="/board/:boardType/update/:pageNum/:pNum" element={<Layout><BoardUpdateForm /></Layout>} /> */}
             </Routes>
         </BrowserRouter>
     );
