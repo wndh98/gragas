@@ -21,6 +21,7 @@ function Routers() {
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />
                 <Route path="/board/:boardType/write/:pageNum" element={<Layout><BoardWriteForm /></Layout>} />
+                <Route path="/board/:boardType/write/:pageNum/:bNum" element={<Layout><BoardWriteForm /></Layout>} />
                 {/* <Route path="/board/:boardType/update/:pageNum/:pNum" element={<Layout><BoardUpdateForm /></Layout>} /> */}
             </Routes>
         </BrowserRouter>

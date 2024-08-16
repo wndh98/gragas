@@ -14,17 +14,23 @@ function BoardWriteForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [board, setBoard] = useState([]);
     const [user, setUser] = useState([]);
+
+
+
     useEffect(() => {
-        axios.get(selectUrl)
-            .then((result) => {
-                setBoard(result.data);
-            });
+        if (bNum != null) {
+            axios.get(selectUrl)
+                .then((result) => {
+                    setBoard(result.data);
+                });
+        }
         axios.get(selectUserUrl)
             .then((result) => {
                 setUser(result.data);
             });
     }, [])
     function onSubmit(data) {
+        console.log(1);
         console.log(data);
         axios.post(writeUrl, data)
             .then((result) => {
@@ -41,32 +47,32 @@ function BoardWriteForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
-            <input type="hidden"  {...register("userId", { required: { value: true } })} value={user.userId} />
-            <input type="hidden"  {...register("bWriter", { required: { value: true } })} value={user.userName} />
-            <input type="hidden"  {...register("bNum", { required: { value: true } })} value={board.bNum} />
+            <input type="hidden"  {...register("userId")} value="111@111.11" />
+            <input type="hidden"  {...register("bWriter")} value="111" />
+            <input type="hidden"  {...register("bNum")} />
             <table>
                 <tr>
                     <th>제목</th>
                     <td>
-                        <input {...register("bSubject", { required: true, message: "제목을 입력해 주세요." })} value={board.bSubject} />
+                        <input {...register("bSubject", { required: true, message: "제목을 입력해 주세요." })} />
                         {errors.bSubject && <p>{errors.bSubject.message}</p>}
                     </td>
                 </tr>
                 <tr>
                     <th>내용</th>
                     <td>
-                        <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}>{board.bContent}</textarea>
+                        <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}></textarea>
                         {errors.bContent && <p>{errors.bContent.message}</p>}
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <th>파일1</th>
-                        <td><input type="file" {...register("bFile1")} /></td>
+                        <td><input type="file" {...register("bFile1", { required: false })} /></td>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input type="submit" /></td>
+                    <td colSpan="2"><input type="submit" /></td>
                 </tr>
             </table>
         </form>

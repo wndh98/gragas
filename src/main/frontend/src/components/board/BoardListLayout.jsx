@@ -7,8 +7,15 @@ function BoardListLayout() {
     const pathParam = useParams();
     const boardType = pathParam.boardType;
     const pageNum = pathParam.pageNum;
+    const listUrl = "/board/" + boardType + "/list/" + pageNum;
+    const [boards, setBoards] = useState([]);
+    useEffect(() => {
+        axios.get(listUrl)
+            .then((result) => {
+                setBoards([...(result.data)]);
+            });
+    }, [])
 
-    
 
     return (
         <>
@@ -19,10 +26,13 @@ function BoardListLayout() {
                     <td>작성자</td>
                     <td>등록일</td>
                     <td>조회수</td>
-                </tr>   
-                <BoardList></BoardList>
+                </tr>
+                {boards.map(board => {
+                    return (<BoardList boards={board}></BoardList>);
+                })}
+
             </table>
-            <Link to={"/board/" + boardType + "/write/"+pageNum}>글쓰기</Link>
+            <Link to={"/board/" + boardType + "/write/" + pageNum}>글쓰기</Link>
         </>
     );
 }
