@@ -25,7 +25,7 @@ function AdminProductUpdate(params) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(productInput);
-    axios.post("/product/update" + piNum, productInput).then((response) => {
+    axios.post("/product/update" , productInput).then((response) => {
       if (response.data == 1) {
         alert("수정성공");
         loc("/main");
