@@ -20,7 +20,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/view/{piNum}")
-    public ProductItem productView(@PathVariable int piNum) {
+    public ProductItem productView(@PathVariable("piNum") int piNum) {
         ProductItem productItem = ps.productCheck(piNum);
         return productItem;
     }
@@ -33,12 +33,12 @@ public class ProductController {
     }
 
     @PostMapping("/product/update/{piNum}")
-    public int productUpdate(@PathVariable int piNum, @RequestBody ProductItem product) {
+    public int productUpdate(@PathVariable("piNum") int piNum, @RequestBody ProductItem product) {
         int result = ps.productUpdate(piNum,product);
         return result;
     }
     @GetMapping("/product/delete/{piNum}")
-    public int productDelete(@PathVariable int piNum){
+    public int productDelete(@PathVariable("piNum") int piNum){
         int result = ps.productDelete(piNum);
         return result;
     }

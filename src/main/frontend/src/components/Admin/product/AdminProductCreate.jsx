@@ -38,18 +38,7 @@ function AdminProductCreate(params) {
                 }
             })
     }
-    function productDelete(piNum, event) {
-        event.preventDefault();
-        axios.get('/product/delete/' + piNum)
-            .then(response => {
-                if (response.data == 1) {
-                    alert("성공");
-                    loc("/main");
-                } else {
-                    alert("실패");
-                }
-            })
-    }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -81,7 +70,6 @@ function AdminProductCreate(params) {
                             <td><input type="file" name="piPhoto"></input></td>
                         </tr> */}
                         <tr>
-                            <td><button type="button" onClick={(e) => { productDelete(1, e) }}>삭제</button></td>
                             <td><input type="submit" value="전송" /></td>
                         </tr>
                     </thead>

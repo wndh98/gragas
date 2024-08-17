@@ -1,0 +1,378 @@
+* {
+  box-sizing: border-box;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  color: inherit
+}
+
+.App {
+  text-align: center;
+}
+
+
+.mainbox {
+  width: 100%;
+  max-width: 1244px;
+  margin: 0px auto 60px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mbgrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.hb {
+  display: flex;
+  font-weight: 700;
+  padding: 0px 69px;
+  margin-bottom: 20px;
+
+}
+
+
+.tle {
+  text-align: left;
+
+}
+
+.boximg {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  min-width: 100%;
+
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+
+}
+
+.more {
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.tmvps {
+  box-sizing: border-box;
+  display: block;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 100% 0px 0px;
+}
+
+.sebox {
+
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.swiper {
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  display: block;
+}
+
+.spdla-swiper {
+  touch-action: pan-y;
+}
+
+.sebox .swiper {
+  margin: 0px 30px;
+}
+
+button {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+
+.sebox .swiper-custom-button {
+  width: 50px;
+  height: 50px;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center center;
+}
+
+.sebox .leftbutton {
+  background-image: url(https://d38cxpfv0ljg7q.cloudfront.net/assets/icon_prev_arrow_inactive.png);
+}
+
+
+.sebox .nextbutton {
+  background-image: url(https://d38cxpfv0ljg7q.cloudfront.net/assets/icon_next_arrow_active.png);
+}
+
+.swiper-wrapper {
+  transform: translate3d(0px, 0px, 0px);
+  transition-duration: 0ms;
+  transition-delay: 0ms;
+}
+
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  transition-timing-function: var(--swiper-wrapper-transition-timing-function, ease);
+  transition-timing-function: var(--swiper-wrapper-transition-timing-function, initial);
+  box-sizing: content-box;
+}
+
+.image-weapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.product {
+  width: 100%;
+
+}
+
+.swiper-side {
+  flex-shrink: 0;
+  position: relative;
+  transition-property: transform;
+  display: block;
+  width: 259.75px;
+  margin-right: 15px;
+}
+
+.three {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.three .flex {
+  display: flex;
+}
+
+.subheadline-regular {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: 0.28px;
+}
+
+.subheadline-regular {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: 0.28px;
+}
+
+.eDMdoA .body-bold {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 160%;
+}
+
+.discount-area .discount-price {
+  display: flex;
+}
+
+.two .discount-area {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.secn {
+  color: rgb(62, 62, 62);
+  font-size: 16px;
+  text-align: left;
+  font-weight: bold;
+  line-height: 15px;
+}
+
+.name {
+
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.mainbox {
+  width: 100%;
+  max-width: 1184px;
+  min-height: 1000px;
+  padding: 20px 0px 250px;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.mainbox .left-side {
+  width: 100%;
+  max-width: 700px;
+  display: inline-block;
+
+}
+
+.wper {
+  color: rgb(112, 112, 112);
+  font-weight: bold;
+}
+
+.detail-box {
+  width: 100%;
+  max-width: 430px;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 0;
+
+}
+
+.wper #image {
+  position: relative;
+}
+
+
+.mainbox .left-side .wper .detail-box:first-child {
+  padding-right: 30px;
+}
+
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  display: block;
+
+}
+
+#soju {
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  --swiper-theme-color: #007aff;
+  --swiper-navigation-size: 44px;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  text-align: center;
+  font-weight: bold;
+  line-height: 0;
+  list-style: none;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  color: inherit;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.wper .product-price-layout {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+
+.wper .information {
+  width: 270px;
+}
+
+.wper .detail-box {
+  width: 100%;
+  max-width: 430px;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 0;
+}
+
+.boxwrapbox {
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+/* ==================== */
+.right-side {
+
+  width: 100%;
+  max-width: 300px;
+  display: inline-block;
+  position: sticky;
+  vertical-align: top;
+  top: 78px;
+}
+
+
+.wrapboxbox {
+  width: 300px;
+  float: right;
+  max-height: 100vh;
+  padding: 30px 10px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px 0px;
+  font-weight: bold;
+  color: rgb(112, 112, 112);
+}
+
+.right-side .label {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(62, 62, 62);
+}
+
+.form-select {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 14px;
+}

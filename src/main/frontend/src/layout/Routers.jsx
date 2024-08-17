@@ -1,20 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import Index from "../components/Index";
+import Main from "../components/product/Main";
+import ProductItem from "../components/product/ProductItem";
 import AdminIndex from "../components/admin/AdminIndex";
 import AdminLayout from "./AdminLayout";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
+
 function Routers() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index /></Layout>} />
                 <Route path="/test1" element={<Layout><Index /></Layout>} />
+                <Route path="/main" element={<Layout><Main /></Layout>} />
+                <Route path="/ProductItem" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
-                <Route path="/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
-                <Route path="/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
+                <Route path="/product/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
+                <Route path="/product/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
                 <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />
             </Routes>
         </BrowserRouter>
