@@ -19,5 +19,4 @@ public class User {
     private String userDel;
     private Date userRegist;
 
-
 }

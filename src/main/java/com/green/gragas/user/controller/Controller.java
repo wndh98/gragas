@@ -36,13 +36,14 @@ public class Controller {
         int result = 0;
 
         User user=ps.userCheck(userId);
-        if(user.getUserPw().equals(userPw)) {
-            result = 1;
-        } else {
-            result = -1;
-        }
 
         return result;
+    }
+
+    @PostMapping("/user/serchIdForm")
+    public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
+        User user = ps.userSerchId(userName, userPhone);
+        return user;
     }
 
 }
