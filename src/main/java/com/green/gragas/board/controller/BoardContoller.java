@@ -2,6 +2,7 @@ package com.green.gragas.board.controller;
 
 import com.green.gragas.board.dto.Board;
 import com.green.gragas.board.service.BoardService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +27,10 @@ public class BoardContoller {
     }
 
     @PostMapping("/board/{boardType}/write")
-    public int writeBoard(@RequestBody Board board, @PathVariable("boardType") String boardType) {
-        int result=0;
-
-        System.out.println(board);
-//        int result = bs.boardWrite(boardType, board);
+    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType,@RequestParam(value = "bFile", required = false) MultipartFile[] bFiles) {
+//        System.out.println(bFiles[0].getOriginalFilename());
+//        System.out.println(board);
+        int result = bs.boardWrite(boardType, board,bFiles);
         return result;
     }
 

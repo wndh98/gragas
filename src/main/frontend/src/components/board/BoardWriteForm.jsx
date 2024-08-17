@@ -30,8 +30,16 @@ function BoardWriteForm() {
             });
     }, [])
     function onSubmit(data) {
+        const formData = new FormData();
 
-        axios.post(writeUrl, data)
+        formData.append("board", new Blob([JSON.stringify(data)], { type: "application/json" }));
+        if (data.bFile && data.bFile.length > 0) {
+            for (let i = 0; i < data.bFile.length; i++) {
+                formData.append("bFile", data.bFile[i]);
+            }
+        }
+        console.log(formData.get("board"));
+        axios.post(writeUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
             .then((result) => {
                 console.log(result);
                 if (result.data == 1) {
@@ -69,7 +77,7 @@ function BoardWriteForm() {
                         <th>파일1</th>
                         <td>
 
-                            <td><input type="file" {...register("bFile[]", { required: false })} className="form-control" /></td>
+                            <td><input type="file" {...register("bFile", { required: false })} className="form-control" /></td>
                         </td>
                     </tr>
                     <tr>

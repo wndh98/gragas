@@ -1,13 +1,14 @@
 package com.green.gragas.board.service;
 
 import com.green.gragas.board.dto.Board;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface BoardService {
     List<Board> boardList(String boardType, int pageNum);
 
-    int boardWrite(String boardType, Board board);
+    int boardWrite(String boardType, Board board, MultipartFile[] bFiles);
 
     Board boardSearch(String boardType, int bNum);
 
