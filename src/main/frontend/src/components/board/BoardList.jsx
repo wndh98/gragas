@@ -7,24 +7,18 @@ function BoardList(props) {
     const boardType = pathParam.boardType;
     const pageNum = pathParam.pageNum;
     const boards = props.boards;
+    console.log(boards);
 
-    if (boards == null) {
-        return (
-            <tr>
-                <td colspan="5">등록된 게시글이 없습니다.</td>
-            </tr>
-        )
-    } else {
-        return (
-            <tr>
-                <td>{boards.bNum}</td>
-                <td>{boards.bSubject}</td>
-                <td>{boards.bWrtier}</td>
-                <td>{boards.bRegist}</td>
-                <td>{boards.bView}</td>
-            </tr>
-        );
-    }
+    return (
+        <tr>
+            <td>{boards.bNum}</td>
+            <td>{boards.bSubject}</td>
+            <td>{boards.bWriter}</td>
+            <td>{boards.bRegist}</td>
+            <td>{boards.bView}</td>
+        </tr>
+    );
+
 
 }
 export default BoardList;

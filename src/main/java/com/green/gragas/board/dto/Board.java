@@ -25,6 +25,9 @@ public class Board {
     private String bContent;
     @JsonProperty("bStar")
     private int bStar;
+    @JsonProperty("bRegist")
     private Date bRegist;
+    @JsonProperty("bView")
+    private int bView;
     private String boardType;
 }

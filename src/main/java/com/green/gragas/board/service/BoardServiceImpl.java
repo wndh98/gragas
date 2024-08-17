@@ -31,6 +31,7 @@ public class BoardServiceImpl implements  BoardService{
         }else{
             board.setBRef(board.getBNum());
         }
+
         board.setBoardType(boardType);
         return bm.insertBoard(board);
     }
@@ -41,5 +42,13 @@ public class BoardServiceImpl implements  BoardService{
         board.setBoardType(boardType);
         board.setBNum(bNum);
         return bm.selectBoard(board);
+    }
+
+    @Override
+    public void increaseView(String boardType, int bNum) {
+        Board board=new Board();
+        board.setBoardType(boardType);
+        board.setBNum(bNum);
+        bm.increaseView(board);
     }
 }

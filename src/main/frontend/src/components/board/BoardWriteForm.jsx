@@ -10,7 +10,7 @@ function BoardWriteForm() {
     const bNum = pathParam.bNum;
     const writeUrl = "/board/" + boardType + "/write";
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
-    const selectUserUrl = "/user/select/111@111.11";
+    const selectUserUrl = "/user/select/test1@test.com";
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [board, setBoard] = useState([]);
     const [user, setUser] = useState([]);
@@ -30,8 +30,7 @@ function BoardWriteForm() {
             });
     }, [])
     function onSubmit(data) {
-        console.log(1);
-        console.log(data);
+
         axios.post(writeUrl, data)
             .then((result) => {
                 console.log(result);
@@ -47,33 +46,36 @@ function BoardWriteForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
-            <input type="hidden"  {...register("userId")} value="111@111.11" />
+            <input type="hidden"  {...register("userId")} value="test1@test.com" />
             <input type="hidden"  {...register("bWriter")} value="111" />
             <input type="hidden"  {...register("bNum")} />
-            <table>
-                <tr>
-                    <th>제목</th>
-                    <td>
-                        <input {...register("bSubject", { required: true, message: "제목을 입력해 주세요." })} />
-                        {errors.bSubject && <p>{errors.bSubject.message}</p>}
-                    </td>
-                </tr>
-                <tr>
-                    <th>내용</th>
-                    <td>
-                        <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}></textarea>
-                        {errors.bContent && <p>{errors.bContent.message}</p>}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+            <table className="table table-dark table-bordered">
+                <tbody>
+                    <tr >
+                        <th>제목</th>
+                        <td>
+                            <input {...register("bSubject", { required: true, message: "제목을 입력해 주세요." })} className="form-control" />
+                            {errors.bSubject && <p>{errors.bSubject.message}</p>}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td>
+                            <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })} className="form-control"></textarea>
+                            {errors.bContent && <p>{errors.bContent.message}</p>}
+                        </td>
+                    </tr>
+                    <tr>
                         <th>파일1</th>
-                        <td><input type="file" {...register("bFile1", { required: false })} /></td>
-                    </td>
-                </tr>
-                <tr>
-                    <td colSpan="2"><input type="submit" /></td>
-                </tr>
+                        <td>
+
+                            <td><input type="file" {...register("bFile[]", { required: false })} className="form-control" /></td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="2"><input type="submit" className="btn btn-dark" /></td>
+                    </tr>
+                </tbody>
             </table>
         </form>
     );

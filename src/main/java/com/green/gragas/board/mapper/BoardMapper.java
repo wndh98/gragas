@@ -15,4 +15,6 @@ public interface BoardMapper {
     int insertBoard(Board board);
 
     Board selectBoard(Board board);
+
+    void increaseView(Board board);
 }

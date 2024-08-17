@@ -10,4 +10,6 @@ public interface BoardService {
     int boardWrite(String boardType, Board board);
 
     Board boardSearch(String boardType, int bNum);
+
+    void increaseView(String boardType, int bNum);
 }

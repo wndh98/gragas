@@ -221,6 +221,7 @@ create table `BOARD_REVIEW` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 리뷰댓글
@@ -242,6 +243,7 @@ create table `BOARD_QA` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 문의댓글
@@ -263,6 +265,7 @@ create table `BOARD_FREE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 자유댓글
@@ -284,6 +287,7 @@ create table `BOARD_NOTICE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 공지댓글
@@ -383,3 +387,5 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
+insert INTO member_cupon VALUES('YELLOW',0,'테스트');
+insert INTO USER VALUES('test1@test.com','YELLOW','1234','test','010-1234-5678',0,'N','N',NOW());

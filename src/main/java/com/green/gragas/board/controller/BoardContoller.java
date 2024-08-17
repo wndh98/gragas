@@ -4,7 +4,9 @@ import com.green.gragas.board.dto.Board;
 import com.green.gragas.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,8 +26,11 @@ public class BoardContoller {
     }
 
     @PostMapping("/board/{boardType}/write")
-    public int writeBoard(@RequestBody Board board,@PathVariable("boardType") String boardType) {
-        int result = bs.boardWrite(boardType, board);
+    public int writeBoard(@RequestBody Board board, @PathVariable("boardType") String boardType) {
+        int result=0;
+
+        System.out.println(board);
+//        int result = bs.boardWrite(boardType, board);
         return result;
     }
 
@@ -33,5 +38,9 @@ public class BoardContoller {
     public Board getBoard(@PathVariable("boardType") String boardType,@PathVariable("bNum") int bNum) {
         Board board = bs.boardSearch(boardType, bNum);
         return board;
+    }
+    @GetMapping("/board/{boardType}/increaseView/{bNum}")
+    public void increaseView(@PathVariable("boardType") String boardType,@PathVariable("bNum") int bNum){
+        bs.increaseView(boardType,bNum);
     }
 }
