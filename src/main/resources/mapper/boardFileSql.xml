@@ -4,5 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- SQL Mapping -->
 <mapper namespace="com.green.gragas.board.mapper.BoardFileMapper">
+    <insert id="insertBoardFile" parameterType="boardFile">
+        insert into BOARD_FILE(B_NUM,BF_R_NAME,BF_O_NAME,BF_ROOT,BF_BOARD) values(#{bNum},#{bfRName},#{bfOName},#{bfRoot},#{bfBoard})
 
+    </insert>
 </mapper>

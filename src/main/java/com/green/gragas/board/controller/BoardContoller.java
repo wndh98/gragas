@@ -28,8 +28,7 @@ public class BoardContoller {
 
     @PostMapping("/board/{boardType}/write")
     public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType,@RequestParam(value = "bFile", required = false) MultipartFile[] bFiles) {
-//        System.out.println(bFiles[0].getOriginalFilename());
-//        System.out.println(board);
+
         int result = bs.boardWrite(boardType, board,bFiles);
         return result;
     }
@@ -39,8 +38,11 @@ public class BoardContoller {
         Board board = bs.boardSearch(boardType, bNum);
         return board;
     }
-    @GetMapping("/board/{boardType}/increaseView/{bNum}")
-    public void increaseView(@PathVariable("boardType") String boardType,@PathVariable("bNum") int bNum){
+
+    @GetMapping("/board/{boardType}/view/{bNum}")
+    public Board viewBoard(@PathVariable("boardType") String boardType,@PathVariable("bNum") int bNum) {
+        Board board = bs.boardSearch(boardType, bNum);
         bs.increaseView(boardType,bNum);
+        return board;
     }
 }

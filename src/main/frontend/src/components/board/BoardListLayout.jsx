@@ -18,7 +18,7 @@ function BoardListLayout() {
     if (boards.length == 0) {
         return (
             <>
-                <table>
+                <table className="table">
                     <tr>
                         <td>게시글번호</td>
                         <td>게시글제목</td>
@@ -37,8 +37,10 @@ function BoardListLayout() {
     } else {
         return (
             <>
-                <table className="table">
+                <table className="table table-dark table-striped">
+                    <tbody>
                     <tr>
+                        <td><Link to={"/board/" + boardType + "/write/" + pageNum}>글쓰기</Link></td>
                         <td>게시글번호</td>
                         <td>게시글제목</td>
                         <td>작성자</td>
@@ -49,9 +51,9 @@ function BoardListLayout() {
                     {boards.map(board => {
                         return (<BoardList boards={board}></BoardList>);
                     })}
-                    
+                    </tbody>
                 </table>
-                <Link to={"/board/" + boardType + "/write/" + pageNum}>글쓰기</Link>
+            
             </>
         );
     }

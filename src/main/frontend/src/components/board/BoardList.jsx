@@ -11,8 +11,9 @@ function BoardList(props) {
 
     return (
         <tr>
+            <td><input type="checkbox" className="form-check-input"/></td>
             <td>{boards.bNum}</td>
-            <td>{boards.bSubject}</td>
+            <td><Link to={"/board/"+boardType+"/view/"+boards.bNum}>{boards.bSubject}</Link></td>
             <td>{boards.bWriter}</td>
             <td>{boards.bRegist}</td>
             <td>{boards.bView}</td>

@@ -40,6 +40,6 @@
         )
     </insert>
     <update id="increaseView" parameterType="board">
-        update BOARD_${boardType} set B_VIEW=B_VIEW+1 where B_NUM=#{B_NUM}
+        update BOARD_${boardType} set B_VIEW=B_VIEW+1 where B_NUM=#{bNum}
     </update>
 </mapper>

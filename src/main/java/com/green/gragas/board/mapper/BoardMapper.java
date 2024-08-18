@@ -16,5 +16,5 @@ public interface BoardMapper {
 
     Board selectBoard(Board board);
 
-    void increaseView(Board board);
+    int increaseView(Board board);
 }

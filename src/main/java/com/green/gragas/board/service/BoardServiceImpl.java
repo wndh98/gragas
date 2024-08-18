@@ -6,6 +6,7 @@ import com.green.gragas.board.dto.SearchDTO;
 import com.green.gragas.board.mapper.BoardFileMapper;
 import com.green.gragas.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,13 +15,13 @@ import java.util.List;
 
 @Service
 public class BoardServiceImpl implements  BoardService{
-    BoardMapper bm;
-    BoardFileMapper bfm;
     @Autowired
-    public BoardServiceImpl(BoardMapper bm, BoardFileMapper bfm){
-        this.bm=bm;
-        this.bfm=bfm;
-    }
+    BoardMapper bm;
+    @Autowired
+    BoardFileMapper bfm;
+    @Value("${proejct.upload.path}")
+    private String rootPath;
+
 
     @Override
     public List<Board> boardList(String boardType, int pageNum) {
@@ -32,6 +33,7 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public int boardWrite(String boardType, Board board, MultipartFile[] bFiles) {
         int bNum = bm.nextBNum(boardType);
+
         if(board.getBNum()==0){
             board.setBRef(bNum);
         }else{
@@ -39,19 +41,22 @@ public class BoardServiceImpl implements  BoardService{
             board.setBRef(bNum);
         }
         try {
-            BoardFileUpload.fileUpload(bFiles,boardType,bNum);
+            List<String> fileNames=BoardFileUpload.fileUpload(bFiles,boardType,bNum,rootPath);
             BoardFile boardFile = new BoardFile();
             boardFile.setBNum(board.getBNum());
             boardFile.setBfBoard(boardType);
-            boardFile.setBfRoot();
-            bfm.insertBoardFile();
+            boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
+            int i=0;
+            for(String fileName:fileNames) {
+                boardFile.setBfRName(fileName);
+                boardFile.setBfOName(bFiles[i++].getOriginalFilename());
+                if(bfm.insertBoardFile(boardFile)==0)return -1; // 파일업로드가 안되었을시 -1 리턴
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         board.setBoardType(boardType);
         return bm.insertBoard(board);
-
-
     }
 
     @Override
