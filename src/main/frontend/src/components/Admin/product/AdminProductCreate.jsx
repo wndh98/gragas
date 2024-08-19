@@ -24,20 +24,21 @@ function AdminProductCreate(params) {
             [inputId]: event.target.value,
         })));
     }
-    const loc=useNavigate();
+    const loc = useNavigate();
     function handleSubmit(event) {
         event.preventDefault();
         console.log(productInput);
-        axios.post('/product/insert', productInput)
+        axios.post("/product/insert", productInput)
             .then(response => {
-                if(response.data==1){
+                if (response.data == 1) {
                     alert("성공");
                     loc("/main");
-                }else{
+                } else {
                     alert("실패");
                 }
             })
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -64,6 +65,9 @@ function AdminProductCreate(params) {
                         </tr>
                         <tr>상황별
                             <td><input type="text" name="piContent" onChange={(event) => handleInputChange("piContent", event)}></input></td>
+                        </tr>
+                        <tr>이벤트
+                            <td><input type="text" name="eiNum" onChange={(event) => handleInputChange("eiNum", event)}></input></td>
                         </tr>
                         {/* <tr>이미지
                             <td><input type="file" name="piPhoto"></input></td>
