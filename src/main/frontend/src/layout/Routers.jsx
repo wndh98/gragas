@@ -12,7 +12,11 @@ import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
 import AdminProcateMain from "../components/admin/product/AdminProcateMain";
-import AdminProcateCreate from "../components/admin/product/AdminProcateCreate copy";
+import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
+import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
+import AdminEventMain from "../components/admin/product/AdminEventMain";
+import AdminEventCreate from "../components/admin/product/AdminEventCreate";
+import AdminEventUpdate from "../components/admin/product/AdminEventUpdate";
 
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
@@ -25,7 +29,8 @@ function Routers() {
                 <Route path="/" element={<Layout><Index /></Layout>} />
                 <Route path="/test1" element={<Layout><Index /></Layout>} />
                 <Route path="/main" element={<Layout><Main /></Layout>} />
-                <Route path="/ProductItem" element={<Layout><ProductItem /></Layout>} />
+                <Route path="/ProductItem/:piNum" element={<Layout><ProductItem /></Layout>} />
+
                 <Route path="/ProductEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/ProductEventItem" element={<Layout><ProductEventItem /></Layout>} />
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
@@ -34,6 +39,10 @@ function Routers() {
                 <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />
                 <Route path="/procate/main" element={<AdminLayout><AdminProcateMain /></AdminLayout>} />
                 <Route path="/procate/create" element={<AdminLayout><AdminProcateCreate /></AdminLayout>} />
+                <Route path="/procate/update/:pcNum" element={<AdminLayout><AdminProcatetUpdate /></AdminLayout>} />
+                <Route path="/event/main" element={<AdminLayout><AdminEventMain /></AdminLayout>} />
+                <Route path="/event/create" element={<AdminLayout><AdminEventCreate /></AdminLayout>} />
+                <Route path="/event/update/:eiNum" element={<AdminLayout><AdminEventUpdate /></AdminLayout>} />
             </Routes>
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />

@@ -29,10 +29,7 @@ function AdminProcateMain() {
                     alert("실패");
                 }
             })
-
-
-    }
-    // 컴포넌트 마운트시 상품정보 가져오기 함수호출
+    }// 컴포넌트 마운트시 상품정보 가져오기 함수호출
 
     return (
 
@@ -53,11 +50,9 @@ function AdminProcateMain() {
                         return (
                             <tr>
                                 <td><input type="checkbox" {...register("pcNum")} value={procate.pcNum} /></td>
-                                <td><Link to={"/procate/update/" + procate.pcName}>{procate.pcName}</Link></td>
-
+                                <td><Link to={"/procate/update/" + procate.pcNum}>{procate.pcNum}</Link></td>
                                 <td value={procate.pcName}>{procate.pcName}</td>
                                 <td value={procate.pcImg}>{procate.pcImg}</td>
-
                             </tr>
 
                         );

@@ -32,7 +32,7 @@ function AdminProductCreate(params) {
             .then(response => {
                 if (response.data == 1) {
                     alert("성공");
-                    loc("/main");
+                    loc("/product/main");
                 } else {
                     alert("실패");
                 }
