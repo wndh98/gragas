@@ -30,7 +30,6 @@ public class BoardContoller {
 
     @PostMapping("/board/{boardType}/write")
     public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType,@RequestParam(value = "bFile", required = false) MultipartFile[] bFiles) {
-
         int result = bs.boardWrite(boardType, board,bFiles);
         return result;
     }

@@ -20,7 +20,6 @@ function BoardView() {
         if (getCookie(bNum) == null) {
             axios.get(addViewUrl)
                 .then((result) => {
-                    setBoard(result.data);
                     setCookie(bNum, 1, 1);
                 });
         }

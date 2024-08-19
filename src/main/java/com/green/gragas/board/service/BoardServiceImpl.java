@@ -38,7 +38,6 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public int boardWrite(String boardType, Board board, MultipartFile[] bFiles) {
         int bNum = bm.nextBNum(boardType);
-
         if(board.getBNum()==0){
             board.setBRef(bNum);
         }else{

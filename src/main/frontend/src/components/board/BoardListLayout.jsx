@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import BoardList from "./BoardList";
 import Pagination from "react-js-pagination";
 
@@ -10,16 +10,44 @@ function BoardListLayout() {
     const pageNum = pathParam.pageNum;
     const listUrl = "/board/" + boardType + "/list/" + pageNum;
     const [boards, setBoards] = useState([]);
-    const [searchDto, setSearchDto] = useState();
+    const navi = useNavigate();
+    const [searchDto, setSearchDto] = useState({});
+    //let searchDto = {};
+    const [pagination, setPagination] = useState();
+
     useEffect(() => {
         axios.get(listUrl)
             .then((result) => {
                 setBoards([...(result.data.boardList)]);
-                setSearchDto(result.data.searchDto);
-                console.log(searchDto);
+                setSearchDto((result.data.searchDto));
+                setPagination(paginationCreate(searchDto));
             });
     }, [])
-
+    useEffect(() => {
+        setPagination(paginationCreate(searchDto));
+        navi("/board/" + boardType + "/list/" + searchDto.pageNum);
+    }, [searchDto])
+    function paginationCreate(props) {
+        return (<Pagination
+            activePage={props.pageNum}
+            itemsCountPerPage={props.pageSize}
+            totalItemsCount={props.totalCnt}
+            pageRangeDisplayed={props.blockSize}
+            itemClass={"page-item"}
+            linkClass={"page-link"}
+            hideFirstLastPages={true}
+            onChange={handlePageChange}>
+        </Pagination>);
+    }
+    function handlePageChange(nextPage) {
+        let newUrl = "/board/" + boardType + "/list/" + nextPage;
+        axios.get(newUrl)
+            .then((result) => {
+                setBoards([...(result.data.boardList)]);
+                setSearchDto(result.data.searchDto);
+                setPagination(paginationCreate(searchDto));
+            });
+    }
     if (boards.length == 0) {
         return (
             <>
@@ -36,7 +64,7 @@ function BoardListLayout() {
                     </tr>
 
                 </table>
-                <Link to={"/board/" + boardType + "/write/" + pageNum}>글쓰기</Link>
+                <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum}>글쓰기</Link>
             </>
         );
     } else {
@@ -45,7 +73,7 @@ function BoardListLayout() {
                 <table className="table table-dark table-striped">
                     <tbody>
                         <tr>
-                            <td><Link to={"/board/" + boardType + "/write/" + pageNum}>글쓰기</Link></td>
+                            <td><Link to={"/board/" + boardType + "/write/" + searchDto.pageNum}>글쓰기</Link></td>
                             <td>게시글번호</td>
                             <td>게시글제목</td>
                             <td>작성자</td>
@@ -54,28 +82,17 @@ function BoardListLayout() {
                         </tr>
 
                         {boards.map(board => {
-                            return (<BoardList boards={board}></BoardList>);
+                            return (<BoardList boards={board} searchDto={searchDto}></BoardList>);
                         })}
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation">
-                    <Pagination
-                        activePage={searchDto.pageNum}
-                        itemsCountPerPage={searchDto.pageSize}
-                        totalItemsCount={searchDto.totalCnt}
-                        pageRangeDisplayed={searchDto.blockSize}
-                        itemClass={"page-item"}
-                        linkClass={"page-link"}
-                        hideFirstLastPages={true}
-                        onChange={handlePageChange}>
-                    </Pagination>
+                    {pagination}
                 </nav>
             </>
         );
     }
 }
 
-function handlePageChange() {
 
-}
 export default BoardListLayout;
