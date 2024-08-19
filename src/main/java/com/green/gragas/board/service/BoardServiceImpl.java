@@ -79,4 +79,13 @@ public class BoardServiceImpl implements  BoardService{
 
         bm.increaseView(board);
     }
+
+    @Override
+    public List<BoardFile> getFileList(String boardType, int bNum) {
+        BoardFile boardFile = new BoardFile();
+        boardFile.setBNum(bNum);
+        boardFile.setBfBoard(boardType);
+        boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
+        return bfm.selectList(boardFile);
+    }
 }

@@ -9,13 +9,18 @@ function BoardView() {
     const bNum = pathParam.bNum; // 게시판 번호
     const mode = pathParam.mode; // write(insert),update(update)
     const [board, setBoard] = useState([]);
+    const [fileList, setFileList] = useState([]);
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
     const addViewUrl = "/board/" + boardType + "/addView/" + bNum;
-
+    const fileListUrl = "/board/" + boardType + "/fileList/" + bNum;
     useEffect(() => {
         axios.get(selectUrl)
             .then((result) => {
                 setBoard(result.data);
+            });
+        axios.get(fileListUrl)
+            .then((result) => {
+                setFileList(result.data);
             });
         if (getCookie(bNum) == null) {
             axios.get(addViewUrl)
@@ -24,7 +29,10 @@ function BoardView() {
                 });
         }
     }, []);
+    function downloadFile(file) {
+        const downloadUrl = "/board/download";
 
+    }
     return (
         <table className="table">
             <tbody>
@@ -39,6 +47,21 @@ function BoardView() {
                 <tr>
                     <td>조회수</td>
                     <td>{board.bView}</td>
+                </tr>
+                <tr>
+                    <td>파일</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                download files
+                            </button>
+                            <ul class="dropdown-menu">
+                                {fileList.map((file) => {
+                                    <li><button type="button" className="dropdown-item" onClick={downloadFile(file.bfNum)}>{file.bfOName}</button></li>
+                                })}
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td colSpan="2" style={{ whiteSpace: "pre-wrap" }}>{board.bContent}</td>
