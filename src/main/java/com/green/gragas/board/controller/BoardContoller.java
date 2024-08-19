@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BoardContoller {
@@ -21,9 +23,9 @@ public class BoardContoller {
     }
 
     @GetMapping("/board/{boardType}/list/{pageNum}")
-    public List<Board> getBoardList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum) {
-        List<Board> list = bs.boardList(boardType, pageNum);
-        return list;
+    public Map<String,Object> getBoardList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum) {
+        Map<String,Object> map = bs.boardList(boardType, pageNum);
+        return map;
     }
 
     @PostMapping("/board/{boardType}/write")
@@ -38,11 +40,9 @@ public class BoardContoller {
         Board board = bs.boardSearch(boardType, bNum);
         return board;
     }
-
-    @GetMapping("/board/{boardType}/view/{bNum}")
-    public Board viewBoard(@PathVariable("boardType") String boardType,@PathVariable("bNum") int bNum) {
-        Board board = bs.boardSearch(boardType, bNum);
+    //조회수 증가
+    @GetMapping("/board/{boardType}/addView/{bNum}")
+    public void addView(@PathVariable("boardType") String boardType, @PathVariable("bNum") int bNum) {
         bs.increaseView(boardType,bNum);
-        return board;
     }
 }

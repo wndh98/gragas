@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements  BoardService{
@@ -24,10 +26,13 @@ public class BoardServiceImpl implements  BoardService{
 
 
     @Override
-    public List<Board> boardList(String boardType, int pageNum) {
+    public Map<String,Object> boardList(String boardType, int pageNum) {
+        Map<String,Object> map = new HashMap<>();
         int totalCnt=bm.totalCnt(boardType);
         SearchDTO search = new SearchDTO(totalCnt,pageNum,boardType);
-        return bm.selectList(search);
+        map.put("searchDto",search);
+        map.put("boardList",bm.selectList(search));
+        return map;
     }
 
     @Override

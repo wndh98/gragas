@@ -17,25 +17,28 @@ function BoardForm() {
     }
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [board, setBoard] = useState([]);
+
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
-    
+
     useEffect(() => {
-        axios.get(selectUrl)
-            .then((result) => {
-                setBoard(result.data);
-            });
+        if (bNum != null) {
+            axios.get(selectUrl)
+                .then((result) => {
+                    setBoard(result.data);
+                });
+        }
     }, []);
 
     function onSubmit(data) {
         const formData = new FormData();
-        
+
         formData.append("board", new Blob([JSON.stringify(data)], { type: "application/json" }));
         if (data.bFile && data.bFile.length > 0) {
             for (let i = 0; i < data.bFile.length; i++) {
                 formData.append("bFile", data.bFile[i]);
             }
         }
-        
+
         axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
             .then((result) => {
                 if (result.data == 1) {
@@ -51,35 +54,38 @@ function BoardForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
-            <input type="hidden"  {...register("userId", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.userId} />
-            <input type="hidden"  {...register("bNum", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bNum} />
-            <input type="hidden"  {...register("bRef", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bRef} />
-            <input type="hidden"  {...register("bWriter", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bWriter} />
+            {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
+            <input type="hidden"  {...register("userId")} value="111@111.11" />
+            <input type="hidden"  {...register("bNum")} value={board.bNum} />
+            <input type="hidden"  {...register("bRef")} value={board.bRef} />
+            <input type="hidden"  {...register("bWriter")} value="11" />
             <table>
-                <tr>
-                    <th>제목</th>
-                    <td>
-                        <input {...register("bSubject", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bSubject} />
-                        {errors.bSubject && <p>{errors.bSubject.message}</p>}
-                    </td>
-                </tr>
-                <tr>
-                    <th>내용</th>
-                    <td>
-                        <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}>{board.bContent}</textarea>
-                        {errors.bContent && <p>{errors.bContent.message}</p>}
-                    </td>
-                </tr>
-                <tr>
-                    <th>파일1</th>
-                    <td>
+                <tbody>
+                    <tr>
+                        <th>제목</th>
+                        <td>
+                            <input {...register("bSubject", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bSubject} />
+                            {errors.bSubject && <p>{errors.bSubject.message}</p>}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td>
+                            <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}>{board.bContent}</textarea>
+                            {errors.bContent && <p>{errors.bContent.message}</p>}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>파일1</th>
+                        <td>
 
-                        <td><input type="file" {...register("bFile", { required: false })} className="form-control" /></td>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" /></td>
-                </tr>
+                            <input type="file" {...register("bFile", { required: false })} className="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="2"><input type="submit" /></td>
+                    </tr>
+                </tbody>
             </table>
         </form>
     );

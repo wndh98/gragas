@@ -4,9 +4,10 @@ import com.green.gragas.board.dto.Board;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
-    List<Board> boardList(String boardType, int pageNum);
+    Map<String,Object> boardList(String boardType, int pageNum);
 
     int boardWrite(String boardType, Board board, MultipartFile[] bFiles);
 

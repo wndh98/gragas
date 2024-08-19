@@ -9,7 +9,7 @@
         <if test="keyword!=null and searchType!=null">
             where ${searchType} like concat('%',#{keyword},'%')
         </if>
-        order by ${orderType} ${orderAsc}
+        order by ${orderType} ${orderAsc} limit #{startPage},#{endPage}
     </select>
     <select id="totalCnt" resultType="integer" parameterType="string">
         select count(*) from board_${boardType}

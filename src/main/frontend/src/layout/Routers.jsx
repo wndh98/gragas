@@ -10,6 +10,7 @@ import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
 
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
+import BoardView from "../components/board/BoardView";
 function Routers() {
     return (
         <BrowserRouter>
@@ -24,6 +25,7 @@ function Routers() {
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />
                 <Route path="/board/:boardType/:mode/:pageNum" element={<Layout><BoardForm /></Layout>} />
                 <Route path="/board/:boardType/:mode/:pageNum/:bNum" element={<Layout><BoardForm /></Layout>} />
+                <Route path="/board/:boardType/view/:pageNum/:bNum" element={<Layout><BoardView /></Layout>} />
                 {/* <Route path="/board/:boardType/update/:pageNum/:pNum" element={<Layout><BoardUpdateForm /></Layout>} /> */}
             </Routes>
         </BrowserRouter>

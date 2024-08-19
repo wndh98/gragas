@@ -38,8 +38,8 @@ public class SearchDTO {
         startBlock = (pageNum / 10) * blockSize + 1;
         endBlock = startBlock + blockSize - 1;
         endBlock = Math.min(endBlock, totalBlock);
-        startPage = (pageNum - 1) * pageSize + 1;
-        endPage = startPage + pageSize - 1;
+        startPage = (pageNum - 1) * pageSize;
+        endPage = startPage + pageSize;
     }
 
 }
