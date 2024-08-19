@@ -51,6 +51,7 @@ function AdminProductMain() {
                         <td>탄산</td>
                         <td>가격</td>
                         <td>상황별</td>
+                        <td>이벤트</td>
                     </tr>
                     {products.map((product) => {
 
@@ -66,12 +67,13 @@ function AdminProductMain() {
                                 <td value={product.piCarbonated}>{product.piCarbonated}</td>
                                 <td value={product.piPrice}>{product.piPrice}</td>
                                 <td value={product.piContent}>{product.piContent}</td>
+                                <td value={product.eiNum}>{product.eiNum}</td>
                             </tr>
 
                         );
                     })}
                     <tr>
-                        <td><Link to="/create">상품추가</Link></td>
+                        <td><Link to="/product/create">상품추가</Link></td>
                         <td><button type="button" onClick={handleSubmit(productDelete)}>상품삭제</button></td>
 
                     </tr>

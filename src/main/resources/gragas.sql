@@ -27,7 +27,6 @@ drop table IF exists SUBSCRIBE_ITEM;
 
 
 drop table if exists `PRODUCT_EVENT`;
-drop table if exists `EVENT_ITEM`;
 drop table if exists `PRODUCT_OPTION`;
 drop table if exists `PRODUCT_ITEM`;
 drop table if exists `PRODUCT_CATE`;
@@ -108,7 +107,8 @@ alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) refer
 
 CREATE TABLE PRODUCT_CATE (
    PC_NUM INT NOT null primary key auto_increment,
-   PC_NAME   VARCHAR(30)   NOT NULL
+   PC_NAME   VARCHAR(30)   NOT NULL,
+   PC_IMG VARCHAR(255) NULL
 );
 
 -- 이벤트
@@ -122,6 +122,7 @@ CREATE TABLE EVENT_ITEM (
 CREATE TABLE PRODUCT_ITEM (
    PI_NUM INT not null primary key AUTO_INCREMENT,
    PC_NUM   INT   NOT NULL,
+   EI_NUM int null,
    PI_NAME   VARCHAR(20)   NOT NULL,
    PI_DELI   INT   NOT NULL,
    PI_ALCOHOL INT,
@@ -130,16 +131,10 @@ CREATE TABLE PRODUCT_ITEM (
    PI_CARBONATED INT,
    PI_IMG   VARCHAR(30),
    PI_CONTENT   VARCHAR(255) NOT null,
-   FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
+   FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM),
+   FOREIGN KEY(EI_NUM) references EVENT_ITEM(EI_NUM)
 );
 
--- 진행중인 이벤트
-CREATE TABLE PRODUCT_EVENT (
-   PI_NUM INT NOT NULL,
-   EI_NUM INT NOT null,
-   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM),
-   FOREIGN key(EI_NUM) references EVENT_ITEM(EI_NUM)
-);
 
 -- 상품옵션
 CREATE TABLE PRODUCT_OPTION (

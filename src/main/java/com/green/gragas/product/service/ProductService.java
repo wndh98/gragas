@@ -15,4 +15,6 @@ public interface ProductService {
 
      int productDelete(int piNum);
      int productDeleteList(List<Integer> piNum);
+
+
 }

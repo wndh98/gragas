@@ -1,6 +1,8 @@
 package com.green.gragas.product.controller;
 
+import com.green.gragas.product.dto.ProductCate;
 import com.green.gragas.product.dto.ProductItem;
+import com.green.gragas.product.service.ProcateService;
 import com.green.gragas.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,9 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private ProductService ps;
+
+    @Autowired
+    private ProcateService cs;
 
     @GetMapping("/product/list")
     public List<ProductItem> productList() {
@@ -48,5 +53,20 @@ public class ProductController {
         int result = ps.productDeleteList(piNum);
         return result;
     }
+
+    @GetMapping("/procate/list")
+    public List<ProductCate> procateList() {
+        List<ProductCate> list = cs.procateList();
+        return list;
+    }
+
+    @PostMapping("/procate/insert")
+    public int procateInsert(@RequestBody ProductCate procate) {
+        int result = cs.procateInsert(procate);
+        return result;
+    }
+
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.green.gragas.product.mappers;
 
+import com.green.gragas.product.dto.ProductCate;
 import com.green.gragas.product.dto.ProductItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.type.Alias;

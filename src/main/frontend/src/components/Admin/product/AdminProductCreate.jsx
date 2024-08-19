@@ -66,6 +66,9 @@ function AdminProductCreate(params) {
                         <tr>상황별
                             <td><input type="text" name="piContent" onChange={(event) => handleInputChange("piContent", event)}></input></td>
                         </tr>
+                        <tr>이벤트
+                            <td><input type="text" name="eiNum" onChange={(event) => handleInputChange("eiNum", event)}></input></td>
+                        </tr>
                         {/* <tr>이미지
                             <td><input type="file" name="piPhoto"></input></td>
                         </tr> */}
