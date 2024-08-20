@@ -41,7 +41,7 @@ function AdminEventMain() {
                         <input type="checkbox"></input>
                         <label>전체선택</label>
                         <td>이벤트 번호</td>
-                        <td>이벤트 이름</td>
+                        <td>이벤트명</td>
                         <td>이미지</td>
 
                     </tr>

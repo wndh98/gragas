@@ -59,7 +59,7 @@ function AdminEventUpdate(params) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <table class="admin_board_wrap" id="user-admin">
 
-          <tr><th>카테고리이름</th><td><input type="text" {...register("eiName")} defaultValue={events.eiName}></input></td></tr>
+          <tr><th>이벤트명</th><td><input type="text" {...register("eiName")} defaultValue={events.eiName}></input></td></tr>
           {/*  <tr><th>이미지</th><td><input type="text"  {...register("eiContent")} defaultValue={events.eiContent}></input></td></tr> */}
           <tr>
             <td><button type="button" onClick={(e) => { eventDelete(e) }}>삭제</button></td>

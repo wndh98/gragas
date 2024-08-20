@@ -40,7 +40,7 @@ function AdminEventCreate(params) {
                 <table class="admin_board_wrap" id="user-admin">
                     <thead class="admin_boardList">
 
-                        <tr>이벤트 이름
+                        <tr>이벤트명
                             <td><input type="text" name="eiName" onChange={(event) => handleInputChange("eiName", event)}></input></td>
                         </tr>
                         {/* <tr>이미지
