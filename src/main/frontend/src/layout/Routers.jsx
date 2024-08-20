@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
-import AdminIndex from "../components/Admin/AdminIndex";
+import AdminIndex from "../components/admin/AdminIndex";
 import Index from "../components/Index"
 import AdminLayout from "./AdminLayout";
 import Login from "../components/user/Login";

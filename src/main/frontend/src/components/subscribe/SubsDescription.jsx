@@ -1,13 +1,18 @@
 import './subs.css'
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 function SubsDescription(){
     const { siNum } = useParams();
     const [item, setItem] = useState([]);
+    const navigate = useNavigate();
     const num = 0;
 
+    function descriptionCategory(num){
+        navigate(`/subscribe/description/${num}`);
+    }
 
     useEffect(()=>{
             axios.get(`/subscribe/description/${siNum}`)
@@ -19,18 +24,18 @@ function SubsDescription(){
             });
     }, [siNum]);
 
-    // if(!item){
-    //     return <p>loading...</p>
-    // }
+    if(!item){
+        return <p>loading...</p>
+    }
 
     return(
         <div>
             <div className='subscribe_header'>
                 <div className='button_wrap'>
                     <div className='button_flex'>
-                    <button onClick={() => descriptionCategory(item)}>>종합 구독</button>
-                    <button>증류주 구독</button>
-                    <button>약·청주 구독</button>
+                    <button onClick={() => descriptionCategory(5)} id="basic">종합 구독</button>
+                    <button onClick={() => descriptionCategory(6)} id="soju">증류주 구독</button>
+                    <button onClick={() => descriptionCategory(7)} id="yakju">약·청주 구독</button>
                     </div>
                 </div>
             </div>
