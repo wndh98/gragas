@@ -1,6 +1,7 @@
 package com.green.gragas.board.controller;
 
 import com.green.gragas.board.dto.Board;
+import com.green.gragas.board.dto.BoardFile;
 import com.green.gragas.board.service.BoardService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class BoardContoller {
 
     @PostMapping("/board/{boardType}/write")
     public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType,@RequestParam(value = "bFile", required = false) MultipartFile[] bFiles) {
-
         int result = bs.boardWrite(boardType, board,bFiles);
         return result;
     }
@@ -44,5 +44,10 @@ public class BoardContoller {
     @GetMapping("/board/{boardType}/addView/{bNum}")
     public void addView(@PathVariable("boardType") String boardType, @PathVariable("bNum") int bNum) {
         bs.increaseView(boardType,bNum);
+    }
+    @GetMapping("/board/{boardType}/fileList/{bNum}")
+    public List<BoardFile> getFileList(@PathVariable("boardType") String boardType, @PathVariable("bNum") int bNum) {
+        List<BoardFile> list = bs.getFileList(boardType,bNum);
+        return list;
     }
 }

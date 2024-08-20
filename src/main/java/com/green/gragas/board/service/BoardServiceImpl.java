@@ -38,7 +38,6 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public int boardWrite(String boardType, Board board, MultipartFile[] bFiles) {
         int bNum = bm.nextBNum(boardType);
-
         if(board.getBNum()==0){
             board.setBRef(bNum);
         }else{
@@ -79,5 +78,14 @@ public class BoardServiceImpl implements  BoardService{
         board.setBNum(bNum);
 
         bm.increaseView(board);
+    }
+
+    @Override
+    public List<BoardFile> getFileList(String boardType, int bNum) {
+        BoardFile boardFile = new BoardFile();
+        boardFile.setBNum(bNum);
+        boardFile.setBfBoard(boardType);
+        boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
+        return bfm.selectList(boardFile);
     }
 }
