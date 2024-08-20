@@ -35,8 +35,24 @@
         select * from EVENT_ITEM
     </select>
 
+    <select id="proeventCheck" resultType="EventItem" parameterType="integer">
+        select * from EVENT_ITEM where EI_NUM=#{eiNum}
+    </select>
+
     <insert id="proeventInsert" parameterType="EventItem">
         insert into EVENT_ITEM(EI_NUM,EI_NAME,EI_CONTENT) values(#{eiNum},#{eiName},'')
     </insert>
+
+    <update id="proeventUpdate" parameterType="productCate">
+        update EVENT_ITEM set EI_NAME=#{eiName}, EI_CONTENT=#{eiContent}
+        <if test="eiContent!=null">
+            ,EI_CONTENT=#{eiContent}
+        </if>
+        where EI_NUM=#{eiNum}
+    </update>
+
+    <delete id="proeventDelete" parameterType="integer">
+        delete from EVENT_ITEM where EI_NUM=#{eiNum}
+    </delete>
 
 </mapper>

@@ -21,4 +21,12 @@ public interface ProcateService {
     List<EventItem> proeventList();
 
     int proeventInsert(EventItem eitem);
+
+    int proeventUpdate(int eiNum, EventItem eitem);
+
+    int proeventDelete(int eiNum);
+
+    EventItem proeventCheck(int eitem);
+
+    int proeventDeleteList(List<Integer> eiNum);
 }

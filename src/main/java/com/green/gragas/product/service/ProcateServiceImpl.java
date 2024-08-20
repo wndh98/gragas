@@ -59,4 +59,25 @@ public class ProcateServiceImpl implements ProcateService {
         return cm.proeventInsert(eitem);
     }
 
+    @Override
+    public int proeventUpdate(int eiNum, EventItem eitem) {
+        eitem.setEiNum(eiNum);
+        return cm.proeventUpdate(eitem);
+    }
+
+    @Override
+    public int proeventDelete(int eiNum) {
+        return cm.proeventDelete(eiNum);
+    }
+
+    @Override
+    public EventItem proeventCheck(int eitem) {
+        return cm.proeventCheck(eitem);
+    }
+
+    @Override
+    public int proeventDeleteList(List<Integer> eiNum) {
+        return cm.proeventDeleteList(eiNum);
+    }
+
 }

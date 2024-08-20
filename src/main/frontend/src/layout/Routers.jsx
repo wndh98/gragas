@@ -17,10 +17,14 @@ import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate"
 import AdminEventMain from "../components/admin/product/AdminEventMain";
 import AdminEventCreate from "../components/admin/product/AdminEventCreate";
 import AdminEventUpdate from "../components/admin/product/AdminEventUpdate";
+import AdminOptionMain from "../components/admin/product/AdminOptionMain";
+import AdminOptionCreate from "../components/admin/product/AdminOptionCreate";
+import AdminOptionUpdate from "../components/admin/product/AdminOptionUpdate";
 
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
+
 
 function Routers() {
     return (
@@ -43,6 +47,9 @@ function Routers() {
                 <Route path="/event/main" element={<AdminLayout><AdminEventMain /></AdminLayout>} />
                 <Route path="/event/create" element={<AdminLayout><AdminEventCreate /></AdminLayout>} />
                 <Route path="/event/update/:eiNum" element={<AdminLayout><AdminEventUpdate /></AdminLayout>} />
+                <Route path="/option/main" element={<AdminLayout><AdminOptionMain /></AdminLayout>} />
+                <Route path="/option/create" element={<AdminLayout><AdminOptionCreate /></AdminLayout>} />
+                <Route path="/option/update/:eiNum" element={<AdminLayout><AdminOptionUpdate /></AdminLayout>} />
             </Routes>
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />

@@ -13,13 +13,23 @@ public interface ProcateMapper {
 
     List<ProductCate> procateList();
 
+    ProductCate procateCheck(int pcNum);
+
     int procateUpdate(ProductCate procate);
 
     int procateDelete(int pcNum);
 
-    ProductCate procateCheck(int pcNum);
+
     /*=========================================event=========================================*/
     List<EventItem> proeventList();
 
     int proeventInsert(EventItem eitem);
+
+    int proeventUpdate(EventItem eitem);
+
+    int proeventDelete(int eiNum);
+
+    EventItem proeventCheck(int eitem);
+
+    int proeventDeleteList(List<Integer> eiNum);
 }
