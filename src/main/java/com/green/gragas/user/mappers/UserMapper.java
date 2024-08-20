@@ -12,4 +12,6 @@ public interface UserMapper {
     User userCheck(String userId);
 
     int userJoin(User user);
+
+    User userSerchId(String userName, String userPhone);
 }
