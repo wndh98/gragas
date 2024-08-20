@@ -1,12 +1,12 @@
 package com.green.gragas.product.service;
 
+import com.green.gragas.product.dto.ProductCate;
 import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.product.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -36,5 +36,16 @@ public class ProductServiceImpl implements ProductService {
     public int productDelete(int piNum) {
         return pm.productDelete(piNum);
     }
+
+    @Override
+    public int productDeleteList(List<Integer> piNum) {
+        int result =0;
+        for(int num:piNum){
+            result = pm.productDelete(num);
+            if(result==0)break;
+        }
+        return result;
+    }
+
 
 }
