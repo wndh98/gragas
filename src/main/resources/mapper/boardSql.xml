@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.board.mapper.BoardMapper">
+    <select id="selectList" resultType="board" parameterType="boardSearch">
+        select * from board_${boardType}
+        <if test="keyword!=null and searchType!=null">
+            where ${searchType} like concat('%',#{keyword},'%')
+        </if>
+        order by ${orderType} ${orderAsc} limit #{startPage},#{endPage}
+    </select>
+    <select id="totalCnt" resultType="integer" parameterType="string">
+        select count(*) from board_${boardType}
+    </select>
+    <select id="nextBNum" resultType="integer" parameterType="string">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name=concat('BOARD_',#{boardType})
+    </select>
+    <select id="selectBoard" resultType="board" parameterType="board">
+        select * from board_${boardType} where B_NUM=#{bNum}
+    </select>
+    <insert id="insertBoard" parameterType="board">
+        insert into Board_${boardType}(
+        <if test="siNum!=0">
+            SI_NUM,
+        </if>
+        <if test="piNum!=0">
+            PI_NUM,
+        </if>
+        USER_ID,B_REF,B_SUBJECT,B_WRITER,B_CONTENT,B_STAR) values(
+        <if test="siNum!=0">
+            #{siNum},
+        </if>
+        <if test="piNum!=0">
+            #{piNum},
+        </if>
+        #{userId},#{bRef},#{bSubject},#{bWriter},#{bContent},#{bStar}
+        )
+    </insert>
+    <update id="increaseView" parameterType="board">
+        update BOARD_${boardType} set B_VIEW=B_VIEW+1 where B_NUM=#{bNum}
+    </update>
+</mapper>
