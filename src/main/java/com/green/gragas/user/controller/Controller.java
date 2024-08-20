@@ -1,13 +1,11 @@
 package com.green.gragas.user.controller;
 
+import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.user.service.ProService;
 import com.green.gragas.user.dto.User;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +20,32 @@ public class Controller {
 
         return list;
     }
-    @GetMapping("/user/select/{userId}")
-    public User userView(@PathVariable("userId") String userId){
+    @GetMapping("/view/{userId}")
+    public User userView(@PathVariable String userId){
         User user=ps.userCheck(userId);
         return user;
     }
+
+    @PostMapping("/user/joinForm")
+    public int userJoin(@RequestBody User user) {
+        int result = 0;
+        result = ps.userJoin(user);
+        return result;
+    }
+
+    @PostMapping("/emailLogin")
+    public int userLogin(@PathVariable String userId, @PathVariable String userPw) {
+        int result = 0;
+
+        User user=ps.userCheck(userId);
+
+        return result;
+    }
+
+    @PostMapping("/user/serchIdForm")
+    public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
+        User user = ps.userSerchId(userName, userPhone);
+        return user;
+    }
+
 }

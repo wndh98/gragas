@@ -50,17 +50,23 @@ DROP TABLE IF EXISTS MEMBER_CUPON;
 
 create table MEMBER_CUPON (
 	USER_LEVEL VARCHAR(20) not null primary key,
+	UL_IMG VARCHAR(255),
 	MC_SAIL INT not null,
 	MC_SUBJECT VARCHAR(255) not null
 );
 
 -- 회원테이블
 
+drop table user;
+
+select * from user;
+
 create table user (
 	USER_ID varchar(50) not null primary key,
 	USER_LEVEL VARCHAR(20) not null,
 	USER_PW VARCHAR(255) not null,
 	USER_NAME VARCHAR(50) not null,
+	USER_BIRTH DATETIME not null,
 	USER_PHONE VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
 	USER_COUPON VARCHAR(1) not null default 'N',

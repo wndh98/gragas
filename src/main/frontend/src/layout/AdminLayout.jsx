@@ -4,10 +4,11 @@ import AdminHeader from "./AdminHeader";
 function AdminLayout(props) {
   return (
     <>
-      <AdminHeader />
+      <AdminHeader/>
         {props.children}
-      <AdminFooter />
+      <AdminFooter/>
     </>
+
   );
 }
 export default AdminLayout;

@@ -12,11 +12,11 @@ public class User {
     private String userLevel;
     private String userPw;
     private String userName;
+    private Date userBirth;
     private String userPhone;
     private int userPoint;
     private String userCoupon;
     private String userDel;
     private Date userRegist;
-
 
 }
