@@ -8,10 +8,7 @@ function ItemList() {
     const navigate = useNavigate();
 
     function subsDescription(item) {
-        let siTitle = item.siTitle;
-        if (siTitle === "종합") siTitle = "basic";
-        if (siTitle === "증류주") siTitle = "soju";
-        if (siTitle === "약·청주") siTitle = "yakju";
+
         navigate(`/subscribe/description/${item.siNum}`, { state: { item } });
     }
 

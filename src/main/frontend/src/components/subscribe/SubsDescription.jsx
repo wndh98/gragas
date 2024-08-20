@@ -6,6 +6,8 @@ import axios from 'axios';
 function SubsDescription(){
     const { siNum } = useParams();
     const [item, setItem] = useState([]);
+    const num = 0;
+
 
     useEffect(()=>{
             axios.get(`/subscribe/description/${siNum}`)
@@ -26,7 +28,7 @@ function SubsDescription(){
             <div className='subscribe_header'>
                 <div className='button_wrap'>
                     <div className='button_flex'>
-                    <button>종합 구독</button>
+                    <button onClick={() => descriptionCategory(item)}>>종합 구독</button>
                     <button>증류주 구독</button>
                     <button>약·청주 구독</button>
                     </div>
