@@ -5,7 +5,7 @@ function Header(){
        <header>
             <Link to="/">1.main</Link>&nbsp;&nbsp;
             <Link to="/admin">2.admin</Link>&nbsp;&nbsp;
-            <Link to="/login">3.login</Link>&nbsp;&nbsp;
+            <Link to="/loginForm">3.login</Link>&nbsp;&nbsp;
             <Link to="/myPage">4.mypage</Link>
 
        </header>

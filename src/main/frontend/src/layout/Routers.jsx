@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import AdminIndex from "../components/Admin/AdminIndex";
 import Index from "../components/Index"
 import AdminLayout from "./AdminLayout";
-import Login from "../components/user/Login";
+import LoginForm from "../components/user/LoginForm";
 import JoinForm from "../components/user/JoinForm";
 import MyPage from "../components/user/MyPage";
 import SerchIdForm from "../components/user/SerchIdForm";
@@ -13,7 +13,7 @@ function Routers(){
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index/></Layout>}/>
-                <Route path="/login" element={<Layout><Login/></Layout>}/>
+                <Route path="/loginForm" element={<Layout><LoginForm/></Layout>}/>
                 <Route path="/login/serchIdForm" element={<Layout><SerchIdForm/></Layout>}/>
                 <Route path="/myPage" element={<Layout><MyPage/></Layout>}/>
                 <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>

@@ -1,11 +1,13 @@
 package com.green.gragas.user.controller;
 
-import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.user.service.ProService;
 import com.green.gragas.user.dto.User;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 @RestController
@@ -31,19 +33,35 @@ public class Controller {
         return result;
     }
 
-    @PostMapping("/emailLogin")
-    public int userLogin(@PathVariable String userId, @PathVariable String userPw) {
-        int result = 0;
-
-        User user=ps.userCheck(userId);
-
-        return result;
-    }
-
     @PostMapping("/user/serchIdForm")
     public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
         User user = ps.userSerchId(userName, userPhone);
         return user;
     }
+    @PostMapping("/login")
+    public int loginAction(@RequestBody User user, HttpServletRequest request) {
 
+        int result =0;
+
+        User user2 = ps.userCheck(user.getUserId());
+        if(user2.getUserId().equals(user.getUserId())) {
+            if(user.getUserPw().equals(user2.getUserPw())) {
+                result = 1;
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", user.getUserId());
+            }else {
+                result = -1;
+            }
+        }
+        //TODO
+        // 아이디 비밀번호 일치시 세션저장 결과값 1로 반환
+        // 아이디 불일치시 0으로 반환
+        // 비밀번호 불일치시 -1로 반환
+        return result;
+    }
+    @GetMapping("/sessionTest")
+    public void sessionTest(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("userId"));
+    }
 }
