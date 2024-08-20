@@ -27,7 +27,6 @@ drop table IF exists SUBSCRIBE_ITEM;
 
 
 drop table if exists `PRODUCT_EVENT`;
-drop table if exists `EVENT_ITEM`;
 drop table if exists `PRODUCT_OPTION`;
 drop table if exists `PRODUCT_ITEM`;
 drop table if exists `PRODUCT_CATE`;
@@ -114,7 +113,8 @@ alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) refer
 
 CREATE TABLE PRODUCT_CATE (
    PC_NUM INT NOT null primary key auto_increment,
-   PC_NAME   VARCHAR(30)   NOT NULL
+   PC_NAME   VARCHAR(30)   NOT NULL,
+   PC_IMG VARCHAR(255) NULL
 );
 
 -- 이벤트
@@ -128,7 +128,9 @@ CREATE TABLE EVENT_ITEM (
 CREATE TABLE PRODUCT_ITEM (
    PI_NUM INT not null primary key AUTO_INCREMENT,
    PC_NUM   INT   NOT NULL,
+   EI_NUM int null,
    PI_NAME   VARCHAR(20)   NOT NULL,
+   EI_NUM int null,
    PI_DELI   INT   NOT NULL,
    PI_ALCOHOL INT,
    PI_SWEET INT,
@@ -136,16 +138,10 @@ CREATE TABLE PRODUCT_ITEM (
    PI_CARBONATED INT,
    PI_IMG   VARCHAR(30),
    PI_CONTENT   VARCHAR(255) NOT null,
-   FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
+   FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM),
+   FOREIGN KEY(EI_NUM) references EVENT_ITEM(EI_NUM)
 );
 
--- 진행중인 이벤트
-CREATE TABLE PRODUCT_EVENT (
-   PI_NUM INT NOT NULL,
-   EI_NUM INT NOT null,
-   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM),
-   FOREIGN key(EI_NUM) references EVENT_ITEM(EI_NUM)
-);
 
 -- 상품옵션
 CREATE TABLE PRODUCT_OPTION (
@@ -220,13 +216,14 @@ references `SUBSCRIBE_ITEM` (`SI_NUM`);
 create table `BOARD_REVIEW` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
-	`B_REF` INT null,
+	`B_REF` INT not null,
 	`B_SUBJECT` VARCHAR(255) not null,
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 리뷰댓글
@@ -241,13 +238,14 @@ create table `COMMENT_REVIEW` (
 create table `BOARD_QA` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 문의댓글
@@ -262,13 +260,14 @@ create table `COMMENT_QA` (
 create table `BOARD_FREE` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 자유댓글
@@ -283,13 +282,14 @@ create table `COMMENT_FREE` (
 create table `BOARD_NOTICE` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 공지댓글
@@ -313,12 +313,16 @@ create table `BOARD_FILE` (
 
 ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
 ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_B_NUM` foreign key(B_NUM) references BOARD_REVIEW(B_NUM);
 ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_USER_ID` foreign key(USER_ID) references USER(USER_ID);
@@ -385,3 +389,5 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
+insert INTO member_cupon VALUES('YELLOW',0,'테스트');
+insert INTO USER VALUES('test1@test.com','YELLOW','1234','test','010-1234-5678',0,'N','N',NOW());
