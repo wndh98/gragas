@@ -47,9 +47,9 @@ public class BoardServiceImpl implements  BoardService{
         try {
             List<String> fileNames=BoardFileUpload.fileUpload(bFiles,boardType,bNum,rootPath);
             BoardFile boardFile = new BoardFile();
-            boardFile.setBNum(board.getBNum());
+            boardFile.setBNum(bNum);
             boardFile.setBfBoard(boardType);
-            boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
+            boardFile.setBfRoot("/board/"+boardType+"/"+bNum+"/");
             int i=0;
             for(String fileName:fileNames) {
                 boardFile.setBfRName(fileName);
@@ -80,12 +80,4 @@ public class BoardServiceImpl implements  BoardService{
         bm.increaseView(board);
     }
 
-    @Override
-    public List<BoardFile> getFileList(String boardType, int bNum) {
-        BoardFile boardFile = new BoardFile();
-        boardFile.setBNum(bNum);
-        boardFile.setBfBoard(boardType);
-        boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
-        return bfm.selectList(boardFile);
-    }
 }

@@ -16,5 +16,4 @@ public interface BoardService {
 
     void increaseView(String boardType, int bNum);
 
-    List<BoardFile> getFileList(String boardType, int bNum);
 }

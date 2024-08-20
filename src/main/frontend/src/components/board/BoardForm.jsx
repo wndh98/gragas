@@ -2,22 +2,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
-
+import { useFieldArray } from "react-hook-form";
 function BoardForm() {
     const pathParam = useParams();
     const boardType = pathParam.boardType; // 무슨게시판인지
     const pageNum = pathParam.pageNum;  // 리스트에서 몇페이지에서 들어왔는지
     const bNum = pathParam.bNum; // 게시판 번호
     const mode = pathParam.mode; // write(insert),update(update)
+
     let ajaxUrl;
     if (mode == "write") {
         ajaxUrl = "/board/" + boardType + "/write";
     } else if (mode == "update") {
         ajaxUrl = "/board/" + boardType + "/update/" + bNum;
     }
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
     const [board, setBoard] = useState([]);
-
+    const { fields, append } = useFieldArray({
+        control,
+        name: "bFile" // 'items'라는 필드에 대해 배열로 관리
+    });
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
 
     useEffect(() => {
@@ -31,25 +35,25 @@ function BoardForm() {
 
     function onSubmit(data) {
         const formData = new FormData();
-
+        const bFiles = formData.getAll('bFile');
         formData.append("board", new Blob([JSON.stringify(data)], { type: "application/json" }));
         if (data.bFile && data.bFile.length > 0) {
             for (let i = 0; i < data.bFile.length; i++) {
                 formData.append("bFile", data.bFile[i]);
             }
         }
-
-        axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
-            .then((result) => {
-                if (result.data == 1) {
-                    alert("성공");
-                }
-                else if (result.data == -1) {
-                    alert("파일업로드실패");
-                } else {
-                    alert("글입력실패");
-                }
-            });
+        console.log(bFiles);
+        // axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
+        //     .then((result) => {
+        //         if (result.data == 1) {
+        //             alert("성공");
+        //         }
+        //         else if (result.data == -1) {
+        //             alert("파일업로드실패");
+        //         } else {
+        //             alert("글입력실패");
+        //         }
+        //     });
     }
 
     return (
@@ -75,11 +79,12 @@ function BoardForm() {
                             {errors.bContent && <p>{errors.bContent.message}</p>}
                         </td>
                     </tr>
+
                     <tr>
                         <th>파일1</th>
                         <td>
 
-                            <input type="file" {...register("bFile", { required: false })} className="form-control" />
+                            <input type={"file"}{...register(`bFile.0.value`)} className="form-control" />
                         </td>
                     </tr>
                     <tr>
