@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.gragas.subscribe.mapper.SubscribeMapper">
+  <resultMap id="subscribeItemResult" type="com.green.gragas.subscribe.dto.SubscribeItem">
+    <result property="siNum" column="SI_NUM"/>
+    <result property="siSubject" column="SI_SUBJECT"/>
+    <result property="siContent" column="SI_CONTENT"/>
+    <result property="siDescription" column="SI_DESCRIPTION"/>
+    <result property="siPrice" column="SI_PRICE"/>
+    <result property="siPayDate" column="SI_PAY_DATE"/>
+    <result property="siMainImg" column="SI_MAIN_IMG"/>
+    <result property="siDesImg" column="SI_DES_IMG"/>
+    <result property="siTitle" column="SI_TITLE"/>
+    <result property="siArrive" column="SI_ARRIVE"/>
+  </resultMap>
+    <select id="itemList" resultMap="subscribeItemResult">
+        select * from SUBSCRIBE_ITEM
+    </select>
+    <select id="selectSubsItem" parameterType="integer" resultType="subscribeItem">
+        select * from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
+    </select>
+</mapper>

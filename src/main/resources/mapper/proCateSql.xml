@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.product.mappers.ProcateMapper">
+    <select id="procateList" resultType="productCate">
+        select * from PRODUCT_CATE
+    </select>
+
+    <insert id="procateInsert" parameterType="productCate">
+        insert into PRODUCT_CATE(PC_NUM,PC_NAME,PC_IMG) values(#{pcNum},#{pcName},'')
+    </insert>
+</mapper>

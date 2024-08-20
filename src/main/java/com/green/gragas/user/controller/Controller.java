@@ -3,6 +3,7 @@ package com.green.gragas.user.controller;
 import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.user.service.ProService;
 import com.green.gragas.user.dto.User;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class Controller {
     @GetMapping("/main")
     public List<User> userList (){
         List<User> list=ps.userList();
+
         return list;
     }
     @GetMapping("/view/{userId}")
