@@ -11,8 +11,10 @@ import AdminLayout from "./AdminLayout";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
-import AdminProcateMain from "../components/admin/product/AdminProcateMain";
-import AdminProcateCreate from "../components/admin/product/AdminProcateCreate copy";
+
+import SubscribeMain from "../components/subscribe/SubscribeMain";
+import ItemList from "../components/subscribe/ItemList";
+import SubsDescription from "../components/subscribe/SubsDescription";
 
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
@@ -22,13 +24,20 @@ function Routers() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout><Index /></Layout>} />
-                <Route path="/test1" element={<Layout><Index /></Layout>} />
+                <Route path="/" element={<Layout><Index/></Layout>}/>
+                <Route path="/test1" element={<Layout><Index/></Layout>}/>
+                <Route path="/admin/*" element={<AdminLayout><AdminIndex/></AdminLayout>}/>
+            </Routes>
+            <Routes>
+                <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
+                <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
+                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
+            </Routes>
+            <Routes>
                 <Route path="/main" element={<Layout><Main /></Layout>} />
                 <Route path="/ProductItem" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/ProductEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/ProductEventItem" element={<Layout><ProductEventItem /></Layout>} />
-                <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
                 <Route path="/product/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
                 <Route path="/product/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
                 <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />

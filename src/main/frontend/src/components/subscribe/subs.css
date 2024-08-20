@@ -1,0 +1,37 @@
+.subscribe_box{
+    display: flex;
+    justify-content: center;
+}
+.subs_img img{
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.subs_img{
+    width: 100%;
+    max-width: 464px;
+}
+
+.subs_box{
+    width: 100%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin: 50px auto;
+    padding: 0px 20px;
+}
+
+.button_wrap{
+    margin-left: 100px;
+}
+
+.main_div1{
+    display: flex;
+    justify-content: center;
+}
+.main_div2{
+    text-align: center;
+}
