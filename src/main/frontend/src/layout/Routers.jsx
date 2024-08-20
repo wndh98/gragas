@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 
 
-import AdminIndex from "../components/Admin/AdminIndex";
+import AdminIndex from "../components/admin/AdminIndex";
 import Index from "../components/Index"
 import AdminLayout from "./AdminLayout";
 
@@ -19,6 +19,11 @@ import ProductEvent from "../components/product/ProductEvent";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
+import ProductEventItem from "../components/product/ProductEventItem";
+import AdminProcateMain from "../components/admin/product/AdminProcateMain";
+import AdminProcateCreate from "../components/admin/product/AdminProcateCreate copy";
+import AdminSubscribeItemMain from "../components/admin/subscribe/AdminSubscribeItemMain";
+import AdminSubscribeCreate from "../components/admin/subscribe/AdminSubscribeCreate";
 
 
 import SubscribeMain from "../components/subscribe/SubscribeMain";
@@ -39,6 +44,8 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
+                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain/></Layout>}/>
+                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate/></Layout>}/>
                 <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
             </Routes>
