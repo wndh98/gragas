@@ -1,82 +1,83 @@
-import './Admin.css'
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-
-
+import "./Admin.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
 function AdminProductUpdate(params) {
-    const [productInput, setProductInput] = useState(
-        {
-            piNum: "",
-            pcNum: "",
-            piName: "",
-            piAlcohol: "",
-            piSweet: "",
-            piCarbonated: "",
-            piPrice: 0,
-            piContent: ""
+  const pathParam = useParams();
+  const piNum = pathParam.piNum;
+
+  const [products, setProducts] = useState([]);
+  const viewUrl = "/product/view/" + piNum;
+
+  // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+  useEffect(() => {
+    axios.get(viewUrl)
+      .then(response => {
+
+        setProducts(response.data); // 가져온 상품정보를 상태에 저장
+      })
+      .catch(error => console.error("Fetching error:", error))
+  }, []);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+
+  const loc = useNavigate();
+  function onSubmit(data) {
+    axios.post("/product/update/" + piNum, data).then((response) => {
+      if (response.data == 1) {
+        alert("수정성공");
+        loc("/main");
+      } else {
+        alert("실패");
+      }
+    });
+  }
+
+
+  function productDelete(event) {
+    console.log(piNum)
+    event.preventDefault();
+    axios.get('/product/delete/' + piNum)
+      .then(response => {
+        if (response.data == 1) {
+          alert("성공");
+          loc("/main");
+        } else {
+          alert("실패");
         }
-    );
-    function handleInputChange(inputId, event) {
-        setProductInput((prevState => ({
-            ...prevState,
-            [inputId]: event.target.value,
-        })));
-    }
-    const loc=useNavigate();
-    function handleSubmit(event) {
-        event.preventDefault();
-        console.log(productInput);
-        axios.post('/product/update', productInput)
-            .then(response => {
-                if(response.data==1){
-                    alert("수정성공");
-                    loc("/main");
-                }else{
-                    alert("실패");
-                }
-            })
-    }
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <table class="admin_board_wrap" id="user-admin">
-                    <thead class="admin_boardList">
+      });
+  }
 
-                        <tr>카테고리번호
-                            <td><input type="text" name="pcNum" onChange={(event) => handleInputChange("pcNum", event)}></input></td>
-                        </tr>
-                        <tr>상품명
-                            <td><input type="text" name="piName" onChange={(event) => handleInputChange("piName", event)}></input></td>
-                        </tr>
-                        <tr>알콜도수
-                            <td><input type="text" name="piAlcohol" onChange={(event) => handleInputChange("piAlcohol", event)}></input></td>
-                        </tr>
-                        <tr>맛
-                            <td><input type="selected" name="piSweet" onChange={(event) => handleInputChange("piSweet", event)}></input></td>
-                        </tr>
-                        <tr>탄산
-                            <td><input type="text" name="piCarbonated" onChange={(event) => handleInputChange("piCarbonated", event)}></input></td>
-                        </tr>
-                        <tr>가격
-                            <td><input type="text" name="piPrice" onChange={(event) => handleInputChange("piPrice", event)}></input></td>
-                        </tr>
-                        <tr>상황별
-                            <td><input type="text" name="piContent" onChange={(event) => handleInputChange("piContent", event)}></input></td>
-                        </tr>
-                        {/* <tr>이미지
-                            <td><input type="file" name="piPhoto"></input></td>
-                        </tr> */}
-                        <tr>
-                            <td><input type="submit" value="전송" /></td>
-                        </tr>
-                    </thead>
+  return (
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <table class="admin_board_wrap" id="user-admin">
 
-                </table>
-            </form>
-        </div>
-    );
+          <tr><th>카테고리번호</th><td><input type="text" {...register("pcNum")} defaultValue={products.pcNum}></input></td></tr>
+          <tr><th>상품명</th><td><input type="text"  {...register("piName")} defaultValue={products.piName}></input></td></tr>
+          <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
+          <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
+          <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
+          <tr><th>가격</th><td><input type="selected"  {...register("piPrice")} defaultValue={products.piPrice}></input></td></tr>
+          <tr><th>상황별</th><td><input type="text"  {...register("piContent")} defaultValue={products.piContent}></input></td></tr>
+          <tr><th>이벤트</th><td><input type="text"  {...register("eiNum")} defaultValue={products.eiNum}></input></td></tr>
+          {/* <tr>이미지<td><input type="file" name="piPhoto"></input></td></tr> */}
+          <tr>
+            <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
+            <td><input type="submit" value="전송" />
+            </td>
+          </tr>
+
+        </table>
+      </form>
+    </div >
+  );
 }
 
 export default AdminProductUpdate;
