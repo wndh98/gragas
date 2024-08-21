@@ -1,6 +1,11 @@
 import React from "react";
 import './App.css';
 import InfoList from "./InfoList";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
+
 
 const information = [
     {
@@ -25,8 +30,25 @@ const information = [
     },
 
 ]
-function ProductItem(props) {
-    console.log(props);
+function ProductItem() {
+
+    const pathParam = useParams();
+    const piNum = pathParam.piNum;
+
+    const [product, setProducts] = useState([]);
+    const viewUrl = "/product/view/" + piNum;
+
+    // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+    useEffect(() => {
+        axios.get(viewUrl)
+            .then(response => {
+
+                setProducts(response.data); // 가져온 상품정보를 상태에 저장
+            })
+            .catch(error => console.error("Fetching error:", error))
+    }, []);
+
+    console.log(product)
     return (
         <div>
             <div className="mainbox">
@@ -42,7 +64,7 @@ function ProductItem(props) {
                             <div className="boxwrapbox">
                                 <div className="sector">
                                     <div className="wntjr1">위스키보다 더 맛있는 위스키</div>
-                                    <div className="wntjr2">마한 오크 46%</div>
+                                    <div className="wntjr2">{product.piName}</div>
                                 </div>
 
                                 <div>
@@ -55,7 +77,7 @@ function ProductItem(props) {
                                         </div>
                                         <div className="direct-purchase-box">
                                             <div className="flex">
-                                                <div class="font title1-bold">49,000원</div>
+                                                <div class="font title1-bold">40000</div>
                                             </div>
                                             <div className="reviews">
                                                 <div className="layout">

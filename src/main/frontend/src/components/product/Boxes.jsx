@@ -24,7 +24,7 @@ function Boxes(props) {
     return (
         <div className='swiper-side'>
             <div className='spdla product'>
-                <a>
+                <a href={"/productItem/" + product.piNum}>
                     <div className='image-weapper'>
                         <span className='spdla tmvps'>
                             {picture.map((pic, index) => {

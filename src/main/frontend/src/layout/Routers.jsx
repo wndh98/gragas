@@ -22,11 +22,21 @@ import ProductEvent from "../components/product/ProductEvent";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
 import AdminProductCreate from "../components/admin/product/AdminProductCreate";
 import AdminProductUpdate from "../components/admin/product/AdminProductUpdate";
+import AdminEventMain from "../components/admin/product/AdminEventMain";
+import AdminEventCreate from "../components/admin/product/AdminEventCreate";
+import AdminEventUpdate from "../components/admin/product/AdminEventUpdate";
+import AdminOptionMain from "../components/admin/product/AdminOptionMain";
+import AdminOptionCreate from "../components/admin/product/AdminOptionCreate";
+import AdminOptionUpdate from "../components/admin/product/AdminOptionUpdate";
 import ProductEventItem from "../components/product/ProductEventItem";
 import AdminProcateMain from "../components/admin/product/AdminProcateMain";
-import AdminProcateCreate from "../components/admin/product/AdminProcateCreate copy";
+import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
+import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
 
 
+import AdminSubscribeItemMain from "../components/admin/subscribe/AdminSubscribeItemMain";
+import AdminSubscribeCreate from "../components/admin/subscribe/AdminSubscribeCreate";
+import AdminSubscribeUpdate from "../components/admin/subscribe/AdminSubscribeUpdate";
 import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import SubsDescription from "../components/subscribe/SubsDescription";
@@ -35,8 +45,6 @@ import SubsDescription from "../components/subscribe/SubsDescription";
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
-
-
 
 function Routers() {
     return (
@@ -48,6 +56,9 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
+                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain/></Layout>}/>
+                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate/></Layout>}/>
+                <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate/></Layout>}/>
                 <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
             </Routes>
@@ -62,7 +73,7 @@ function Routers() {
 
             <Routes>
                 <Route path="/main" element={<Layout><Main /></Layout>} />
-                <Route path="/ProductItem" element={<Layout><ProductItem /></Layout>} />
+                <Route path="/ProductItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/ProductEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/ProductEventItem" element={<Layout><ProductEventItem /></Layout>} />
                 <Route path="/product/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
@@ -70,6 +81,13 @@ function Routers() {
                 <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />
                 <Route path="/procate/main" element={<AdminLayout><AdminProcateMain /></AdminLayout>} />
                 <Route path="/procate/create" element={<AdminLayout><AdminProcateCreate /></AdminLayout>} />
+                <Route path="/procate/update/:pcNum" element={<AdminLayout><AdminProcatetUpdate /></AdminLayout>} />
+                <Route path="/event/main" element={<AdminLayout><AdminEventMain /></AdminLayout>} />
+                <Route path="/event/create" element={<AdminLayout><AdminEventCreate /></AdminLayout>} />
+                <Route path="/event/update/:eiNum" element={<AdminLayout><AdminEventUpdate /></AdminLayout>} />
+                <Route path="/option/main" element={<AdminLayout><AdminOptionMain /></AdminLayout>} />
+                <Route path="/option/create" element={<AdminLayout><AdminOptionCreate /></AdminLayout>} />
+                <Route path="/option/update/:poNum" element={<AdminLayout><AdminOptionUpdate /></AdminLayout>} />
             </Routes>
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />
