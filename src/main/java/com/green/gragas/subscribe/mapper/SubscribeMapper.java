@@ -9,4 +9,8 @@ import java.util.List;
 public interface SubscribeMapper {
     List<SubscribeItem> itemList();
     SubscribeItem selectSubsItem(int siNum);
+    int subscribeInsert(SubscribeItem subscribeItem);
+    int subscribeUpdate(SubscribeItem subscribeItem);
+    int subscribeDelete(int siNum);
+    List<SubscribeItem> titleList();
 }

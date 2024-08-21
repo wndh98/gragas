@@ -9,8 +9,8 @@ import java.sql.Date;
 @Data
 @Alias("boardFile")
 public class BoardFile {
-    private int bfNum;
     @JsonProperty("bNum")
+    private int bfNum;
     private int bNum;
     @JsonProperty("bfRName")
     private String bfRName;

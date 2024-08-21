@@ -37,10 +37,14 @@
     width: 120px;
     height: 52px;
 }
+
+.blackBox{
+    background-color: black;
+    width: 100%;
+}
 .desBar button{
     width: 120px;
     height: 52px;
-    background-color: black;
     color: white;
 }
 
@@ -95,4 +99,11 @@
 }
 .largeMarginBox{
     margin-top: 30px;
+}
+
+.des_img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 1680px;
 }
