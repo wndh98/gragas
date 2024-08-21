@@ -1,5 +1,6 @@
 package com.green.gragas.product.service;
 
+import com.green.gragas.product.dto.ProductEvent;
 import com.green.gragas.product.dto.ProductItem;
 
 import java.util.List;
@@ -14,7 +15,13 @@ public interface ProductService {
      int productUpdate(int piNum, ProductItem product);
 
      int productDelete(int piNum);
-     int productDeleteList(List<Integer> piNum);
+     int productDelete(List<Integer> piNum);
 
 
+     int nextPiNum();
+
+   
+     int peventInsert();
+
+     int peventDelete(int peNum);
 }
