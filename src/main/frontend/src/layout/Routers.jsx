@@ -30,6 +30,10 @@ import AdminProcateMain from "../components/admin/product/AdminProcateMain";
 import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
 import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
 
+
+import AdminSubscribeItemMain from "../components/admin/subscribe/AdminSubscribeItemMain";
+import AdminSubscribeCreate from "../components/admin/subscribe/AdminSubscribeCreate";
+import AdminSubscribeUpdate from "../components/admin/subscribe/AdminSubscribeUpdate";
 import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import SubsDescription from "../components/subscribe/SubsDescription";
@@ -39,6 +43,7 @@ import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
 
+
 function Routers() {
     return (
         <BrowserRouter>
@@ -47,9 +52,12 @@ function Routers() {
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
             </Routes>
             <Routes>
-                <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
-                <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
-                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
+                <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
+                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain/></Layout>}/>
+                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate/></Layout>}/>
+                <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate/></Layout>}/>
+                <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
+                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
             </Routes>
             <Routes>
                 <Route path="/login" element={<Layout><Login /></Layout>} />
