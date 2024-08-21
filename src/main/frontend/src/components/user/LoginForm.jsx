@@ -1,8 +1,10 @@
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../css/user/login.css'
 import InputForm from './InputForm';
-
-function Login() {
+import axios from 'axios';
+import { getCookie,setCookie,deleteCookie } from '../../js/cookieJs';
+function LoginForm() {
   return (
     <div className="container d-flex justify-content-center">
       <div>
@@ -29,16 +31,41 @@ function ApiLogin() {
 }
 
 function EmailLogin() {
+
+  const [userId, setUserId] = useState('');
+  const [userPw, setUserPw] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const user={userId:userId,userPw:userPw};
+    
+    axios.post("/login",user).then(response=>{
+      console.log(response);
+      if(response.data > 0) {
+        alert("로그인 성공");
+        setCookie("isLogin",userId,1);
+        navigate("/");
+      }else if(response.data == 0) {
+        alert("아이디 불일치");
+      }else {
+        alert("비밀번호 불일치");
+      }
+    });
+  };
+
   const navigate = useNavigate();
   const moveJoinForm = () => {
     navigate("/user/joinForm");
   }
+  
   return (
     <div>
-      <form action="/emailLogin" method='post'>
-        <InputForm name="userId" type="text" place="이메일을"/>
+      <form onSubmit={handleSubmit}>
+      <div className='input-form-box'>
+          <input className='form-control' type="text" value={userId} onChange={(e) => setUserId(e.target.value)} placeholder="아이디를 입력해 주세요"/>
+        </div>
         <div className='input-form-box'>
-        <input className='form-control' type="password" name="userPw" placeholder='비밀번호를 입력해 주세요'/>
+        <input className='form-control' type="password" value={userPw} onChange={(e) => setUserPw(e.target.value)} placeholder='비밀번호를 입력해 주세요'/>
         </div>
         <div className='button-login-box'>
           <input className='btn btn-primary btn-xs col-12' type="submit" value="로그인"/>
@@ -53,4 +80,4 @@ function EmailLogin() {
   );
 }
 
-export default Login;
+export default LoginForm;
