@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../css/user/login.css'
 import InputForm from './InputForm';
 import axios from 'axios';
+import { getCookie,setCookie,deleteCookie } from '../../js/cookieJs';
 function LoginForm() {
   return (
     <div className="container d-flex justify-content-center">
@@ -42,6 +43,7 @@ function EmailLogin() {
       console.log(response);
       if(response.data > 0) {
         alert("로그인 성공");
+        setCookie("isLogin",userId,1);
         navigate("/");
       }else if(response.data == 0) {
         alert("아이디 불일치");
@@ -49,22 +51,6 @@ function EmailLogin() {
         alert("비밀번호 불일치");
       }
     });
-  //   const response = await fetch('/login', {
-  //       method: 'POST',
-  //       headers: {
-  //           'Content-Type': 'application/x-www-form-urlencoded',
-  //       },
-  //       body: {userId:userId,userPw:userPw},
-  //   });
-    
-  //   if (response.ok) {
-      
-  //     navigate("/");
-  //     alert("로그인성공");
-  // } else {
-  //   console.log(response);
-  //   alert("로그인 실패");
-  // }
   };
 
   const navigate = useNavigate();

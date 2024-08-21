@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 function Header() {
     return (
         <header className="p-3 text-bg-light">
@@ -18,9 +19,9 @@ function Header() {
                       </li>
                   </ul>
                   <ul className="nav col-12 col-lg-auto me-rg-auto mb-2 justify-content-center mb-md-0 align-items-center">
-                      <li><button type="button" className="btn btn-outline-dark me-2 px-2">Login</button></li>
-                      <li><button type="button" className="btn btn-warning px-2">Sign-up</button></li>
-                      <li> <Link to="" className="px-2"><i class="bi bi-bag"></i></Link></li>
+                      <li><Link to={"/loginForm"} className="btn btn-outline-dark me-2 px-2" >Login</Link></li>
+                      <li><Link to={"/user/joinForm"} className="btn btn-warning px-2">Sign-up</Link></li>
+                      <li> <Link className="px-2"><i class="bi bi-bag"></i></Link></li>
                   </ul>
               </div>
             </div>

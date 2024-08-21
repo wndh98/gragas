@@ -1,7 +1,7 @@
 
-
 function MyPage() {
   return (
+    <>
     <div className="container d-flex justify-content-center">
       <div className="myInfo col-4">
         <div className="userLevel">
@@ -15,22 +15,25 @@ function MyPage() {
         </div>
       </div>
       <nav className="myPageNav col-8">
-        <MyPageNav/>
-        <MyPageNav/>
-        <MyPageNav/>
-        <MyPageNav/>
-        <MyPageNav/>
-        <MyPageNav/>
+        <MyPageNav name="구독관리"/>
+        <MyPageNav name="주문내역"/>
+        <MyPageNav name="취소/환불내역"/>
+        <MyPageNav name="리뷰"/>
+        <MyPageNav name="회원정보" url="/myPage/userInfo"/>
+        <MyPageNav name="배송지관리"/>
       </nav>
     </div>
+    </>
   );
 }
 
-function MyPageNav() {
+function MyPageNav(props) {
   return (
-    <div>
-      <div>구독관리</div>
+    <div className="col-2">
+      <a href={props.url}>
+      <div>{props.name}</div>
       <img src="" alt="" />
+      </a>
     </div>
   )
 }
