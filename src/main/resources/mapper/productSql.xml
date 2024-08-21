@@ -7,13 +7,16 @@
     <select id="productList" resultType="productItem">
         select * from Product_Item
     </select>
-
+    <select id="nextPiNum" resultType="integer">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name='PRODUCT_ITEM'
+    </select>
     <select id="productCheck" resultType="productItem" parameterType="integer">
         select * from Product_Item where PI_NUM=#{piNum}
     </select>
     <insert id="productInsert" parameterType="productItem">
-        insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT,EI_NUM)
-        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},'',#{piContent},#{eiNum})
+        insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT)
+        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},'',#{piContent})
     </insert>
     <update id="productUpdate" parameterType="productItem">
         update PRODUCT_ITEM set PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
@@ -25,5 +28,15 @@
     </update>
     <delete id="productDelete" parameterType="integer">
         delete from PRODUCT_ITEM where PI_NUM=#{piNum}
+    </delete>
+
+
+    <insert id="peventInsert" parameterType="productItem">
+        insert into PRODUCT_EVENT(PI_NUM,EI_NUM)
+        values(#{piNum},#{eiNum})
+    </insert>
+
+    <delete id="peventDelete" parameterType="integer">
+        delete from PRODUCT_EVENT where PE_NUM=#{peNum}
     </delete>
 </mapper>

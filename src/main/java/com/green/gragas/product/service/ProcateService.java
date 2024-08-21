@@ -12,9 +12,9 @@ public interface ProcateService {
 
     int procateUpdate(int pcNum, ProductCate procate);
 
+    int procateDelete(List<Integer> pcNum);
     int procateDelete(int pcNum);
 
-    int procateDeleteList(List<Integer> pcNum);
 
     ProductCate procateCheck(int pcNum);
 /*===========================================================================*/
@@ -28,5 +28,5 @@ public interface ProcateService {
 
     EventItem proeventCheck(int eitem);
 
-    int proeventDeleteList(List<Integer> eiNum);
+    int proeventDelete(List<Integer> eiNum);
 }

@@ -29,12 +29,20 @@ public class ProcateServiceImpl implements ProcateService {
         return cm.procateUpdate(procate);
     }
 
+    public int procateDelete(List<Integer> pcNum) {
+        int result =0;
+        for(int num:pcNum){
+            result = cm.procateDelete(num);
+            if(result==0)break;
+        }
+        return result;
+    }
+
     @Override
     public int procateDelete(int pcNum) {
         return cm.procateDelete(pcNum);
     }
 
-    @Override
     public int procateDeleteList(List<Integer> pcNum) {
         int result = 0;
         for (int num : pcNum) {
@@ -65,19 +73,27 @@ public class ProcateServiceImpl implements ProcateService {
         return cm.proeventUpdate(eitem);
     }
 
-    @Override
-    public int proeventDelete(int eiNum) {
-        return cm.proeventDelete(eiNum);
-    }
 
     @Override
     public EventItem proeventCheck(int eitem) {
         return cm.proeventCheck(eitem);
     }
 
+
+
     @Override
-    public int proeventDeleteList(List<Integer> eiNum) {
-        return cm.proeventDeleteList(eiNum);
+    public int proeventDelete(int eiNum) {
+        return cm.proeventDelete(eiNum);
     }
+
+    public int proeventDelete(List<Integer> eiNum) {
+        int result = 0;
+        for (int num : eiNum) {
+            result = cm.proeventDelete(num);
+            if (result == 0) break;
+        }
+        return result;
+    }
+
 
 }

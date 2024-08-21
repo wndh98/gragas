@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 
 
-import AdminIndex from "../components/Admin/AdminIndex";
+import AdminIndex from "../components/admin/AdminIndex";
 import Index from "../components/Index"
 import AdminLayout from "./AdminLayout";
 
@@ -25,7 +25,10 @@ import AdminEventUpdate from "../components/admin/product/AdminEventUpdate";
 import AdminOptionMain from "../components/admin/product/AdminOptionMain";
 import AdminOptionCreate from "../components/admin/product/AdminOptionCreate";
 import AdminOptionUpdate from "../components/admin/product/AdminOptionUpdate";
-
+import ProductEventItem from "../components/product/ProductEventItem";
+import AdminProcateMain from "../components/admin/product/AdminProcateMain";
+import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
+import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
 
 import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
@@ -44,15 +47,15 @@ function Routers() {
                 <Route path="/admin/*" element={<AdminLayout><AdminIndex /></AdminLayout>} />
             </Routes>
             <Routes>
-                <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
-                <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
-                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
+                <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
+                <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
+                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
             </Routes>
             <Routes>
-                <Route path="/login" element={<Layout><Login/></Layout>}/>
-                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm/></Layout>}/>
-                <Route path="/myPage" element={<Layout><MyPage/></Layout>}/>
-                <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
+                <Route path="/login" element={<Layout><Login /></Layout>} />
+                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm /></Layout>} />
+                <Route path="/myPage" element={<Layout><MyPage /></Layout>} />
+                <Route path="/user/joinForm" element={<Layout><JoinForm /></Layout>} />
             </Routes>
 
             <Routes>
@@ -71,7 +74,7 @@ function Routers() {
                 <Route path="/event/update/:eiNum" element={<AdminLayout><AdminEventUpdate /></AdminLayout>} />
                 <Route path="/option/main" element={<AdminLayout><AdminOptionMain /></AdminLayout>} />
                 <Route path="/option/create" element={<AdminLayout><AdminOptionCreate /></AdminLayout>} />
-                <Route path="/option/update/:eiNum" element={<AdminLayout><AdminOptionUpdate /></AdminLayout>} />
+                <Route path="/option/update/:poNum" element={<AdminLayout><AdminOptionUpdate /></AdminLayout>} />
             </Routes>
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />

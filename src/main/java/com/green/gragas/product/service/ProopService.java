@@ -16,5 +16,5 @@ public interface ProopService {
 
     int proopDelete(int poNum);
 
-    int proopDeleteList(List<Integer> poNum);
+    int proopDelete(List<Integer> poNum);
 }

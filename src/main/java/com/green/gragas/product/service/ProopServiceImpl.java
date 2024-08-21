@@ -39,7 +39,13 @@ public class ProopServiceImpl implements ProopService{
     }
 
     @Override
-    public int proopDeleteList(List<Integer> poNum) {
-        return om.proopDeleteList(poNum);
+    public int proopDelete(List<Integer> poNum) {
+        int result =0;
+        for(int num:poNum){
+            result = om.proopDelete(num);
+            if(result==0)break;
+        }
+        return result;
     }
+
 }

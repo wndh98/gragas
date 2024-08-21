@@ -1,9 +1,6 @@
 package com.green.gragas.product.controller;
 
-import com.green.gragas.product.dto.EventItem;
-import com.green.gragas.product.dto.ProductCate;
-import com.green.gragas.product.dto.ProductItem;
-import com.green.gragas.product.dto.ProductOption;
+import com.green.gragas.product.dto.*;
 import com.green.gragas.product.service.ProcateService;
 import com.green.gragas.product.service.ProductService;
 import com.green.gragas.product.service.ProopService;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ProductController {
@@ -38,10 +34,33 @@ public class ProductController {
 
     @PostMapping("/product/insert")
     public int productInsert(@RequestBody ProductItem product) {
+        ProductOption proop = new ProductOption();
+        int nextPiNum = ps.nextPiNum();
+        proop.setPiNum(nextPiNum);
+        proop.setPoPrice(product.getPoPrice());
+        proop.setPoSale(product.getPoSail());
+        proop.setPoCnt(product.getPoCnt());
+        proop.setPoName(product.getPiName());
+        int eiNum = ps.peventInsert();
+        product.setEiNum(eiNum);
         int result = ps.productInsert(product);
-
+        if (result != 1) return result;
+        result = os.proopInsert(proop);
         return result;
     }
+  /*  @PostMapping("/pevent/insert")
+    public int peventInsert(@RequestBody ProductEvent pevent) {
+        int result = ps.peventInsert();
+        return result;
+    }
+
+    @GetMapping("/pevent/delete/{peNum}")
+    public int peventDelete(@PathVariable("peNum") int peNum) {
+        int result = ps.peventDelete(peNum);
+        return result;
+    }*/
+
+
 
     @PostMapping("/product/update/{piNum}")
     public int productUpdate(@PathVariable("piNum") int piNum, @RequestBody ProductItem product) {
@@ -56,9 +75,8 @@ public class ProductController {
     }
 
     @PostMapping("/product/deleteList")
-    public int productDelete(@RequestBody List<Integer> piNum) {
-
-        int result = ps.productDeleteList(piNum);
+    public int productDeleteList(@RequestBody List<Integer> piNum) {
+        int result = ps.productDelete(piNum);
         return result;
     }
 
@@ -94,9 +112,10 @@ public class ProductController {
 
     @PostMapping("/procate/deleteList")
     public int procateDeleteList(@RequestBody List<Integer> pcNum) {
-        int result = cs.procateDeleteList(pcNum);
+        int result = cs.procateDelete(pcNum);
         return result;
     }
+
     /*======================================evnet===========================================*/
     @GetMapping("/event/list")
     public List<EventItem> proeventList() {
@@ -115,6 +134,7 @@ public class ProductController {
         int result = cs.proeventInsert(eitem);
         return result;
     }
+
     @PostMapping("/event/update/{eiNum}")
     public int proeventUpdate(@PathVariable("eiNum") int eiNum, @RequestBody EventItem eitem) {
         int result = cs.proeventUpdate(eiNum, eitem);
@@ -126,9 +146,10 @@ public class ProductController {
         int result = cs.proeventDelete(eiNum);
         return result;
     }
+
     @PostMapping("/event/deleteList")
     public int proeventDeleteList(@RequestBody List<Integer> eiNum) {
-        int result = cs.proeventDeleteList(eiNum);
+        int result = cs.proeventDelete(eiNum);
         return result;
     }
 
@@ -165,9 +186,9 @@ public class ProductController {
     }
 
     @PostMapping("/option/deleteList")
-    public int proopDelete(@RequestBody List<Integer> poNum) {
+    public int proopDeleteList(@RequestBody List<Integer> poNum) {
 
-        int result = os.proopDeleteList(poNum);
+        int result = os.proopDelete(poNum);
         return result;
     }
 

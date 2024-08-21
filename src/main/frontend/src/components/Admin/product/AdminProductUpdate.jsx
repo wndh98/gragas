@@ -32,7 +32,7 @@ function AdminProductUpdate(params) {
     axios.post("/product/update/" + piNum, data).then((response) => {
       if (response.data == 1) {
         alert("수정성공");
-        loc("/main");
+        loc("/product/main");
       } else {
         alert("실패");
       }
@@ -64,7 +64,8 @@ function AdminProductUpdate(params) {
           <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
           <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
           <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
-          <tr><th>가격</th><td><input type="selected"  {...register("piPrice")} defaultValue={products.piPrice}></input></td></tr>
+          <tr><th>가격</th><td><input type="text"  {...register("poPrice")} defaultValue={products.poPrice}></input></td></tr>
+          <tr><th>세일가</th><td><input type="text"  {...register("poSale")} defaultValue={products.poSale}></input></td></tr>
           <tr><th>상황별</th><td><input type="text"  {...register("piContent")} defaultValue={products.piContent}></input></td></tr>
           <tr><th>이벤트</th><td><input type="text"  {...register("eiNum")} defaultValue={products.eiNum}></input></td></tr>
           {/* <tr>이미지<td><input type="file" name="piPhoto"></input></td></tr> */}

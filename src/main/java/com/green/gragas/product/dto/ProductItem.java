@@ -8,7 +8,6 @@ import org.apache.ibatis.type.Alias;
 public class ProductItem {
     private int piNum;
     private int pcNum;
-    private int eiNum;
     private String piName;
     private int piDeli;
     private int piAlcohol;
@@ -16,4 +15,8 @@ public class ProductItem {
     private int piCarbonated;
     private String piImg;
     private String piContent;
+    private int poPrice;
+    private int poSail;
+    private int poCnt;
+    private int EiNum;
 }
