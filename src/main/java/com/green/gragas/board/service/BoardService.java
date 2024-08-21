@@ -16,4 +16,7 @@ public interface BoardService {
 
     void increaseView(String boardType, int bNum);
 
+    int deleteBoard(String boardType, List<Integer> bNum);
+
+    int updateBoard(String boardType, Board board);
 }

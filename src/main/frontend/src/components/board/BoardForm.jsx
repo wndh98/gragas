@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
-import { useFieldArray } from "react-hook-form";
+
 function BoardForm() {
     const pathParam = useParams();
     const boardType = pathParam.boardType; // 무슨게시판인지
@@ -16,12 +16,21 @@ function BoardForm() {
     } else if (mode == "update") {
         ajaxUrl = "/board/" + boardType + "/update/" + bNum;
     }
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+
     const [board, setBoard] = useState([]);
-    const { fields, append } = useFieldArray({
-        control,
-        name: "bFile" // 'items'라는 필드에 대해 배열로 관리
-    });
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm(
+        {
+            defaultValues: {
+                bSubject: "",
+                bContent: "",
+                bNum: ""
+            }
+        }
+    );
+    // const { fields, append } = useFieldArray({
+    //     control,
+    //     name: "bFile" // 'items'라는 필드에 대해 배열로 관리
+    // });
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
 
     useEffect(() => {
@@ -29,6 +38,9 @@ function BoardForm() {
             axios.get(selectUrl)
                 .then((result) => {
                     setBoard(result.data);
+                    setValue('bSubject', result.data.bSubject);
+                    setValue('bContent', result.data.bContent);
+                    setValue('bNum', result.data.bNum);
                 });
         }
     }, []);
@@ -42,18 +54,17 @@ function BoardForm() {
                 formData.append("bFile", data.bFile[i]);
             }
         }
-        console.log(bFiles);
-        // axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
-        //     .then((result) => {
-        //         if (result.data == 1) {
-        //             alert("성공");
-        //         }
-        //         else if (result.data == -1) {
-        //             alert("파일업로드실패");
-        //         } else {
-        //             alert("글입력실패");
-        //         }
-        //     });
+        axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
+            .then((result) => {
+                if (result.data == 1) {
+                    alert("성공");
+                }
+                else if (result.data == -1) {
+                    alert("파일업로드실패");
+                } else {
+                    alert("글입력실패");
+                }
+            });
     }
 
     return (
@@ -68,14 +79,14 @@ function BoardForm() {
                     <tr>
                         <th>제목</th>
                         <td>
-                            <input {...register("bSubject", { required: { value: true, message: "제목을 입력해 주세요." } })} value={board.bSubject} />
+                            <input {...register("bSubject", { required: { message: "제목을 입력해 주세요." } })} />
                             {errors.bSubject && <p>{errors.bSubject.message}</p>}
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}>{board.bContent}</textarea>
+                            <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}></textarea>
                             {errors.bContent && <p>{errors.bContent.message}</p>}
                         </td>
                     </tr>
@@ -84,7 +95,7 @@ function BoardForm() {
                         <th>파일1</th>
                         <td>
 
-                            <input type={"file"}{...register(`bFile.0.value`)} className="form-control" />
+                            <input type="file" {...register(`bFile`)} className="form-control" />
                         </td>
                     </tr>
                     <tr>

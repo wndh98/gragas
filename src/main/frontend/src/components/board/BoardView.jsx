@@ -79,6 +79,9 @@ function BoardView() {
                 <tr>
                     <td colSpan="2" style={{ whiteSpace: "pre-wrap" }}>{board.bContent}</td>
                 </tr>
+                <tr>
+                    <td colSpan="2" ><Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link></td>
+                </tr>
             </tbody>
         </table >
 

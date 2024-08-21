@@ -80,4 +80,18 @@ public class BoardServiceImpl implements  BoardService{
         bm.increaseView(board);
     }
 
+    @Override
+    public int deleteBoard(String boardType, List<Integer> bNum) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("boardType",boardType);
+        map.put("bNumList",bNum);
+        return bm.deleteBoard(map);
+    }
+
+    @Override
+    public int updateBoard(String boardType, Board board) {
+        board.setBoardType(boardType);
+        return bm.updateBoard(board);
+    }
+
 }

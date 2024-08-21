@@ -37,11 +37,6 @@ public class BoardContoller {
         return map;
     }
 
-    @PostMapping("/board/{boardType}/write")
-    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles) {
-        int result = bs.boardWrite(boardType, board, bFiles);
-        return result;
-    }
 
     @GetMapping("/board/{boardType}/select/{bNum}")
     public Board getBoard(@PathVariable("boardType") String boardType, @PathVariable("bNum") int bNum) {
@@ -64,6 +59,23 @@ public class BoardContoller {
     @GetMapping("/board/download/{bfNum}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("bfNum") int bfNum) {
         return bfs.donwloadFile(bfNum);
-
     }
+    @PostMapping("/board/{boardType}/delete")
+    public int deleteBoard(@PathVariable("boardType") String boardType,@RequestBody List<Integer> bNum){
+        int result = bs.deleteBoard(boardType,bNum);
+        return result;
+    }
+
+    @PostMapping("/board/{boardType}/write")
+    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles) {
+        int result = bs.boardWrite(boardType, board, bFiles);
+        return result;
+    }
+
+    @PostMapping("/board/{boardType}/update/{bNum}")
+    public int updateBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles){
+        int result = bs.updateBoard(boardType,board);
+        return result;
+    }
+
 }
