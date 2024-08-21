@@ -47,9 +47,9 @@ public class BoardServiceImpl implements  BoardService{
         try {
             List<String> fileNames=BoardFileUpload.fileUpload(bFiles,boardType,bNum,rootPath);
             BoardFile boardFile = new BoardFile();
-            boardFile.setBNum(board.getBNum());
+            boardFile.setBNum(bNum);
             boardFile.setBfBoard(boardType);
-            boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
+            boardFile.setBfRoot("/board/"+boardType+"/"+bNum+"/");
             int i=0;
             for(String fileName:fileNames) {
                 boardFile.setBfRName(fileName);
@@ -81,11 +81,17 @@ public class BoardServiceImpl implements  BoardService{
     }
 
     @Override
-    public List<BoardFile> getFileList(String boardType, int bNum) {
-        BoardFile boardFile = new BoardFile();
-        boardFile.setBNum(bNum);
-        boardFile.setBfBoard(boardType);
-        boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
-        return bfm.selectList(boardFile);
+    public int deleteBoard(String boardType, List<Integer> bNum) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("boardType",boardType);
+        map.put("bNumList",bNum);
+        return bm.deleteBoard(map);
     }
+
+    @Override
+    public int updateBoard(String boardType, Board board) {
+        board.setBoardType(boardType);
+        return bm.updateBoard(board);
+    }
+
 }

@@ -9,6 +9,7 @@ function SubsDescription() {
     const [item, setItem] = useState({});
     const [siTitles, setTitles] = useState([]);
     const navigate = useNavigate();
+    const num = 0;
 
     function descriptionCategory(num) {
         navigate(`/subscribe/description/${num}`);

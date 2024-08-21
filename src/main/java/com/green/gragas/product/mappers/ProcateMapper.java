@@ -1,5 +1,6 @@
 package com.green.gragas.product.mappers;
 
+import com.green.gragas.product.dto.EventItem;
 import com.green.gragas.product.dto.ProductCate;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,24 @@ public interface ProcateMapper {
     int procateInsert(ProductCate procate);
 
     List<ProductCate> procateList();
+
+    ProductCate procateCheck(int pcNum);
+
+    int procateUpdate(ProductCate procate);
+
+    int procateDelete(int pcNum);
+
+
+    /*=========================================event=========================================*/
+    List<EventItem> proeventList();
+
+    int proeventInsert(EventItem eitem);
+
+    int proeventUpdate(EventItem eitem);
+
+    int proeventDelete(int eiNum);
+
+    EventItem proeventCheck(int eitem);
+
+    int proeventDeleteList(List<Integer> eiNum);
 }

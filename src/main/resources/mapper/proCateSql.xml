@@ -8,7 +8,51 @@
         select * from PRODUCT_CATE
     </select>
 
+    <select id="procateCheck" resultType="productCate" parameterType="integer">
+        select * from PRODUCT_CATE where PC_NUM=#{pcNum}
+    </select>
+
     <insert id="procateInsert" parameterType="productCate">
         insert into PRODUCT_CATE(PC_NUM,PC_NAME,PC_IMG) values(#{pcNum},#{pcName},'')
     </insert>
+
+    <update id="procateUpdate" parameterType="productCate">
+        update PRODUCT_CATE set PC_NAME=#{pcName}, PC_IMG=#{pcImg}
+        <if test="pcImg!=null">
+            ,PC_IMG=#{pcImg}
+        </if>
+        where PC_NUM=#{pcNum}
+
+    </update>
+    <delete id="procateDelete" parameterType="integer">
+        delete from PRODUCT_CATE where PC_NUM=#{pcNum}
+    </delete>
+
+
+
+
+    <select id="proeventList" resultType="EventItem">
+        select * from EVENT_ITEM
+    </select>
+
+    <select id="proeventCheck" resultType="EventItem" parameterType="integer">
+        select * from EVENT_ITEM where EI_NUM=#{eiNum}
+    </select>
+
+    <insert id="proeventInsert" parameterType="EventItem">
+        insert into EVENT_ITEM(EI_NUM,EI_NAME,EI_CONTENT) values(#{eiNum},#{eiName},'')
+    </insert>
+
+    <update id="proeventUpdate" parameterType="productCate">
+        update EVENT_ITEM set EI_NAME=#{eiName}, EI_CONTENT=#{eiContent}
+        <if test="eiContent!=null">
+            ,EI_CONTENT=#{eiContent}
+        </if>
+        where EI_NUM=#{eiNum}
+    </update>
+
+    <delete id="proeventDelete" parameterType="integer">
+        delete from EVENT_ITEM where EI_NUM=#{eiNum}
+    </delete>
+
 </mapper>

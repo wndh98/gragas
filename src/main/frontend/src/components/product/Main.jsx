@@ -3,6 +3,8 @@ import React from 'react';
 import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -21,9 +23,9 @@ function Main(picture) {
   return (
     <div className='spdla mainbox'>
       <div className='spdla hb'>
-        <img src={picture.img} alt='추천' width="45" height="45">
 
-        </img>
+
+        <img src={picture.img} alt={products.piNum} width="45" height="45"></img>
         <div className='spdla tle'></div>
         <div className='spdla more'></div>
       </div>
@@ -34,8 +36,9 @@ function Main(picture) {
         <div className='swiper spdla-swiper'>
           <div className='swiper-wrapper'>
             {products.map(product => {
-              return (<Boxes product={product}
-              />
+              return (
+                <Boxes product={product}
+                />
               );
             })}
           </div>
