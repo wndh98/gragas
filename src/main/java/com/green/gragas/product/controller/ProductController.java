@@ -38,19 +38,20 @@ public class ProductController {
         int nextPiNum = ps.nextPiNum();
         proop.setPiNum(nextPiNum);
         proop.setPoPrice(product.getPoPrice());
-        proop.setPoSale(product.getPoSail());
+        proop.setPoSale(product.getPoSale());
         proop.setPoCnt(product.getPoCnt());
         proop.setPoName(product.getPiName());
-        int eiNum = ps.peventInsert();
-        product.setEiNum(eiNum);
         int result = ps.productInsert(product);
         if (result != 1) return result;
         result = os.proopInsert(proop);
-        return result;
+        if(result==0)return result;
+        return nextPiNum;
     }
-  /*  @PostMapping("/pevent/insert")
-    public int peventInsert(@RequestBody ProductEvent pevent) {
-        int result = ps.peventInsert();
+
+
+   @PostMapping("/pevent/insert/{piNum}")
+    public int peventInsert(@RequestBody List<Integer> eiNum,@PathVariable("piNum") int piNum) {
+        int result = ps.peventInsert(eiNum,piNum);
         return result;
     }
 
@@ -58,8 +59,24 @@ public class ProductController {
     public int peventDelete(@PathVariable("peNum") int peNum) {
         int result = ps.peventDelete(peNum);
         return result;
-    }*/
+    }
+    @GetMapping("/pevent/list/{eiNum}")
+    public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum) {
+        List<ProductEvent> list = ps.peventList(eiNum);
+        return list;
+    }
 
+@GetMapping("/pevent/list/{eiNum}/{piNum}")
+public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum,@PathVariable("piNum") int piNum) {
+    List<ProductEvent> list = ps.peventList(eiNum,piNum);
+    return list;
+}
+
+    @GetMapping("/pevent/cheke/{eiNum}")
+    public List<ProductEvent> peventCheke(@PathVariable("eiNum") int eiNum) {
+        List<ProductEvent> list = ps.peventCheke(eiNum);
+        return list;
+    }
 
 
     @PostMapping("/product/update/{piNum}")
@@ -79,6 +96,8 @@ public class ProductController {
         int result = ps.productDelete(piNum);
         return result;
     }
+
+
 
     @GetMapping("/procate/list")
     public List<ProductCate> procateList() {

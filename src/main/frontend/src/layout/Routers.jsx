@@ -29,6 +29,7 @@ import AdminOptionMain from "../components/admin/product/AdminOptionMain";
 import AdminOptionCreate from "../components/admin/product/AdminOptionCreate";
 import AdminOptionUpdate from "../components/admin/product/AdminOptionUpdate";
 import ProductEventItem from "../components/product/ProductEventItem";
+import EventMain from "../components/product/EventMain";
 import AdminProcateMain from "../components/admin/product/AdminProcateMain";
 import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
 import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
@@ -55,27 +56,28 @@ function Routers() {
                 {/* <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} /> */}
             </Routes>
             <Routes>
-                <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
-                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain/></Layout>}/>
-                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate/></Layout>}/>
-                <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate/></Layout>}/>
-                <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
-                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
+                <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
+                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain /></Layout>} />
+                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate /></Layout>} />
+                <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate /></Layout>} />
+                <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
+                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
             </Routes>
             <Routes>
-                <Route path="/loginForm" element={<Layout><LoginForm/></Layout>}/>
-                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm/></Layout>}/>
-                <Route path="/myPage" element={<Layout><MyPage/></Layout>}/>
+                <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
+                {/*           <Route path="/login/serchIdForm" element={<Layout><SerchIdForm /></Layout>} /> */}
+                <Route path="/myPage" element={<Layout><MyPage /></Layout>} />
                 {/* <Route path="/myPage/userInfo" element={<Layout><UserInfo/></Layout>}/> */}
                 {/* <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate/></Layout>}/> */}
-                <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
+                {/*  <Route path="/user/joinForm" element={<Layout><JoinForm /></Layout>} /> */}
             </Routes>
 
             <Routes>
                 <Route path="/main" element={<Layout><Main /></Layout>} />
-                <Route path="/ProductItem/:piNum" element={<Layout><ProductItem /></Layout>} />
-                <Route path="/ProductEvent" element={<Layout><ProductEvent /></Layout>} />
-                <Route path="/ProductEventItem" element={<Layout><ProductEventItem /></Layout>} />
+                <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
+                <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
+                <Route path="/productEventMain/:eiNum" element={<Layout><EventMain /></Layout>} />
+                <Route path="/productEventItem/:eiNum/:piNum" element={<Layout><ProductEventItem /></Layout>} />
                 <Route path="/product/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
                 <Route path="/product/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
                 <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />

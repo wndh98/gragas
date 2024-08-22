@@ -317,6 +317,7 @@ button {
 }
 
 
+
 .wper .information {
   width: 270px;
 }
@@ -431,9 +432,10 @@ button {
 }
 
 .boxwrapbox .flex {
+
   display: flex;
+  flex-direction: column;
   -webkit-box-align: center;
-  align-items: center;
   color: rgba(0, 0, 0, 0.7);
   font-size: 14px;
   font-weight: 700;
@@ -458,6 +460,11 @@ button {
   justify-content: space-between;
 }
 
+.direct-purchase-box .flex {
+  flex-direction: row;
+
+}
+
 .title1-bold {
   font-size: 28px;
   font-weight: 700;
@@ -465,7 +472,33 @@ button {
   letter-spacing: -0.56px;
 }
 
+.jsx-2907305229 {
 
+  display: flex;
+}
+
+.boxwrapbox .discount .originPrice {
+  margin-right: 10px;
+  text-decoration: line-through;
+  color: rgba(61, 61, 61, 0.3);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+}
+
+.title1-bold-bol {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: -0.56px;
+}
+
+.flex .font {
+  color: rgb(255, 125, 58);
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
 
 /* ==================== */
 .right-side {

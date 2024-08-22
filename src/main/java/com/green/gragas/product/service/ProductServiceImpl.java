@@ -6,7 +6,9 @@ import com.green.gragas.product.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -53,8 +55,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int peventInsert() {
-        return pm.peventInsert();
+    public int peventInsert(List<Integer> eiNum,int piNum) {
+        int result = 0;
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("piNum",piNum);
+        for(Integer e : eiNum) {
+            map.put("eiNum", e);
+            result = pm.peventInsert(map);
+            if(result==0)return result;
+        }
+        return result;
     }
 
     @Override
@@ -62,5 +73,26 @@ public class ProductServiceImpl implements ProductService {
         return pm.peventDelete(peNum);
     }
 
+
+    @Override
+    public List<ProductEvent> peventList(int eiNum) {
+        return pm.peventList(eiNum);
+    }
+
+
+
+    @Override
+    public List<ProductEvent> peventList(int eiNum, int piNum) {
+        ProductEvent productEvent=new ProductEvent();
+        productEvent.setEiNum(eiNum);
+        productEvent.setPiNum(piNum);
+
+        return pm.peventListPe(productEvent);
+    }
+
+    @Override
+    public List<ProductEvent> peventCheke(int eiNum) {
+        return pm.peventCheke(eiNum);
+    }
 
 }

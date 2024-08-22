@@ -21,7 +21,14 @@ public interface ProductService {
      int nextPiNum();
 
    
-     int peventInsert();
+     int peventInsert(List<Integer> eiNum,int piNum);
 
      int peventDelete(int peNum);
+
+     List<ProductEvent> peventList(int eiNum);
+
+     List<ProductEvent> peventList(int eiNum,int piNum);
+
+
+     List<ProductEvent> peventCheke(int eiNum);
 }

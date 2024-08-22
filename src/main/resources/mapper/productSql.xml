@@ -26,12 +26,31 @@
         </if>
         where PI_NUM=#{piNum}
     </update>
+
     <delete id="productDelete" parameterType="integer">
         delete from PRODUCT_ITEM where PI_NUM=#{piNum}
     </delete>
 
 
-    <insert id="peventInsert" parameterType="productItem">
+    <select id="peventList" resultType="productEvent">
+        select * from Product_EVENT where EI_NUM=#{eiNum}
+    </select>
+
+    <select id="peventListPe" resultType="productEvent" parameterType="integer">
+        select * from Product_EVENT where PI_NUM=#{piNum} and EI_NUM=#{eiNum}
+    </select>
+
+    <select id="peventCheke" resultType="productEvent" parameterType="integer">
+        SELECT *
+        FROM Product_ITEM
+        WHERE PI_NUM IN (
+        SELECT PI_NUM
+        FROM Product_EVENT
+        WHERE EI_NUM = #{eiNum}
+        )
+    </select>
+
+    <insert id="peventInsert" parameterType="map">
         insert into PRODUCT_EVENT(PI_NUM,EI_NUM)
         values(#{piNum},#{eiNum})
     </insert>
@@ -39,4 +58,6 @@
     <delete id="peventDelete" parameterType="integer">
         delete from PRODUCT_EVENT where PE_NUM=#{peNum}
     </delete>
+
+
 </mapper>

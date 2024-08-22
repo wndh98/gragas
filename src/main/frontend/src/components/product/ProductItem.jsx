@@ -48,8 +48,14 @@ function ProductItem() {
             .catch(error => console.error("Fetching error:", error))
     }, []);
 
-    console.log(product)
+    function price() {
+        let prices = 0;
+        prices = (product.poPrice) * (product.poSale)
+        return prices;
+    }
+
     return (
+
         <div>
             <div className="mainbox">
                 <div className="left-side">
@@ -71,18 +77,20 @@ function ProductItem() {
                                     <div className="product-price-layout">
                                         <div className="flex discount">
                                             <div className="price-label">
-                                                <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH"><div class="font body-regular">판매가격:</div>
+                                                <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH"><div class=" body-regular">판매가격:</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="direct-purchase-box">
-                                            <div className="flex">
-                                                <div class="font title1-bold">40000</div>
-                                            </div>
-                                            <div className="reviews">
-                                                <div className="layout">
-                                                    <img src="https://www.sooldamhwa.com/assets/filled-star-small.svg" alt="" />
-                                                    <div class="jsx-1280624852 review"><div class="jsx-2907305229"><div class="jsx-1280624852 review-text">리뷰 0</div><svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 24 24" fill="none"><path d="M9.29289 3.51473C9.66286 3.14476 10.2506 3.12528 10.6435 3.45631L10.7071 3.51473L18.4853 11.2929L18.5361 11.3476C18.8562 11.7187 18.8588 12.269 18.5441 12.643L18.4853 12.7071L10.7071 20.4853L10.6524 20.5361C10.2813 20.8562 9.73103 20.8588 9.357 20.5441L9.29289 20.4853L9.24206 20.4306C8.922 20.0595 8.91934 19.5092 9.23406 19.1352L9.29289 19.0711L16.3643 11.9997L9.29289 4.92894L9.24206 4.87423C8.90318 4.48136 8.92012 3.8875 9.29289 3.51473Z" fill="#0096f3"></path></svg></div></div>
+                                            <span class="originPrice">{product.poPrice}원</span>
+                                            <div className="direct-purchase-box">
+                                                <div className="flex">
+                                                    <div class="font title1-bold-bol">{product.poSale}%</div>
+                                                    <div class="title1-bold">{price()}원</div>
+                                                </div>
+                                                <div className="reviews">
+                                                    <div className="layout">
+                                                        <img src="https://www.sooldamhwa.com/assets/filled-star-small.svg" alt="" />
+                                                        <div class="jsx-1280624852 review"><div class="jsx-2907305229"><div class="jsx-1280624852 review-text">리뷰 0</div><svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 24 24" fill="none"><path d="M9.29289 3.51473C9.66286 3.14476 10.2506 3.12528 10.6435 3.45631L10.7071 3.51473L18.4853 11.2929L18.5361 11.3476C18.8562 11.7187 18.8588 12.269 18.5441 12.643L18.4853 12.7071L10.7071 20.4853L10.6524 20.5361C10.2813 20.8562 9.73103 20.8588 9.357 20.5441L9.29289 20.4853L9.24206 20.4306C8.922 20.0595 8.91934 19.5092 9.23406 19.1352L9.29289 19.0711L16.3643 11.9997L9.29289 4.92894L9.24206 4.87423C8.90318 4.48136 8.92012 3.8875 9.29289 3.51473Z" fill="#0096f3"></path></svg></div></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,7 +134,9 @@ function ProductItem() {
                         <select class="form-select">
                             <option selected></option>
                             <option value="1">어떤 옵션을 원하시나요?</option>
-                            <option value="2">[375ml] 마한 오크 46%</option>
+                            <option value={product.eiNum}>{product.poName}</option>
+
+
                         </select>
                     </div>
                     <div className="label">
@@ -147,7 +157,7 @@ function ProductItem() {
                         총 상품가격
                     </div>
                     <div className="select-wrapper position-sticky top-0 border border-secondary-subtle" style={{ height: "40px" }}>
-                        49,000원
+                        {price()}원
                     </div>
                     <div className="buttons">
                         <div className="button cart-button-gift-button">
