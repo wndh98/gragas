@@ -47,13 +47,18 @@ function BoardForm() {
 
     function onSubmit(data) {
         const formData = new FormData();
-        const bFiles = formData.getAll('bFile');
+        //console.log(data.bFile[0]);
         formData.append("board", new Blob([JSON.stringify(data)], { type: "application/json" }));
         if (data.bFile && data.bFile.length > 0) {
             for (let i = 0; i < data.bFile.length; i++) {
-                formData.append("bFile", data.bFile[i]);
+                if (data.bFile[i][0] != null) {
+                    formData.append("bFileNum", i * 1);
+                }
+                formData.append("bFile", data.bFile[i][0]);
             }
         }
+
+        console.log(data);
         axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
             .then((result) => {
                 if (result.data == 1) {
@@ -95,7 +100,14 @@ function BoardForm() {
                         <th>파일1</th>
                         <td>
 
-                            <input type="file" {...register(`bFile`)} className="form-control" />
+                            <input type="file" {...register(`bFile[0]`)} className="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>파일2</th>
+                        <td>
+
+                            <input type="file" {...register(`bFile[1]`)} className="form-control" />
                         </td>
                     </tr>
                     <tr>

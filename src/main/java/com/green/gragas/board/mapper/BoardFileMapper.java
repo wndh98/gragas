@@ -13,4 +13,9 @@ public interface BoardFileMapper {
     List<BoardFile> selectList(BoardFile boardFile);
 
     BoardFile selectBoardFile(int bfNum);
+
+    int deleteBoardFile(BoardFile boardFile);
+    int deleteBoardFileOrder(BoardFile boardFile);
+
+    BoardFile selectBoardFileOrder(BoardFile boardFile);
 }

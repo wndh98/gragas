@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { setCookie, getCookie } from "../../js/cookieJs";
 function BoardView() {
     const pathParam = useParams();
@@ -10,9 +10,11 @@ function BoardView() {
     const mode = pathParam.mode; // write(insert),update(update)
     const [board, setBoard] = useState({});
     const [fileList, setFileList] = useState([]);
+    const navi = useNavigate();
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
     const addViewUrl = "/board/" + boardType + "/addView/" + bNum;
     const fileListUrl = "/board/" + boardType + "/fileList/" + bNum;
+    const deleteUrl = "/board/" + boardType + "/delete";
     useEffect(() => {
         axios.get(selectUrl)
             .then((result) => {
@@ -32,7 +34,7 @@ function BoardView() {
     }, []);
     function downloadFile(file) {
         const downloadUrl = "/board/download/" + file.bfNum;
-
+        console.log(file);
         axios.get(downloadUrl, { responseType: 'blob' })
             .then((result) => {
                 const url = window.URL.createObjectURL(new Blob([result.data]));
@@ -43,6 +45,18 @@ function BoardView() {
                 link.click();
                 link.remove();
 
+            });
+    }
+    function deleteBoard() {
+        console.log(1);
+        axios.post(deleteUrl, [bNum])
+            .then((result) => {
+                if (result.data > 0) {
+                    alert("삭제성공");
+                    navi("/board/" + boardType + "/list/" + pageNum);
+                } else {
+                    alert("삭제실패");
+                }
             });
     }
     return (
@@ -80,7 +94,10 @@ function BoardView() {
                     <td colSpan="2" style={{ whiteSpace: "pre-wrap" }}>{board.bContent}</td>
                 </tr>
                 <tr>
-                    <td colSpan="2" ><Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link></td>
+                    <td colSpan="2" >
+                        <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link>
+                        <button type="button" className="btn btn-dark" onClick={() => { deleteBoard() }}> 삭제</button>
+                    </td>
                 </tr>
             </tbody>
         </table >
