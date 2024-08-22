@@ -15,31 +15,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
-public class BoardFileServiceImpl implements BoardFileService{
+public class BoardFileServiceImpl implements BoardFileService {
     @Autowired
     BoardFileMapper bfm;
     @Value("${project.upload.path}")
     private String rootPath;
-    @Override
-    public HttpHeaders getHttpHeader(Path path, String fileName) throws IOException {
-        String contentType = Files.probeContentType(path); // content type setting
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentDisposition(ContentDisposition
-                .builder("attachment") //builder type
-                .filename(fileName)
-                .build()
-        );
-        httpHeaders.add(HttpHeaders.CONTENT_TYPE, contentType);
-        return httpHeaders;
-    }
 
 
     @Override
@@ -47,14 +38,14 @@ public class BoardFileServiceImpl implements BoardFileService{
         BoardFile boardFile = new BoardFile();
         boardFile.setBNum(bNum);
         boardFile.setBfBoard(boardType);
-        boardFile.setBfRoot("/upload/board/"+boardType+"/"+bNum+"/");
+        boardFile.setBfRoot("/upload/board/" + boardType + "/" + bNum + "/");
         return bfm.selectList(boardFile);
     }
 
     @Override
     public ResponseEntity<Resource> donwloadFile(int bfNum) {
         BoardFile boardFile = bfm.selectBoardFile(bfNum);
-        String pathStr=rootPath+boardFile.getBfRoot();
+        String pathStr = rootPath + boardFile.getBfRoot();
         System.out.println(pathStr);
         Path path = Paths.get(pathStr).resolve(boardFile.getBfRName()).normalize();
         try {
@@ -69,5 +60,43 @@ public class BoardFileServiceImpl implements BoardFileService{
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void deleteFolder(String boardType, List<Integer> bNum) {
+        BoardFile boardFile = new BoardFile();
+        boardFile.setBfBoard(boardType);
+        for (Integer b : bNum) {
+            String filePath = rootPath + "/board/" + boardType + "/" + b;
+            File folder = new File(filePath);
+            if (folder.exists()) {
+                File[] files = folder.listFiles();
+                for (File file : files) {
+                    file.delete(); // 하위 파일 삭제
+                }
+                folder.delete();
+            }
+            boardFile.setBNum(b);
+            bfm.deleteBoardFile(boardFile);
+        }
+    }
+
+    @Override
+    public void deleteFile(String boardType, int bNum, List<Integer> bFileNum) {
+        BoardFile boardFile = new BoardFile();
+        boardFile.setBfBoard(boardType);
+        boardFile.setBNum(bNum);
+        if(bFileNum!=null && bFileNum.size()!=0) {
+            for (Integer bfOrder : bFileNum) {
+                boardFile.setBfOrder(bfOrder);
+                BoardFile delBoardFile = bfm.selectBoardFileOrder(boardFile);
+                String filePath = rootPath + "/board/" + boardType + "/" + bNum + "/" + delBoardFile.getBfRName();
+                File file = new File(filePath);
+                if (file.exists()) {
+                    file.delete();
+                }
+                bfm.deleteBoardFileOrder(delBoardFile);
+            }
+        }
     }
 }
