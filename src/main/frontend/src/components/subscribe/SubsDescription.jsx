@@ -54,7 +54,7 @@ function SubsDescription() {
             </div>
             <div className="container subs_box">
                 <div className='col main_div1'>
-                    <img className='subs_img' src={`/images/subscribe/subs_main/${item.siMainImg}`} alt="Main" />
+                    <img className='subs_img' src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" />
                 </div>
                 <div className='col main_div2'>
                     <div className='siSubject'>{item.siSubject}</div>
@@ -76,7 +76,7 @@ function SubsDescription() {
                 </div>
                 <div className="desMain container">
                     <div className="siDescription">
-                        <img src={`/images/subscribe/subs_sub/${item.siDesImg}`} alt="Des" className='des_img' />
+                        <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siDesImg}`} alt="Des" className='des_img' />
                     </div>
                 </div>
             </div>

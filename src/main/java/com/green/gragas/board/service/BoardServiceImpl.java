@@ -21,7 +21,7 @@ public class BoardServiceImpl implements  BoardService{
     BoardMapper bm;
     @Autowired
     BoardFileMapper bfm;
-    @Value("${proejct.upload.path}")
+    @Value("${project.upload.path}")
     private String rootPath;
 
 

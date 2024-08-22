@@ -25,7 +25,7 @@ import java.util.List;
 public class BoardFileServiceImpl implements BoardFileService{
     @Autowired
     BoardFileMapper bfm;
-    @Value("${proejct.upload.path}")
+    @Value("${project.upload.path}")
     private String rootPath;
     @Override
     public HttpHeaders getHttpHeader(Path path, String fileName) throws IOException {

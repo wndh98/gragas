@@ -23,8 +23,32 @@
     <select id="selectSubsItem" parameterType="integer" resultType="subscribeItem">
         select * from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
     </select>
+  <select id="nextSiNum" resultType="integer">
+    select auto_increment from information_schema.tables where table_schema='gragasDB' and
+    table_name='SUBSCRIBE_ITEM'
+  </select>
     <insert id="subscribeInsert" parameterType="subscribeItem">
-        insert into SUBSCRIBE_ITEM(SI_SUBJECT,SI_CONTENT,SI_DESCRIPTION,SI_PRICE,SI_PAY_DATE,SI_MAIN_IMG,SI_DES_IMG,SI_TITLE,SI_ARRIVE) values(#{siSubject},#{siContent},#{siDescription},#{siPrice},#{siPayDate},'사진','사진',#{siTitle},#{siArrive})
+      INSERT INTO SUBSCRIBE_ITEM(
+      SI_SUBJECT,
+      SI_CONTENT,
+      SI_DESCRIPTION,
+      SI_PRICE,
+      SI_PAY_DATE,
+      SI_MAIN_IMG,
+      SI_DES_IMG,
+      SI_TITLE,
+      SI_ARRIVE
+      ) VALUES (
+      #{siSubject},
+      #{siContent},
+      #{siDescription},
+      #{siPrice},
+      #{siPayDate},
+      #{siMainImg},
+      #{siDesImg},
+      #{siTitle},
+      #{siArrive}
+      )
     </insert>
     <update id="subscribeUpdate" parameterType="subscribeItem">
         update SUBSCRIBE_ITEM set SI_SUBJECT =
