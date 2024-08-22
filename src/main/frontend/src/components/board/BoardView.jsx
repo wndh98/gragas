@@ -34,6 +34,7 @@ function BoardView() {
     }, []);
     function downloadFile(file) {
         const downloadUrl = "/board/download/" + file.bfNum;
+
         console.log(file);
         axios.get(downloadUrl, { responseType: 'blob' })
             .then((result) => {
@@ -97,6 +98,7 @@ function BoardView() {
                     <td colSpan="2" >
                         <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link>
                         <button type="button" className="btn btn-dark" onClick={() => { deleteBoard() }}> 삭제</button>
+                        <Link to={`/board/${boardType}/write/${pageNum}/${bNum}`} className="btn btn-dark" > 답글</Link>
                     </td>
                 </tr>
             </tbody>

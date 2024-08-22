@@ -38,9 +38,12 @@ function BoardForm() {
             axios.get(selectUrl)
                 .then((result) => {
                     setBoard(result.data);
-                    setValue('bSubject', result.data.bSubject);
-                    setValue('bContent', result.data.bContent);
-                    setValue('bNum', result.data.bNum);
+                    if (mode == "update") {
+                        setValue('bSubject', result.data.bSubject);
+                        setValue('bContent', result.data.bContent);
+                        setValue('bNum', result.data.bNum);
+                    }
+                    setValue('bRef', result.data.bNum);
                 });
         }
     }, []);
@@ -75,8 +78,8 @@ function BoardForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
             {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
-            <input type="hidden"  {...register("userId")} value="test1@test.com" />
-            <input type="hidden"  {...register("bNum")} value={board.bNum} />
+            <input type="hidden"  {...register("userId")} value="111@111.11" />
+            <input type="hidden"  {...register("bNum")} />
             <input type="hidden"  {...register("bRef")} value={board.bRef} />
             <input type="hidden"  {...register("bWriter")} value="11" />
             <table>
