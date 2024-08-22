@@ -11,4 +11,6 @@ public interface BoardFileMapper {
     int insertBoardFile(BoardFile boardFile);
 
     List<BoardFile> selectList(BoardFile boardFile);
+
+    BoardFile selectBoardFile(int bfNum);
 }

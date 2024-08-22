@@ -42,4 +42,14 @@
     <update id="increaseView" parameterType="board">
         update BOARD_${boardType} set B_VIEW=B_VIEW+1 where B_NUM=#{bNum}
     </update>
+    <update id="updateBoard" parameterType="board">
+        update BOARD_${boardType} set B_SUBJECT=#{bSubject},B_CONTENT=#{bContent} where B_NUM=#{bNum}
+    </update>
+    <delete id="deleteBoard" parameterType="map">
+        delete from BOARD_${boardType}
+        where
+        <foreach item="bNum" index="index" collection="bNumList" open="B_NUM in (" separator="," close=")">
+            #{bNum}
+        </foreach>
+    </delete>
 </mapper>

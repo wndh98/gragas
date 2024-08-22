@@ -27,6 +27,7 @@ drop table IF exists SUBSCRIBE_ITEM;
 
 
 drop table if exists `PRODUCT_EVENT`;
+DROP TABLE if EXISTS `EVENT_ITEM`;
 drop table if exists `PRODUCT_OPTION`;
 drop table if exists `PRODUCT_ITEM`;
 drop table if exists `PRODUCT_CATE`;
@@ -56,10 +57,6 @@ create table MEMBER_CUPON (
 );
 
 -- 회원테이블
-
-drop table user;
-
-select * from user;
 
 create table user (
 	USER_ID varchar(50) not null primary key,
@@ -128,9 +125,7 @@ CREATE TABLE EVENT_ITEM (
 CREATE TABLE PRODUCT_ITEM (
    PI_NUM INT not null primary key AUTO_INCREMENT,
    PC_NUM   INT   NOT NULL,
-   EI_NUM int null,
    PI_NAME   VARCHAR(20)   NOT NULL,
-   EI_NUM int null,
    PI_DELI   INT   NOT NULL,
    PI_ALCOHOL INT,
    PI_SWEET INT,
@@ -138,8 +133,7 @@ CREATE TABLE PRODUCT_ITEM (
    PI_CARBONATED INT,
    PI_IMG   VARCHAR(30),
    PI_CONTENT   VARCHAR(255) NOT null,
-   FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM),
-   FOREIGN KEY(EI_NUM) references EVENT_ITEM(EI_NUM)
+   FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
 
 
@@ -155,7 +149,13 @@ CREATE TABLE PRODUCT_OPTION (
 );
 
 
-
+CREATE TABLE product_event(
+	PE_NUM INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	PI_NUM INT NOT NULL,
+	EI_NUM INT NOT NULL,
+	FOREIGN KEY(PI_NUM) references PRODUCT_ITEM(PI_NUM),
+	FOREIGN KEY(EI_NUM) references EVENT_ITEM(EI_NUM)
+);
 
 
 
@@ -388,6 +388,5 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 -- 주문 END
 
 
-
-insert INTO member_cupon VALUES('YELLOW',0,'테스트');
-insert INTO USER VALUES('test1@test.com','YELLOW','1234','test','010-1234-5678',0,'N','N',NOW());
+insert INTO member_cupon VALUES('YELLOW','이미지',0,'테스트');
+insert INTO USER VALUES('test1@test.com','YELLOW','1234','test',NOW(),'010-1234-5678',0,'N','N',NOW());

@@ -1,21 +1,24 @@
 import "./Admin.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function AdminProductMain() {
     const { register, handleSubmit, formState: { error } } = useForm();
     const [products, setProducts] = useState([]);
     const listUrl = "/product/list";
-
+    const loc = useNavigate()
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+    useEffect(() => {
+        axios.get(listUrl)
+            .then(response => {
+                setProducts(response.data); // 가져온 상품정보를 상태에 저장
+            })
+            .catch(error => console.error("Fetching error:", error));
+    }, [])
 
-    axios.get(listUrl)
-        .then(response => {
-            setProducts(response.data); // 가져온 상품정보를 상태에 저장
-        })
-        .catch(error => console.error("Fetching error:", error));
+
 
     function productDelete(data) {
 
@@ -25,12 +28,11 @@ function AdminProductMain() {
             .then(response => {
                 if (response.data == 1) {
                     alert("성공");
+                    loc("/product/main");
                 } else {
                     alert("실패");
                 }
             })
-
-
     }
     // 컴포넌트 마운트시 상품정보 가져오기 함수호출
 
@@ -50,9 +52,13 @@ function AdminProductMain() {
                         <td>맛</td>
                         <td>탄산</td>
                         <td>가격</td>
+                        <td>세일가</td>
+                        <td>재고</td>
+                        <td>옵션이름</td>
                         <td>상황별</td>
                         <td>이벤트</td>
                     </tr>
+
                     {products.map((product) => {
 
                         return (
@@ -60,12 +66,15 @@ function AdminProductMain() {
                                 <td><input type="checkbox" {...register("piNum")} value={product.piNum} /></td>
                                 <td><Link to={"/product/update/" + product.piNum}>{product.piNum}</Link></td>
 
-                                <td value={product.pcNum}>{product.pcNum}</td>
+                                <td value={product.pcNum} >{product.pcNum}</td>
                                 <td value={product.piName}>{product.piName}</td>
                                 <td value={product.piAlcohol}>{product.piAlcohol}</td>
                                 <td value={product.piSweet}>{product.piSweet}</td>
                                 <td value={product.piCarbonated}>{product.piCarbonated}</td>
-                                <td value={product.piPrice}>{product.piPrice}</td>
+                                <td value={product.poPrice}>{product.poPrice}</td>
+                                <td value={product.poSale}>{product.poSale}</td>
+                                <td value={product.poCnt}>{product.poCnt}</td>
+                                <td value={product.poName}>{product.poName}</td>
                                 <td value={product.piContent}>{product.piContent}</td>
                                 <td value={product.eiNum}>{product.eiNum}</td>
                             </tr>

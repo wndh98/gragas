@@ -10,4 +10,7 @@
     <select id="selectList" resultType="boardFile" parameterType="boardFile">
         select * from BOARD_FILE where B_NUM=#{bNum} and BF_BOARD=#{bfBoard}
     </select>
+    <select id="selectBoardFile" resultType="boardFile" parameterType="integer">
+        select * from BOARD_FILE where BF_NUM=#{bfNum}
+    </select>
 </mapper>

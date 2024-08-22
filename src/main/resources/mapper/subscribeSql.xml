@@ -17,7 +17,21 @@
     <select id="itemList" resultMap="subscribeItemResult">
         select * from SUBSCRIBE_ITEM
     </select>
+    <select id="titleList" resultMap="subscribeItemResult">
+        select * from SUBSCRIBE_ITEM
+    </select>
     <select id="selectSubsItem" parameterType="integer" resultType="subscribeItem">
         select * from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
     </select>
+    <insert id="subscribeInsert" parameterType="subscribeItem">
+        insert into SUBSCRIBE_ITEM(SI_SUBJECT,SI_CONTENT,SI_DESCRIPTION,SI_PRICE,SI_PAY_DATE,SI_MAIN_IMG,SI_DES_IMG,SI_TITLE,SI_ARRIVE) values(#{siSubject},#{siContent},#{siDescription},#{siPrice},#{siPayDate},'사진','사진',#{siTitle},#{siArrive})
+    </insert>
+    <update id="subscribeUpdate" parameterType="subscribeItem">
+        update SUBSCRIBE_ITEM set SI_SUBJECT =
+      #{siSubject},SI_CONTENT=#{siContent},SI_DESCRIPTION=#{siDescription},SI_PRICE=#{siPrice},SI_PAY_DATE=#{siPayDate},SI_TITLE=#{siTitle},SI_ARRIVE=#{siArrive}
+      where SI_NUM = #{siNum}
+    </update>
+    <delete id="subscribeDelete" parameterType="integer">
+      delete from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
+    </delete>
 </mapper>
