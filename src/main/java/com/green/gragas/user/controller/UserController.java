@@ -24,11 +24,14 @@ public class UserController {
     @PostMapping("/user/joinForm")
     public int userJoin(@RequestBody User user) {
         int result = 0;
-        result = us.userJoin(user);
+        User user2 = us.userCheck(user.getUserId());
+        if(user2 == null) {
+            result = us.userJoin(user);
+        }
         return result;
     }
 
-    @PostMapping("/user/serchIdForm")
+    @PostMapping("/user/searchIdForm")
     public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
         User user = us.userSerchId(userName, userPhone);
         return user;
@@ -40,6 +43,8 @@ public class UserController {
         int result = 0;
 
         User user2 = us.userCheck(user.getUserId());
+        if(user2.getUserDel().equals("Y")) return -2;
+
         if (user2.getUserId().equals(user.getUserId())) {
             if (user.getUserPw().equals(user2.getUserPw())) {
                 result = 1;
@@ -70,7 +75,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("user/update/{userId}")
+    @GetMapping("userSearch/{userId}")
     public User userUpdate(@PathVariable("userId") String userId) {
         User user = us.userCheck(userId);
         return user;

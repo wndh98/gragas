@@ -1,4 +1,4 @@
-/*
+
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -15,7 +15,7 @@ function SerchIdForm() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/user/serchIdForm', data)
+      const response = await axios.post('/user/searchIdForm', data)
       .then((response) => {
        if(response.data != null) {
         alert('아이디 표시');
@@ -67,4 +67,4 @@ function SerchIdForm() {
   );
 }
 
-export default SerchIdForm; */
+export default SerchIdForm;

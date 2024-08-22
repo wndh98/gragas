@@ -1,4 +1,3 @@
-/*
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -23,7 +22,7 @@ function JoinForm() {
         alert('회원가입 성공');
         navigate("/");
       } else {
-        alert('회원가입 실패');
+        alert('아이디 중복');
       }});
     } catch (error) {
       alert('에러 발생:', error);
@@ -132,4 +131,4 @@ function JoinForm() {
   );
 }
 
-export default JoinForm; */
+export default JoinForm;

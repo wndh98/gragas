@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../../css/user/login.css'
-import InputForm from './InputForm';
+import styles from '../../../css/user/login.css';
 import axios from 'axios';
-import { getCookie,setCookie,deleteCookie } from '../../js/cookieJs';
+
+import { getCookie,setCookie,deleteCookie } from '../../../js/cookieJs';
 function LoginForm() {
   return (
     <div className="container d-flex justify-content-center">
@@ -47,8 +47,10 @@ function EmailLogin() {
         navigate("/");
       }else if(response.data == 0) {
         alert("아이디 불일치");
-      }else {
+      }else if(response.data == -1){
         alert("비밀번호 불일치");
+      }else {
+        alert("삭제된 아이디 입니다.");
       }
     });
   };

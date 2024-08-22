@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { getCookie } from '../../js/cookieJs';
+import { getCookie } from '../../../js/cookieJs';
 
 function UserInfoUpdate() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function UserInfoUpdate() {
   const userId = getCookie("isLogin");
   
   useEffect(() => {
-    axios.get("/user/update/" + userId)
+    axios.get("/userSearch/" + userId)
     .then((response) => {
       console.log(response);
       setUser((response.data));
