@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.board.mapper.CommentMapper">
+    <insert id="insertComment" parameterType="comment">
+        insert into COMMENT_${boardType}(B_NUM,USER_ID,C_CONTENT) values(#{bNum},#{userId},#{cContent})
+    </insert>
+    <select id="totalCnt" resultType="integer" parameterType="string">
+        select count(*) from COMMENT_${boardType}
+    </select>
+    <select id="selectList" resultType="comment" parameterType="boardSearch">
+        select * from COMMENT_${boardType}
+        <if test="keyword!=null and searchType!=null">
+            where ${searchType} like concat('%',#{keyword},'%')
+        </if>
+        order by C_NUM desc limit #{startPage},#{pageSize}
+    </select>
+</mapper>

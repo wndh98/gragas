@@ -41,8 +41,8 @@ function BoardForm() {
                     if (mode == "update") {
                         setValue('bSubject', result.data.bSubject);
                         setValue('bContent', result.data.bContent);
-                        setValue('bNum', result.data.bNum);
                     }
+                    setValue('bNum', result.data.bNum);
                     setValue('bRef', result.data.bNum);
                 });
         }

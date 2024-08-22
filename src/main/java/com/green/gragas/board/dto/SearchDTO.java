@@ -19,7 +19,7 @@ public class SearchDTO {
     private String searchType;    // 검색 유형
     private String boardType;     // 게시판 타입
     private String orderType="b_num";
-    private String orderAsc="desc";
+    private String orderAsc="asc";
 
     public SearchDTO(int totalCnt) {
         this.totalCnt = totalCnt;
