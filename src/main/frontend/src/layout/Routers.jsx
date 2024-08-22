@@ -7,12 +7,12 @@ import Index from "../components/Index"
 import AdminLayout from "./AdminLayout";
 
 
-import AdminUserListLayout from "../components/admin/user/AdminUserListLayout";
+// import AdminUserListLayout from "../components/admin/user/AdminUserListLayout";
 import LoginForm from "../components/user/LoginForm";
 import JoinForm from "../components/user/JoinForm";
 import MyPage from "../components/user/MyPage";
-import UserInfo from "../components/user/UserInfo";
-import UserInfoUpdate from "../components/user/UserInfoUpdate";
+// import UserInfo from "../components/user/UserInfo";
+// import UserInfoUpdate from "../components/user/UserInfoUpdate";
 import SerchIdForm from "../components/user/SerchIdForm";
 
 
@@ -52,7 +52,7 @@ function Routers() {
             <Routes>
                 <Route path="/" element={<Layout><Index /></Layout>} />
                 <Route path="/admin" element={<AdminLayout><AdminIndex /></AdminLayout>} />
-                <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} />
+                {/* <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} /> */}
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
@@ -66,8 +66,8 @@ function Routers() {
                 <Route path="/loginForm" element={<Layout><LoginForm/></Layout>}/>
                 <Route path="/login/serchIdForm" element={<Layout><SerchIdForm/></Layout>}/>
                 <Route path="/myPage" element={<Layout><MyPage/></Layout>}/>
-                <Route path="/myPage/userInfo" element={<Layout><UserInfo/></Layout>}/>
-                <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate/></Layout>}/>
+                {/* <Route path="/myPage/userInfo" element={<Layout><UserInfo/></Layout>}/> */}
+                {/* <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate/></Layout>}/> */}
                 <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
             </Routes>
 
