@@ -51,6 +51,7 @@ function BoardListLayout() {
                 setBoards([...(result.data.boardList)]);
                 setSearchDto(result.data.searchDto);
                 setPagination(paginationCreate(searchDto));
+
             });
     }
     function onSubmit(data) {
