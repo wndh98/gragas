@@ -13,4 +13,10 @@ public interface CommentMapper {
     int totalCnt(String boardType);
 
     List<Comment> selectList(SearchDTO search);
+
+    int deleteComment(Comment comment);
+
+    Comment selectComment(Comment comment);
+
+    int updateComment(Comment comment);
 }

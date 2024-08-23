@@ -10,6 +10,9 @@
     <select id="totalCnt" resultType="integer" parameterType="string">
         select count(*) from COMMENT_${boardType}
     </select>
+    <select id="selectComment" resultType="comment" parameterType="comment">
+        select * from COMMENT_${boardType} where C_NUM=#{cNum}
+    </select>
     <select id="selectList" resultType="comment" parameterType="boardSearch">
         select * from COMMENT_${boardType}
         <if test="keyword!=null and searchType!=null">
@@ -17,4 +20,10 @@
         </if>
         order by C_NUM desc limit #{startPage},#{pageSize}
     </select>
+    <update id="updateComment" parameterType="comment">
+        update COMMENT_${boardType} set C_CONTENT=#{cContent}
+    </update>
+    <delete id="deleteComment" parameterType="comment">
+        delete from COMMENT_${boardType} where C_NUM=#{cNum}
+    </delete>
 </mapper>

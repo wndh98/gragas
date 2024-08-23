@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { setCookie, getCookie } from "../../js/cookieJs";
 import CommentForm from "./CommentForm";
 import CommentListLayout from "./CommentListLayout";
+import CommentLayout from "./CommentLayout";
 function BoardView() {
     const pathParam = useParams();
     const boardType = pathParam.boardType; // 무슨게시판인지
@@ -106,8 +107,9 @@ function BoardView() {
                     </tr>
                 </tbody>
             </table >
-            <CommentListLayout bNum={bNum} boardType={boardType}></CommentListLayout>
-            <CommentForm bNum={bNum} boardType={boardType}></CommentForm>
+            <CommentLayout bNum={bNum} boardType={boardType}></CommentLayout>
+            {/* <CommentListLayout bNum={bNum} boardType={boardType}></CommentListLayout> */}
+            {/* <CommentForm bNum={bNum} boardType={boardType}></CommentForm> */}
         </>
     );
 }

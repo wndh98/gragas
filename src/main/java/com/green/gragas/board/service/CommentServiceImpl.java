@@ -28,4 +28,22 @@ public class CommentServiceImpl implements CommentService{
         map.put("commentList", cm.selectList(search));
         return map;
     }
+
+    @Override
+    public int deleteComment(Comment comment) {
+
+        return cm.deleteComment(comment);
+    }
+
+    @Override
+    public Comment getComment(Comment comment) {
+        return cm.selectComment(comment);
+    }
+
+    @Override
+    public int commentUpdate(Comment comment) {
+        return cm.updateComment(comment);
+    }
+
+
 }

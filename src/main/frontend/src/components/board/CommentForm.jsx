@@ -1,18 +1,56 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function CommentForm(props) {
     let bNum = props.bNum;
     let boardType = props.boardType;
-    const commentWriteUrl = `/comment/${boardType}/write`;
+    const pageNum = props.pageNum;
+    const setPageNum = props.setPageNum;
+    const commentList = props.commentList;
+    const setCommentList = props.setCommentList;
+    const searchDto = props.searchDto
+    const setSearchDto = props.setSearchDto;
+    const mode = props.mode;
+    const cNum = props.cNum;
+    const isForm = props.isForm;
+    const setIsForm = props.setIsForm;
+    const commentListUrl = props.commentListUrl;
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     setValue("userId", "111@111.11");
     setValue("bNum", bNum);
+    const [comment, setComment] = useState({});
+    let commentSubmitUrl;
+    if (mode == "write") { commentSubmitUrl = `/comment/${boardType}/write`; }
+    else if (mode == "update") { commentSubmitUrl = `/comment/${boardType}/update/${cNum}`; }
+
+    useEffect(() => {
+        if (mode == "update") {
+            const getCommentUrl = `/comment/${boardType}/select/${cNum}`;
+            axios.get(getCommentUrl)
+                .then(response => {
+                    setComment(response.data);
+                });
+        }
+    }, []);
+    useEffect(() => {
+        setValue("cNum", comment.cNum);
+        setValue("cContent", comment.cContent);
+    }, [comment]);
     function onSubmit(data) {
-        axios.post(commentWriteUrl, data)
+        axios.post(commentSubmitUrl, data)
             .then(response => {
                 if (response.data == 1) {
-                    alert("성공");
+                    setValue("cContent", "")
+                    axios.get(commentListUrl)
+                        .then(result => {
+                            setCommentList([...(result.data.commentList)]);
+                            setSearchDto(result.data.searchDto);
+                            setPageNum(result.data.searchDto.pageNum);
+                            if (mode == "update") {
+                                setIsForm(!isForm);
+                            }
+                        })
                 } else {
                     alert("실패");
                 }
@@ -20,8 +58,9 @@ function CommentForm(props) {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input type="hidden" {...register("userId")} value="111@111.11" />
-            <input type="hidden" {...register("bNum")} value={bNum} />
+            <input type="hidden" {...register("cNum")} />
+            <input type="hidden" {...register("userId")} />
+            <input type="hidden" {...register("bNum")} />
             <table className="table table-secondry">
                 <tobdy>
                     <tr>

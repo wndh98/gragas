@@ -6,10 +6,13 @@ import CommentList from "./CommentList";
 function CommentListLayout(props) {
     const bNum = props.bNum;
     const boardType = props.boardType;
-    const [pageNum, setPageNum] = useState(1);
-    const commentListUrl = `/comment/${boardType}/list/${pageNum}`;
-    const [commentList, setCommentList] = useState([]);
-    const [searchDto, setSearchDto] = useState({});
+    const pageNum = props.pageNum;
+    const setPageNum = props.setPageNum;
+    const commentList = props.commentList;
+    const setCommentList = props.setCommentList;
+    const searchDto = props.searchDto
+    const setSearchDto = props.setSearchDto;
+    const commentListUrl = props.commentListUrl;
     useEffect(() => {
         axios.get(commentListUrl)
             .then(response => {
@@ -18,11 +21,24 @@ function CommentListLayout(props) {
                 setPageNum(response.data.searchDto.pageNum);
             })
     }, []);
+
     return (
         <div>
             {commentList.map(comment => {
-
-                return (<CommentList comment={comment} bNum={bNum} boardType={boardType}></CommentList>);
+                return (
+                    <CommentList
+                        comment={comment}
+                        bNum={bNum}
+                        boardType={boardType}
+                        pageNum={pageNum}
+                        setPageNum={setPageNum}
+                        commentList={commentList}
+                        setCommentList={setCommentList}
+                        searchDto={searchDto}
+                        setSearchDto={setSearchDto}
+                        commentListUrl={commentListUrl}
+                    />
+                );
             })}
         </div>
 

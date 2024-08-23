@@ -20,10 +20,34 @@ public class CommentController {
         result = cs.commentWrite(comment);
         return result;
     }
-
+    @PostMapping("/comment/{boardType}/update/{cNum}")
+    public int writeComment(@PathVariable("boardType") String boardType,@PathVariable("cNum") int cNum, @RequestBody Comment comment) {
+        int result = 0;
+        comment.setBoardType(boardType);
+        comment.setCNum(cNum);
+        result = cs.commentUpdate(comment);
+        return result;
+    }
     @GetMapping("/comment/{boardType}/list/{pageNum}")
     public  Map<String, Object> getCommentList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum) {
         Map<String, Object> map = cs.commentList(boardType, pageNum);
         return map;
     }
+    @GetMapping("/comment/{boardType}/select/{cNum}")
+    public Comment getComment(@PathVariable("boardType") String boardType,@PathVariable("cNum") int cNum){
+        Comment comment=new Comment();
+        comment.setBoardType(boardType);
+        comment.setCNum(cNum);
+        Comment findComment = cs.getComment(comment);
+        return findComment;
+    }
+    @GetMapping("/comment/{boardType}/delete/{cNum}")
+    public int deleteComment(@PathVariable("boardType") String boardType,@PathVariable("cNum") int cNum){
+        Comment comment=new Comment();
+        comment.setBoardType(boardType);
+        comment.setCNum(cNum);
+        int result=cs.deleteComment(comment);
+        return result;
+    }
+
 }
