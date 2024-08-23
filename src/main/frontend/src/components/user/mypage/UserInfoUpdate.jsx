@@ -12,7 +12,6 @@ function UserInfoUpdate() {
   useEffect(() => {
     axios.get("/userSearch/" + userId)
     .then((response) => {
-      console.log(response);
       setUser((response.data));
       setValue("userName",response.data.userName);
       setValue("userPhone",response.data.userPhone);

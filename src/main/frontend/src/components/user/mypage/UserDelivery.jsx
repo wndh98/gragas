@@ -1,6 +1,28 @@
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { getCookie } from "../../../js/cookieJs";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 function UserDelivery() {
+
+  const userId = getCookie("isLogin");
+  const [delivery, setDelivery] = useState({});
+
+   useEffect(() => {
+    axios.get('/delivery/select/' + userId)
+        .then((response) => {
+          setDelivery((response.data));
+          setValue("mdName", response.data.mdName);
+        });
+}, [])
+
+const {
+  setValue,
+  formState: { errors }
+} = useForm();
+
+ function moveAddrUpdate() {}
 
   return(
     <div className="container col-7">
@@ -12,14 +34,14 @@ function UserDelivery() {
         <div className="userAddrContent">
           <div className="d-flex justify-content-between">
             <div>
-              <span>김주오</span>
+              <span>{delivery.mdName}</span>
             </div>
             <div>
-              <button>수정</button>
+              <button onClick={moveAddrUpdate}>수정</button>
             </div>
           </div>
-          <div>전화번호</div>
-          <div>주소</div>
+          <div>{delivery.mdTel}</div>
+          <div>{delivery.mdAddr} {delivery.mdAddrDetail}</div>
         </div>
       </div>
       <Link to="/mypage/userAddr/input">새 배송지 추가하기+</Link>

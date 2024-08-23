@@ -16,4 +16,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     public int insert(Delivery delivery) {
         return dm.insert(delivery);
     }
+
+    @Override
+    public Delivery select(String userId) {
+        return dm.select(userId);
+    }
 }

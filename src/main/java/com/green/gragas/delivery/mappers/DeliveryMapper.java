@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface DeliveryMapper {
 
     int insert(Delivery delivery);
+
+    Delivery select(String userId);
 }
