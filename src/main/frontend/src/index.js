@@ -6,8 +6,7 @@ import Routers from "./layout/Routers";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 
-  <
-  Routers / >
+  <Routers />
 
 );
 

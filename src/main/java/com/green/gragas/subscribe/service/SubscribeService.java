@@ -12,5 +12,6 @@ public interface SubscribeService {
     int subscribeUpdate(SubscribeItem subscribeItem);
     int subscribeDelete(int siNum);
     List<SubscribeItem> titleList();
-    /*int subscribeInsert(String siTitle, SubscribeItem subscribeItem, MultipartFile siMainImg, MultipartFile siDesImg);*/
+    int subscribeUploadFile(SubscribeItem subscribeItem, MultipartFile siMainImg, MultipartFile siDesImg,String rootPath);
+    int nextSiNum();
 }
