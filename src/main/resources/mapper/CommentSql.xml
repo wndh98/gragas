@@ -21,9 +21,13 @@
         order by C_NUM desc limit #{startPage},#{pageSize}
     </select>
     <update id="updateComment" parameterType="comment">
-        update COMMENT_${boardType} set C_CONTENT=#{cContent}
+        update COMMENT_${boardType} set C_CONTENT=#{cContent} where C_NUM=#{cNum}
     </update>
     <delete id="deleteComment" parameterType="comment">
         delete from COMMENT_${boardType} where C_NUM=#{cNum}
     </delete>
+    <delete id="deleteCommentBNum" parameterType="map">
+        delete from COMMENT_${boardType} where B_NUM=#{bNum}
+    </delete>
+
 </mapper>
