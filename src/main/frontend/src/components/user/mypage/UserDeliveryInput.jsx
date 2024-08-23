@@ -39,7 +39,7 @@ function UserDeliveryInput() {
   }
 
   function moveBack() {
-    navigate("/mypage");
+    navigate(-1);
   }
   
   return(
