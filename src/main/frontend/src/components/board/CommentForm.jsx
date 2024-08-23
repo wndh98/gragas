@@ -16,6 +16,7 @@ function CommentForm(props) {
     const isForm = props.isForm;
     const setIsForm = props.setIsForm;
     const commentListUrl = props.commentListUrl;
+    const setCommentForm = props.setCommentForm;
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     setValue("userId", "111@111.11");
     setValue("bNum", bNum);
@@ -48,7 +49,7 @@ function CommentForm(props) {
                             setSearchDto(result.data.searchDto);
                             setPageNum(result.data.searchDto.pageNum);
                             if (mode == "update") {
-                                setIsForm(!isForm);
+                                setCommentForm();
                             }
                         })
                 } else {

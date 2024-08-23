@@ -5,6 +5,7 @@ import com.green.gragas.board.dto.SearchDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CommentMapper {
@@ -19,4 +20,6 @@ public interface CommentMapper {
     Comment selectComment(Comment comment);
 
     int updateComment(Comment comment);
+
+    int deleteCommentBNum(Map<String, Object> map);
 }
