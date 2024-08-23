@@ -51,41 +51,43 @@ public class SubscribeController {
     public int subscribeUploadFile(
             @RequestPart("subscribeItem") SubscribeItem subscribeItem,
             @RequestPart("siMainImg") MultipartFile siMainImg,
-            @RequestPart("siDesImg") MultipartFile siDesImg) {
+            @RequestPart("siDesImg") MultipartFile siDesImg) throws IOException {
             int siNum = ss.nextSiNum();
-        System.out.println(siNum);
-
-        System.out.println("Main Image File Name: " + siMainImg.getOriginalFilename());
-        System.out.println("Description Image File Name: " + siDesImg.getOriginalFilename());
-        try {
             String mainImgFileName = SubscribeFileUpload.fileUpload(siMainImg,siNum,rootPath);
             String desImgFileName = SubscribeFileUpload.fileUpload(siDesImg,siNum, rootPath);
-
             subscribeItem.setSiMainImg(mainImgFileName);
             subscribeItem.setSiDesImg(desImgFileName);
-
             // DB에 저장
             int result = ss.subscribeInsert(subscribeItem);
             return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
-        }
 
     }
-    /*@PostMapping("/subscribe/subscribeInsert")
-    public int subscribeInsert(@RequestPart("subscribeItem") SubscribeItem subscribeItem) {
-            int result = ss.subscribeInsert(subscribeItem);
-            return result;
-    }*/
+
     @PostMapping("/subscribe/adminSubsUpdate")
-    public int subscribeUpdate(@RequestPart("subscribeItem") SubscribeItem subscribeItem){
+    public int subscribeUpdate(
+            @RequestPart("subscribeItem") SubscribeItem subscribeItem,
+            @RequestPart(value = "siMainImg", required = false) MultipartFile siMainImg,
+            @RequestPart(value = "siDesImg", required = false) MultipartFile siDesImg) throws IOException {
+        System.out.println(subscribeItem.getSiNum());
+        if(siMainImg!=null&&siDesImg!=null){
+            sfs.deleteFolder(rootPath,subscribeItem.getSiNum());
+        }else if(siMainImg!=null&&siDesImg==null) {
+            sfs.clearDirectory(rootPath, subscribeItem.getSiNum(),"siMainImg");
+        }else if(siDesImg!=null&&siMainImg==null) {
+            sfs.clearDirectory(rootPath, subscribeItem.getSiNum(),"siDesImg");
+        }
+        if(siMainImg!=null&&siDesImg!=null){
+            String mainImgFileName = SubscribeFileUpload.fileUpload(siMainImg, subscribeItem.getSiNum(), rootPath);
+            String desImgFileName = SubscribeFileUpload.fileUpload(siDesImg, subscribeItem.getSiNum(), rootPath);
+            subscribeItem.setSiMainImg(mainImgFileName);
+            subscribeItem.setSiDesImg(desImgFileName);
+        }
         int result = ss.subscribeUpdate(subscribeItem);
         return result;
     }
     @PostMapping("/subscribe/deleteSubscribe/{siNum}")
     public int subscribeDelete(@PathVariable int siNum){
-        System.out.println(siNum);
+        sfs.deleteFolder(rootPath,siNum);
         int result = ss.subscribeDelete(siNum);
         return result;
     }

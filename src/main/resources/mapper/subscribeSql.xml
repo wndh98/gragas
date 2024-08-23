@@ -51,8 +51,19 @@
       )
     </insert>
     <update id="subscribeUpdate" parameterType="subscribeItem">
-        update SUBSCRIBE_ITEM set SI_SUBJECT =
-      #{siSubject},SI_CONTENT=#{siContent},SI_DESCRIPTION=#{siDescription},SI_PRICE=#{siPrice},SI_PAY_DATE=#{siPayDate},SI_TITLE=#{siTitle},SI_ARRIVE=#{siArrive}
+        update SUBSCRIBE_ITEM set
+      SI_SUBJECT = #{siSubject},
+      SI_CONTENT=#{siContent},
+      SI_DESCRIPTION=#{siDescription},
+      SI_PRICE=#{siPrice},
+      SI_PAY_DATE=#{siPayDate},
+      <if test="siMainImg!=null">
+      SI_MAIN_IMG=#{siMainImg},
+      </if>
+      <if test="siDesImg!=null">
+      SI_DES_IMG=#{siDesImg},
+      </if>
+      SI_TITLE=#{siTitle},SI_ARRIVE=#{siArrive}
       where SI_NUM = #{siNum}
     </update>
     <delete id="subscribeDelete" parameterType="integer">
