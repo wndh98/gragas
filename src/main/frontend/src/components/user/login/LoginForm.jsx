@@ -64,10 +64,10 @@ function EmailLogin() {
     <div>
       <form onSubmit={handleSubmit}>
       <div className='input-form-box'>
-          <input className='form-control' type="text" value={userId} onChange={(e) => setUserId(e.target.value)} placeholder="아이디를 입력해 주세요"/>
+          <input className='form-control' type="text" onChange={(e) => setUserId(e.target.value)} placeholder="아이디를 입력해 주세요"/>
         </div>
         <div className='input-form-box'>
-        <input className='form-control' type="password" value={userPw} onChange={(e) => setUserPw(e.target.value)} placeholder='비밀번호를 입력해 주세요'/>
+        <input className='form-control' type="password" onChange={(e) => setUserPw(e.target.value)} placeholder='비밀번호를 입력해 주세요'/>
         </div>
         <div className='button-login-box'>
           <input className='btn btn-primary btn-xs col-12' type="submit" value="로그인"/>
