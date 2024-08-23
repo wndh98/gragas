@@ -5,6 +5,8 @@ import com.green.gragas.delivery.mappers.DeliveryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -18,7 +20,25 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Delivery select(String userId) {
-        return dm.select(userId);
+    public Map<String, Object> deliveryList(String userId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("deliveryList", dm.deliveryList(userId));
+        return map;
     }
+
+    @Override
+    public Delivery select(int mdNum) {
+        return dm.select(mdNum);
+    }
+
+    @Override
+    public int update(Delivery delivery) {
+        return dm.update(delivery);
+    }
+
+    @Override
+    public int delete(int mdNum) {
+        return dm.delete(mdNum);
+    }
+
 }

@@ -14,6 +14,8 @@ import MyPage from "../components/user/mypage/MyPage";
 import UserInfo from "../components/user/mypage/UserInfo";
 import UserInfoUpdate from "../components/user/mypage/UserInfoUpdate";
 import SerchIdForm from "../components/user/login/SerchIdForm";
+import UserDeliveryInput from "../components/user/mypage/UserDeliveryInput";
+import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdateForm";
 
 
 import Main from "../components/product/Main";
@@ -47,7 +49,7 @@ import SubsOrder from "../components/subscribe/SubsOrder";
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
-import UserDeliveryInput from "../components/user/mypage/UserDeliveryInput";
+
 
 function Routers() {
     return (
@@ -74,6 +76,8 @@ function Routers() {
                 <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate/></Layout>}/>
                 <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
                 <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput/></Layout>}/>
+                <Route path="/mypage/delivery/update/:mdNum" element={<Layout><UserDeliveryUpdateForm/></Layout>}/>
+                <Route path="/mypage/:content" element={<Layout><MyPage/></Layout>}/>
             </Routes>
 
             <Routes>
