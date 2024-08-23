@@ -40,6 +40,7 @@ import AdminSubscribeUpdate from "../components/admin/subscribe/AdminSubscribeUp
 import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import SubsDescription from "../components/subscribe/SubsDescription";
+import SubsOrder from "../components/subscribe/SubsOrder";
 
 
 import BoardListLayout from "../components/board/BoardListLayout";
@@ -61,6 +62,7 @@ function Routers() {
                 <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate/></Layout>}/>
                 <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
+                <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder/></Layout>}/>
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm/></Layout>}/>

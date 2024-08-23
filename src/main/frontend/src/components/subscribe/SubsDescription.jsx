@@ -16,15 +16,12 @@ function SubsDescription() {
     }
 
     function subscribeOrder(num){
-        navigate(`/subscribe/subsOrderItem/${num}`)
+        navigate(`/subscribe/subsOrder/${num}`)
     }
     useEffect(() => {
-        // 항목 데이터를 가져옵니다.
         axios.get(`/subscribe/description/${siNum}`)
             .then(response => {
                 setItem(response.data);
-
-                // 카테고리 데이터를 가져옵니다.
                 axios.get('/subscribe/itemList')
                     .then(response => {
                         setTitles(response.data);
