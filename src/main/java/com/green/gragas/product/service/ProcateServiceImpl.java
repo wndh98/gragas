@@ -75,8 +75,8 @@ public class ProcateServiceImpl implements ProcateService {
 
 
     @Override
-    public EventItem proeventCheck(int eitem) {
-        return cm.proeventCheck(eitem);
+    public EventItem proeventCheck(List<Integer> eiNum) {
+        return cm.proeventCheck(eiNum);
     }
 
 

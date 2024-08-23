@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
 
 const picture =
     [
@@ -14,11 +16,8 @@ const picture =
     ];
 
 
-
-
-
-
-function Boxes(props) {
+function ProductEventMain(props) {
+    const { eiNum } = useParams();
     const product = props.product;
 
     function price() {
@@ -30,7 +29,7 @@ function Boxes(props) {
     return (
         <div className='swiper-side'>
             <div className='spdla product'>
-                <a href={"/productItem/" + product.piNum}>
+                <a href={"/productEventItem/" + eiNum + "/" + product.piNum}>
                     <div className='image-weapper'>
                         <span className='spdla tmvps'>
                             {picture.map((pic, index) => {
@@ -86,4 +85,4 @@ function Boxes(props) {
     );
 }
 
-export default Boxes;
+export default ProductEventMain;

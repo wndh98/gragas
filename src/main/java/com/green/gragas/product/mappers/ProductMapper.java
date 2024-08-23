@@ -5,6 +5,7 @@ import com.green.gragas.product.dto.ProductItem;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductMapper {
@@ -22,7 +23,18 @@ public interface ProductMapper {
 
     int nextPiNum();
 
-    int peventInsert();
+    int peventInsert(Map<String, Object> map);
 
-    int peventDelete(int peNum);
+    int peventDelete(int piNum);
+
+    List<ProductEvent> peventList(int eiNum);
+
+
+    List<ProductEvent> peventListPe(ProductEvent productEvent);
+
+    List<ProductEvent> peventCheke(int eiNum);
+
+    int peventUpdate(Map<String, Object> map);
+
+    List<ProductEvent> peventListPi(int piNum);
 }

@@ -20,23 +20,56 @@
     </insert>
     <update id="productUpdate" parameterType="productItem">
         update PRODUCT_ITEM set PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
-        PI_CARBONATED=#{piCarbonated},PI_CONTENT=#{piContent},EI_NUM=#{eiNum}
+        PI_CARBONATED=#{piCarbonated},PI_CONTENT=#{piContent}
         <if test="piImg!=null">
             ,PI_IMG=#{piImg}
         </if>
         where PI_NUM=#{piNum}
     </update>
+
     <delete id="productDelete" parameterType="integer">
         delete from PRODUCT_ITEM where PI_NUM=#{piNum}
     </delete>
 
 
-    <insert id="peventInsert" parameterType="productItem">
+    <select id="peventList" resultType="productEvent">
+        select * from Product_EVENT where EI_NUM=#{eiNum}
+    </select>
+
+    <select id="peventListPe" resultType="productEvent" parameterType="integer">
+        select * from Product_EVENT where PI_NUM=#{piNum} and EI_NUM=#{eiNum}
+    </select>
+
+    <select id="peventCheke" resultType="productItem" parameterType="integer">
+        SELECT *
+        FROM Product_ITEM
+        WHERE PI_NUM IN (
+        SELECT PI_NUM
+        FROM Product_EVENT
+        WHERE EI_NUM = #{eiNum}
+        )
+    </select>
+
+    <insert id="peventInsert" parameterType="map">
         insert into PRODUCT_EVENT(PI_NUM,EI_NUM)
         values(#{piNum},#{eiNum})
     </insert>
 
-    <delete id="peventDelete" parameterType="integer">
-        delete from PRODUCT_EVENT where PE_NUM=#{peNum}
+    <update id="peventUpdate" parameterType="map">
+        update PRODUCT_EVENT set EI_NUM=#{eiNum} where PI_NUM=#{piNum}
+    </update>
+
+    <delete id="peventDelete" parameterType="list">
+        DELETE FROM PRODUCT_EVENT
+        WHERE PI_NUM IN (
+        SELECT PI_NUM FROM PRODUCT_EVENT WHERE EI_NUM IN
+        <foreach item="eiNum" index="index" collection="list" open="(" separator="," close=")">
+            #{eiNum}
+        </foreach>
+        )
     </delete>
+
+    <select id="peventListPi" parameterType="integer" resultType="productEvent">
+        select * from PRODUCT_EVENT where PI_NUM = #{piNum}
+    </select>
 </mapper>

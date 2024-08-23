@@ -29,6 +29,7 @@ import AdminOptionMain from "../components/admin/product/AdminOptionMain";
 import AdminOptionCreate from "../components/admin/product/AdminOptionCreate";
 import AdminOptionUpdate from "../components/admin/product/AdminOptionUpdate";
 import ProductEventItem from "../components/product/ProductEventItem";
+import EventMain from "../components/product/EventMain";
 import AdminProcateMain from "../components/admin/product/AdminProcateMain";
 import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
 import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
@@ -73,14 +74,14 @@ function Routers() {
                 <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate/></Layout>}/>
                 <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
                 <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput/></Layout>}/>
-
             </Routes>
 
             <Routes>
                 <Route path="/main" element={<Layout><Main /></Layout>} />
-                <Route path="/ProductItem/:piNum" element={<Layout><ProductItem /></Layout>} />
-                <Route path="/ProductEvent" element={<Layout><ProductEvent /></Layout>} />
-                <Route path="/ProductEventItem" element={<Layout><ProductEventItem /></Layout>} />
+                <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
+                <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
+                <Route path="/productEventMain/:eiNum" element={<Layout><EventMain /></Layout>} />
+                <Route path="/productEventItem/:eiNum/:piNum" element={<Layout><ProductEventItem /></Layout>} />
                 <Route path="/product/create" element={<AdminLayout><AdminProductCreate /></AdminLayout>} />
                 <Route path="/product/main" element={<AdminLayout><AdminProductMain /></AdminLayout>} />
                 <Route path="/product/update/:piNum" element={<AdminLayout><AdminProductUpdate /></AdminLayout>} />
