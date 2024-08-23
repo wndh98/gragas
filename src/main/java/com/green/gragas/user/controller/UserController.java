@@ -5,6 +5,7 @@ import com.green.gragas.user.dto.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,11 +25,14 @@ public class UserController {
     @PostMapping("/user/joinForm")
     public int userJoin(@RequestBody User user) {
         int result = 0;
-        result = us.userJoin(user);
+        User user2 = us.userCheck(user.getUserId());
+        if(user2 == null) {
+            result = us.userJoin(user);
+        }
         return result;
     }
 
-    @PostMapping("/user/serchIdForm")
+    @PostMapping("/user/searchIdForm")
     public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
         User user = us.userSerchId(userName, userPhone);
         return user;
@@ -36,10 +40,11 @@ public class UserController {
 
     @PostMapping("/login")
     public int loginAction(@RequestBody User user, HttpServletRequest request) {
-
         int result = 0;
-
         User user2 = us.userCheck(user.getUserId());
+        if(user2==null)return result;
+        if(user2.getUserDel().equals("Y")) return -2;
+
         if (user2.getUserId().equals(user.getUserId())) {
             if (user.getUserPw().equals(user2.getUserPw())) {
                 result = 1;
@@ -52,6 +57,15 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("Logout successful");
+    }
+
     @GetMapping("/admin/user/list/{pageNum}")
     public Map<String, Object> userList(@PathVariable("pageNum") int pageNum) {
         Map<String, Object> map = us.userList(pageNum);
@@ -61,7 +75,6 @@ public class UserController {
     @GetMapping("user/delete/{userId}")
     public int userDelete(@PathVariable("userId") String userId, HttpServletRequest request) {
         HttpSession session = request.getSession();
-
         int result = 0;
         result = us.userDelete(userId);
         if (result > 0) {
@@ -70,7 +83,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("user/update/{userId}")
+    @GetMapping("userSearch/{userId}")
     public User userUpdate(@PathVariable("userId") String userId) {
         User user = us.userCheck(userId);
         return user;

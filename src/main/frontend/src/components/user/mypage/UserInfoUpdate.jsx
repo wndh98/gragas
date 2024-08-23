@@ -1,15 +1,28 @@
-/*
-import React from 'react';
+import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../../js/cookieJs';
 
-function JoinForm() {
+function UserInfoUpdate() {
   const navigate = useNavigate();
+  const [user,setUser] = useState({});
+  const userId = getCookie("isLogin");
+  
+  useEffect(() => {
+    axios.get("/userSearch/" + userId)
+    .then((response) => {
+      setUser((response.data));
+      setValue("userName",response.data.userName);
+      setValue("userPhone",response.data.userPhone);
+    });
+  }, [])
+
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors }
   } = useForm();
 
@@ -17,31 +30,27 @@ function JoinForm() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/user/joinForm', data)
+      const response = await axios.post('/user/updateAction', data)
       .then((response) => {
+        console.log(response);
        if(response.data > 0) {
-        alert('회원가입 성공');
-        navigate("/");
+        alert('회원정보 수정 성공');
+        navigate("/myPage");
       } else {
-        alert('회원가입 실패');
+        alert('회원정보 수정 실패');
       }});
     } catch (error) {
       alert('에러 발생:', error);
     }
   };
 
-  return (
+  return(
     <div className='container col-4'>
-    <h2>회원가입</h2>
+    <h2>회원정보 수정</h2>
     <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="hidden"{...register("userId")} value={userId}/>
       <div className="input-form-box">
-        <input
-          className="form-control"
-          type="email"
-          placeholder="이메일을 입력해 주세요"
-          {...register('userId', { required: '이메일을 입력해주세요.' })}
-        />
-        {errors.userId && <p>{errors.userId.message}</p>}
+        회원아이디 : {user.userId}
       </div>
       <div className="input-form-box">
         <input
@@ -92,6 +101,7 @@ function JoinForm() {
         {errors.userPw2 && <p>{errors.userPw2.message}</p>}
       </div>
       <div className="input-form-box">
+        이름
         <input
           className="form-control"
           type="text"
@@ -101,14 +111,10 @@ function JoinForm() {
         {errors.userName && <p>{errors.userName.message}</p>}
       </div>
       <div className="input-form-box">
-        <input
-          className="form-control"
-          type="date"
-          {...register('userBirth', { required: '생년월일은 필수 입력 항목입니다.' })}
-        />
-        {errors.userBirth && <p>{errors.userBirth.message}</p>}
+        생일 : {user.userBirth}
       </div>
       <div className="input-form-box">
+        휴대폰번호
         <input
           className="form-control"
           type="tel"
@@ -123,13 +129,12 @@ function JoinForm() {
         <input
           className="btn btn-primary btn-xs col-12"
           type="submit"
-          value="회원가입"
+          value="완료"
         />
       </div>
     </form>
   </div>
-    
   );
 }
 
-export default JoinForm; */
+export default UserInfoUpdate;
