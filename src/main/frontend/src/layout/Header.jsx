@@ -9,9 +9,9 @@ function Header() {
     const [loginButton, setLoginButton] = useState();
     useEffect(() => {
         if (isLogin == true) {
-            setLoginButton(<LoginMenuBar setIsLogin={setIsLogin}/>);
+            setLoginButton(<LoginMenuBar setIsLogin={setIsLogin} />);
         } else {
-            setLoginButton(<LogoutMenuBar setIsLogin={setIsLogin}/>);
+            setLoginButton(<LogoutMenuBar setIsLogin={setIsLogin} />);
         }
 
     }, [isLogin])
@@ -37,7 +37,7 @@ function Header() {
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><Link to="#" className="nav-link px-2 text-dark">상품</Link></li>
                         <li><Link to="#" className="nav-link px-2 text-dark">구독</Link></li>
-                        <li><Link to="#" className="nav-link px-2 text-dark">게시판</Link></li>
+                        <li><Link to="/board/free/list/1" className="nav-link px-2 text-dark">게시판</Link></li>
                         <li>
                             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                                 <input type="search" className="form-control form-control" placeholder="Search..." aria-label="Search" />

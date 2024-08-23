@@ -4,6 +4,8 @@ import com.green.gragas.board.dto.Board;
 import com.green.gragas.board.dto.BoardFile;
 import com.green.gragas.board.service.BoardFileService;
 import com.green.gragas.board.service.BoardService;
+import com.green.gragas.board.service.CommentService;
+import com.green.gragas.board.service.CommentServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -25,11 +27,12 @@ public class BoardContoller {
 
     private BoardService bs;
     private BoardFileService bfs;
-
+    private CommentService cs;
     @Autowired
-    private BoardContoller(BoardService bs, BoardFileService bfs) {
+    private BoardContoller(BoardService bs, BoardFileService bfs,CommentService cs) {
         this.bs = bs;
         this.bfs = bfs;
+        this.cs = cs;
     }
 
     @GetMapping("/board/{boardType}/list/{pageNum}")
@@ -65,6 +68,7 @@ public class BoardContoller {
     public int deleteBoard(@PathVariable("boardType") String boardType,@RequestBody List<Integer> bNum){
         int result=0;
         bfs.deleteFolder(boardType,bNum);
+        cs.deleteCommentBNum(boardType,bNum);
         result = bs.deleteBoard(boardType,bNum);
         return result;
     }
