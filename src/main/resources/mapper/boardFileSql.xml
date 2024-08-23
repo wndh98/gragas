@@ -5,7 +5,7 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.green.gragas.board.mapper.BoardFileMapper">
     <insert id="insertBoardFile" parameterType="boardFile">
-        insert into BOARD_FILE(B_NUM,BF_R_NAME,BF_O_NAME,BF_ROOT,BF_BOARD) values(#{bNum},#{bfRName},#{bfOName},#{bfRoot},#{bfBoard})
+        insert into BOARD_FILE(B_NUM,BF_R_NAME,BF_O_NAME,BF_ROOT,BF_BOARD,BF_ORDER) values(#{bNum},#{bfRName},#{bfOName},#{bfRoot},#{bfBoard},#{bfOrder})
     </insert>
     <select id="selectList" resultType="boardFile" parameterType="boardFile">
         select * from BOARD_FILE where B_NUM=#{bNum} and BF_BOARD=#{bfBoard}
@@ -13,4 +13,13 @@
     <select id="selectBoardFile" resultType="boardFile" parameterType="integer">
         select * from BOARD_FILE where BF_NUM=#{bfNum}
     </select>
+    <select id="selectBoardFileOrder" resultType="boardFile" parameterType="boardFile">
+        select * from BOARD_FILE where BF_BOARD=#{bfBoard} and B_NUM=#{bNum} and BF_ORDER=#{bfOrder}
+    </select>
+    <delete id="deleteBoardFile" parameterType="boardFile">
+        delete from BOARD_FILE where BF_BOARD=#{bfBoard} and B_NUM=#{bNum}
+    </delete>
+    <delete id="deleteBoardFileOrder" parameterType="boardFile">
+        delete from BOARD_FILE where BF_BOARD=#{bfBoard} and B_NUM=#{bNum} and BF_ORDER=#{bfOrder}
+    </delete>
 </mapper>
