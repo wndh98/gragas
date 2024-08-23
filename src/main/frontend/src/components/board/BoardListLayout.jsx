@@ -15,7 +15,7 @@ function BoardListLayout() {
     const [searchDto, setSearchDto] = useState({});
     //let searchDto = {};
     const [pagination, setPagination] = useState();
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const { register, handleSubmit, formState: { errors }, control, setValue } = useForm();
 
 
     useEffect(() => {
@@ -51,6 +51,7 @@ function BoardListLayout() {
                 setBoards([...(result.data.boardList)]);
                 setSearchDto(result.data.searchDto);
                 setPagination(paginationCreate(searchDto));
+
             });
     }
     function onSubmit(data) {
@@ -63,6 +64,8 @@ function BoardListLayout() {
                             setBoards([...(result.data.boardList)]);
                             setSearchDto(result.data.searchDto);
                             setPagination(paginationCreate(searchDto));
+                            setValue("bNum", []);
+
                         });
                 } else {
                     alert("삭제실패");

@@ -1,13 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import './App.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 
-function ProductEvent(params) {
+
+
+
+function ProductEvent() {
+    const { register, formState: { error } } = useForm();
+    const [events, setEvents] = useState([]);
+    // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+    useEffect(() => {
+
+        axios.get("/event/list")
+            .then(response => {
+                setEvents(response.data); // 가져온 상품정보를 상태에 저장
+            })
+            .catch(error => console.error("Fetching error:", error))
+    }, []);
+
+
+
     return (
         <div>
-            <div>
-                <Link to="/ProductEventItem"><img src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/origin/JQ3l-1717397440499-w_EVENT-BANNER.png" alt="" /></Link>
 
-            </div>
+            {events.map((product) => {
+
+                console.log(events)
+                return (
+
+                    <div>
+                        <Link to={"/productEventMain/" + product.eiNum}
+                            {...register("eiNum")}>  <img src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/origin/JQ3l-1717397440499-w_EVENT-BANNER.png" alt="" value={product.eiNum} /></Link>
+                    </div>
+                );
+            })}
+
         </div>
     );
 }

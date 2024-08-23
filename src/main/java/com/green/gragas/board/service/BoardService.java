@@ -10,7 +10,7 @@ import java.util.Map;
 public interface BoardService {
     Map<String,Object> boardList(String boardType, int pageNum);
 
-    int boardWrite(String boardType, Board board, MultipartFile[] bFiles);
+    int boardWrite(String boardType, Board board, MultipartFile[] bFiles,int[] bFileNum);
 
     Board boardSearch(String boardType, int bNum);
 
@@ -18,5 +18,5 @@ public interface BoardService {
 
     int deleteBoard(String boardType, List<Integer> bNum);
 
-    int updateBoard(String boardType, Board board);
+    int updateBoard(String boardType, Board board,MultipartFile[] bFiles,List<Integer> bFileNum);
 }

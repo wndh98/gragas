@@ -29,7 +29,7 @@ public interface ProcateMapper {
 
     int proeventDelete(int eiNum);
 
-    EventItem proeventCheck(int eitem);
+    EventItem proeventCheck(List<Integer> eiNum);
 
     int proeventDeleteList(List<Integer> eiNum);
 }

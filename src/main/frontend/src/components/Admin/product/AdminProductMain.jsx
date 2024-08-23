@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function AdminProductMain() {
-    const { register, handleSubmit, formState: { error } } = useForm();
+    const { register, handleSubmit, formState: { error }, setValue } = useForm();
     const [products, setProducts] = useState([]);
     const listUrl = "/product/list";
     const loc = useNavigate()
@@ -36,6 +36,28 @@ function AdminProductMain() {
     }
     // 컴포넌트 마운트시 상품정보 가져오기 함수호출
 
+
+
+    //전체삭제^ㅇ^가져가세용가리
+    const handleChangeCheck = (event) => {
+        const piNumBoxs = document.getElementsByName("piNum");
+        let piNums = [];
+        if (event.target.checked == true) {
+            for (let i = 0; i < piNumBoxs.length; i++) {
+                piNumBoxs[i].checked = true;
+                piNums.push(piNumBoxs[i].value);
+            }
+        } else {
+            for (let i = 0; i < piNumBoxs.length; i++) {
+                piNumBoxs[i].checked = false;
+            }
+            piNums = [];
+        }
+        setValue("piNum", piNums);
+    };
+
+
+
     return (
 
         <div>
@@ -43,7 +65,11 @@ function AdminProductMain() {
                 <table className="table">
 
                     <tr className="">
-                        <input type="checkbox"></input>
+                        <input
+                            type="checkbox"
+                            /* 전체선택 */
+                            onChange={(e) => handleChangeCheck(e)} />
+
                         <label>전체선택</label>
                         <td>상품번호</td>
                         <td>카테고리</td>
@@ -54,9 +80,7 @@ function AdminProductMain() {
                         <td>가격</td>
                         <td>세일가</td>
                         <td>재고</td>
-                        <td>옵션이름</td>
                         <td>상황별</td>
-                        <td>이벤트</td>
                     </tr>
 
                     {products.map((product) => {
@@ -74,9 +98,7 @@ function AdminProductMain() {
                                 <td value={product.poPrice}>{product.poPrice}</td>
                                 <td value={product.poSale}>{product.poSale}</td>
                                 <td value={product.poCnt}>{product.poCnt}</td>
-                                <td value={product.poName}>{product.poName}</td>
                                 <td value={product.piContent}>{product.piContent}</td>
-                                <td value={product.eiNum}>{product.eiNum}</td>
                             </tr>
 
                         );

@@ -16,7 +16,7 @@ public class ProductItem {
     private String piImg;
     private String piContent;
     private int poPrice;
-    private int poSail;
+    private int poSale;
     private int poCnt;
-    private int EiNum;
+    private int[] eiNum;
 }

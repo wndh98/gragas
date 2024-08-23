@@ -3,25 +3,30 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { getCookie } from '../../js/cookieJs';
 
 function SubsDescription() {
     const { siNum } = useParams();
     const [item, setItem] = useState({});
     const [siTitles, setTitles] = useState([]);
     const navigate = useNavigate();
-    const num = 0;
+    const userId = getCookie("isLogin");
 
     function descriptionCategory(num) {
         navigate(`/subscribe/description/${num}`);
     }
 
+    function subscribeOrder(num) {
+        if (userId == null) {
+            alert("로그인이 필요합니다.")
+            return false;
+        } else
+            navigate(`/subscribe/subsOrder/${num}`)
+    }
     useEffect(() => {
-        // 항목 데이터를 가져옵니다.
         axios.get(`/subscribe/description/${siNum}`)
             .then(response => {
                 setItem(response.data);
-
-                // 카테고리 데이터를 가져옵니다.
                 axios.get('/subscribe/itemList')
                     .then(response => {
                         setTitles(response.data);
@@ -54,17 +59,22 @@ function SubsDescription() {
             </div>
             <div className="container subs_box">
                 <div className='col main_div1'>
-                    <img className='subs_img' src={`/images/subscribe/subs_main/${item.siMainImg}`} alt="Main" />
+                    <img className='subs_img' src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" />
                 </div>
                 <div className='col main_div2'>
-                    <div className='siSubject'>{item.siSubject}</div>
-                    <div className='siPrice'>월 {item.siPrice}원</div>
-                    <div className="mediumMarginBox"></div>
-                    <div className='siContent'>{item.siContent}</div>
-                    <div className="largeMarginBox"></div>
-                    <div className='smallFont'>결제일 {item.siPayDate}</div>
-                    <div className="smallMarginBox"></div>
-                    <div className='smallFont'>배송일 {item.siArrive}</div>
+                    <div>
+                        <div className='siSubject'>{item.siSubject}</div>
+                        <div className='siPrice'>월 {item.siPrice}원</div>
+                        <div className="mediumMarginBox"></div>
+                        <div className='siContent'>{item.siContent}</div>
+                        <div className="largeMarginBox"></div>
+                        <div className='smallFont'>결제일 {item.siPayDate}</div>
+                        <div className="smallMarginBox"></div>
+                        <div className='smallFont'>배송일 {item.siArrive}</div>
+                    </div>
+                    <div className='subscribeButton'>
+                        <button type='button' onClick={() => subscribeOrder(item.siNum)}><strong>구독 신청하기</strong></button>
+                    </div>
                 </div>
             </div>
             <div className="description">
@@ -76,7 +86,7 @@ function SubsDescription() {
                 </div>
                 <div className="desMain container">
                     <div className="siDescription">
-                        <img src={`/images/subscribe/subs_sub/${item.siDesImg}`} alt="Des" className='des_img' />
+                        <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siDesImg}`} alt="Des" className='des_img' />
                     </div>
                 </div>
             </div>

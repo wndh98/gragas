@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Data
 @Alias("subscribeFile")
 public class SubscribeFile {
+    private int sfId;
     @JsonProperty("siNum")
     private int siNum;          // 구독 아이템 번호
     private String sfType;      // 파일 타입 (예: MAIN, DES)
