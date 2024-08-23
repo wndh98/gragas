@@ -12,8 +12,12 @@ import java.nio.file.Path;
 import java.util.List;
 
 public interface BoardFileService {
-    HttpHeaders getHttpHeader(Path path, String fileName) throws IOException;
+
     List<BoardFile> getFileList(String boardType, int bNum);
 
     ResponseEntity<Resource> donwloadFile(int bfNum);
+
+    void deleteFolder(String boardType, List<Integer> bNum);
+
+    void deleteFile(String boardType, int bNum, List<Integer> bFileNum);
 }

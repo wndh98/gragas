@@ -19,7 +19,7 @@
         select * from User where USER_ID=#{userId}
     </select>
     <insert id="userJoin" parameterType="user">
-        insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userBirth}, #{userPhone}, 0, 'N', 'N', now())
+        insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userBirth}, #{userPhone}, 0, 'Y', 'N', now())
     </insert>
     <select id="userSerchId" resultType="user" parameterType="string">
         select * from User where USER_NANE=#{userName} and USER_PHONE=#{userPhone}

@@ -38,22 +38,30 @@ function BoardForm() {
             axios.get(selectUrl)
                 .then((result) => {
                     setBoard(result.data);
-                    setValue('bSubject', result.data.bSubject);
-                    setValue('bContent', result.data.bContent);
+                    if (mode == "update") {
+                        setValue('bSubject', result.data.bSubject);
+                        setValue('bContent', result.data.bContent);
+                    }
                     setValue('bNum', result.data.bNum);
+                    setValue('bRef', result.data.bNum);
                 });
         }
     }, []);
 
     function onSubmit(data) {
         const formData = new FormData();
-        const bFiles = formData.getAll('bFile');
+        //console.log(data.bFile[0]);
         formData.append("board", new Blob([JSON.stringify(data)], { type: "application/json" }));
         if (data.bFile && data.bFile.length > 0) {
             for (let i = 0; i < data.bFile.length; i++) {
-                formData.append("bFile", data.bFile[i]);
+                if (data.bFile[i][0] != null) {
+                    formData.append("bFileNum", i * 1);
+                }
+                formData.append("bFile", data.bFile[i][0]);
             }
         }
+
+        console.log(data);
         axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
             .then((result) => {
                 if (result.data == 1) {
@@ -71,7 +79,7 @@ function BoardForm() {
         <form onSubmit={handleSubmit(onSubmit)} >
             {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
             <input type="hidden"  {...register("userId")} value="111@111.11" />
-            <input type="hidden"  {...register("bNum")} value={board.bNum} />
+            <input type="hidden"  {...register("bNum")} />
             <input type="hidden"  {...register("bRef")} value={board.bRef} />
             <input type="hidden"  {...register("bWriter")} value="11" />
             <table>
@@ -95,7 +103,14 @@ function BoardForm() {
                         <th>파일1</th>
                         <td>
 
-                            <input type="file" {...register(`bFile`)} className="form-control" />
+                            <input type="file" {...register(`bFile[0]`)} className="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>파일2</th>
+                        <td>
+
+                            <input type="file" {...register(`bFile[1]`)} className="form-control" />
                         </td>
                     </tr>
                     <tr>

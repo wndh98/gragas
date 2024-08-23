@@ -13,4 +13,6 @@ public interface SubscribeMapper {
     int subscribeUpdate(SubscribeItem subscribeItem);
     int subscribeDelete(int siNum);
     List<SubscribeItem> titleList();
+
+    int nextSiNum();
 }

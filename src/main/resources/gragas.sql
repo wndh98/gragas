@@ -1,6 +1,6 @@
 use gragasdb;
 
-
+select * from board_file;
 drop table if exists `ORDER_DETAIL`;
 drop table if exists `ORDER_LIST`;
 drop table if exists `ORDER_CART`;
@@ -27,7 +27,7 @@ drop table IF exists SUBSCRIBE_ITEM;
 
 
 drop table if exists `PRODUCT_EVENT`;
-DROP TABLE if EXISTS `EVENT_ITEM`;
+drop table if exists `EVENT_ITEM`;
 drop table if exists `PRODUCT_OPTION`;
 drop table if exists `PRODUCT_ITEM`;
 drop table if exists `PRODUCT_CATE`;
@@ -51,7 +51,6 @@ DROP TABLE IF EXISTS MEMBER_CUPON;
 
 create table MEMBER_CUPON (
 	USER_LEVEL VARCHAR(20) not null primary key,
-	UL_IMG VARCHAR(255),
 	MC_SAIL INT not null,
 	MC_SUBJECT VARCHAR(255) not null
 );
@@ -63,7 +62,6 @@ create table user (
 	USER_LEVEL VARCHAR(20) not null,
 	USER_PW VARCHAR(255) not null,
 	USER_NAME VARCHAR(50) not null,
-	USER_BIRTH DATETIME not null,
 	USER_PHONE VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
 	USER_COUPON VARCHAR(1) not null default 'N',
@@ -110,8 +108,7 @@ alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) refer
 
 CREATE TABLE PRODUCT_CATE (
    PC_NUM INT NOT null primary key auto_increment,
-   PC_NAME   VARCHAR(30)   NOT NULL,
-   PC_IMG VARCHAR(255) NULL
+   PC_NAME   VARCHAR(30)   NOT NULL
 );
 
 -- 이벤트
@@ -136,6 +133,13 @@ CREATE TABLE PRODUCT_ITEM (
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
 
+-- 진행중인 이벤트
+CREATE TABLE PRODUCT_EVENT (
+   PI_NUM INT NOT NULL,
+   EI_NUM INT NOT null,
+   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM),
+   FOREIGN key(EI_NUM) references EVENT_ITEM(EI_NUM)
+);
 
 -- 상품옵션
 CREATE TABLE PRODUCT_OPTION (
@@ -149,13 +153,7 @@ CREATE TABLE PRODUCT_OPTION (
 );
 
 
-CREATE TABLE product_event(
-	PE_NUM INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	PI_NUM INT NOT NULL,
-	EI_NUM INT NOT NULL,
-	FOREIGN KEY(PI_NUM) references PRODUCT_ITEM(PI_NUM),
-	FOREIGN KEY(EI_NUM) references EVENT_ITEM(EI_NUM)
-);
+
 
 
 
@@ -223,7 +221,6 @@ create table `BOARD_REVIEW` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
-	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 리뷰댓글
@@ -245,7 +242,6 @@ create table `BOARD_QA` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
-	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 문의댓글
@@ -267,7 +263,6 @@ create table `BOARD_FREE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
-	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 자유댓글
@@ -289,7 +284,6 @@ create table `BOARD_NOTICE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
-	B_VIEW int not null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 공지댓글
@@ -308,6 +302,7 @@ create table `BOARD_FILE` (
 	`BF_O_NAME` VARCHAR(255) not null,
 	`BF_ROOT` VARCHAR(255) not null,
 	`BF_BOARD` VARCHAR(50) not null,
+	`BF_ORDER` int null,
 	`BF_REGIST` DATETIME not null default NOW()
 );
 
@@ -388,5 +383,4 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 -- 주문 END
 
 
-insert INTO member_cupon VALUES('YELLOW','이미지',0,'테스트');
-insert INTO USER VALUES('test1@test.com','YELLOW','1234','test',NOW(),'010-1234-5678',0,'N','N',NOW());
+
