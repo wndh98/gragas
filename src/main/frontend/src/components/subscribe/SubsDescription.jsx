@@ -3,20 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { getCookie } from '../../js/cookieJs';
 
 function SubsDescription() {
     const { siNum } = useParams();
     const [item, setItem] = useState({});
     const [siTitles, setTitles] = useState([]);
     const navigate = useNavigate();
-    const num = 0;
+    const userId = getCookie("isLogin");
 
     function descriptionCategory(num) {
         navigate(`/subscribe/description/${num}`);
     }
 
-    function subscribeOrder(num){
-        navigate(`/subscribe/subsOrder/${num}`)
+    function subscribeOrder(num) {
+        if (userId == null) {
+            alert("로그인이 필요합니다.")
+            return false;
+        } else
+            navigate(`/subscribe/subsOrder/${num}`)
     }
     useEffect(() => {
         axios.get(`/subscribe/description/${siNum}`)
