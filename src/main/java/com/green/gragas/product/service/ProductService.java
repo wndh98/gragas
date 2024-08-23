@@ -12,7 +12,7 @@ public interface ProductService {
 
      int productInsert(ProductItem product);
 
-     int productUpdate(int piNum, ProductItem product);
+     int productUpdate(ProductItem product);
 
      int productDelete(int piNum);
      int productDelete(List<Integer> piNum);
@@ -23,7 +23,7 @@ public interface ProductService {
    
      int peventInsert(List<Integer> eiNum,int piNum);
 
-     int peventDelete(int peNum);
+     int peventDelete(int piNum);
 
      List<ProductEvent> peventList(int eiNum);
 
@@ -31,4 +31,8 @@ public interface ProductService {
 
 
      List<ProductEvent> peventCheke(int eiNum);
+
+     int peventUpdate(List<ProductEvent> eiNum);
+
+     List<ProductEvent> peventListPi(int piNum);
 }

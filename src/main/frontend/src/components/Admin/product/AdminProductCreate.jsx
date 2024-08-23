@@ -12,7 +12,6 @@ function AdminProductCreate(params) {
 
     useEffect(() => {
 
-        /*  let eiNum = [...(setEvents.eiNum)]; */
         axios.get("/event/list")
             .then(response => {
                 setEvents(response.data);
@@ -47,33 +46,23 @@ function AdminProductCreate(params) {
 
     const loc = useNavigate();
     function onSubmit(data) {
-        console.log(data);
-
-        let eiNum = [...(handleChangeCheck.eiNum)]
-        axios.post("/product/insert", data, eiNum)
+        axios.post("/product/insert", data)
             .then(response => {
-                if (response.data == 1) {
-                    alert("성공");
-                    loc("/product/main");
+                if (response.data != 0) {
+                    axios.post("/pevent/insert/" + response.data, [...(data.eiNum)])
+                        .then(result => {
+                            if (result.data == 1) {
+                                alert("성공");
+                                loc("/product/main");
+                            } else {
+                                alert("실패");
+                            }
+                        });
                 } else {
                     alert("실패");
                 }
             })
     }
-
-
-    const [check, setCheck] = useState([]);
-    const handleChangeCheck = (checked, value) => {
-        if (checked) {
-            setCheck((prev) => [...prev, value]);
-        } else {
-            setCheck(setCheck.filter((el) => el !== value));
-        }
-        console.log(value);
-
-
-    };
-
 
     return (
         <div>
@@ -115,13 +104,9 @@ function AdminProductCreate(params) {
                             return (
 
                                 <tr>이벤트
-                                    <td><input
-                                        id="eiNum"
-                                        type="checkbox"
-                                        checked={check.includes("선택1")}
-                                        value={product.eiNum}
-                                        {...register("eiNum")}
-                                        onChange={(e) => handleChangeCheck(e.target.checked, e.target.value)} /></td>
+                                    <td>
+                                        <input id="eiNum" type="checkbox" value={product.eiNum} {...register("eiNum")} />
+                                    </td>
                                 </tr>
                             );
                         })}

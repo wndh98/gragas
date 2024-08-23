@@ -36,6 +36,7 @@ function ProductItem() {
     const piNum = pathParam.piNum;
 
     const [product, setProducts] = useState([]);
+    const [option, setOptions] = useState([]);
     const viewUrl = "/product/view/" + piNum;
 
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
@@ -47,6 +48,16 @@ function ProductItem() {
             })
             .catch(error => console.error("Fetching error:", error))
     }, []);
+
+    useEffect(() => {
+        axios.get("/option/view/" + piNum)
+            .then(response => {
+
+                setOptions(response.data); // 가져온 상품정보를 상태에 저장
+            })
+            .catch(error => console.error("Fetching error:", error))
+    }, []);
+    console.log(option)
 
     function price() {
         let prices = 0;
@@ -134,7 +145,7 @@ function ProductItem() {
                         <select class="form-select">
                             <option selected></option>
                             <option value="1">어떤 옵션을 원하시나요?</option>
-                            <option value={product.eiNum}>{product.poName}</option>
+                            <option value={option.poNum}>{option.poName}</option>
 
 
                         </select>

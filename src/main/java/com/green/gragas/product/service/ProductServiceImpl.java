@@ -29,8 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int productUpdate(int piNum, ProductItem product) {
-        product.setPiNum(piNum);
+    public int productUpdate(ProductItem product) {
         return pm.productUpdate(product);
     }
 
@@ -69,8 +68,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int peventDelete(int peNum) {
-        return pm.peventDelete(peNum);
+    public int peventDelete(int piNum) {
+        return pm.peventDelete(piNum);
     }
 
 
@@ -95,4 +94,13 @@ public class ProductServiceImpl implements ProductService {
         return pm.peventCheke(eiNum);
     }
 
+    @Override
+    public int peventUpdate(List<ProductEvent> eiNum) {
+   return pm.peventUpdate((Map<String, Object>) eiNum);
+    }
+
+    @Override
+    public List<ProductEvent> peventListPi(int piNum) {
+        return pm.peventListPi(piNum);
+    }
 }

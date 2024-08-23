@@ -44,33 +44,48 @@ public class ProductController {
         int result = ps.productInsert(product);
         if (result != 1) return result;
         result = os.proopInsert(proop);
-        if(result==0)return result;
+        if (result == 0) return result;
         return nextPiNum;
     }
 
 
-   @PostMapping("/pevent/insert/{piNum}")
-    public int peventInsert(@RequestBody List<Integer> eiNum,@PathVariable("piNum") int piNum) {
-        int result = ps.peventInsert(eiNum,piNum);
+    @PostMapping("/pevent/insert/{piNum}")
+    public int peventInsert(@RequestBody List<Integer> eiNum, @PathVariable("piNum") int piNum) {
+        int result = ps.peventInsert(eiNum, piNum);
         return result;
     }
 
-    @GetMapping("/pevent/delete/{peNum}")
-    public int peventDelete(@PathVariable("peNum") int peNum) {
-        int result = ps.peventDelete(peNum);
+  /*  @PostMapping("/pevent/update/{piNum}")
+    public int peventUpdate(@RequestBody List<Integer> eiNum, @PathVariable("piNum") int piNum) {
+        int result = ps.peventUpdate(eiNum, piNum);
+        return result;
+    }*/
+    @PostMapping("/pevent/update")
+    public int peventUpdate(@RequestBody List<ProductEvent> eiNum) {
+        int result = ps.peventUpdate(eiNum);
         return result;
     }
+    @GetMapping("/pevent/delete/{piNum}")
+    public int peventDelete(@PathVariable("piNum") int piNum) {
+        int result = ps.peventDelete(piNum);
+        return result;
+    }
+
     @GetMapping("/pevent/list/{eiNum}")
     public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum) {
         List<ProductEvent> list = ps.peventList(eiNum);
         return list;
     }
-
-@GetMapping("/pevent/list/{eiNum}/{piNum}")
-public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum,@PathVariable("piNum") int piNum) {
-    List<ProductEvent> list = ps.peventList(eiNum,piNum);
-    return list;
-}
+    @GetMapping("/pevent/listPi/{piNum}")
+    public List<ProductEvent> peventListPi(@PathVariable("piNum") int piNum) {
+        List<ProductEvent> list = ps.peventListPi(piNum);
+        return list;
+    }
+    @GetMapping("/pevent/list/{eiNum}/{piNum}")
+    public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum, @PathVariable("piNum") int piNum) {
+        List<ProductEvent> list = ps.peventList(eiNum, piNum);
+        return list;
+    }
 
     @GetMapping("/pevent/cheke/{eiNum}")
     public List<ProductEvent> peventCheke(@PathVariable("eiNum") int eiNum) {
@@ -81,7 +96,8 @@ public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum,@PathVaria
 
     @PostMapping("/product/update/{piNum}")
     public int productUpdate(@PathVariable("piNum") int piNum, @RequestBody ProductItem product) {
-        int result = ps.productUpdate(piNum, product);
+        product.setPiNum(piNum);
+        int result = ps.productUpdate(product);
         return result;
     }
 
@@ -96,7 +112,6 @@ public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum,@PathVaria
         int result = ps.productDelete(piNum);
         return result;
     }
-
 
 
     @GetMapping("/procate/list")
@@ -142,9 +157,9 @@ public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum,@PathVaria
         return list;
     }
 
-    @GetMapping("/event/view/{eitem}")
-    public EventItem proeventView(@PathVariable("eitem") int eitem) {
-        EventItem eventItem = cs.proeventCheck(eitem);
+    @GetMapping("/event/view/{eiNum}")
+    public EventItem proeventView(@PathVariable("eiNum") List<Integer> eiNum) {
+        EventItem eventItem = cs.proeventCheck(eiNum);
         return eventItem;
     }
 
