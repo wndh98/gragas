@@ -5,6 +5,7 @@ import { setCookie, getCookie } from "../../js/cookieJs";
 import CommentForm from "./CommentForm";
 import CommentListLayout from "./CommentListLayout";
 import CommentLayout from "./CommentLayout";
+import { getUserId, isAdmin, isLogin } from "../../js/userInfo";
 function BoardView() {
     const pathParam = useParams();
     const boardType = pathParam.boardType; // 무슨게시판인지
@@ -37,8 +38,6 @@ function BoardView() {
     }, []);
     function downloadFile(file) {
         const downloadUrl = "/board/download/" + file.bfNum;
-
-        console.log(file);
         axios.get(downloadUrl, { responseType: 'blob' })
             .then((result) => {
                 const url = window.URL.createObjectURL(new Blob([result.data]));
@@ -52,7 +51,6 @@ function BoardView() {
             });
     }
     function deleteBoard() {
-        console.log(1);
         axios.post(deleteUrl, [bNum])
             .then((result) => {
                 if (result.data > 0) {
@@ -100,14 +98,22 @@ function BoardView() {
                     </tr>
                     <tr>
                         <td colSpan="2" >
-                            <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link>
-                            <button type="button" className="btn btn-dark" onClick={() => { deleteBoard() }}> 삭제</button>
+                            {getUserId() == board.userId || isAdmin() ?
+                                <>
+                                    <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link>
+                                    <button type="button" className="btn btn-dark" onClick={() => { deleteBoard() }}> 삭제</button>
+                                </>
+                                : ""
+                            }
+
+
                             <Link to={`/board/${boardType}/write/${pageNum}/${bNum}`} className="btn btn-dark" > 답글</Link>
                         </td>
                     </tr>
                 </tbody>
             </table >
-            <CommentLayout bNum={bNum} boardType={boardType}></CommentLayout>
+            {isLogin() ? <CommentLayout bNum={bNum} boardType={boardType}></CommentLayout> : ""}
+
             {/* <CommentListLayout bNum={bNum} boardType={boardType}></CommentListLayout> */}
             {/* <CommentForm bNum={bNum} boardType={boardType}></CommentForm> */}
         </>

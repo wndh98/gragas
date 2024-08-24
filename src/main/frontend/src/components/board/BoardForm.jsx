@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getUser, getUserId, isAdmin } from "../../js/userInfo";
 
 function BoardForm() {
+    const navi = useNavigate();
     const pathParam = useParams();
     const boardType = pathParam.boardType; // 무슨게시판인지
     const pageNum = pathParam.pageNum;  // 리스트에서 몇페이지에서 들어왔는지
     const bNum = pathParam.bNum; // 게시판 번호
     const mode = pathParam.mode; // write(insert),update(update)
-
     let ajaxUrl;
     if (mode == "write") {
         ajaxUrl = "/board/" + boardType + "/write";
@@ -27,10 +28,20 @@ function BoardForm() {
             }
         }
     );
-    // const { fields, append } = useFieldArray({
-    //     control,
-    //     name: "bFile" // 'items'라는 필드에 대해 배열로 관리
-    // });
+
+    const [user, setUser] = useState({});
+    getUser(setUser);
+    useEffect(() => {
+        setValue("userId", user.userId);
+        setValue("bWriter", user.userName);
+        if (mode === "update") {
+            if (user.userId != getUserId() && !isAdmin()) {
+                alert("잘못된접근입니다.");
+                navi(-1);
+            };
+        }
+    }, [user]);
+
     const selectUrl = "/board/" + boardType + "/select/" + bNum;
 
     useEffect(() => {
@@ -78,10 +89,10 @@ function BoardForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
             {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
-            <input type="hidden"  {...register("userId")} value="111@111.11" />
+            <input type="hidden"  {...register("userId")} value={user.userId} />
             <input type="hidden"  {...register("bNum")} />
             <input type="hidden"  {...register("bRef")} value={board.bRef} />
-            <input type="hidden"  {...register("bWriter")} value="11" />
+            <input type="hidden"  {...register("bWriter")} value={user.userName} />
             <table>
                 <tbody>
                     <tr>

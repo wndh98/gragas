@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
+import { getUserId, isAdmin } from "../../js/userInfo";
 
 function CommentList(props) {
 
@@ -65,9 +66,12 @@ function CommentList(props) {
         <div>
             <p>{comment.cContent}</p>
             {commentForm}
-            <button class="btn btn-danger" onClick={() => { commentDelete(comment.cNum) }}>삭제</button>
-            <button class="btn btn-primary" onClick={() => { commentUpdate(comment.cNum) }}>수정</button>
-
+            {getUserId() == comment.userId || isAdmin() ?
+                <>
+                    <button class="btn btn-danger" onClick={() => { commentDelete(comment.cNum) }}>삭제</button>
+                    <button class="btn btn-primary" onClick={() => { commentUpdate(comment.cNum) }}>수정</button>
+                </>
+                : ""}
 
         </div>
 
