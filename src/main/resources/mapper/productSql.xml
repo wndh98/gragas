@@ -32,8 +32,15 @@
     </delete>
 
 
-    <select id="peventList" resultType="productEvent">
-        select * from Product_EVENT where EI_NUM=#{eiNum}
+    <select id="peventList" resultType="productItem" parameterType="integer">
+        SELECT *
+        FROM Product_ITEM
+        WHERE PI_NUM IN (
+        SELECT PI_NUM
+        FROM Product_EVENT
+        WHERE EI_NUM = #{eiNum}
+        )
+<!--        select * from Product_EVENT where EI_NUM=#{eiNum}-->
     </select>
 
     <select id="peventListPe" resultType="productEvent" parameterType="integer">

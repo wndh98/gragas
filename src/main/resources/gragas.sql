@@ -109,7 +109,8 @@ alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) refer
 
 CREATE TABLE PRODUCT_CATE (
    PC_NUM INT NOT null primary key auto_increment,
-   PC_NAME   VARCHAR(30)   NOT NULL
+   PC_NAME   VARCHAR(30)   NOT NULL,
+   PC_IMG VARCHAR(255)
 );
 
 -- 이벤트

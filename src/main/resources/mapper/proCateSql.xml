@@ -13,7 +13,7 @@
     </select>
 
     <insert id="procateInsert" parameterType="productCate">
-        insert into PRODUCT_CATE(PC_NUM,PC_NAME,PC_IMG) values(#{pcNum},#{pcName},'')
+        insert into PRODUCT_CATE(PC_NUM,PC_NAME,PC_IMG) values(#{pcNum},#{pcName},#{pcImg})
     </insert>
 
     <update id="procateUpdate" parameterType="productCate">
@@ -29,6 +29,11 @@
     </delete>
 
 
+    <select id="nextPcNum" resultType="integer">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name='PRODUCT_CATE'
+    </select>
+
 
 
     <select id="proeventList" resultType="EventItem">
@@ -39,8 +44,13 @@
         select * from EVENT_ITEM where EI_NUM=#{eiNum}
     </select>
 
+    <select id="nextEiNum" resultType="integer">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name='EVENT_ITEM'
+    </select>
+
     <insert id="proeventInsert" parameterType="EventItem">
-        insert into EVENT_ITEM(EI_NUM,EI_NAME,EI_CONTENT) values(#{eiNum},#{eiName},'')
+        insert into EVENT_ITEM(EI_NUM,EI_NAME,EI_CONTENT) values(#{eiNum},#{eiName},#{eiContent})
     </insert>
 
     <update id="proeventUpdate" parameterType="productCate">

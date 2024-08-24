@@ -3,8 +3,8 @@ import React from 'react';
 import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-function Main(picture) {
+import ProductCate from './ProductCate';
+function Main() {
   const [products, setProducts] = useState([]);
   // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
   useEffect(() => {
@@ -17,11 +17,13 @@ function Main(picture) {
 
   console.log(setProducts)
   return (
+    <div>
+    <ProductCate/>
     <div className='spdla mainbox'>
       <div className='spdla hb'>
 
 
-        <img src={picture.img} alt={products.piNum} width="45" height="45"></img>
+        <img src={products.piImg} alt={products.piNum} width="45" height="45"></img>
         <div className='spdla tle'></div>
         <div className='spdla more'></div>
       </div>
@@ -42,6 +44,7 @@ function Main(picture) {
         <button className='swiper-custom-button nextbutton'></button>
 
       </div>
+    </div>
     </div>
   );
 }

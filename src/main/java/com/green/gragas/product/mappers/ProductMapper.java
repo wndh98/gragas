@@ -27,7 +27,7 @@ public interface ProductMapper {
 
     int peventDelete(int piNum);
 
-    List<ProductEvent> peventList(int eiNum);
+    List<ProductItem> peventList(int eiNum);
 
 
     List<ProductEvent> peventListPe(ProductEvent productEvent);
@@ -37,4 +37,5 @@ public interface ProductMapper {
     int peventUpdate(Map<String, Object> map);
 
     List<ProductEvent> peventListPi(int piNum);
+
 }
