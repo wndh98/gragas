@@ -32,7 +32,7 @@ public interface ProductService {
 
      List<ProductEvent> peventCheke(int eiNum);
 
-     int peventUpdate(List<ProductEvent> eiNum);
+     int peventUpdate(int piNum,int[] eiNum);
 
      List<ProductEvent> peventListPi(int piNum);
 }

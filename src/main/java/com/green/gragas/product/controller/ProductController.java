@@ -6,6 +6,7 @@ import com.green.gragas.product.service.ProductService;
 import com.green.gragas.product.service.ProopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,7 +34,11 @@ public class ProductController {
     }
 
     @PostMapping("/product/insert")
-    public int productInsert(@RequestBody ProductItem product) {
+    public int productInsert(
+            @RequestPart("product") ProductItem product,
+            @RequestPart("piImgFile") MultipartFile piImgFile,
+            @RequestPart("piContentFile") MultipartFile piContentFile
+    ) {
         ProductOption proop = new ProductOption();
         int nextPiNum = ps.nextPiNum();
         proop.setPiNum(nextPiNum);
@@ -55,16 +60,13 @@ public class ProductController {
         return result;
     }
 
-  /*  @PostMapping("/pevent/update/{piNum}")
+  /* @PostMapping("/pevent/update/{piNum}")
     public int peventUpdate(@RequestBody List<Integer> eiNum, @PathVariable("piNum") int piNum) {
+
         int result = ps.peventUpdate(eiNum, piNum);
         return result;
     }*/
-    @PostMapping("/pevent/update")
-    public int peventUpdate(@RequestBody List<ProductEvent> eiNum) {
-        int result = ps.peventUpdate(eiNum);
-        return result;
-    }
+
     @GetMapping("/pevent/delete/{piNum}")
     public int peventDelete(@PathVariable("piNum") int piNum) {
         int result = ps.peventDelete(piNum);
@@ -97,6 +99,7 @@ public class ProductController {
     @PostMapping("/product/update/{piNum}")
     public int productUpdate(@PathVariable("piNum") int piNum, @RequestBody ProductItem product) {
         product.setPiNum(piNum);
+        ps.peventUpdate(piNum,product.getEiNum());
         int result = ps.productUpdate(product);
         return result;
     }
