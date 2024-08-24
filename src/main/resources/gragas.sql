@@ -62,6 +62,7 @@ create table user (
 	USER_LEVEL VARCHAR(20) not null,
 	USER_PW VARCHAR(255) not null,
 	USER_NAME VARCHAR(50) not null,
+	USER_BIRTH DATE not null,
 	USER_PHONE VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
 	USER_COUPON VARCHAR(1) not null default 'N',
@@ -384,3 +385,4 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
+insert into MEMBER_CUPON values('Yellow',100,'테스트1');
