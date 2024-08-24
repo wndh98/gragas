@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CommentForm from "./CommentForm";
+import Comment from "./Comment";
+import { getUserId, isAdmin } from "../../js/userInfo";
 
 function CommentList(props) {
 
@@ -16,7 +18,8 @@ function CommentList(props) {
     const commentListUrl = props.commentListUrl;
     const comment = props.comment;
 
-    const [commentContent, setCommentContent] = useState(<p>{comment.cContent}</p>);
+
+
     function commentDelete(cNum) {
         const deleteUrl = `/comment/${boardType}/delete/${cNum}`;
         axios.get(deleteUrl)
@@ -34,14 +37,14 @@ function CommentList(props) {
             });
     }
     const [isForm, setIsForm] = useState(false);
-    const [updateCNum, setUpdateCNum] = useState();
+    const [commentForm, setCommentForm] = useState();
     function commentUpdate(cNum) {
-        setUpdateCNum(cNum);
-        setIsForm(!isForm);
-    }
-    useEffect(() => {
+        console.log("123");
+        setIsForm(!isForm)
         if (isForm) {
-            setCommentContent(
+            setCommentForm("");
+        } else {
+            setCommentForm(
                 <CommentForm
                     bNum={bNum}
                     boardType={boardType}
@@ -53,22 +56,22 @@ function CommentList(props) {
                     setSearchDto={setSearchDto}
                     commentListUrl={commentListUrl}
                     mode={"update"}
-                    cNum={updateCNum}
-                    isForm={isForm}
-                    setIsForm={setIsForm}
+                    cNum={cNum}
+                    setCommentForm={setCommentForm}
                 />);
-        } else {
-            setCommentContent(<p>{comment.cContent}</p>);
         }
-    }, [isForm])
+    }
 
     return (
         <div>
-
-            {commentContent}
-            <button class="btn btn-danger" onClick={() => { commentDelete(comment.cNum) }}>삭제</button>
-            <button class="btn btn-primary" onClick={() => { commentUpdate(comment.cNum) }}>수정</button>
-
+            <p>{comment.cContent}</p>
+            {commentForm}
+            {getUserId() == comment.userId || isAdmin() ?
+                <>
+                    <button class="btn btn-danger" onClick={() => { commentDelete(comment.cNum) }}>삭제</button>
+                    <button class="btn btn-primary" onClick={() => { commentUpdate(comment.cNum) }}>수정</button>
+                </>
+                : ""}
 
         </div>
 

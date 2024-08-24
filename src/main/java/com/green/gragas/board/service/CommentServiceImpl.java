@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper cm;
 
@@ -43,6 +44,16 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public int commentUpdate(Comment comment) {
         return cm.updateComment(comment);
+    }
+
+    @Override
+    public void deleteCommentBNum(String boardType, List<Integer> bNum) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("boardType", boardType);
+        for (int b : bNum) {
+            map.put("bNum", b);
+            cm.deleteCommentBNum(map);
+        }
     }
 
 
