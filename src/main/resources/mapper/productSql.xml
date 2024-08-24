@@ -19,7 +19,7 @@
         values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},#{piImg},#{piContent})
     </insert>
     <update id="productUpdate" parameterType="productItem">
-        update PRODUCT_ITEM set PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
+        update PRODUCT_ITEM set PC_NUM=#{pcNum}, PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
         PI_CARBONATED=#{piCarbonated},PI_CONTENT=#{piContent}
         <if test="piImg!=null">
             ,PI_IMG=#{piImg}
@@ -67,7 +67,7 @@
     </update>
 
     <delete id="peventDelete" parameterType="integer">
-        DELETE FROM PRODUCT_EVENT WHERE PI_NUM #{piNum}
+        DELETE FROM PRODUCT_EVENT WHERE PI_NUM = #{piNum}
     </delete>
 
     <select id="peventListPi" parameterType="integer" resultType="productEvent">
