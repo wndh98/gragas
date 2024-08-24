@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import BoardList from "./BoardList";
 import Pagination from "react-js-pagination";
 import { useForm } from "react-hook-form";
+import { isLogin, getUserId, isAdmin } from "../../js/userInfo";
 function BoardListLayout() {
     const pathParam = useParams();
     const boardType = pathParam.boardType;
@@ -72,53 +73,34 @@ function BoardListLayout() {
                 }
             });
     }
-    if (boards.length == 0) {
-        return (
-            <>
-                <table className="table">
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <table className="table table-dark table-striped">
+                <tbody>
                     <tr>
+                        <td>
+                            {isLogin() == true ? <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum}>글쓰기</Link> : ""}
+
+                            {isAdmin() ? <input type="submit" value="삭제" className="btn btn-light" /> : ""}
+                        </td>
                         <td>게시글번호</td>
                         <td>게시글제목</td>
                         <td>작성자</td>
                         <td>등록일</td>
                         <td>조회수</td>
                     </tr>
-                    <tr>
-                        <td colspan="5">등록된 게시글이 없습니다.</td>
-                    </tr>
-
-                </table>
-                <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum}>글쓰기</Link>
-            </>
-        );
-    } else {
-        return (
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <table className="table table-dark table-striped">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum}>글쓰기</Link>
-                                <input type="submit" value="삭제" className="btn btn-light" />
-                            </td>
-                            <td>게시글번호</td>
-                            <td>게시글제목</td>
-                            <td>작성자</td>
-                            <td>등록일</td>
-                            <td>조회수</td>
-                        </tr>
-
-                        {boards.map(board => {
-                            return (<BoardList boards={board} searchDto={searchDto} register={register}></BoardList>);
-                        })}
-                    </tbody>
-                </table>
-                <nav aria-label="Page navigation">
-                    {pagination}
-                </nav>
-            </form>
-        );
-    }
+                    {boards.length == 0 ? <tr><td colSpan="6">등록된게시물이 없습니다.</td></tr> : ""}
+                    {boards.map(board => {
+                        return (<BoardList boards={board} searchDto={searchDto} register={register}></BoardList>);
+                    })}
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+                {pagination}
+            </nav>
+        </form>
+    );
 }
 
 

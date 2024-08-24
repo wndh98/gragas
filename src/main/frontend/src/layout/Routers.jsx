@@ -49,6 +49,7 @@ import SubsOrder from "../components/subscribe/SubsOrder";
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
+import AuthRoute from "./AuthRoute";
 
 
 function Routers() {
@@ -57,27 +58,28 @@ function Routers() {
             <Routes>
                 <Route path="/" element={<Layout><Index /></Layout>} />
                 <Route path="/admin" element={<AdminLayout><AdminIndex /></AdminLayout>} />
+                <Route path="/test" element={<AuthRoute to="/loginForm"><AdminLayout><AdminIndex /></AdminLayout></AuthRoute>} />
                 <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} />
             </Routes>
             <Routes>
-                <Route path="/subscribe" element={<Layout><SubscribeMain/></Layout>}/>
-                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain/></Layout>}/>
-                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate/></Layout>}/>
-                <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate/></Layout>}/>
-                <Route path="/subscribe/itemList" element={<Layout><ItemList/></Layout>}/>
-                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription/></Layout>}/>
-                <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder/></Layout>}/>
+                <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
+                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain /></Layout>} />
+                <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate /></Layout>} />
+                <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate /></Layout>} />
+                <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
+                <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
+                <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder /></Layout>} />
             </Routes>
             <Routes>
-                <Route path="/loginForm" element={<Layout><LoginForm/></Layout>}/>
-                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm/></Layout>}/>
-                <Route path="/myPage" element={<Layout><MyPage/></Layout>}/>
-                <Route path="/myPage/userInfo" element={<Layout><UserInfo/></Layout>}/>
-                <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate/></Layout>}/>
-                <Route path="/user/joinForm" element={<Layout><JoinForm/></Layout>}/>
-                <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput/></Layout>}/>
-                <Route path="/mypage/delivery/update/:mdNum" element={<Layout><UserDeliveryUpdateForm/></Layout>}/>
-                <Route path="/mypage/:content" element={<Layout><MyPage/></Layout>}/>
+                <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
+                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm /></Layout>} />
+                <Route path="/myPage" element={<Layout><MyPage /></Layout>} />
+                <Route path="/myPage/userInfo" element={<Layout><UserInfo /></Layout>} />
+                <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate /></Layout>} />
+                <Route path="/user/joinForm" element={<Layout><JoinForm /></Layout>} />
+                <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput /></Layout>} />
+                <Route path="/mypage/delivery/update/:mdNum" element={<Layout><UserDeliveryUpdateForm /></Layout>} />
+                <Route path="/mypage/:content" element={<Layout><MyPage /></Layout>} />
             </Routes>
 
             <Routes>
@@ -101,10 +103,9 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/board/:boardType/list/:pageNum" element={<Layout><BoardListLayout /></Layout>} />
-                <Route path="/board/:boardType/:mode/:pageNum" element={<Layout><BoardForm /></Layout>} />
-                <Route path="/board/:boardType/:mode/:pageNum/:bNum" element={<Layout><BoardForm /></Layout>} />
+                <Route path="/board/:boardType/:mode/:pageNum" element={<AuthRoute to="/loginForm"><Layout><BoardForm /></Layout></AuthRoute>} />
+                <Route path="/board/:boardType/:mode/:pageNum/:bNum" element={<AuthRoute to="/loginForm"><Layout><BoardForm /></Layout></AuthRoute>} />
                 <Route path="/board/:boardType/view/:pageNum/:bNum" element={<Layout><BoardView /></Layout>} />
-                {/* <Route path="/board/:boardType/update/:pageNum/:pNum" element={<Layout><BoardUpdateForm /></Layout>} /> */}
             </Routes>
         </BrowserRouter>
     );
