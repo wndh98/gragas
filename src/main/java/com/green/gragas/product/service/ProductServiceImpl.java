@@ -4,6 +4,7 @@ import com.green.gragas.product.dto.ProductEvent;
 import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.product.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -95,8 +96,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int peventUpdate(List<ProductEvent> eiNum) {
-   return pm.peventUpdate((Map<String, Object>) eiNum);
+    public int peventUpdate(int piNum,int[] eiNum) {
+        int result = 0;
+        result = pm.peventDelete(piNum);
+        if(eiNum!=null && eiNum.length>0) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("piNum", piNum);
+            for (int e : eiNum) {
+                map.put("eiNum", e);
+                result = pm.peventInsert(map);
+                if (result == 0) return result;
+            }
+        }
+        return result;
     }
 
     @Override

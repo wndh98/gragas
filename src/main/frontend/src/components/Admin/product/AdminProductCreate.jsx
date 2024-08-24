@@ -4,11 +4,41 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-function AdminProductCreate(params) {
+import ArticleForm from "./Form";
+function AdminProductCreate() {
 
 
     const { register, handleSubmit, formState: { error } } = useForm();
     const [events, setEvents] = useState([]);
+    // const ArticleForm = props.ArticleForm;
+
+    /*  const [files, setFiles] = useState([]);
+     const handleFileChange = (e) => {
+         setFiles(Array.from(e.target.files[0]));
+     }
+     const uploadFiles = (e) => {
+         e.preventDefault();
+ 
+         const formData = new FormData();
+         files.map((piImg) => {
+             formData.append("piImg", piImg);
+         });
+ 
+         console.log(Array.from(formData));
+ 
+ 
+         axios.post('http://localhost:3000/main', formData, {
+             headers: {
+                 'Content-Type': 'mulitpart/form-data'
+             }
+         })
+             .then((res) => {
+                 console.log(res.data);
+             }).catch((err) => {
+                 console.log(err);
+             })
+     } */
+
 
     useEffect(() => {
 
@@ -44,9 +74,34 @@ function AdminProductCreate(params) {
        );
     */
 
+    const [imageList, setImageList] = useState([]);
+    function onClickSubmit(callback) {
+        callback();
+    };
+    const onChangeImageInput = e => {
+        setImageList([...imageList, ...e.target.files]);
+    };
+
+
+
     const loc = useNavigate();
+
     function onSubmit(data) {
-        axios.post("/product/insert", data)
+        if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
+        const formData = new FormData();
+        formData.append('piImgFile', data.piImgFile[0]);
+        formData.append('piContentFile', data.piContentFile[0]);
+        formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }));
+        // formData.append(
+        //     'product',
+        //     JSON.stringify({
+        //         ...data
+        //     }),
+        // );
+        console.log(formData.getAll("product"));
+        axios.post("/product/insert", formData, {
+            headers: { 'Content-Type': 'multipart/form-data', chatset: 'utf-8' }
+        })
             .then(response => {
                 if (response.data != 0) {
                     axios.post("/pevent/insert/" + response.data, [...(data.eiNum)])
@@ -62,6 +117,7 @@ function AdminProductCreate(params) {
                     alert("실패");
                 }
             })
+        console.log(data)
     }
 
     return (
@@ -94,9 +150,6 @@ function AdminProductCreate(params) {
                         <tr>재고
                             <td><input type="text" {...register("poCnt")} /></td>
                         </tr>
-                        <tr>상황별
-                            <td><input type="text" {...register("piContent")} /></td>
-                        </tr>
 
 
                         {events.map((product) => {
@@ -111,15 +164,20 @@ function AdminProductCreate(params) {
                             );
                         })}
 
-
-
                         <tr>옵션명
                             <td><input type="text" {...register("poName")} /></td>
                         </tr>
 
-                        {/* <tr>이미지
-                                    <td><input type="file" name="piPhoto"></input></td>
-                                    </tr> */}
+                        <tr>이미지
+                            <td><input type="file" {...register("piImgFile")} accept="image/jpg,image/png,image/jpeg,image/gif" />
+
+                            </td>
+                        </tr>
+                        <tr>이미지2
+                            <td><input type="file" {...register("piContentFile")} accept="image/jpg,image/png,image/jpeg,image/gif" />
+
+                            </td>
+                        </tr>
                         <tr>
                             <td><input type="submit" value="전송" /></td>
                         </tr>
