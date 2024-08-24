@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-function AdminProductMain() {
+
+function AdminProductMain(props) {
     const { register, handleSubmit, formState: { error }, setValue } = useForm();
     const [products, setProducts] = useState([]);
     const listUrl = "/product/list";
@@ -17,7 +18,6 @@ function AdminProductMain() {
             })
             .catch(error => console.error("Fetching error:", error));
     }, [])
-
 
 
     function productDelete(data) {
@@ -81,6 +81,7 @@ function AdminProductMain() {
                         <td>세일가</td>
                         <td>재고</td>
                         <td>상황별</td>
+                        <td>이미지</td>
                     </tr>
 
                     {products.map((product) => {
@@ -99,10 +100,12 @@ function AdminProductMain() {
                                 <td value={product.poSale}>{product.poSale}</td>
                                 <td value={product.poCnt}>{product.poCnt}</td>
                                 <td value={product.piContent}>{product.piContent}</td>
+                                <td value={product.piImg}>{product.piImg}</td>
                             </tr>
 
                         );
                     })}
+
                     <tr>
                         <td><Link to="/product/create">상품추가</Link></td>
                         <td><button type="button" onClick={handleSubmit(productDelete)}>상품삭제</button></td>

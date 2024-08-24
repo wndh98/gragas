@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { getUser } from "../../js/userInfo";
 
 function CommentForm(props) {
     let bNum = props.bNum;
@@ -17,9 +18,10 @@ function CommentForm(props) {
     const setIsForm = props.setIsForm;
     const commentListUrl = props.commentListUrl;
     const setCommentForm = props.setCommentForm;
+    const [user, setUser] = useState({});
+
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
-    setValue("userId", "111@111.11");
-    setValue("bNum", bNum);
+
     const [comment, setComment] = useState({});
     let commentSubmitUrl;
     if (mode == "write") { commentSubmitUrl = `/comment/${boardType}/write`; }
@@ -33,11 +35,16 @@ function CommentForm(props) {
                     setComment(response.data);
                 });
         }
+        getUser(setUser);
+        setValue("bNum", bNum);
     }, []);
     useEffect(() => {
         setValue("cNum", comment.cNum);
         setValue("cContent", comment.cContent);
     }, [comment]);
+    useEffect(() => {
+        setValue("userId", user.userId);
+    }, [user]);
     function onSubmit(data) {
         axios.post(commentSubmitUrl, data)
             .then(response => {

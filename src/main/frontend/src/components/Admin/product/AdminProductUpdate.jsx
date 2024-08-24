@@ -64,7 +64,7 @@ function AdminProductUpdate(params) {
   function onSubmit(data) {
 
     console.log(data)
-    axios.post("/product/update/" + piNum).then((response) => {
+    axios.post("/product/update/" + piNum, data, [...(data.eiNum)]).then((response) => {
 
       if (response.data == 1) {
         alert("성공");
@@ -73,12 +73,6 @@ function AdminProductUpdate(params) {
         alert("실패");
       }
     });
-    /* 
-        axios.get("/pevent/delete/" + piNum, [...(data.eiNum)]).then((response) => {
-    
-    
-        });
-     */
   }
 
   function productDelete(event) {
@@ -109,8 +103,6 @@ function AdminProductUpdate(params) {
           <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
           <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
           <tr><th>상황별</th><td><input type="text"  {...register("piContent")} defaultValue={products.piContent}></input></td></tr>
-
-
           {
             events.map((product) => {
 
@@ -124,10 +116,7 @@ function AdminProductUpdate(params) {
               );
             })
           }
-
-
-
-          {/* <tr>이미지<td><input type="file" name="piPhoto"></input></td></tr> */}
+          <tr>이미지<td><input type="file" name="piPhoto"></input></td></tr>
           <tr>
             <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
             <td><input type="submit" value="전송" />

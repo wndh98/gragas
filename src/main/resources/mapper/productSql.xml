@@ -16,7 +16,7 @@
     </select>
     <insert id="productInsert" parameterType="productItem">
         insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT)
-        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},'',#{piContent})
+        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},#{piImg},#{piContent})
     </insert>
     <update id="productUpdate" parameterType="productItem">
         update PRODUCT_ITEM set PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
@@ -56,17 +56,11 @@
     </insert>
 
     <update id="peventUpdate" parameterType="map">
-        update PRODUCT_EVENT set EI_NUM=#{eiNum} where PI_NUM=#{piNum}
+        update PRODUCT_EVENT set PI_NUM=#{piNum} where EI_NUM=#{eiNum}
     </update>
 
-    <delete id="peventDelete" parameterType="list">
-        DELETE FROM PRODUCT_EVENT
-        WHERE PI_NUM IN (
-        SELECT PI_NUM FROM PRODUCT_EVENT WHERE EI_NUM IN
-        <foreach item="eiNum" index="index" collection="list" open="(" separator="," close=")">
-            #{eiNum}
-        </foreach>
-        )
+    <delete id="peventDelete" parameterType="integer">
+        DELETE FROM PRODUCT_EVENT WHERE PI_NUM #{piNum}
     </delete>
 
     <select id="peventListPi" parameterType="integer" resultType="productEvent">
