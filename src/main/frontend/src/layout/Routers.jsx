@@ -50,9 +50,12 @@ import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
 import AuthRoute from "./AuthRoute";
+import CartLayout from "../components/cart/CartLayout";
+import { isOcId, setOcId } from "../js/orderCart/cart";
 
 
 function Routers() {
+    if(!isOcId())setOcId();
     return (
         <BrowserRouter>
             <Routes>
@@ -80,11 +83,8 @@ function Routers() {
                 <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput /></Layout>} />
                 <Route path="/mypage/delivery/update/:mdNum" element={<Layout><UserDeliveryUpdateForm /></Layout>} />
                 <Route path="/mypage/:content" element={<Layout><MyPage /></Layout>} />
-
             </Routes>
-
             <Routes>
-
                 <Route path="/main" element={<Layout><Main /></Layout>} />
                 <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
@@ -108,6 +108,9 @@ function Routers() {
                 <Route path="/board/:boardType/:mode/:pageNum" element={<AuthRoute to="/loginForm"><Layout><BoardForm /></Layout></AuthRoute>} />
                 <Route path="/board/:boardType/:mode/:pageNum/:bNum" element={<AuthRoute to="/loginForm"><Layout><BoardForm /></Layout></AuthRoute>} />
                 <Route path="/board/:boardType/view/:pageNum/:bNum" element={<Layout><BoardView /></Layout>} />
+            </Routes>
+            <Routes>
+            <Route path="/cart/list" element={<Layout><CartLayout/></Layout>} />
             </Routes>
         </BrowserRouter>
     );

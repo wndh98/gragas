@@ -10,12 +10,19 @@ function AdminProductCreate() {
 
     const { register, handleSubmit, formState: { error } } = useForm();
     const [events, setEvents] = useState([]);
-  
+    const [procates, setProcates] = useState([]);
+
     useEffect(() => {
 
         axios.get("/event/list")
             .then(response => {
                 setEvents(response.data);
+            })
+            .catch(error => console.error("Fetching error:", error));
+            
+            axios.get("/procate/list")
+            .then(response => {
+                setProcates(response.data);
             })
             .catch(error => console.error("Fetching error:", error));
     }, [])
@@ -56,7 +63,7 @@ function AdminProductCreate() {
 
     function onSubmit(data) {
         if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
-        data.eiNum=[...(data.eiNum)];
+        data.eiNum = [...(data.eiNum)];
         const formData = new FormData();
         formData.append('piImgFile', data.piImgFile[0]);
         formData.append('piContentFile', data.piContentFile[0]);
@@ -90,7 +97,18 @@ function AdminProductCreate() {
                     <thead class="admin_boardList">
 
                         <tr>카테고리번호
-                            <td><input type="text" {...register("pcNum")} /></td>
+                            <td>
+                                <select {...register("pcNum")} >
+                                    {procates.map((procate)=>{
+                                        return(
+                                            <option value={procate.pcNum}>
+                                                {procate.pcName}
+                                            </option>
+                                        );
+                                    })}
+                                 
+                                </select>
+                            </td>
                         </tr>
                         <tr>상품명
                             <td><input type="text" {...register("piName")} /></td>

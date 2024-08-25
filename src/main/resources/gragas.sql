@@ -130,7 +130,7 @@ CREATE TABLE PRODUCT_ITEM (
    PI_SWEET INT,
    PI_SOUR   INT,
    PI_CARBONATED INT,
-   PI_IMG   VARCHAR(30),
+   PI_IMG   VARCHAR(255),
    PI_CONTENT   VARCHAR(255) NOT null,
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
@@ -366,7 +366,8 @@ create table `ORDER_DETAIL` (
 
 -- 장바구니
 create table `ORDER_CART` (
-	`OC_ID` VARCHAR(255) not null primary key,
+    `OC_NUM` int primary key not null auto_increment,
+	`OC_ID` VARCHAR(255) not null,
 	`PI_NUM` INT not null,
 	`PO_NUM` INT not null,
 	`USER_ID` VARCHAR(50) not null,

@@ -10,6 +10,7 @@ function AdminProductUpdate(params) {
   const [products, setProducts] = useState([]);
   const viewUrl = "/product/view/" + piNum;
   const [events, setEvents] = useState([]);
+  const [procates, setProcates] = useState([]);
   const [selectEvents, setSelectEvents] = useState([{}]);
   useEffect(() => {
 
@@ -30,6 +31,12 @@ function AdminProductUpdate(params) {
       .then(response => {
         setSelectEvents(response.data);
 
+      })
+      .catch(error => console.error("Fetching error:", error));
+
+    axios.get("/procate/list")
+      .then(response => {
+        setProcates(response.data);
       })
       .catch(error => console.error("Fetching error:", error));
 
@@ -59,13 +66,28 @@ function AdminProductUpdate(params) {
     setValue
   } = useForm();
 
+  const [imageList, setImageList] = useState([]);
+
+  const onChangeImageInput = e => {
+    setImageList([...imageList, ...e.target.files]);
+  };
+
   const loc = useNavigate();
 
+
   function onSubmit(data) {
-
-    console.log(data)
-    axios.post("/product/update/" + piNum, data, [...(data.eiNum)]).then((response) => {
-
+    if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
+    data.eiNum = [...(data.eiNum)];
+    const formData = new FormData();
+    formData.append('piImgFile', data.piImgFile[0]);
+    formData.append('piContentFile', data.piContentFile[0]);
+    formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }))
+    formData.push([...(data.eiNum)])
+    formData.push(data.eiNum)
+    console.log(formData.getAll("product"));
+    axios.post("/product/update/" + piNum, formData, {
+      headers: { 'Content-Type': 'multipart/form-data', chatset: 'utf-8' }
+    }).then(response => {
       if (response.data == 1) {
         alert("성공");
         loc("/product/main");
@@ -73,7 +95,9 @@ function AdminProductUpdate(params) {
         alert("실패");
       }
     });
+    console.log(data)
   }
+
 
   function productDelete(event) {
     console.log(piNum)
@@ -97,32 +121,42 @@ function AdminProductUpdate(params) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <table class="admin_board_wrap" id="user-admin">
 
-          <tr><th>카테고리번호</th><td><input type="text" {...register("pcNum")} defaultValue={products.pcNum}></input></td></tr>
+          <tr><th>카테고리번호</th><td>
+            <select {...register("pcNum")}>
+              {procates.map((procate) => {
+                return (
+                  <option
+                    defaultValue={products.pcNum}
+                    value={procate.pcNum}>
+                    {procate.pcName}
+                  </option>
+                );
+              })}
+            </select>
+          </td></tr>
           <tr><th>상품명</th><td><input type="text"  {...register("piName")} defaultValue={products.piName}></input></td></tr>
           <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
           <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
           <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
-          <tr><th>상황별</th><td><input type="text"  {...register("piContent")} defaultValue={products.piContent}></input></td></tr>
-          {
-            events.map((product) => {
+          {events.map((product) => {
 
-              return (
+            return (
 
-                <tr>이벤트
-                  <td>
-                    <input id="eiNum" type="checkbox" defaultValue={product.eiNum} {...register("eiNum")} />
-                  </td>
-                </tr>
-              );
-            })
+              <tr>이벤트
+                <td>
+                  <input id="eiNum" type="checkbox" defaultValue={product.eiNum} {...register("eiNum")} />
+                </td>
+              </tr>
+            );
+          })
           }
-          <tr>이미지<td><input type="file" name="piPhoto"></input></td></tr>
+          <tr>이미지<td><input type="file" name="piImg"  {...register("piImg")} defaultValue={products.piImg}></input></td></tr>
+          <tr>content<td><input type="file" name="piContent"  {...register("piContent")} defaultValue={products.piContent}></input></td></tr>
           <tr>
             <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
             <td><input type="submit" value="전송" />
             </td>
           </tr>
-
         </table>
       </form>
     </div >

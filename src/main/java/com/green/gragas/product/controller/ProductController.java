@@ -229,7 +229,11 @@ public class ProductController {
         List<ProductOption> list = os.proopList();
         return list;
     }
-
+    @GetMapping("/option/list/{piNum}")
+    public List<ProductOption> proopListPi(@PathVariable("piNum")int piNum) {
+        List<ProductOption> list = os.proopListPi(piNum);
+        return list;
+    }
     @GetMapping("/option/view/{poNum}")
     public ProductOption proopView(@PathVariable("poNum") int poNum) {
         ProductOption proopItem = os.proopCheck(poNum);

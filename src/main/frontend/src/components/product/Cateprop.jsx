@@ -12,12 +12,14 @@ function Cateprop(props) {
             <a rel="nosublink" href="/damhwaMarket/listing/takju">
 
                 <div className="catecon">
-                    <span><img src={`http://localhost:8080/upload/procate/${procate.pcNum}/${procate.pcImg}`} alt="탁주 아이콘" /></span>
-                    {cateinfo.map((list) => {
-                        return (
-                            cateinfo
-                        );
-                    })}
+                    
+                        {cateinfo.map((list) => {
+                            return (
+                                <span><img src={`http://localhost:8080/upload/procate/${procate.pcNum}/${procate.pcImg}`} alt="탁주 아이콘">
+                                    </img>{list.cateinfo}</span>
+                            );
+                        })}
+                   
                 </div>
             </a>
         </div>
