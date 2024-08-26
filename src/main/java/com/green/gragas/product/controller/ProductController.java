@@ -2,12 +2,15 @@ package com.green.gragas.product.controller;
 
 import com.green.gragas.product.dto.*;
 import com.green.gragas.product.service.ProcateService;
+import com.green.gragas.product.service.ProductFileUpload;
 import com.green.gragas.product.service.ProductService;
 import com.green.gragas.product.service.ProopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,6 +23,8 @@ public class ProductController {
 
     @Autowired
     private ProopService os;
+    @Value("${project.upload.path}")
+    private String rootPath;
 
     @GetMapping("/product/list")
     public List<ProductItem> productList() {
@@ -39,6 +44,15 @@ public class ProductController {
             @RequestPart("piImgFile") MultipartFile piImgFile,
             @RequestPart("piContentFile") MultipartFile piContentFile
     ) {
+        int piNum = ps.nextPiNum();
+        try {
+            String piImg = ProductFileUpload.fileUpload(piImgFile, "product",piNum,rootPath);
+            String piContent = ProductFileUpload.fileUpload(piContentFile, "product",piNum,rootPath);
+            product.setPiImg(piImg);
+            product.setPiContent(piContent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         ProductOption proop = new ProductOption();
         int nextPiNum = ps.nextPiNum();
         proop.setPiNum(nextPiNum);
@@ -74,15 +88,17 @@ public class ProductController {
     }
 
     @GetMapping("/pevent/list/{eiNum}")
-    public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum) {
-        List<ProductEvent> list = ps.peventList(eiNum);
+    public List<ProductItem> peventList(@PathVariable("eiNum") int eiNum) {
+        List<ProductItem> list = ps.peventList(eiNum);
         return list;
     }
+
     @GetMapping("/pevent/listPi/{piNum}")
     public List<ProductEvent> peventListPi(@PathVariable("piNum") int piNum) {
         List<ProductEvent> list = ps.peventListPi(piNum);
         return list;
     }
+
     @GetMapping("/pevent/list/{eiNum}/{piNum}")
     public List<ProductEvent> peventList(@PathVariable("eiNum") int eiNum, @PathVariable("piNum") int piNum) {
         List<ProductEvent> list = ps.peventList(eiNum, piNum);
@@ -99,7 +115,7 @@ public class ProductController {
     @PostMapping("/product/update/{piNum}")
     public int productUpdate(@PathVariable("piNum") int piNum, @RequestBody ProductItem product) {
         product.setPiNum(piNum);
-        ps.peventUpdate(piNum,product.getEiNum());
+        ps.peventUpdate(piNum, product.getEiNum());
         int result = ps.productUpdate(product);
         return result;
     }
@@ -130,7 +146,14 @@ public class ProductController {
     }
 
     @PostMapping("/procate/insert")
-    public int procateInsert(@RequestBody ProductCate procate) {
+    public int procateInsert(@RequestPart("procate") ProductCate procate, @RequestPart("pcImgFile") MultipartFile pcImgFile) {
+        int pcNum = cs.nextPcNum();
+        try {
+            String pcImg = ProductFileUpload.fileUpload(pcImgFile, "procate",pcNum,rootPath);
+            procate.setPcImg(pcImg);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         int result = cs.procateInsert(procate);
         return result;
     }
@@ -167,7 +190,17 @@ public class ProductController {
     }
 
     @PostMapping("/event/insert")
-    public int proeventInsert(@RequestBody EventItem eitem) {
+    public int proeventInsert(
+            @RequestPart("event") EventItem eitem,
+            @RequestPart("eiContentFile") MultipartFile eiContentFile
+    ) {
+        int eiNum = cs.nextEiNum();
+        try {
+           String eiContent = ProductFileUpload.fileUpload(eiContentFile, "event",eiNum,rootPath);
+           eitem.setEiContent(eiContent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         int result = cs.proeventInsert(eitem);
         return result;
     }
@@ -196,7 +229,11 @@ public class ProductController {
         List<ProductOption> list = os.proopList();
         return list;
     }
-
+    @GetMapping("/option/list/{piNum}")
+    public List<ProductOption> proopListPi(@PathVariable("piNum")int piNum) {
+        List<ProductOption> list = os.proopListPi(piNum);
+        return list;
+    }
     @GetMapping("/option/view/{poNum}")
     public ProductOption proopView(@PathVariable("poNum") int poNum) {
         ProductOption proopItem = os.proopCheck(poNum);

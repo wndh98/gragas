@@ -20,6 +20,10 @@ public interface ProcateService {
 /*===========================================================================*/
     List<EventItem> proeventList();
 
+    int nextEiNum();
+
+    int nextPcNum();
+
     int proeventInsert(EventItem eitem);
 
     int proeventUpdate(int eiNum, EventItem eitem);

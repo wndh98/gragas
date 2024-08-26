@@ -19,4 +19,6 @@ public interface ProopMapper {
     int proopDelete(int poNum);
 
     int proopDeleteList(List<Integer> poNum);
+
+    List<ProductOption> proopListPi(int piNum);
 }

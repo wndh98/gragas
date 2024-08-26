@@ -62,6 +62,7 @@ create table user (
 	USER_LEVEL VARCHAR(20) not null,
 	USER_PW VARCHAR(255) not null,
 	USER_NAME VARCHAR(50) not null,
+	USER_BIRTH DATE not null,
 	USER_PHONE VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
 	USER_COUPON VARCHAR(1) not null default 'N',
@@ -108,7 +109,8 @@ alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) refer
 
 CREATE TABLE PRODUCT_CATE (
    PC_NUM INT NOT null primary key auto_increment,
-   PC_NAME   VARCHAR(30)   NOT NULL
+   PC_NAME   VARCHAR(30)   NOT NULL,
+   PC_IMG VARCHAR(255)
 );
 
 -- 이벤트
@@ -128,7 +130,7 @@ CREATE TABLE PRODUCT_ITEM (
    PI_SWEET INT,
    PI_SOUR   INT,
    PI_CARBONATED INT,
-   PI_IMG   VARCHAR(30),
+   PI_IMG   VARCHAR(255),
    PI_CONTENT   VARCHAR(255) NOT null,
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
@@ -364,7 +366,8 @@ create table `ORDER_DETAIL` (
 
 -- 장바구니
 create table `ORDER_CART` (
-	`OC_ID` VARCHAR(255) not null primary key,
+    `OC_NUM` int primary key not null auto_increment,
+	`OC_ID` VARCHAR(255) not null,
 	`PI_NUM` INT not null,
 	`PO_NUM` INT not null,
 	`USER_ID` VARCHAR(50) not null,
@@ -384,3 +387,4 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
+insert into MEMBER_CUPON values('Yellow',100,'테스트1');
