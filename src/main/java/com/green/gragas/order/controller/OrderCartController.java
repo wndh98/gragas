@@ -15,27 +15,32 @@ public class OrderCartController {
     OrderCartService ocs;
 
     @GetMapping("/orderCart/getOcId")
-    public String getOcId(){
+    public String getOcId() {
         return UUID.randomUUID().toString();
     }
+
     @GetMapping("/orderCart/list")
-    public List<OrderCart> getOrderCartList(@RequestParam("ocId")String ocId ){
+    public List<OrderCart> getOrderCartList(@RequestParam("ocId") String ocId) {
         return ocs.getOrderCartList(ocId);
     }
+
     @PostMapping("/orderCart/select")
-    public OrderCart getOrderCartList(@RequestBody OrderCart orderCart){
+    public OrderCart getOrderCartList(@RequestBody OrderCart orderCart) {
         return ocs.getOrderCart(orderCart);
     }
+
     @PostMapping("/orderCart/saveCart")
-    public int saveCart(@RequestBody OrderCart orderCart){
+    public int saveCart(@RequestBody OrderCart orderCart) {
         return ocs.saveCart(orderCart);
     }
+
     @PostMapping("/orderCart/updateCart")
-    public int updateCart(@RequestBody OrderCart orderCart){
+    public int updateCart(@RequestBody OrderCart orderCart) {
         return ocs.updateCart(orderCart);
     }
-    @PostMapping("/orderCart/deleteCart")
-    public int deleteCart(@RequestBody OrderCart orderCart){
-        return ocs.deleteCart(orderCart);
+
+    @GetMapping("/orderCart/deleteCart/{ocNum}")
+    public int deleteCart(@PathVariable("ocNum") int ocNum) {
+        return ocs.deleteCart(ocNum);
     }
 }

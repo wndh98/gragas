@@ -12,7 +12,7 @@ public interface OrderCartMapper {
 
     int updateCart(OrderCart orderCart);
 
-    int deleteCart(OrderCart orderCart);
+    int deleteCart(int ocNum);
 
     List<OrderCart> selectOrderCartList(String ocId);
 

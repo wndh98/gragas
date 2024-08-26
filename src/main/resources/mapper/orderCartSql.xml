@@ -14,9 +14,9 @@
         select oc.*,pi.PI_NAME,po.PO_NAME,po.PO_PRICE,po.PO_SALE from ORDER_CART oc LEFT JOIN PRODUCT_ITEM pi on oc.PI_NUM = pi.PI_NUM LEFT JOIN PRODUCT_OPTION po on oc.PO_NUM=po.PO_NUM  where OC_ID=#{ocId} and oc.PI_NUM=#{piNum} and oc.PO_NUM=#{poNum} limit 1
     </select>
     <update id="updateCart" parameterType="orderCart">
-        update ORDER_CART set OC_CNT=#{ocCnt} where OC_ID=#{ocId}
+        update ORDER_CART set OC_CNT=#{ocCnt} where OC_NUM=#{ocNum}
     </update>
-    <delete id="deleteCart" parameterType="orderCart">
-        delete from ORDER_CART where OC_ID=#{ocId} and PI_NUM=#{piNum} and PO_NUM=#{poNum} and USER_ID=#{userId}
+    <delete id="deleteCart" parameterType="integer">
+        delete from ORDER_CART where OC_NUM=#{ocNum}
     </delete>
 </mapper>

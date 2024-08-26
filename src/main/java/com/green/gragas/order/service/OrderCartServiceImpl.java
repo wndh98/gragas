@@ -22,8 +22,8 @@ public class OrderCartServiceImpl implements OrderCartService{
     }
 
     @Override
-    public int deleteCart(OrderCart orderCart) {
-        return ocm.deleteCart(orderCart);
+    public int deleteCart(int ocNum) {
+        return ocm.deleteCart(ocNum);
     }
 
     @Override
