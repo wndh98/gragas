@@ -4,6 +4,8 @@ import InfoList from "./InfoList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import ProductItemSide from "./ProductItemSide";
+import { salePercent } from "../../js/order";
 
 
 
@@ -37,13 +39,13 @@ function ProductItem() {
 
     const [product, setProducts] = useState([]);
     const [option, setOptions] = useState([]);
+    const [price,setPrice] = useState();
     const viewUrl = "/product/view/" + piNum;
 
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
     useEffect(() => {
         axios.get(viewUrl)
             .then(response => {
-
                 setProducts(response.data); // 가져온 상품정보를 상태에 저장
             })
             .catch(error => console.error("Fetching error:", error))
@@ -54,16 +56,13 @@ function ProductItem() {
             .then(response => {
 
                 setOptions(response.data); // 가져온 상품정보를 상태에 저장
+
             })
             .catch(error => console.error("Fetching error:", error))
     }, []);
-    console.log(option)
+    
 
-    function price() {
-        let prices = 0;
-        prices = (product.poPrice) * (product.poSale)
-        return prices;
-    }
+
 
     return (
 
@@ -73,7 +72,7 @@ function ProductItem() {
                     <div className="qhdms wper">
                         <div className="detail-box" id="image">
                             <div className="swiper last-box">
-                                <img alt="" id="soju" src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/i5IM-1723788441559-mahan%20oak-thumb.jpg">
+                                <img alt="" id="soju" src={`http://localhost:8080/upload/product/${product.piNum}/${product.piImg}`}>
                                 </img>
                             </div>
                         </div>
@@ -94,8 +93,8 @@ function ProductItem() {
                                             <span class="originPrice">{product.poPrice}원</span>
                                             <div className="direct-purchase-box">
                                                 <div className="flex">
-                                                    <div class="font title1-bold-bol">{product.poSale}%</div>
-                                                    <div class="title1-bold">{price()}원</div>
+                                                    <div class="font title1-bold-bol">{salePercent(product.poPrice,product.poSale)}%</div>
+                                                    <div class="title1-bold">{product.poSale}원</div>
                                                 </div>
                                                 <div className="reviews">
                                                     <div className="layout">
@@ -133,53 +132,11 @@ function ProductItem() {
                     </div>
                     <div className="sc-dfc3cf52-0 gGztHs">
                         <p>
-                            <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1723788447166-mahan%20oak.jpg" alt="data-center-image" />
+                            <img src={`http://localhost:8080/upload/product/${product.piNum}/${product.piContent}`} alt="data-center-image" />
                         </p>
                     </div>
                 </div>
-                <div className="right-side position-sticky top-0 border border-secondary-subtle rounded">
-                    <div className="label">
-                        옵션
-                    </div>
-                    <div className="select-wrapper">
-                        <select class="form-select">
-                            <option selected></option>
-                            <option value="1">어떤 옵션을 원하시나요?</option>
-                            <option value={option.poNum}>{option.poName}</option>
-
-
-                        </select>
-                    </div>
-                    <div className="label">
-                        수량
-                    </div>
-                    <div className="count">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button" id="button-minus">-</button>
-                            </div>
-                            <input type="text" class="form-control quantity-input" id="quantity" value="1" readonly />
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="label">
-                        총 상품가격
-                    </div>
-                    <div className="select-wrapper position-sticky top-0 border border-secondary-subtle" style={{ height: "40px" }}>
-                        {price()}원
-                    </div>
-                    <div className="buttons">
-                        <div className="button cart-button-gift-button">
-                            <button type="button" class="btn btn-outline-secondary">장바구니</button><button type="button" class="btn btn-outline-secondary">선물하기</button>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" type="button">바로 구매하기</button>
-                        </div>
-                    </div>
-
-                </div>
+                <ProductItemSide piNum={piNum}></ProductItemSide>
             </div>
         </div >
     );
