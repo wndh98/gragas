@@ -28,6 +28,14 @@ public class ProcateServiceImpl implements ProcateService {
         procate.setPcNum(pcNum);
         return cm.procateUpdate(procate);
     }
+    @Override
+    public int nextEiNum() {
+        return cm.nextEiNum();
+    }
+    @Override
+    public int nextPcNum() {
+        return cm.nextPcNum();
+    }
 
     public int procateDelete(List<Integer> pcNum) {
         int result =0;

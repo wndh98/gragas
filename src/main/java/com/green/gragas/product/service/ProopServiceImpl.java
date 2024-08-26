@@ -48,4 +48,9 @@ public class ProopServiceImpl implements ProopService{
         return result;
     }
 
+    @Override
+    public List<ProductOption> proopListPi(int piNum) {
+        return om.proopListPi(piNum);
+    }
+
 }

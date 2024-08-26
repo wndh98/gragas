@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductEvent> peventList(int eiNum) {
+    public List<ProductItem> peventList(int eiNum) {
         return pm.peventList(eiNum);
     }
 

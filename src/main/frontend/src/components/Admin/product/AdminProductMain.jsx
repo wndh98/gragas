@@ -80,7 +80,7 @@ function AdminProductMain(props) {
                         <td>가격</td>
                         <td>세일가</td>
                         <td>재고</td>
-                        <td>상황별</td>
+                        <td>content</td>
                         <td>이미지</td>
                     </tr>
 

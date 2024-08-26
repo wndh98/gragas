@@ -72,7 +72,7 @@ function ProductEventItem() {
                     <div className="qhdms wper">
                         <div className="detail-box" id="image">
                             <div className="swiper last-box">
-                                <img alt="" id="soju" src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/i5IM-1723788441559-mahan%20oak-thumb.jpg">
+                                <img alt="" id="soju" src={`http://localhost:8080/upload/product/${product.piNum}/${product.piImg}`}>
                                 </img>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ function ProductEventItem() {
                     </div>
                     <div className="sc-dfc3cf52-0 gGztHs">
                         <p>
-                            <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1723788447166-mahan%20oak.jpg" alt="data-center-image" />
+                            <img src={`http://localhost:8080/upload/product/${product.piNum}/${product.piContent}`} alt="data-center-image" />
                         </p>
                     </div>
                 </div>

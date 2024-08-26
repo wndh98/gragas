@@ -4,47 +4,25 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import ArticleForm from "./Form";
+
 function AdminProductCreate() {
 
 
     const { register, handleSubmit, formState: { error } } = useForm();
     const [events, setEvents] = useState([]);
-    // const ArticleForm = props.ArticleForm;
-
-    /*  const [files, setFiles] = useState([]);
-     const handleFileChange = (e) => {
-         setFiles(Array.from(e.target.files[0]));
-     }
-     const uploadFiles = (e) => {
-         e.preventDefault();
- 
-         const formData = new FormData();
-         files.map((piImg) => {
-             formData.append("piImg", piImg);
-         });
- 
-         console.log(Array.from(formData));
- 
- 
-         axios.post('http://localhost:3000/main', formData, {
-             headers: {
-                 'Content-Type': 'mulitpart/form-data'
-             }
-         })
-             .then((res) => {
-                 console.log(res.data);
-             }).catch((err) => {
-                 console.log(err);
-             })
-     } */
-
+    const [procates, setProcates] = useState([]);
 
     useEffect(() => {
 
         axios.get("/event/list")
             .then(response => {
                 setEvents(response.data);
+            })
+            .catch(error => console.error("Fetching error:", error));
+            
+            axios.get("/procate/list")
+            .then(response => {
+                setProcates(response.data);
             })
             .catch(error => console.error("Fetching error:", error));
     }, [])
@@ -75,29 +53,21 @@ function AdminProductCreate() {
     */
 
     const [imageList, setImageList] = useState([]);
-    function onClickSubmit(callback) {
-        callback();
-    };
+
     const onChangeImageInput = e => {
         setImageList([...imageList, ...e.target.files]);
     };
-
 
 
     const loc = useNavigate();
 
     function onSubmit(data) {
         if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
+        data.eiNum = [...(data.eiNum)];
         const formData = new FormData();
         formData.append('piImgFile', data.piImgFile[0]);
         formData.append('piContentFile', data.piContentFile[0]);
-        formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }));
-        // formData.append(
-        //     'product',
-        //     JSON.stringify({
-        //         ...data
-        //     }),
-        // );
+        formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }))
         console.log(formData.getAll("product"));
         axios.post("/product/insert", formData, {
             headers: { 'Content-Type': 'multipart/form-data', chatset: 'utf-8' }
@@ -127,7 +97,18 @@ function AdminProductCreate() {
                     <thead class="admin_boardList">
 
                         <tr>카테고리번호
-                            <td><input type="text" {...register("pcNum")} /></td>
+                            <td>
+                                <select {...register("pcNum")} >
+                                    {procates.map((procate)=>{
+                                        return(
+                                            <option value={procate.pcNum}>
+                                                {procate.pcName}
+                                            </option>
+                                        );
+                                    })}
+                                 
+                                </select>
+                            </td>
                         </tr>
                         <tr>상품명
                             <td><input type="text" {...register("piName")} /></td>
