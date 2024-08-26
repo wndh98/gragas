@@ -1,23 +1,6 @@
 import './App.css';
 import React from 'react';
 
-const picture =
-    [
-        {
-            id: 1,
-            p: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/thumbnail/EFyv-1721809764023-baeksook_thumb.jpg"
-        },
-        {
-            id: 2,
-            p: 'https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/thumbnail/7ZWH-1711423192779-190.jpeg'
-        },
-    ];
-
-
-
-
-
-
 function Boxes(props) {
     const product = props.product;
 
@@ -33,11 +16,7 @@ function Boxes(props) {
                 <a href={"/productItem/" + product.piNum}>
                     <div className='image-weapper'>
                         <span className='spdla tmvps'>
-                            {picture.map((pic, index) => {
-                                return (
-                                    <img className='boximg' src={pic.p} alt="img" />
-                                );
-                            })}
+                            <img className='boximg' src={`http://localhost:8080/upload/product/${product.piNum}/${product.piImg}`} alt="img" />
                         </span>
                     </div>
 
@@ -53,7 +32,7 @@ function Boxes(props) {
                                         <div className='discount-area'>
                                             <div className='special-price-percent'><span class="font body-bold">{product.poSale}%</span></div>
                                             <div className='discount-price'>
-                                                <div color="black" text-decoration="none" letter-spacing="0.6px" class="sc-4bfd0cf4-0 eDMdoA"><div class="font body-bold">{price()}원</div></div>
+                                                <div color="black" text-decoration="none" letter-spacing="0.6px" class="sc-4bfd0cf4-0 eDMdoA"><div class="font body-bold">{price()}</div></div>
                                                 <div class="won">
                                                     <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH">
                                                         <div class="font subheadline-regular">원</div>

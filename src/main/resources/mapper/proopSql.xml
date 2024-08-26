@@ -7,6 +7,9 @@
     <select id="proopList" resultType="productOption">
         select * from PRODUCT_OPTION
     </select>
+    <select id="proopListPi" resultType="productOption" parameterType="integer">
+        select * from PRODUCT_OPTION where PI_NUM=#{piNum}
+    </select>
 
     <select id="proopCheck" resultType="productOption" parameterType="integer">
         select * from PRODUCT_OPTION where PO_NUM=#{poNum}

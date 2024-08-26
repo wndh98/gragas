@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { useParams } from 'react-router-dom';
 import ProductEventMain from './ProductEventMain';
+import ProductCate from './ProductCate';
 
 
 function EventMain(picture) {
@@ -16,6 +17,7 @@ function EventMain(picture) {
     useEffect(() => {
         axios.get("/pevent/list/" + eiNum)
             .then(response => {
+                console.log(response)
                 setProducts(response.data); // 가져온 상품정보를 상태에 저장
             })
             .catch(error => console.error("Fetching error:", error))
@@ -31,32 +33,31 @@ function EventMain(picture) {
         }, []);
      */
     return (
-        <div className='spdla mainbox'>
-            <div className='spdla hb'>
-
-
-                <img src={picture.img} alt={products.piNum} width="45" height="45"></img>
-                <div className='spdla tle'></div>
-                <div className='spdla more'></div>
-            </div>
-
-            <div className='spdla sebox'>
-
-                <button className='swiper-custom-button leftbutton'></button>
-                <div className='swiper spdla-swiper'>
-                    <div className='swiper-wrapper'>
-                        {products.map(product => {
-                            return (
-                                <ProductEventMain product={product}
-                                />
-                            );
-                        })}
-
-
-                    </div>
+        <div>
+            <ProductCate />
+            <div className='spdla mainbox'>
+                <div className='spdla hb'>
+                    <img src={picture.img} alt={products.piNum} width="45" height="45"></img>
+                    <div className='spdla tle'></div>
+                    <div className='spdla more'></div>
                 </div>
-                <button className='swiper-custom-button nextbutton'></button>
+                <div className='spdla sebox'>
+                    <button className='swiper-custom-button leftbutton'></button>
+                    <div className='swiper spdla-swiper'>
+                        <div className='swiper-wrapper'>
+                            {products.map(product => {
+                                return (
+                                    <ProductEventMain product={product}
+                                    />
+                                );
+                            })}
 
+
+                        </div>
+                    </div>
+                    <button className='swiper-custom-button nextbutton'></button>
+
+                </div>
             </div>
         </div>
     );

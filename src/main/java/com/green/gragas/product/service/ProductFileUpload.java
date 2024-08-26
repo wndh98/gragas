@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public class ProductFileUpload {
 
-    public static String fileUpload(MultipartFile file, int siNum, String rootPath) throws IOException {
+    public static String fileUpload(MultipartFile file,String type, int num, String rootPath) throws IOException {
         if (file != null && !file.isEmpty()) {
             // Save file to the server
-            String uploadDir = rootPath + "/product/" + siNum + "/";
+            String uploadDir = rootPath + "/"+type+"/" + num + "/";
             File directory = new File(uploadDir);
             if (!directory.exists()) {
                 directory.mkdirs();
