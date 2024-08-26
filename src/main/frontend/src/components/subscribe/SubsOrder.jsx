@@ -6,9 +6,18 @@ import { useForm } from "react-hook-form";
 import { getCookie } from '../../js/cookieJs';
 
 function SubsOrder() {
+
     const { siNum } = useParams();
-    const [item, setItem] = useState({});
-    const { register, handleSubmit } = useForm();
+    const [item, setItem] = useState({
+        siNum: '',
+        siMainImg: '',
+        siSubject: '',
+        siPrice: 0,
+        siPayDate: '',
+        siArrive: ''
+    });
+    const [delivery, setDelivery] = useState([]);
+    const { register, handleSubmit, setValue } = useForm();
     const userId = getCookie("isLogin");
 
     useEffect(() => {
@@ -21,33 +30,43 @@ function SubsOrder() {
                 console.error('Error fetching the item data:', error);
                 alert(error + ": 오류가 발생했습니다");
             })
+
     }, [siNum]);
-
+    useEffect(() => {
+        axios.get(`/delivery/select/${userId}`)
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    setDelivery(response.data);
+                } else {
+                    console.error('Unexpected data format:', response.data);
+                }
+            })
+            .catch(error => {
+                alert(error + ":오류 발생")
+            })
+    }, [])
     async function onSubmit(data) {
-        const formData = new FormData();
-        formData.append("subscribeOrder", new Blob([JSON.stringify({
-            siNum: data.siNum,
-            userId: data.userId,
-            soName: data.soName,
-            soTel: data.soTel,
-            soAddr: data.soAddr,
-            soAddrDe: data.soAddrDe,
-            soMemo: data.soMemo
-        })], { type: "application/json" }));
         try {
-            await axios.post(`/subsribe/subsOrder/regist`, data)
-                .then((response) => {
-                    if (response.data > 0) {
-                        alert(' 성공');
-                    } else {
-                        alert('아이디 중복');
-                    }
-                });
-        } catch (error) {
-            alert('에러 발생:', error);
-        }
-    };
+            const response = await axios.post(`/subscribe/subsOrder/regist`, data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            if (response.data > 0) {
+                alert('성공');
+            } else {
+                alert('아이디 중복');
+            }
+        } catch (error) {
+            console.error('Error details:', error.response ? error.response.data : error);
+            alert('에러 발생: ' + (error.response ? error.response.data.message : error.message));
+        }
+    }
+    function onChange() {
+        // const delivery = setDelivery.data;
+        // setValue("soName", delivery.mdName);
+    }
 
 
     return (
@@ -55,10 +74,22 @@ function SubsOrder() {
         <div>
             <div className="soBox">
                 <div className="container">
+                    <select onChange={onChange}>
+                        <option>--배송지선택--</option>
+                        {delivery.length > 0 ? (
+                            delivery.map((deliveryItem, index) => (
+                                <option key={deliveryItem.id || index} value={deliveryItem.id}>
+                                    {index + 1}번 배송지
+                                </option>
+                            ))
+                        ) : (
+                            <option>배송지가 없습니다.</option>
+                        )}
+                    </select>
                     <div className="adrressTitle">배송지</div>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input type="hidden" value={siNum} />
-                        <input type="hidden" value={userId} />
+                        <input type="hidden" {...register("siNum")} value={siNum} />
+                        <input type="hidden" {...register("userId")} value={userId} />
                         <label htmlFor="soName">수령인</label>
                         <input
                             id='soName'
@@ -81,7 +112,7 @@ function SubsOrder() {
                             {...register("soAddrDe", { required: { value: true, message: "상세주소를 입력해 주세요" } })} />
                         <label htmlFor="soMemo">배송메모</label>
                         <select id="soMemo"{...register("soMemo", { required: { value: true, message: "배송메모를 선택해 주세요" } })}>
-                            <option selected disabled >배송 요청 사항 선택하기.</option>
+                            <option value="" disabled>배송 요청 사항 선택하기.</option>
                             <option>직접 수령하겠습니다.</option>
                             <option>배송 전 연락 부탁드립니다.</option>
                             <option>부재 시 경비실에 맡겨주세요.</option>
