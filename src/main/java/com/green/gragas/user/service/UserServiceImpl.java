@@ -4,6 +4,7 @@ import com.green.gragas.user.dto.User;
 import com.green.gragas.user.dto.UserSearchDTO;
 import com.green.gragas.user.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,7 +13,8 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserMapper um;
+    private UserMapper um;
+
     @Override
     public Map<String, Object> userList(int pageNum) {
         Map<String,Object> map = new HashMap<>();

@@ -15,6 +15,7 @@ function MyPage() {
   const [user, setUser] = useState({});
   const userId = getCookie("isLogin");
   const [navContent, setNavContent] = useState(<MypageSubscribe />);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("/userSearch/" + userId)
@@ -25,8 +26,8 @@ function MyPage() {
         setValue("userLevel", response.data.userLevel);
         setValue("userPoint", response.data.userPoint);
         setValue("userCoupon", response.data.userCoupon);
+        setValue("ulImg", response.data.ulImg);
       });
-
   }, [])
 
   const {
@@ -37,14 +38,18 @@ function MyPage() {
     setNavContent(content);
   };
 
+  function moveBenefits() {
+    navigate("/membership");
+  }
+
   return (
     <>
       <div className="container d-flex justify-content-center">
         <div className="myInfo col-4 d-flex justify-content-between">
           <div className="userLevel ">
             <p><strong>{user.userName}</strong>님</p>
-            <img src="" alt="" />
-            <button>{user.userLevel} 혜택보기 &gt; </button>
+            <img src={user.ulImg} alt=""/>
+            <button onClick={moveBenefits}>{user.userLevel} 혜택보기 &gt; </button>
           </div>
           <div className="userCoupon">
             <p>잔여 포인트 <span>{user.userPoint}</span></p>

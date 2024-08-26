@@ -45,7 +45,6 @@ function UserDeliveryUpdateForm() {
 
         axios.post("/user/delivery/updateAction", data)
             .then((result) => {
-                console.log(result);
                 if (result.data > 0) {
                     alert("성공");
                     navigate(-1);
@@ -60,21 +59,15 @@ function UserDeliveryUpdateForm() {
     }
 
     function deleteDelivery() {
-        const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
-        if (isConfirmed) {
-            axios.get("/user/delivery/delete/" + mdNum)
-                .then((response) => {
-                    console.log(response);
-                    if (response.data > 0) {
-                        alert("삭제 성공");
-                        navigate('/myPage');
-                    } else {
-                        alert("실패");
-                    }
-                });
-        } else {
-            return false;
-        }
+        axios.get("/user/delivery/delete/" + mdNum)
+            .then((response) => {
+                if (response.data > 0) {
+                    alert("삭제 성공");
+                    navigate('/myPage');
+                } else {
+                    alert("실패");
+                }
+            });
     }
     return (
         <div className="container col-5">

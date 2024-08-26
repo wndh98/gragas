@@ -16,7 +16,10 @@
         select count(*) from user
     </select>
     <select id="userCheck" resultType="user" parameterType="string">
-        select * from User where USER_ID=#{userId}
+        SELECT u.*, mc.UL_IMG
+        FROM user u
+        JOIN MEMBER_COUPON mc ON u.USER_LEVEL = mc.USER_LEVEL
+        WHERE u.USER_ID = #{userId}
     </select>
     <insert id="userJoin" parameterType="user">
         insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userBirth}, #{userPhone}, 0, 'Y', 'N', now())
