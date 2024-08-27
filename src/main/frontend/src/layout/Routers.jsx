@@ -52,10 +52,11 @@ import BoardView from "../components/board/BoardView";
 import AuthRoute from "./AuthRoute";
 import CartLayout from "../components/cart/CartLayout";
 import { isOcId, setOcId } from "../js/orderCart/cart";
+import OrderFormLayout from "../components/order/OrderFormLayout";
 
 
 function Routers() {
-    if(!isOcId())setOcId();
+    if (!isOcId()) setOcId();
     return (
         <BrowserRouter>
             <Routes>
@@ -110,7 +111,10 @@ function Routers() {
                 <Route path="/board/:boardType/view/:pageNum/:bNum" element={<Layout><BoardView /></Layout>} />
             </Routes>
             <Routes>
-            <Route path="/cart/list" element={<Layout><CartLayout/></Layout>} />
+                <Route path="/cart/list" element={<Layout><CartLayout /></Layout>} />
+                <Route path="/order/orderForm" element={<Layout><OrderFormLayout /></Layout>} />
+                <Route path="/order/orderForm/:ocId" element={<Layout><OrderFormLayout /></Layout>} />
+
             </Routes>
         </BrowserRouter>
     );

@@ -16,4 +16,5 @@ public class OrderCart {
     private String poName;
     private int poPrice;
     private int poSale;
+    private int poCnt;
 }

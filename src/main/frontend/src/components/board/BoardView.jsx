@@ -62,23 +62,20 @@ function BoardView() {
             });
     }
     return (
-        <>
-            <table className="table">
+        <main className="container">
+            <table className="table mt-5 table-bordered">
                 <tbody>
                     <tr>
-                        <td>제목</td>
                         <td>{board.bSubject}</td>
                     </tr>
                     <tr>
-                        <td>글쓴이</td>
                         <td>{board.bWriter}</td>
                     </tr>
                     <tr>
-                        <td>조회수</td>
+
                         <td>{board.bView}</td>
                     </tr>
                     <tr>
-                        <td>파일</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,14 +91,14 @@ function BoardView() {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan="2" style={{ whiteSpace: "pre-wrap" }}>{board.bContent}</td>
+                        <td style={{ whiteSpace: "pre-wrap" }}>{board.bContent}</td>
                     </tr>
                     <tr>
-                        <td colSpan="2" >
+                        <td>
                             {getUserId() == board.userId || isAdmin() ?
                                 <>
-                                    <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum}>수정</Link>
-                                    <button type="button" className="btn btn-dark" onClick={() => { deleteBoard() }}> 삭제</button>
+                                    <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum} className="btn btn-warning">수정</Link>
+                                    <button type="button" className="btn btn-danger" onClick={() => { deleteBoard() }}> 삭제</button>
                                 </>
                                 : ""
                             }
@@ -116,7 +113,7 @@ function BoardView() {
 
             {/* <CommentListLayout bNum={bNum} boardType={boardType}></CommentListLayout> */}
             {/* <CommentForm bNum={bNum} boardType={boardType}></CommentForm> */}
-        </>
+        </main>
     );
 }
 export default BoardView;
