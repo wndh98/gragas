@@ -20,7 +20,10 @@
     </insert>
     <update id="productUpdate" parameterType="productItem">
         update PRODUCT_ITEM set PC_NUM=#{pcNum}, PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
-        PI_CARBONATED=#{piCarbonated},PI_CONTENT=#{piContent}
+        PI_CARBONATED=#{piCarbonated}
+        <if test="piContent!=null">
+            ,PI_CONTENT=#{piContent}
+        </if>
         <if test="piImg!=null">
             ,PI_IMG=#{piImg}
         </if>

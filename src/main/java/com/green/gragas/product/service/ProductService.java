@@ -36,4 +36,6 @@ public interface ProductService {
      int peventUpdate(int piNum,int[] eiNum);
 
      List<ProductEvent> peventListPi(int piNum);
+
+     void deleteFile(int piNum, String type);
 }

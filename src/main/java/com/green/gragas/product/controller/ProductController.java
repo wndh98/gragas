@@ -1,5 +1,6 @@
 package com.green.gragas.product.controller;
 
+import com.green.gragas.board.dto.Board;
 import com.green.gragas.product.dto.*;
 import com.green.gragas.product.service.ProcateService;
 import com.green.gragas.product.service.ProductFileUpload;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -46,8 +48,8 @@ public class ProductController {
     ) {
         int piNum = ps.nextPiNum();
         try {
-            String piImg = ProductFileUpload.fileUpload(piImgFile, "product",piNum,rootPath);
-            String piContent = ProductFileUpload.fileUpload(piContentFile, "product",piNum,rootPath);
+            String piImg = ProductFileUpload.fileUpload(piImgFile, "product", piNum, rootPath);
+            String piContent = ProductFileUpload.fileUpload(piContentFile, "product", piNum, rootPath);
             product.setPiImg(piImg);
             product.setPiContent(piContent);
         } catch (IOException e) {
@@ -111,9 +113,27 @@ public class ProductController {
         return list;
     }
 
-
     @PostMapping("/product/update/{piNum}")
-    public int productUpdate(@PathVariable("piNum") int piNum, @RequestBody ProductItem product) {
+    public int productUpdate(
+            @PathVariable("piNum") int piNum,
+            @RequestPart("product") ProductItem product,
+            @RequestPart("piImgFile") MultipartFile piImgFile,
+            @RequestPart("piContentFile") MultipartFile piContentFile
+    ) {
+        try {
+            if (piImgFile != null) {
+                ps.deleteFile(piNum, "piImg");
+                String piImg = ProductFileUpload.fileUpload(piImgFile, "product", piNum, rootPath);
+                product.setPiImg(piImg);
+            }
+            if (piContentFile != null) {
+                ps.deleteFile(piNum, "piContent");
+                String piContent = ProductFileUpload.fileUpload(piContentFile, "product", piNum, rootPath);
+                product.setPiContent(piContent);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         product.setPiNum(piNum);
         ps.peventUpdate(piNum, product.getEiNum());
         int result = ps.productUpdate(product);
@@ -146,10 +166,11 @@ public class ProductController {
     }
 
     @PostMapping("/procate/insert")
-    public int procateInsert(@RequestPart("procate") ProductCate procate, @RequestPart("pcImgFile") MultipartFile pcImgFile) {
+    public int procateInsert(@RequestPart("procate") ProductCate procate, @RequestPart("pcImgFile") MultipartFile
+            pcImgFile) {
         int pcNum = cs.nextPcNum();
         try {
-            String pcImg = ProductFileUpload.fileUpload(pcImgFile, "procate",pcNum,rootPath);
+            String pcImg = ProductFileUpload.fileUpload(pcImgFile, "procate", pcNum, rootPath);
             procate.setPcImg(pcImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -196,8 +217,8 @@ public class ProductController {
     ) {
         int eiNum = cs.nextEiNum();
         try {
-           String eiContent = ProductFileUpload.fileUpload(eiContentFile, "event",eiNum,rootPath);
-           eitem.setEiContent(eiContent);
+            String eiContent = ProductFileUpload.fileUpload(eiContentFile, "event", eiNum, rootPath);
+            eitem.setEiContent(eiContent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

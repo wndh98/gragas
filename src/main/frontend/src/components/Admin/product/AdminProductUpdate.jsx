@@ -60,20 +60,43 @@ function AdminProductUpdate(params) {
   } = useForm();
 
   const loc = useNavigate();
+  const [imageList, setImageList] = useState([]);
+
+  const onChangeImageInput = e => {
+    setImageList([...imageList, ...e.target.files]);
+  };
+
 
   function onSubmit(data) {
-
+    if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
+    data.eiNum = [...(data.eiNum)];
+    const formData = new FormData();
+    formData.append('piImgFile', data.piImgFile[0]);
+    formData.append('piContentFile', data.piContentFile[0]);
+    formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }));
+    console.log(formData.getAll("product"));
+    axios.post("/product/update/" + piNum, formData, {
+      headers: { 'Content-Type': 'multipart/form-data', chatset: 'utf-8' }
+    })
+      .then(response => {
+        if (response.data != 0) {
+          axios.post("/pevent/insert/" + response.data, [...(data.eiNum)])
+            .then(result => {
+              if (result.data == 1) {
+                alert("성공");
+                loc("/product/main");
+              } else {
+                alert("실패");
+              }
+            });
+        } else {
+          alert("실패");
+        }
+      })
     console.log(data)
-    axios.post("/product/update/" + piNum, data, [...(data.eiNum)]).then((response) => {
-
-      if (response.data == 1) {
-        alert("성공");
-        loc("/product/main");
-      } else {
-        alert("실패");
-      }
-    });
   }
+
+
 
   function productDelete(event) {
     console.log(piNum)
@@ -102,7 +125,6 @@ function AdminProductUpdate(params) {
           <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
           <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
           <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
-          <tr><th>상황별</th><td><input type="text"  {...register("piContent")} defaultValue={products.piContent}></input></td></tr>
           {
             events.map((product) => {
 
@@ -116,7 +138,9 @@ function AdminProductUpdate(params) {
               );
             })
           }
-          <tr>이미지<td><input type="file" name="piPhoto"></input></td></tr>
+          <tr>이미지<td><input type="file"  {...register("piImgFile")} defaultValue={products.piImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+          <tr><th>Content</th><td><input type="file"  {...register("piContentFile")} defaultValue={products.piContentFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+
           <tr>
             <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
             <td><input type="submit" value="전송" />
