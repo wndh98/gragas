@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User userSerchId(String userName, String userPhone) {
-        return um.userSerchId(userName, userPhone);
+    public User userSearchId(User user) {
+        return um.userSearchId(user);
     }
 
     @Override

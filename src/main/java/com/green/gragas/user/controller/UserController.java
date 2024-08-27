@@ -37,10 +37,12 @@ public class UserController {
         return result;
     }
 
-    @PostMapping("/user/searchIdForm")
-    public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
-        User user = us.userSerchId(userName, userPhone);
-        return user;
+    @PostMapping("/user/searchId")
+    public User searchId(@RequestBody User user) {
+        System.out.println(user);
+        User user2 = us.userSearchId(user);
+        System.out.println(user2);
+        return user2;
     }
 
     @PostMapping("/login")

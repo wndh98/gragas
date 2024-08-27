@@ -103,9 +103,104 @@
     width: 100%;
     height: 52px;
     padding: 0;
-    margin: 20px 0px 0px;
+    margin: 35px 0px 0px;
     white-space: nowrap;
     font-size: 16px;
     font-weight: 500;
     line-height: 52px;
+}
+
+.coment_blue {
+    font-weight: 700;
+    font-size: 16px;
+    color: rgb(0,150,243);
+    margin-top: 30px;
+}
+
+.coment_gray {
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.userAddrName {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.userAddrContent {
+    border: 1px solid rgba(61, 61, 61, 0.18);
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 140%;
+    text-align: left;
+    word-break: break-word;
+    padding: 20px 15px;
+    margin-top: 20px;
+}
+
+.userAddrBtn {
+    width: 58px;
+    margin: 0;
+    text-decoration: underline;
+}
+
+.userAddrMargin {
+    margin-top: 8px;
+}
+
+.addrMessage {
+    width: 100%;
+    color: rgba(61,61,61, 0.6);
+}
+
+.delivery_input {
+    width: 390px;
+    margin-top: 30px;
+}
+
+.form_title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 160%;
+}
+
+.delivery_content {
+    padding: 40px 20px;
+    margin: auto;
+}
+
+.btn {
+    margin-bottom: 10px;
+}
+
+.form_addr {
+    margin-bottom: 5px;
+}
+
+.user_info {
+    margin-top: 20px;
+}
+
+.user_info_title {
+    text-align: left;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 100%;
+}
+
+.user_info_update_btn_box {
+    text-align: right;
+}
+
+.user_info_update_btn {
+    color: rgb(0, 150, 243);
+    text-decoration: underline;
+    border: none;
+    background-color: white;
+    text-align: right;
+    margin-top: 30px;
+}
+
+.user_info_update_text {
+    text-decoration: underline;
 }

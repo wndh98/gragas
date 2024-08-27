@@ -43,32 +43,37 @@ function UserDeliveryInput() {
   }
   
   return(
-    <div className="container col-5">
-      <div>
+    <div className="delivery_input container border border-secondary rounded">
+      <div className="delivery_content">
         <form form onSubmit={SubmitEvent}>
           <input type="hidden" name="userId" value={userId} />
-          <div>
+          <div className="form_title">
             새 배송지를 추가해 주세요.
           </div>
-          <div>
+          <hr />
+          <div className="input-form-box">
             수령인 
-            <input type="text" name="mdName" required />
+            <input 
+                className="form-control" 
+                type="text" 
+                name="mdName" 
+                placeholder="성함을 입력해 주세요" required />
           </div>
-          <div>
+          <div className="input-form-box">
             연락처
-            <input type="text" name="mdTel" required />
+            <input className="form-control" type="text" name="mdTel" placeholder="전화번호를 입력해 주세요" required />
           </div>
-          <div>
+          <div className="input-form-box">
             배송지
-            <input type="text" name="mdAddr" required />
-            <input type="text" name="mdAddrDetail"/>
+            <input className="form-control form_addr" type="text" name="mdAddr" placeholder="주소를 입력해 주세요" required />
+            <input className="form-control" type="text" name="mdAddrDetail" placeholder="상세주소를 입력해 주세요"/>
           </div>
-          <div>
+          <div className="input-form-box">
             배송 메모
-            <input type="text" name="mdMessage"/>
+            <input className="form-control" type="text" name="mdMessage" placeholder="요청사항을 입력해 주세요"/>
           </div>
-          <button type="submit">저장</button>
-          <button onClick={moveBack}>취소</button>
+          <button className="btn btn-primary col-12" type="submit">저장</button>
+          <button className="btn btn-outline-secondary col-12" type="button" onClick={moveBack}>취소</button>
         </form>
       </div>
     </div>

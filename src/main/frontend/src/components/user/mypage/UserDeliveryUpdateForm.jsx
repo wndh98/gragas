@@ -70,14 +70,15 @@ function UserDeliveryUpdateForm() {
             });
     }
     return (
-        <div className="container col-5">
-            <div>
+        <div className="delivery_input container border border-secondary rounded">
+            <div className="delivery_content">
                 <form onSubmit={SubmitEvent}>
                     <input type="hidden" name="mdNum" value={mdNum} />
-                    <div>
-                        새 배송지를 추가해 주세요.
+                    <div className="form_title">
+                        배송지 내용을 수정해 주세요.
                     </div>
-                    <div>
+                    <hr />
+                    <div className="input-form-box">
                         수령인
                         <input
                             className="form-control"
@@ -86,7 +87,7 @@ function UserDeliveryUpdateForm() {
                         />
                         {errors.mdName && <p>{errors.mdName.message}</p>}
                     </div>
-                    <div>
+                    <div className="input-form-box">
                         연락처
                         <input
                             className="form-control"
@@ -95,10 +96,10 @@ function UserDeliveryUpdateForm() {
                         />
                         {errors.mdTel && <p>{errors.mdTel.message}</p>}
                     </div>
-                    <div>
+                    <div className="input-form-box">
                         배송지
                         <input
-                            className="form-control"
+                            className="form-control form_addr"
                             type="text"
                             {...register('mdAddr', { required: '배송지를 입력해주세요.' })}
                         />
@@ -110,7 +111,7 @@ function UserDeliveryUpdateForm() {
                         />
                         {errors.mdAddrDetail && <p>{errors.mdAddrDetail.message}</p>}
                     </div>
-                    <div>
+                    <div className="input-form-box">
                         배송 메모
                         <input
                             className="form-control"
@@ -119,8 +120,8 @@ function UserDeliveryUpdateForm() {
                         />
                         {errors.mdMessage && <p>{errors.mdMessage.message}</p>}
                     </div>
-                    <button type="submit">저장</button>
-                    <button onClick={deleteDelivery}>삭제</button>
+                    <button className="btn btn-primary col-12" type="submit">저장</button>
+                    <button className="btn btn-outline-secondary col-12" type="button" onClick={deleteDelivery}>삭제</button>
                 </form>
             </div>
         </div>

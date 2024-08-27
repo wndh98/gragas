@@ -21,7 +21,6 @@ function MyPage() {
   useEffect(() => {
     axios.get("/userSearch/" + userId)
       .then((response) => {
-        console.log(response);
         setUser((response.data));
         setValue("userName", response.data.userName);
         setValue("userLevel", response.data.userLevel);
