@@ -10,7 +10,7 @@ function AdminProductCreate() {
 
     const { register, handleSubmit, formState: { error } } = useForm();
     const [events, setEvents] = useState([]);
-  
+
     useEffect(() => {
 
         axios.get("/event/list")
@@ -56,7 +56,7 @@ function AdminProductCreate() {
 
     function onSubmit(data) {
         if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
-        data.eiNum=[...(data.eiNum)];
+        data.eiNum = [...(data.eiNum)];
         const formData = new FormData();
         formData.append('piImgFile', data.piImgFile[0]);
         formData.append('piContentFile', data.piContentFile[0]);
@@ -89,7 +89,7 @@ function AdminProductCreate() {
                 <table class="admin_board_wrap" id="user-admin">
                     <thead class="admin_boardList">
 
-                        <tr>카테고리번호
+                        <tr>카테고리
                             <td><input type="text" {...register("pcNum")} /></td>
                         </tr>
                         <tr>상품명
