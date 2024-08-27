@@ -7,6 +7,7 @@ function LoginMenuBar(props) {
     const navigate = useNavigate();
 
     function logout() {
+        console.log();
         deleteCookie("isLogin");
         axios.get('/logout')
         .then((result) => {

@@ -8,6 +8,6 @@ const getCookie = function (name) {
     return value ? value[2] : null;
 };
 var deleteCookie = function (name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+    document.cookie = name + '=; expires=0;';
 }
 export { setCookie, getCookie, deleteCookie };
