@@ -18,6 +18,7 @@ function SubsPayMent() {
         siArrive: ''
     });
     const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
     const userId = getCookie("isLogin");
 
     useEffect(() => {
@@ -32,7 +33,18 @@ function SubsPayMent() {
 
     }, [siNum]);
 
-
+    function creatVirtualAccount() {
+        axios.post('/subscribe/virtualAccountCreat')
+            .then(response => {
+                // 서버 응답을 처리하고 상태를 업데이트하거나 사용자에게 알림
+                console.log(response.data);
+                alert("가상계좌가 생성되었습니다: " + JSON.stringify(response.data));
+            })
+            .catch(error => {
+                console.error('Error creating virtual account:', error);
+                alert("가상계좌 생성 중 오류가 발생했습니다: " + error.message);
+            });
+    }
     return (
         <div>
             <div className="soBox">
@@ -82,6 +94,7 @@ function SubsPayMent() {
                     <div className="soTitle">결제 방법</div>
                     <div className="spmButton">
                         <button>신용/체크카드</button>
+                        <button onClick={()=>creatVirtualAccount()}>가상계좌</button>
                         <button>카카오페이</button>
                         <button>네이버페이</button>
                     </div>
