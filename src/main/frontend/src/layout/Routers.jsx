@@ -15,10 +15,11 @@ import JoinForm from "../components/user/login/JoinForm";
 import MyPage from "../components/user/mypage/MyPage";
 import UserInfo from "../components/user/mypage/UserInfo";
 import UserInfoUpdate from "../components/user/mypage/UserInfoUpdate";
-import SerchIdForm from "../components/user/login/SerchIdForm";
+import SearchIdForm from "../components/user/login/SearchIdForm";
 import UserDeliveryInput from "../components/user/mypage/UserDeliveryInput";
 import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdateForm";
 import Membership from "../components/user/Membership";
+import SearchPwForm from "../components/user/login/SearchPwForm";
 
 
 import Main from "../components/product/Main";
@@ -60,6 +61,7 @@ import CartLayout from "../components/cart/CartLayout";
 import OrderFormLayout from "../components/order/OrderFormLayout";
 
 
+
 function Routers() {
     if (!isOcId()) setOcId();
     return (
@@ -82,7 +84,8 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
-                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm /></Layout>} />
+                <Route path="/login/searchIdForm" element={<Layout><SearchIdForm /></Layout>} />
+                <Route path="/login/SearchPwForm" element={<Layout><SearchPwForm /></Layout>} />
                 <Route path="/myPage" element={<Layout><MyPage /></Layout>} />
                 <Route path="/myPage/userInfo" element={<Layout><UserInfo /></Layout>} />
                 <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate /></Layout>} />

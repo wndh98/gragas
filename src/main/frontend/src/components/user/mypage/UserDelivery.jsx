@@ -22,7 +22,13 @@ function UserDelivery() {
     <div className="user_delivery container">
       <div className="title"><h3>전체 배송지 관리</h3></div>
       <hr />
-      <div className="text-center">구독 배송지 들어갈 예정</div>
+      <div className="container userSubAddr">
+        <div className="text-center d-flex justify-content-between">
+          <div>현재 구독중인 배송지</div>
+          <div><button className="move_sub">구독하러가기</button></div>
+        </div>
+        <div className="text-center">구독을 안하고 계세요</div>
+      </div>
       <div className="userAddr container">
         <div className="userAddrHeader">그 외 배송지 목록</div>
         {(deliverys.length == 0) ?
