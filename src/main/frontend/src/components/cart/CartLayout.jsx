@@ -4,15 +4,16 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
 
 
 function CartLayout() {
     const ocId = getOcId();
     const [cartList, setCartList] = useState([{}]);
+    const navi = useNavigate();
     useEffect(() => {
         axios.get(`/orderCart/list?ocId=${ocId}`).then(response => {
             setCartList(response.data);
+            console.log(response);
         })
     }, [])
     function cartDelete(cart) {
