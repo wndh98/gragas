@@ -21,7 +21,7 @@ import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdate
 import Membership from "../components/user/Membership";
 
 
-import Main from "../components/product/Main";
+import MainList from "../components/product/MainList";
 import ProductItem from "../components/product/ProductItem";
 import ProductEvent from "../components/product/ProductEvent";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
@@ -97,8 +97,8 @@ function Routers() {
 
             </Routes>
             <Routes>
-                <Route path="/main" element={<Layout><Main /></Layout>} />
-                <Route path="/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
+                <Route path="/main" element={<Layout><MainList /></Layout>} />
+                <Route path="/main/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
                 <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/productEventMain/:eiNum" element={<Layout><EventMain /></Layout>} />

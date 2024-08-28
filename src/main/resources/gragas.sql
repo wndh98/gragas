@@ -120,6 +120,7 @@ CREATE TABLE EVENT_ITEM (
    EI_NUM INT NOT NULL primary key AUTO_INCREMENT,
    EI_NAME   VARCHAR(30)   NOT NULL,
    EI_CONTENT VARCHAR(255)   NOT NULL
+
 );
 
 -- 상품
@@ -141,8 +142,10 @@ CREATE TABLE PRODUCT_ITEM (
 CREATE TABLE PRODUCT_EVENT (
    PI_NUM INT NOT NULL,
    EI_NUM INT NOT null,
-   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM),
+   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM)
+   on delete cascade,
    FOREIGN key(EI_NUM) references EVENT_ITEM(EI_NUM)
+   on delete cascade
 );
 
 -- 상품옵션
@@ -154,6 +157,7 @@ CREATE TABLE PRODUCT_OPTION (
    PO_NAME   VARCHAR(30)   NOT NULL,
    PO_CNT INT   NOT null,
    FOREIGN KEY(PI_NUM) references PRODUCT_ITEM(PI_NUM)
+   on delete cascade
 );
 
 
