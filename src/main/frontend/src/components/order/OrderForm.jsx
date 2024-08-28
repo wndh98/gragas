@@ -31,6 +31,7 @@ function OrderForm(props) {
                 <OrderCart
                     ocId={ocId}
                 />
+
                 <div className="p-5">
                     <input type="submit" className="btn btn-success w-100" value="주문" />
                 </div>
