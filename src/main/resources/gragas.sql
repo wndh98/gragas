@@ -4,6 +4,8 @@ select * from board_file;
 drop table if exists `ORDER_DETAIL`;
 drop table if exists `ORDER_LIST`;
 drop table if exists `ORDER_CART`;
+drop table if exists PRE_ORDER_DETAIL;
+drop table if exists PRE_ORDER_LIST;
 
 
 DROP TABLE IF EXISTS `BOARD_FILE`;
@@ -368,6 +370,10 @@ create table `ORDER_DETAIL` (
 	`OD_STATUS` VARCHAR(10) not null default 'READY'
 );
 
+
+
+
+
 -- 장바구니
 create table `ORDER_CART` (
     `OC_NUM` int primary key not null auto_increment,
@@ -377,6 +383,46 @@ create table `ORDER_CART` (
 	`USER_ID` VARCHAR(50) not null,
 	`OC_CNT` INT not null
 );
+
+
+-- 주문전 주문리스트
+create table `PRE_ORDER_LIST` (
+	`OL_ID` VARCHAR(255) not null primary key,
+	`USER_ID` VARCHAR(50) not null,
+	`OL_PRICE` INT not null,
+	`OL_DELI` INT not null,
+	`OL_CNT` INT not null,
+	`OL_PAYMENT` VARCHAR(50) not null,
+	`OL_PAY` INT not null,
+	`OL_REGIST` DATETIME not null,
+	`OL_PAY_REGIST` DATETIME null,
+	`OL_POINT` int not null default 0,
+	`OL_NAME` VARCHAR(255) not null,
+	`OL_TEL` VARCHAR(255) not null,
+	`OL_ADDRESS` VARCHAR(255) not null,
+	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
+	`OL_MEMO` VARCHAR(255) null
+);
+-- 주문전 주문상세
+create table `PRE_ORDER_DETAIL` (
+	`OD_NUM` INT not null auto_increment primary key,
+	`OL_ID` VARCHAR(255) not null,
+	`PI_NUM` INT not null,
+	`PI_NAME` VARCHAR(255) not null,
+	`PO_NUM` INT not null,
+	`PO_NAME` varchar(255) not null,
+	`PO_PRICE` int not null,
+	`PO_SALE` int not null,
+	`OD_CNT` INT not null,
+	`OD_PRICE` INT not null,
+	`OD_POINT` INT not null default 0,
+	`OD_STATUS` VARCHAR(10) not null default 'READY'
+);
+ALTER TABLE `PRE_ORDER_DETAIL` ADD CONSTRAINT `PRE_FK_OL_ID` foreign key(OL_ID) references PRE_ORDER_LIST(OL_ID) on delete cascade;
+
+
+
+
 ALTER TABLE `ORDER_LIST` ADD CONSTRAINT `FK_OL_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 alter table `ORDER_DETAIL` add constraint `FK_OD_OL_ID` foreign key(OL_ID) references ORDER_LIST(OL_ID);
@@ -387,7 +433,12 @@ alter table `ORDER_CART` add constraint `FK_OC_USER_ID` foreign key(USER_ID) ref
 alter table `ORDER_CART` add constraint `FK_OC_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
 alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM)ON DELETE CASCADE;
 
+
+
 -- 주문 END
+
+
+
 
 
 
