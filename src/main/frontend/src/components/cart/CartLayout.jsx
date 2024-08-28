@@ -4,8 +4,6 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
-
 
 function CartLayout() {
     const ocId = getOcId();
@@ -34,7 +32,7 @@ function CartLayout() {
         })
     }
     function buyCart() {
-        navi(`/order/orderForm/${ocId}`)
+
     }
     return (
         <div className="container">

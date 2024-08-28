@@ -4,6 +4,7 @@ import React from 'react';
 function Boxes(props) {
     const product = props.product;
 
+
     function price() {
         let prices = 0;
         prices = (product.poPrice) * (product.poSale)
@@ -26,7 +27,7 @@ function Boxes(props) {
                         </div>
                         <div className='wrapper'>
                             <div className='spdla secn'>
-                                <span class="font subheadline-regular">{product.piPrice}</span>
+                                <span class="font subheadline-regular alxwnf">{product.poPrice}</span>
                                 <div className='spdla one'>
                                     <div className='spdla two'>
                                         <div className='discount-area'>

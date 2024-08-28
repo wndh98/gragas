@@ -35,7 +35,7 @@ function Header() {
                         로고
                     </Link>
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link to="#" className="nav-link px-2 text-dark">상품</Link></li>
+                        <li><Link to="/main" className="nav-link px-2 text-dark">상품</Link></li>
                         <li><Link to="/subscribe/itemList" className="nav-link px-2 text-dark">구독</Link></li>
                         <li><Link to="/board/free/list/1" className="nav-link px-2 text-dark">게시판</Link></li>
                         <li>
