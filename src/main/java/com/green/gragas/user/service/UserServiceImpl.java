@@ -4,7 +4,6 @@ import com.green.gragas.user.dto.User;
 import com.green.gragas.user.dto.UserSearchDTO;
 import com.green.gragas.user.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -36,8 +35,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User userSearchId(User user) {
-        return um.userSearchId(user);
+    public Map<String, Object> userSearchId(User user) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userList", um.userSearchIdList(user));
+        return map;
     }
 
     @Override
@@ -48,5 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int userUpdate(User user) {
         return um.userUpdate(user);
+    }
+
+    @Override
+    public User userSearchPw(User user) {
+        return um.userSearchPw(user);
     }
 }

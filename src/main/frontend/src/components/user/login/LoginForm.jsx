@@ -75,8 +75,8 @@ function EmailLogin() {
       </form>
       <button className='btn btn-secondary btn-xs col-12' onClick={moveJoinForm}>이메일 회원가입</button>
       <div className='text-center login_search'>
-        <a href="/login/serchIdForm">아이디 찾기</a>
-        <a href="#">비밀번호 찾기</a>
+        <a href="/login/searchIdForm">아이디 찾기</a>
+        <a href="/login/searchPwForm">비밀번호 찾기</a>
       </div>
     </div>
   );

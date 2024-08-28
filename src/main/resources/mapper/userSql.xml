@@ -24,7 +24,7 @@
     <insert id="userJoin" parameterType="user">
         insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userBirth}, #{userPhone}, 0, 'Y', 'N', now())
     </insert>
-    <select id="userSearchId" resultType="user" parameterType="user">
+    <select id="userSearchIdList" resultType="user" parameterType="user">
         select * from User where USER_NAME=#{userName} and USER_PHONE=#{userPhone}
     </select>
     <update id="userDelete" parameterType="string">
@@ -33,4 +33,8 @@
     <update id="userUpdate" parameterType="user">
         update user set user_pw = #{userPw}, user_name = #{userName}, user_phone = #{userPhone} where user_id = #{userId}
     </update>
+    <select id="userSearchPw" parameterType="user" resultType="user">
+        select * from User where user_id=#{userId} and user_name=#{userName}
+            and user_birth=#{userBirth}
+    </select>
 </mapper>

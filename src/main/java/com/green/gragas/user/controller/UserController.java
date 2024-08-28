@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,21 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder pwEncoder;
+
+    public String makeRandomPw(int len) {
+        //소문자, 대문자, 숫자
+        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom rm = new SecureRandom();
+        StringBuffer sb = new StringBuffer();
+
+        for(int i=0; i<len; i++) {
+            //무작위로 문자열의 인덱스 반환
+            int index = rm.nextInt(chars.length());
+            //index의 위치한 랜덤값
+            sb.append(chars.charAt(index));
+        }
+        return sb.toString();
+    }
 
     @GetMapping("/view/{userId}")
     public User userView(@PathVariable String userId) {
@@ -38,11 +54,23 @@ public class UserController {
     }
 
     @PostMapping("/user/searchId")
-    public User searchId(@RequestBody User user) {
-        System.out.println(user);
-        User user2 = us.userSearchId(user);
-        System.out.println(user2);
-        return user2;
+    public Map<String, Object> searchId(@RequestBody User user) {
+        Map<String, Object> map = us.userSearchId(user);
+        return map;
+    }
+
+    @PostMapping("/user/searchPw")
+    public String searchPw(@RequestBody User user) {
+        User user2 = us.userSearchPw(user);
+        String userPw = makeRandomPw(10);
+        if(user2 != null) {
+            System.out.println(userPw);
+            user2.setUserPw(pwEncoder.encode(userPw));
+            int result = us.userUpdate(user2);
+            return userPw;
+        }
+
+        return "정보가 옳지 않습니다";
     }
 
     @PostMapping("/login")
@@ -89,14 +117,15 @@ public class UserController {
     }
 
     @GetMapping("userSearch/{userId}")
-    public User userUpdate(@PathVariable("userId") String userId) {
+    public User userSelect(@PathVariable("userId") String userId) {
         User user = us.userCheck(userId);
         return user;
     }
 
     @PostMapping("user/updateAction")
-    public int UpdateAction(@RequestBody User user) {
+    public int Update(@RequestBody User user) {
         int result = 0;
+        user.setUserPw(pwEncoder.encode(user.getUserPw()));
         result = us.userUpdate(user);
         return result;
     }
