@@ -9,8 +9,8 @@ function JoinForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
-  } = useForm();
+    formState: { errors, isDirty, isValid }
+  } = useForm({ mode: 'onChange' });
 
   const userPw = watch('userPw');
 
@@ -52,6 +52,7 @@ function JoinForm() {
             {...register('userId', { required: '이메일을 입력해주세요.' })}
           />
           {errors.userId && <p>{errors.userId.message}</p>}
+          <button>중복체크</button>
         </div>
         <div className="input-form-box">
           <input
