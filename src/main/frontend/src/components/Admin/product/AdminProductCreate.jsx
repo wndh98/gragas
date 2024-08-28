@@ -12,47 +12,17 @@ function AdminProductCreate() {
     const [events, setEvents] = useState([]);
     const [procates, setProcates] = useState([]);
     useEffect(() => {
-
         axios.get("/event/list")
             .then(response => {
                 setEvents(response.data);
             })
             .catch(error => console.error("Fetching error:", error));
-
         axios.get("/procate/list")
             .then(response => {
                 setProcates(response.data);
             })
             .catch(error => console.error("Fetching error:", error));
-
-
     }, [])
-
-
-    /*    const [productInput, setProductInput] = useState(
-           {
-               piNum: "",
-               pcNum: "",
-               piName: "",
-               piAlcohol: "",
-               piSweet: "",
-               piCarbonated: "",
-               poPrice: "",
-               poSale: "",
-               piContent: "",
-               poName: ""
-           }
-       );
-       const [productOptionInput, setProductOptionInput] = useState(
-           {
-               poPrice: "",
-               poSale: "",
-               poCnt: "",
-               poName: ""
-           }
-       );
-    */
-
     const [imageList, setImageList] = useState([]);
 
     const onChangeImageInput = e => {

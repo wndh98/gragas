@@ -87,49 +87,52 @@ function BoardForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} >
-            {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
-            <input type="hidden"  {...register("userId")} value={user.userId} />
-            <input type="hidden"  {...register("bNum")} />
-            <input type="hidden"  {...register("bRef")} value={board.bRef} />
-            <input type="hidden"  {...register("bWriter")} value={user.userName} />
-            <table>
-                <tbody>
-                    <tr>
-                        <th>제목</th>
-                        <td>
-                            <input {...register("bSubject", { required: { message: "제목을 입력해 주세요." } })} />
-                            {errors.bSubject && <p>{errors.bSubject.message}</p>}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td>
-                            <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })}></textarea>
-                            {errors.bContent && <p>{errors.bContent.message}</p>}
-                        </td>
-                    </tr>
+        <main className="container">
+            <form onSubmit={handleSubmit(onSubmit)} >
+                {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
+                <input type="hidden"  {...register("userId")} value={user.userId} />
+                <input type="hidden"  {...register("bNum")} />
+                <input type="hidden"  {...register("bRef")} value={board.bRef} />
+                <input type="hidden"  {...register("bWriter")} value={user.userName} />
+                <table className="table mt-5 table-bordered">
+                    <tbody>
+                        <tr>
+                            <th className="table-secondary text-center">제목</th>
+                            <td>
+                                <input {...register("bSubject", { required: { message: "제목을 입력해 주세요." } })} className="form-control" />
+                                {errors.bSubject && <p>{errors.bSubject.message}</p>}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="table-secondary text-center">내용</th>
+                            <td>
+                                <textarea {...register("bContent", { required: true, message: "내용을 입력해주세요." })} className="form-control"></textarea>
+                                {errors.bContent && <p>{errors.bContent.message}</p>}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>파일1</th>
-                        <td>
+                        <tr>
+                            <th className="table-secondary text-center">파일1</th>
+                            <td>
 
-                            <input type="file" {...register(`bFile[0]`)} className="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>파일2</th>
-                        <td>
+                                <input type="file" {...register(`bFile[0]`)} className="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="table-secondary text-center">파일2</th>
+                            <td>
 
-                            <input type="file" {...register(`bFile[1]`)} className="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2"><input type="submit" /></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+                                <input type="file" {...register(`bFile[1]`)} className="form-control" />
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div className="d-flex justify-content-center">
+                    <input type="submit" className="btn btn-success" />
+                </div>
+            </form>
+        </main>
     );
 }
 export default BoardForm;

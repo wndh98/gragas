@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService us;
+
+    @Autowired
+    private PasswordEncoder pwEncoder;
 
     @GetMapping("/view/{userId}")
     public User userView(@PathVariable String userId) {
@@ -27,15 +31,18 @@ public class UserController {
         int result = 0;
         User user2 = us.userCheck(user.getUserId());
         if(user2 == null) {
+            user.setUserPw(pwEncoder.encode(user.getUserPw()));
             result = us.userJoin(user);
         }
         return result;
     }
 
-    @PostMapping("/user/searchIdForm")
-    public User serchId(@PathVariable String userName, @PathVariable String userPhone) {
-        User user = us.userSerchId(userName, userPhone);
-        return user;
+    @PostMapping("/user/searchId")
+    public User searchId(@RequestBody User user) {
+        System.out.println(user);
+        User user2 = us.userSearchId(user);
+        System.out.println(user2);
+        return user2;
     }
 
     @PostMapping("/login")
@@ -45,14 +52,12 @@ public class UserController {
         if(user2==null)return result;
         if(user2.getUserDel().equals("Y")) return -2;
 
-        if (user2.getUserId().equals(user.getUserId())) {
-            if (user.getUserPw().equals(user2.getUserPw())) {
-                result = 1;
-                HttpSession session = request.getSession();
-                session.setAttribute("userId", user.getUserId());
-            } else {
-                result = -1;
-            }
+        if (pwEncoder.matches(user.getUserPw(), user2.getUserPw())) {
+            result = 1;
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", user.getUserId());
+        } else {
+            result = -1;
         }
         return result;
     }

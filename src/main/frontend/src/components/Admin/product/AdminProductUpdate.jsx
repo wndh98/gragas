@@ -67,13 +67,11 @@ function AdminProductUpdate(params) {
   } = useForm();
 
   const [imageList, setImageList] = useState([]);
-
   const onChangeImageInput = e => {
     setImageList([...imageList, ...e.target.files]);
   };
 
   const loc = useNavigate();
-
 
   function onSubmit(data) {
     if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
@@ -81,6 +79,7 @@ function AdminProductUpdate(params) {
     const formData = new FormData();
     formData.append('piImgFile', data.piImgFile[0]);
     formData.append('piContentFile', data.piContentFile[0]);
+
     formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }));
     console.log(formData.getAll("product"));
     axios.post("/product/update/" + piNum, formData, {
@@ -101,12 +100,9 @@ function AdminProductUpdate(params) {
           alert("실패");
         }
       })
+
     console.log(data)
   }
-
-
-
-
   function productDelete(event) {
     console.log(piNum)
 

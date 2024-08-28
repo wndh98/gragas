@@ -4,7 +4,7 @@ import InfoList from "./InfoList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-// import ProductItemSide from "./ProductItemSide";
+import ProductItemSide from "./ProductItemSide";
 import { salePercent } from "../../js/order";
 
 
@@ -40,7 +40,6 @@ function ProductItem() {
 
     const [product, setProducts] = useState([]);
     const [option, setOptions] = useState([]);
-
     const viewUrl = "/product/view/" + piNum;
 
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
@@ -61,9 +60,6 @@ function ProductItem() {
             })
             .catch(error => console.error("Fetching error:", error))
     }, []);
-
-
-
 
     return (
 
@@ -137,7 +133,7 @@ function ProductItem() {
                         </p>
                     </div>
                 </div>
-                {/* <ProductItemSide piNum={piNum}></ProductItemSide> */}
+                <ProductItemSide piNum={piNum}></ProductItemSide>
             </div>
         </div >
     );

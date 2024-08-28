@@ -15,11 +15,12 @@ function SerchIdForm() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/user/searchIdForm', data)
+      const response = await axios.post('/user/searchId', data)
       .then((response) => {
+        console.log(response)
        if(response.data != null) {
-        alert('아이디 표시');
-        navigate("/login");
+        alert(response.data.userId);
+        navigate("/loginForm");
       } else {
         alert('정보 오류');
       }});
@@ -29,7 +30,7 @@ function SerchIdForm() {
   };
 
   return (
-    <div className='container col-4'>
+    <div className='container user_search_id'>
     <h2>아이디 찾기</h2>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="input-form-box">

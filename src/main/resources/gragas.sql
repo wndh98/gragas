@@ -65,7 +65,7 @@ create table user (
 	USER_BIRTH DATE not null,
 	USER_PHONE VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
-	USER_COUPON VARCHAR(1) not null default 'N',
+	USER_COUPON VARCHAR(1) not null default 'Y',
 	USER_DEL VARCHAR(1) not null default 'N',
 	USER_REGIST DATETIME not null default NOW()
 );
@@ -366,7 +366,8 @@ create table `ORDER_DETAIL` (
 
 -- 장바구니
 create table `ORDER_CART` (
-	`OC_ID` VARCHAR(255) not null primary key,
+    `OC_NUM` int primary key not null auto_increment,
+	`OC_ID` VARCHAR(255) not null,
 	`PI_NUM` INT not null,
 	`PO_NUM` INT not null,
 	`USER_ID` VARCHAR(50) not null,
