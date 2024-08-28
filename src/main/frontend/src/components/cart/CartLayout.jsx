@@ -3,7 +3,6 @@ import { getOcId } from "../../js/orderCart/cart";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-import { useNavigate } from "react-router-dom";
 
 
 function CartLayout() {
@@ -13,6 +12,7 @@ function CartLayout() {
     useEffect(() => {
         axios.get(`/orderCart/list?ocId=${ocId}`).then(response => {
             setCartList(response.data);
+            console.log(response);
         })
     }, [])
     function cartDelete(cart) {

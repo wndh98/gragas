@@ -59,6 +59,7 @@ import AuthRoute from "./AuthRoute";
 
 import CartLayout from "../components/cart/CartLayout";
 import OrderFormLayout from "../components/order/OrderFormLayout";
+import Toss from "../components/Toss";
 
 
 function Routers() {
@@ -67,9 +68,11 @@ function Routers() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/toss" element={<Layout><Toss /></Layout>} />
                 <Route path="/admin" element={<AdminLayout><AdminIndex /></AdminLayout>} />
                 <Route path="/test" element={<AuthRoute to="/loginForm"><AdminLayout><AdminIndex /></AdminLayout></AuthRoute>} />
                 <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} />
+
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
