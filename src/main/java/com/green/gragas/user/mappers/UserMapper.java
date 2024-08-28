@@ -18,7 +18,7 @@ public interface UserMapper {
 
     int userJoin(User user);
 
-    User userSerchId(String userName, String userPhone);
+    User userSearchId(User user);
 
     int totalCnt();
 

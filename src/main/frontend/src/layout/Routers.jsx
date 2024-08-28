@@ -16,6 +16,7 @@ import UserInfoUpdate from "../components/user/mypage/UserInfoUpdate";
 import SerchIdForm from "../components/user/login/SerchIdForm";
 import UserDeliveryInput from "../components/user/mypage/UserDeliveryInput";
 import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdateForm";
+import Membership from "../components/user/Membership";
 
 
 import Main from "../components/product/Main";
@@ -86,6 +87,8 @@ function Routers() {
                 <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput /></Layout>} />
                 <Route path="/mypage/delivery/update/:mdNum" element={<Layout><UserDeliveryUpdateForm /></Layout>} />
                 <Route path="/mypage/:content" element={<Layout><MyPage /></Layout>} />
+                <Route path="/membership" element={<Layout><Membership /></Layout>} />
+
             </Routes>
             <Routes>
                 <Route path="/main" element={<Layout><Main /></Layout>} />

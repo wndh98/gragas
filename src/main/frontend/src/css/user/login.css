@@ -33,3 +33,12 @@
 .input-form-box {
   margin-bottom: 30px;
 }
+
+.user_search_id {
+  width: 390px;
+}
+
+.login_search a{
+  color: rgb(62, 62, 62);
+  margin: 5px 10px;
+}
