@@ -15,13 +15,14 @@ import JoinForm from "../components/user/login/JoinForm";
 import MyPage from "../components/user/mypage/MyPage";
 import UserInfo from "../components/user/mypage/UserInfo";
 import UserInfoUpdate from "../components/user/mypage/UserInfoUpdate";
-import SerchIdForm from "../components/user/login/SerchIdForm";
+import SearchIdForm from "../components/user/login/SearchIdForm";
 import UserDeliveryInput from "../components/user/mypage/UserDeliveryInput";
 import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdateForm";
 import Membership from "../components/user/Membership";
+import SearchPwForm from "../components/user/login/SearchPwForm";
 
 
-import Main from "../components/product/Main";
+import MainList from "../components/product/MainList";
 import ProductItem from "../components/product/ProductItem";
 import ProductEvent from "../components/product/ProductEvent";
 import AdminProductMain from "../components/admin/product/AdminProductMain";
@@ -48,7 +49,8 @@ import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import SubsDescription from "../components/subscribe/SubsDescription";
 import SubsOrder from "../components/subscribe/SubsOrder";
-import SubsPayMent from "../components/subscribe/SubsPayMent";
+import SubsPayForm from "../components/subscribe/SubsPayForm";
+import CheckoutPage from "../components/subscribe/SubsPayMent";
 
 
 import BoardListLayout from "../components/board/BoardListLayout";
@@ -58,6 +60,8 @@ import AuthRoute from "./AuthRoute";
 
 import CartLayout from "../components/cart/CartLayout";
 import OrderFormLayout from "../components/order/OrderFormLayout";
+import Toss from "../components/Toss";
+
 
 
 function Routers() {
@@ -66,9 +70,11 @@ function Routers() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/toss" element={<Layout><Toss /></Layout>} />
                 <Route path="/admin" element={<AdminLayout><AdminIndex /></AdminLayout>} />
                 <Route path="/test" element={<AuthRoute to="/loginForm"><AdminLayout><AdminIndex /></AdminLayout></AuthRoute>} />
                 <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} />
+
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
@@ -78,11 +84,13 @@ function Routers() {
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
                 <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder /></Layout>} />
-                <Route path="/subscribe/subsPayMent/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayMent/></Layout></AuthRoute>} />
+                <Route path="/subscribe/subsPayForm/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayForm/></Layout></AuthRoute>} />
+                <Route path="/subscribe/SubsPayMent" element={<AuthRoute to="/loginForm"><Layout><CheckoutPage/></Layout></AuthRoute>} />
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
-                <Route path="/login/serchIdForm" element={<Layout><SerchIdForm /></Layout>} />
+                <Route path="/login/searchIdForm" element={<Layout><SearchIdForm /></Layout>} />
+                <Route path="/login/SearchPwForm" element={<Layout><SearchPwForm /></Layout>} />
                 <Route path="/myPage" element={<Layout><MyPage /></Layout>} />
                 <Route path="/myPage/userInfo" element={<Layout><UserInfo /></Layout>} />
                 <Route path="/myPage/userInfo/update" element={<Layout><UserInfoUpdate /></Layout>} />
@@ -94,8 +102,8 @@ function Routers() {
 
             </Routes>
             <Routes>
-                <Route path="/main" element={<Layout><Main /></Layout>} />
-                <Route path="/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
+                <Route path="/main" element={<Layout><MainList /></Layout>} />
+                <Route path="/main/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
                 <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/productEventMain/:eiNum" element={<Layout><EventMain /></Layout>} />

@@ -9,12 +9,20 @@
 }
 
 a {
-  color: rgb(24, 144, 255);
+  color: black;
   text-decoration: none;
   background-color: transparent;
   outline: none;
   cursor: pointer;
   transition: color 0.3s;
+}
+
+.special-price-percent .font {
+  color: rgb(255, 125, 58);
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  letter-spacing: 0.6px !important;
 }
 
 .mainbox {
@@ -47,6 +55,33 @@ a {
 
 }
 
+.ejEHhD .title2-bold {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: -0.22px;
+}
+
+.ejEHhD .font {
+  color: rgb(0, 0, 0);
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.bXHhAM .body-bold {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 160%;
+}
+
+.bXHhAM .font {
+  color: rgba(61, 61, 61, 0.6);
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
+
 .boximg {
   position: absolute;
   inset: 0;
@@ -74,6 +109,19 @@ a {
   align-items: flex-end;
 }
 
+.view-more {
+  display: flex;
+  min-width: 50px;
+  width: 100%;
+  max-width: 57px;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 15px;
+
+}
+
 .tmvps {
   box-sizing: border-box;
   display: block;
@@ -84,6 +132,11 @@ a {
   border: 0px;
   margin: 0px;
   padding: 100% 0px 0px;
+}
+
+#carouselExampleControls>div.carousel-inner.spdla.hb>button {
+  width: auto;
+  background: rgba(61, 61, 61, 0.6);
 }
 
 .sebox {
@@ -188,18 +241,25 @@ button {
   display: flex;
 }
 
-.subheadline-regular {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 160%;
-  letter-spacing: 0.28px;
-}
+
 
 .subheadline-regular {
+  display: flex;
   font-size: 14px;
   font-weight: 400;
   line-height: 160%;
   letter-spacing: 0.28px;
+
+}
+
+.alxwnf {
+  text-decoration: line-through;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: 0.28px;
+
 }
 
 .eDMdoA .body-bold {
@@ -214,10 +274,11 @@ button {
 
 .two .discount-area {
   display: flex;
+
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  justify-content: center;
+  justify-content: flex-start
 }
 
 .secn {
@@ -239,8 +300,7 @@ button {
 .mainbox {
   width: 100%;
   max-width: 1184px;
-  min-height: 1000px;
-  padding: 20px 0px 250px;
+  padding: 20px 0px 160px;
   margin: 0px auto;
   text-align: center;
 }
@@ -291,7 +351,7 @@ button {
 #soju {
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  --swiper-theme-color: #007aff;
+
   --swiper-navigation-size: 44px;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
@@ -501,8 +561,8 @@ button {
   letter-spacing: -0.56px;
 }
 
-.flex .font {
-  color: rgb(255, 125, 58);
+.flex .footnote {
+  color: rgba(61, 61, 61, 0.6);
   text-align: left;
   text-decoration: none;
   white-space: normal;
@@ -803,4 +863,233 @@ button {
   max-width: 100%;
   min-height: 100%;
   max-height: 100%;
+}
+
+.type {
+  margin-top: 10px;
+  width: 100%;
+  border-bottom: 10px solid rgb(241, 241, 241);
+  font-weight: normal;
+  font-size: 13px;
+  color: rgb(62, 62, 62);
+}
+
+.typetwo {
+  width: 100%;
+  max-width: 1144px;
+  margin: 0px auto;
+  padding-bottom: 15px;
+}
+
+
+.flextype {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-container {
+  position: relative;
+}
+
+.filterflex {
+  height: 40px;
+  padding: 12px 12.7px 11px 10px;
+  border: 1px solid rgb(244, 244, 244);
+  margin-right: 15px;
+  white-space: nowrap;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.filterflex span {
+  color: rgb(112, 112, 112);
+  font-size: 13px;
+  font-weight: normal;
+  margin-right: 30px;
+}
+
+.prowrap {
+  width: 100%;
+}
+
+.prowraptwo {
+  width: 100%;
+  max-width: 1144px;
+  margin: 0px auto;
+}
+
+.wrappertwo {
+  margin-bottom: 25px;
+}
+
+.wrapperflex {
+  display: flex;
+  width: 100%;
+  min-height: 27.5px;
+  margin: 10px 0px 0px;
+  padding: 0px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  color: rgb(62, 62, 62);
+}
+
+.search-result {
+  display: flex;
+}
+
+.search {
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+.filter-wrapper {
+  display: flex;
+}
+
+.filter-wrapper .MuiInputBase-root {
+  font-size: 12px;
+}
+
+.css-1f63zq5 {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  cursor: text;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.MuiNativeSelect-select.MuiNativeSelect-select {
+  text-align: right;
+}
+
+.css-1vynybe.css-1vynybe.css-1vynybe {
+  padding-right: 24px;
+  min-width: 16px;
+}
+
+.css-1vynybe {
+  appearance: none;
+  user-select: none;
+  border-radius: 0px;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentcolor;
+  padding: 4px 0px 5px;
+  border: 0px;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0px;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  min-width: 0px;
+  width: 100%;
+  animation-name: mui-auto-fill-cancel;
+  animation-duration: 10ms;
+}
+
+.css-1vynybe:not([multiple]) option,
+.css-1vynybe:not([multiple]) optgroup {
+  background-color: rgb(255, 255, 255);
+}
+
+.filter-wrapper .MuiInputBase-root .MuiSvgIcon-root.MuiNativeSelect-icon {
+  width: 19px;
+  height: 19px;
+}
+
+.css-1utq5rl {
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentcolor;
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 0px;
+  top: calc(50% - 0.5em);
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.54);
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.foq {
+  margin-top: 20px;
+}
+
+.foqtwo {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  margin-top: -16px;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+}
+
+.mutlple {
+  flex-basis: 50%;
+  -webkit-box-flex: 0;
+  flex-grow: 0;
+  max-width: 50%;
+}
+
+.typebox {
+  width: 350px;
+  padding: 15px 20px 0px;
+  position: absolute;
+  top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px 0px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  z-index: 200;
+}
+
+.tybox {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  width: 100%;
+}
+
+.check-box {
+  margin-bottom: 22px;
+  display: flex;
+}
+
+
+.hNTfqe .custom-checkbox {
+  padding: 0px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hNTfqe .custom-checkbox img {
+  width: 25px;
+  height: 25px;
+}
+
+.option-text {
+  margin-left: 15px;
 }

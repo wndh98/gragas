@@ -1,6 +1,10 @@
 function Footer(){
+
     return(
-       <footer>풋터입니다</footer>
+       <footer className="fs-5 text-center" style={{height:'250px', lineHeight:'250px'}}>
+        <hr />
+        그린 컴퓨터 아카데미 Gragas Project
+       </footer>
     );
 }
 export default Footer;

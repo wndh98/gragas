@@ -18,11 +18,13 @@ public interface UserMapper {
 
     int userJoin(User user);
 
-    User userSearchId(User user);
+    List<User> userSearchIdList(User user);
 
     int totalCnt();
 
     int userDelete(String userId);
 
     int userUpdate(User user);
+
+    User userSearchPw(User user);
 }
