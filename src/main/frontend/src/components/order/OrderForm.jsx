@@ -12,6 +12,7 @@ function OrderForm(props) {
     }
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const userId = getUserId();
+
     useEffect(() => {
         setValue("userId", userId);
         setOrderStep(
@@ -32,7 +33,7 @@ function OrderForm(props) {
             </>
         );
     }, [])
-    function onSubmit() {
+    function onSubmit(data) {
 
     }
     const [orderStep, setOrderStep] = useState();

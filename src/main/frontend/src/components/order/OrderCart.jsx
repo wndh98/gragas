@@ -19,7 +19,7 @@ function OrderCart(props) {
             {cartList.map(cart => {
                 return (
                     <div className="d-felx">
-                        <img src={`/upload/product`} />
+                        <img src={`/upload/product/${cart.piNum}/${cart.piImg}`} />
                         <h3>{cart.piName}</h3>
                         <p>{cart.ocCnt}</p>
                         <span>{getPrice(cart.poPrice, cart.poSale)}</span>
