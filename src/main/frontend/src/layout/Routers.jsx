@@ -44,6 +44,7 @@ import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import SubsDescription from "../components/subscribe/SubsDescription";
 import SubsOrder from "../components/subscribe/SubsOrder";
+import SubsPayMent from "../components/subscribe/SubsPayMent";
 
 
 import BoardListLayout from "../components/board/BoardListLayout";
@@ -73,6 +74,7 @@ function Routers() {
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
                 <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder /></Layout>} />
+                <Route path="/subscribe/subsPayMent/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayMent/></Layout></AuthRoute>} />
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
