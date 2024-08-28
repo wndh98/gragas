@@ -70,12 +70,15 @@ function CommentForm(props) {
             <input type="hidden" {...register("userId")} />
             <input type="hidden" {...register("bNum")} />
             <table className="table table-secondry">
-                <tobdy>
+                <tbody>
                     <tr>
                         <td><textarea class="form-control" {...register("cContent")}></textarea></td>
-                        <td><input type="submit" value="댓글" /></td>
+
                     </tr>
-                </tobdy>
+                    <tr>
+                        <td><input type="submit" value="댓글" className="btn btn-success" /></td>
+                    </tr>
+                </tbody>
             </table>
         </form>
 

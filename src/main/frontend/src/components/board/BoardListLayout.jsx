@@ -42,7 +42,9 @@ function BoardListLayout() {
             itemClass={"page-item"}
             linkClass={"page-link"}
             hideFirstLastPages={true}
-            onChange={handlePageChange}>
+            onChange={handlePageChange}
+            innerClass={"pagination justify-content-center"}
+        >
         </Pagination>);
     }
     function handlePageChange(nextPage) {
@@ -75,31 +77,32 @@ function BoardListLayout() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <table className="table table-dark table-striped">
-                <tbody>
-                    <tr>
-                        <td>
-                            {isLogin() == true ? <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum}>글쓰기</Link> : ""}
-
-                            {isAdmin() ? <input type="submit" value="삭제" className="btn btn-light" /> : ""}
-                        </td>
-                        <td>게시글번호</td>
-                        <td>게시글제목</td>
-                        <td>작성자</td>
-                        <td>등록일</td>
-                        <td>조회수</td>
-                    </tr>
-                    {boards.length == 0 ? <tr><td colSpan="6">등록된게시물이 없습니다.</td></tr> : ""}
-                    {boards.map(board => {
-                        return (<BoardList boards={board} searchDto={searchDto} register={register}></BoardList>);
-                    })}
-                </tbody>
-            </table>
-            <nav aria-label="Page navigation">
-                {pagination}
-            </nav>
-        </form>
+        <main className="container">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <table className="table mt-5">
+                    <tbody>
+                        <tr className="table-secondary align-middle text-center">
+                            <th>게시글번호</th>
+                            <th>게시글제목</th>
+                            <th>작성자</th>
+                            <th>등록일</th>
+                            <th>조회수</th>
+                        </tr>
+                        {boards.length == 0 ? <tr><td colSpan="6">등록된게시물이 없습니다.</td></tr> : ""}
+                        {boards.map(board => {
+                            return (<BoardList boards={board} searchDto={searchDto} register={register}></BoardList>);
+                        })}
+                    </tbody>
+                </table>
+                <div className={"d-flex justify-content-end"}>
+                    {isLogin() == true ? <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum} className="btn btn-success">글쓰기</Link> : ""}
+                    {isAdmin() ? <input type="submit" value="삭제" className="btn btn-danger" /> : ""}
+                </div>
+                <nav aria-label="Page navigation">
+                    {pagination}
+                </nav>
+            </form>
+        </main>
     );
 }
 
