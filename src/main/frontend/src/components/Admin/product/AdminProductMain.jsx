@@ -34,7 +34,6 @@ function AdminProductMain(props) {
                 }
             })
     }
-    // 컴포넌트 마운트시 상품정보 가져오기 함수호출
 
 
 
@@ -80,7 +79,7 @@ function AdminProductMain(props) {
                         <td>가격</td>
                         <td>세일가</td>
                         <td>재고</td>
-                        <td>content</td>
+                        <td>Content</td>
                         <td>이미지</td>
                     </tr>
 

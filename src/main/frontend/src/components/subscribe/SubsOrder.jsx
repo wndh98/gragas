@@ -56,7 +56,7 @@ function SubsOrder() {
 
             if (response.data > 0) {
                 alert('성공');
-                navigate(`/subscribe/subsPayMent/${siNum}`, { state: data });
+                navigate(`/subscribe/subsPayForm/${siNum}`, { state: data });
             } else {
                 alert('아이디 중복');
             }

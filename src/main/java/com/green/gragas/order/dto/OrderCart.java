@@ -13,6 +13,7 @@ public class OrderCart {
     private String userId;
     private int ocCnt;
     private String piName;
+    private String piImg;
     private String poName;
     private int poPrice;
     private int poSale;
