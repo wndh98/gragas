@@ -8,6 +8,14 @@
   text-align: center;
 }
 
+a {
+  color: rgb(24, 144, 255);
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
 
 .mainbox {
   width: 100%;
@@ -721,4 +729,78 @@ button {
   margin: 0px;
   padding: 0px;
   max-width: 100%;
+}
+
+.catewrap {
+  width: 100%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.catebox {
+  width: 100%;
+  max-width: 886px;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.cateprops {
+  width: 78px;
+  margin: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  color: rgb(0, 0, 0);
+}
+
+.cateprops a {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  color: black;
+  white-space: nowrap;
+}
+
+.cateprops .catecon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin: 0px auto 8px;
+}
+
+.spdlatmxkdlfa {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  inset: 0px;
+}
+
+.dlalwltmxkdlf {
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
 }

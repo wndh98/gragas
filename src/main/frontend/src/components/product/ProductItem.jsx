@@ -9,6 +9,7 @@ import { salePercent } from "../../js/order";
 
 
 
+
 const information = [
     {
         info: "주종",
@@ -39,7 +40,6 @@ function ProductItem() {
 
     const [product, setProducts] = useState([]);
     const [option, setOptions] = useState([]);
-    const [price,setPrice] = useState();
     const viewUrl = "/product/view/" + piNum;
 
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
@@ -60,9 +60,6 @@ function ProductItem() {
             })
             .catch(error => console.error("Fetching error:", error))
     }, []);
-    
-
-
 
     return (
 
@@ -93,7 +90,7 @@ function ProductItem() {
                                             <span class="originPrice">{product.poPrice}원</span>
                                             <div className="direct-purchase-box">
                                                 <div className="flex">
-                                                    <div class="font title1-bold-bol">{salePercent(product.poPrice,product.poSale)}%</div>
+                                                    <div class="font title1-bold-bol">{salePercent(product.poPrice, product.poSale)}%</div>
                                                     <div class="title1-bold">{product.poSale}원</div>
                                                 </div>
                                                 <div className="reviews">

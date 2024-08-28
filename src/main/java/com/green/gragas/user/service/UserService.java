@@ -13,7 +13,7 @@ public interface UserService {
 
     int userJoin(User user);
 
-    User userSerchId(String userName, String userPhone);
+    User userSearchId(User user);
 
     int userDelete(String userId);
 
