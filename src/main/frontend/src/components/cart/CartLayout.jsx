@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getOcId } from "../../js/orderCart/cart";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +32,9 @@ function CartLayout() {
         axios.post("/orderCart/updateCart", cart).then(response => {
             console.log(response);
         })
+    }
+    function buyCart() {
+        navi(`/order/orderForm/${ocId}`)
     }
     return (
         <div className="container">
