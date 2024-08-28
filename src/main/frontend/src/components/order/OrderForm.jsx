@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import OrderDeli from "./OrderDeli";
 import { getUserId } from "../../js/userInfo";
 import { useEffect, useState } from "react";
+import OrderCart from "./OrderCart";
 
 function OrderForm(props) {
     const ocId = props.ocId;
@@ -13,7 +14,23 @@ function OrderForm(props) {
     const userId = getUserId();
     useEffect(() => {
         setValue("userId", userId);
-        setOrderStep(<OrderDeli register={register} errors={errors} setValue={setValue} setOrderStep={setOrderStep} handleSubmit={handleSubmit} ocId={ocId}></OrderDeli>);
+        setOrderStep(
+            <>
+                <OrderDeli
+                    register={register}
+                    errors={errors}
+                    setValue={setValue}
+                    setOrderStep={setOrderStep}
+                    handleSubmit={handleSubmit}
+                    ocId={ocId}
+                />
+                <OrderCart
+                    setOrderStep={setOrderStep}
+                    handleSubmit={handleSubmit}
+                    ocId={ocId}
+                />
+            </>
+        );
     }, [])
     function onSubmit() {
 

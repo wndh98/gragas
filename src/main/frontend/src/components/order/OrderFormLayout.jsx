@@ -10,8 +10,6 @@ function OrderFormLayout() {
     const pathParam = useParams();
     const ocId = pathParam.ocId;
 
-
-
     return (
         <main className="container d-flex justify-content-center">
             <OrderForm ocId={ocId}></OrderForm>

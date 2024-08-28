@@ -1,15 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { getPrice } from "../../js/order";
 
 function OrderCart(props) {
-
+    const setOrderStep = props.setOrderStep;
+    const handleSubmit = props.handleSubmit;
+    const ocId = props.ocId;
+    const [cartList, setCartList] = useState([{}]);
+    useEffect(() => {
+        axios.get(`/orderCart/list?oc_id=${ocId}`)
+            .then(response => {
+                setCartList([...(response.data)]);
+            })
+    }, []);
     return (
         <div className="d-flex flex-column">
             <h1>주문 목록</h1>
-            <div className="d-felx">
-                <img />
-                <h3>제목</h3>
-                <p>갯수</p>
-                <span>가격</span>
-            </div>
+            {cartList.map(cart => {
+                return (
+                    <div className="d-felx">
+                        <img src={`/upload/product`} />
+                        <h3>{cart.piName}</h3>
+                        <p>{cart.ocCnt}</p>
+                        <span>{getPrice(cart.poPrice, cart.poSale)}</span>
+                    </div>
+                );
+            })}
+
         </div>
     );
 }
