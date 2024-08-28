@@ -13,37 +13,27 @@ function OrderForm(props) {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const userId = getUserId();
 
-    useEffect(() => {
-        setValue("userId", userId);
-        setOrderStep(
-            <>
+
+    function onSubmit(data) {
+
+    }
+    return (
+
+        <div className="mt-5 col-5 border p-4 rounded">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input type="hidden" {...register("userId")} />
                 <OrderDeli
                     register={register}
                     errors={errors}
                     setValue={setValue}
-                    setOrderStep={setOrderStep}
-                    handleSubmit={handleSubmit}
                     ocId={ocId}
                 />
                 <OrderCart
-                    setOrderStep={setOrderStep}
-                    handleSubmit={handleSubmit}
                     ocId={ocId}
                 />
-            </>
-        );
-    }, [])
-    function onSubmit(data) {
-
-    }
-    const [orderStep, setOrderStep] = useState();
-    return (
-
-        <div className="mt-5 col-3 ">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input type="hidden" {...register("userId")} />
-                {orderStep}
-                {/* <OrderDeli register={register} errors={errors} setValue={setValue}></OrderDeli> */}
+                <div className="p-5">
+                    <input type="submit" className="btn btn-success w-100" value="주문" />
+                </div>
 
             </form>
         </div>

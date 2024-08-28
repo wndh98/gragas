@@ -58,6 +58,7 @@ import AuthRoute from "./AuthRoute";
 
 import CartLayout from "../components/cart/CartLayout";
 import OrderFormLayout from "../components/order/OrderFormLayout";
+import Toss from "../components/Toss";
 
 
 function Routers() {
@@ -66,9 +67,11 @@ function Routers() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/toss" element={<Layout><Toss /></Layout>} />
                 <Route path="/admin" element={<AdminLayout><AdminIndex /></AdminLayout>} />
                 <Route path="/test" element={<AuthRoute to="/loginForm"><AdminLayout><AdminIndex /></AdminLayout></AuthRoute>} />
                 <Route path="/admin/user/list/:pageNum" element={<AdminLayout><AdminUserListLayout /></AdminLayout>} />
+
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
@@ -78,7 +81,7 @@ function Routers() {
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
                 <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder /></Layout>} />
-                <Route path="/subscribe/subsPayMent/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayMent/></Layout></AuthRoute>} />
+                <Route path="/subscribe/subsPayMent/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayMent /></Layout></AuthRoute>} />
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
