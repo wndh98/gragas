@@ -10,7 +10,7 @@ public interface OrderCartService {
 
     int updateCart(OrderCart orderCart);
 
-    int deleteCart(OrderCart orderCart);
+    int deleteCart(int ocNum);
 
     List<OrderCart> getOrderCartList(String ocId);
 
