@@ -165,8 +165,9 @@ button{
     vertical-align: middle;
     display: grid;
 }
-.payMentAmount div{
+.payMentAmount{
     border-top: 1px solid black;
+    display: flex;
 }
 .otherInfo{
     padding-top: 20px;
