@@ -18,9 +18,7 @@ function AdminEventMain() {
         .catch(error => console.error("Fetching error:", error));
 
     function eventDelete(data) {
-
         let eiNum = [...(data.eiNum)];
-
         axios.post('/event/deleteList', eiNum)
             .then(response => {
                 if (response.data == 1) {
@@ -29,7 +27,7 @@ function AdminEventMain() {
                     alert("실패");
                 }
             })
-    }// 컴포넌트 마운트시 상품정보 가져오기 함수호출
+    }
 
     return (
 

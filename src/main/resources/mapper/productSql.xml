@@ -7,6 +7,23 @@
     <select id="productList" resultType="productItem">
         select * from Product_Item
     </select>
+    <select id="productListPcNum" resultType="productItem" parameterType="productSearch">
+        select * from Product_Item
+        <if test="pc_num!=0 or searchType!=null or keyword!=null">
+            where
+            <if test="pc_num!=0">
+                PC_NUM=#{pcNum}
+            </if>
+            <if test="searchType!=null and keyword!=null">
+                <if test="pc_num!=0">
+                    and
+                </if>
+                ${searchType} like concat('%',#{keyword},'%')
+            </if>
+        </if>
+<!--        order by ${orderType} ${orderDesc} limit #{startPage},#{pageSize}-->
+    </select>
+
     <select id="nextPiNum" resultType="integer">
         select auto_increment from information_schema.tables where table_schema='gragasDB' and
         table_name='PRODUCT_ITEM'
@@ -19,7 +36,8 @@
         values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},#{piImg},#{piContent})
     </insert>
     <update id="productUpdate" parameterType="productItem">
-        update PRODUCT_ITEM set PC_NUM=#{pcNum}, PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
+        update PRODUCT_ITEM set PC_NUM=#{pcNum}, PI_NAME=#{piName},
+        PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
         PI_CARBONATED=#{piCarbonated}
         <if test="piContent!=null">
             ,PI_CONTENT=#{piContent}
@@ -43,7 +61,7 @@
         FROM Product_EVENT
         WHERE EI_NUM = #{eiNum}
         )
-<!--        select * from Product_EVENT where EI_NUM=#{eiNum}-->
+        <!--        select * from Product_EVENT where EI_NUM=#{eiNum}-->
     </select>
 
     <select id="peventListPe" resultType="productEvent" parameterType="integer">

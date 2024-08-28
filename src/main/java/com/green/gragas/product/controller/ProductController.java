@@ -34,6 +34,14 @@ public class ProductController {
         return list;
     }
 
+    @GetMapping("/product/list/{pcNum}")
+    public List<ProductItem> productListPcNum(@PathVariable("pcNum") int pcNum) {
+        List<ProductItem> list = ps.productListPcNum(pcNum);
+        return list;
+    }
+
+
+
     @GetMapping("/product/view/{piNum}")
     public ProductItem productView(@PathVariable("piNum") int piNum) {
         ProductItem productItem = ps.productCheck(piNum);
@@ -117,8 +125,8 @@ public class ProductController {
     public int productUpdate(
             @PathVariable("piNum") int piNum,
             @RequestPart("product") ProductItem product,
-            @RequestPart("piImgFile") MultipartFile piImgFile,
-            @RequestPart("piContentFile") MultipartFile piContentFile
+            @RequestPart(value = "piImgFile", required = false) MultipartFile piImgFile,
+            @RequestPart(value = "piContentFile", required = false) MultipartFile piContentFile
     ) {
         try {
             if (piImgFile != null) {
@@ -180,14 +188,29 @@ public class ProductController {
     }
 
     @PostMapping("/procate/update/{pcNum}")
-    public int procateUpdate(@PathVariable("pcNum") int pcNum, @RequestBody ProductCate procate) {
+    public int procateUpdate(
+            @PathVariable("pcNum") int pcNum,
+            @RequestPart("procate") ProductCate procate,
+            @RequestPart(value = "pcImgFile", required = false) MultipartFile pcImgFile
+    ) {
+        try {
+            if (pcImgFile != null) {
+                cs.deletePcImgFile(pcNum);
+                String pcImg = ProductFileUpload.fileUpload(pcImgFile, "procate", pcNum, rootPath);
+                procate.setPcImg(pcImg);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        procate.setPcNum(pcNum);
         int result = cs.procateUpdate(pcNum, procate);
         return result;
     }
 
+
     @GetMapping("/procate/delete/{pcNum}")
-    public int procateDelete(@PathVariable("pcNum") int pcNum) {
-        int result = cs.procateDelete(pcNum);
+    public Integer procateDelete(@PathVariable("pcNum") Integer pcNum) {
+        Integer result = cs.procateDelete(pcNum);
         return result;
     }
 
@@ -205,7 +228,7 @@ public class ProductController {
     }
 
     @GetMapping("/event/view/{eiNum}")
-    public EventItem proeventView(@PathVariable("eiNum") List<Integer> eiNum) {
+    public EventItem proeventView(@PathVariable("eiNum") int eiNum) {
         EventItem eventItem = cs.proeventCheck(eiNum);
         return eventItem;
     }
@@ -227,10 +250,23 @@ public class ProductController {
     }
 
     @PostMapping("/event/update/{eiNum}")
-    public int proeventUpdate(@PathVariable("eiNum") int eiNum, @RequestBody EventItem eitem) {
+    public int proeventUpdate(
+            @PathVariable("eiNum") int eiNum,
+            @RequestPart("event") EventItem eitem,
+            @RequestPart(value = "eiContentFile", required = false) MultipartFile eiContentFile) {
+        try {
+            if (eiContentFile != null) {
+                cs.deleteEiContentFile(eiNum);
+                String eiContent = ProductFileUpload.fileUpload(eiContentFile, "event", eiNum, rootPath);
+                eitem.setEiContent(eiContent);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         int result = cs.proeventUpdate(eiNum, eitem);
         return result;
     }
+
 
     @GetMapping("/event/delete/{eiNum}")
     public int proeventDelete(@PathVariable("eiNum") int eiNum) {

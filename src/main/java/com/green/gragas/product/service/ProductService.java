@@ -38,4 +38,6 @@ public interface ProductService {
      List<ProductEvent> peventListPi(int piNum);
 
      void deleteFile(int piNum, String type);
+
+     List<ProductItem> productListPcNum(int pcNum);
 }

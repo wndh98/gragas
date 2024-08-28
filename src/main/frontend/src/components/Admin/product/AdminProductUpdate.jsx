@@ -10,6 +10,7 @@ function AdminProductUpdate(params) {
   const [products, setProducts] = useState([]);
   const viewUrl = "/product/view/" + piNum;
   const [events, setEvents] = useState([]);
+  const [procates, setProcates] = useState([]);
   const [selectEvents, setSelectEvents] = useState([{}]);
   useEffect(() => {
 
@@ -30,6 +31,12 @@ function AdminProductUpdate(params) {
       .then(response => {
         setSelectEvents(response.data);
 
+      })
+      .catch(error => console.error("Fetching error:", error));
+
+    axios.get("/procate/list")
+      .then(response => {
+        setProcates(response.data);
       })
       .catch(error => console.error("Fetching error:", error));
 
@@ -59,12 +66,13 @@ function AdminProductUpdate(params) {
     setValue
   } = useForm();
 
-  const loc = useNavigate();
   const [imageList, setImageList] = useState([]);
 
   const onChangeImageInput = e => {
     setImageList([...imageList, ...e.target.files]);
   };
+
+  const loc = useNavigate();
 
 
   function onSubmit(data) {
@@ -80,7 +88,7 @@ function AdminProductUpdate(params) {
     })
       .then(response => {
         if (response.data != 0) {
-          axios.post("/pevent/insert/" + response.data, [...(data.eiNum)])
+          axios.post("/pevent/insert/" + piNum, data.eiNum)
             .then(result => {
               if (result.data == 1) {
                 alert("성공");
@@ -95,6 +103,7 @@ function AdminProductUpdate(params) {
       })
     console.log(data)
   }
+
 
 
 
@@ -120,7 +129,19 @@ function AdminProductUpdate(params) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <table class="admin_board_wrap" id="user-admin">
 
-          <tr><th>카테고리번호</th><td><input type="text" {...register("pcNum")} defaultValue={products.pcNum}></input></td></tr>
+          <tr><th>카테고리번호</th><td>
+            <select {...register("pcNum")}>
+              {procates.map((procate) => {
+                return (
+                  <option
+                    defaultValue={procate.pcNum}
+                    value={procate.pcNum}>
+                    {procate.pcName}
+                  </option>
+                );
+              })}
+            </select>
+          </td></tr>
           <tr><th>상품명</th><td><input type="text"  {...register("piName")} defaultValue={products.piName}></input></td></tr>
           <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
           <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
@@ -146,7 +167,6 @@ function AdminProductUpdate(params) {
             <td><input type="submit" value="전송" />
             </td>
           </tr>
-
         </table>
       </form>
     </div >

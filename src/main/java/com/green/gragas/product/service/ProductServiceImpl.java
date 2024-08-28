@@ -21,9 +21,18 @@ public class ProductServiceImpl implements ProductService {
     @Value("${project.upload.path}")
     private String rootPath;
 
+
     public List<ProductItem> productList() {
         return pm.productList();
     }
+
+
+
+    @Override
+    public List<ProductItem> productListPcNum(int pcNum) {
+        return pm.productListPcNum(pcNum);
+    }
+
 
     public ProductItem productCheck(int piNum) {
         return pm.productCheck(piNum);
@@ -144,4 +153,6 @@ public class ProductServiceImpl implements ProductService {
             }
         }
     }
+
+
 }

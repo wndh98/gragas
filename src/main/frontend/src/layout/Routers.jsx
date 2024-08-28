@@ -50,6 +50,7 @@ import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
 import AuthRoute from "./AuthRoute";
+import CateMain from "../components/product/CateMain";
 
 
 function Routers() {
@@ -86,6 +87,7 @@ function Routers() {
             <Routes>
 
                 <Route path="/main" element={<Layout><Main /></Layout>} />
+                <Route path="/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
                 <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/productEventMain/:eiNum" element={<Layout><EventMain /></Layout>} />
