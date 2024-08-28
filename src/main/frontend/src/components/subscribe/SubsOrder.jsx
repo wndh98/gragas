@@ -1,12 +1,12 @@
 import './subs.css';
+import '../../js/addressInsert';
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { getCookie } from '../../js/cookieJs';
-
+import execDaumPostcode from '../../js/addressInsert';
 function SubsOrder() {
-
     const { siNum } = useParams();
     const [item, setItem] = useState({
         siNum: '',
@@ -19,11 +19,11 @@ function SubsOrder() {
     const [delivery, setDelivery] = useState([]);
     const { register, handleSubmit, setValue } = useForm();
     const userId = getCookie("isLogin");
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`/subscribe/description/${siNum}`)
             .then(response => {
-                console.log(userId);
                 setItem(response.data);
             })
             .catch(error => {
@@ -35,8 +35,9 @@ function SubsOrder() {
     useEffect(() => {
         axios.get(`/delivery/select/${userId}`)
             .then(response => {
-                if (Array.isArray(response.data)) {
-                    setDelivery(response.data);
+                if (response.data && Array.isArray(response.data.deliveryList)) {
+                    setDelivery(response.data.deliveryList);
+                    console.log(delivery);
                 } else {
                     console.error('Unexpected data format:', response.data);
                 }
@@ -44,7 +45,7 @@ function SubsOrder() {
             .catch(error => {
                 alert(error + ":오류 발생")
             })
-    }, [])
+    }, [userId])
     async function onSubmit(data) {
         try {
             const response = await axios.post(`/subscribe/subsOrder/regist`, data, {
@@ -55,6 +56,7 @@ function SubsOrder() {
 
             if (response.data > 0) {
                 alert('성공');
+                navigate(`/subscribe/subsPayMent/${siNum}`, { state: data });
             } else {
                 alert('아이디 중복');
             }
@@ -63,22 +65,27 @@ function SubsOrder() {
             alert('에러 발생: ' + (error.response ? error.response.data.message : error.message));
         }
     }
-    function onChange() {
-        // const delivery = setDelivery.data;
-        // setValue("soName", delivery.mdName);
+    function onChange(event) {
+        const selectedIndex = event.target.value;
+        const deliveryInfo = delivery[selectedIndex];
+        if (deliveryInfo) {
+            setValue("soName", deliveryInfo.mdName || "");
+            setValue("soTel", deliveryInfo.mdTel || "");
+            setValue("soAddr", deliveryInfo.mdAddr || "");
+            setValue("soAddrDe", deliveryInfo.mdAddrDetail || "");
+            setValue("soMemo", deliveryInfo.mdMessage || "");
+        }
     }
 
-
     return (
-
         <div>
             <div className="soBox">
                 <div className="container">
-                    <select onChange={onChange}>
-                        <option>--배송지선택--</option>
+                    <select onChange={onChange} defaultValue="">
+                        <option value="" disabled>--배송지선택--</option>
                         {delivery.length > 0 ? (
                             delivery.map((deliveryItem, index) => (
-                                <option key={deliveryItem.id || index} value={deliveryItem.id}>
+                                <option key={index} value={index}>
                                     {index + 1}번 배송지
                                 </option>
                             ))
@@ -101,13 +108,14 @@ function SubsOrder() {
                             placeholder="-을 제외한 숫자만 입력해 주세요"
                             pattern='010[0-9]{4}[0-9]{4}'
                             {...register("soTel", { required: { value: true, message: "연락처를 입력해 주세요" } })} />
+                        <button onClick={() => execDaumPostcode()}>주소 검색</button>
                         <label htmlFor="soAddr">배송지</label>
                         <input
-                            id='soAddr'
+                            id='mAddr'
                             placeholder="주소를 입력해 주세요"
                             {...register("soAddr", { required: { value: true, message: "주소를 입력해 주세요" } })} />
                         <input
-                            id='soAddrDe'
+                            id='mAddrDe'
                             placeholder="상세주소를 입력해 주세요"
                             {...register("soAddrDe", { required: { value: true, message: "상세주소를 입력해 주세요" } })} />
                         <label htmlFor="soMemo">배송메모</label>

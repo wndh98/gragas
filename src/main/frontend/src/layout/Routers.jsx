@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { isOcId, setOcId } from "../js/orderCart/cart";
+
 import Layout from "./Layout";
 
 
@@ -16,6 +18,7 @@ import UserInfoUpdate from "../components/user/mypage/UserInfoUpdate";
 import SerchIdForm from "../components/user/login/SerchIdForm";
 import UserDeliveryInput from "../components/user/mypage/UserDeliveryInput";
 import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdateForm";
+import Membership from "../components/user/Membership";
 
 
 import Main from "../components/product/Main";
@@ -35,6 +38,7 @@ import EventMain from "../components/product/EventMain";
 import AdminProcateMain from "../components/admin/product/AdminProcateMain";
 import AdminProcateCreate from "../components/admin/product/AdminProcateCreate";
 import AdminProcatetUpdate from "../components/admin/product/AdminProcateUpdate";
+import CateMain from "../components/product/CateMain";
 
 
 import AdminSubscribeItemMain from "../components/admin/subscribe/AdminSubscribeItemMain";
@@ -44,14 +48,15 @@ import SubscribeMain from "../components/subscribe/SubscribeMain";
 import ItemList from "../components/subscribe/ItemList";
 import SubsDescription from "../components/subscribe/SubsDescription";
 import SubsOrder from "../components/subscribe/SubsOrder";
+import SubsPayMent from "../components/subscribe/SubsPayMent";
 
 
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
 import AuthRoute from "./AuthRoute";
+
 import CartLayout from "../components/cart/CartLayout";
-import { isOcId, setOcId } from "../js/orderCart/cart";
 import OrderFormLayout from "../components/order/OrderFormLayout";
 
 
@@ -73,6 +78,7 @@ function Routers() {
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
                 <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder /></Layout>} />
+                <Route path="/subscribe/subsPayMent/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayMent/></Layout></AuthRoute>} />
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
@@ -84,9 +90,12 @@ function Routers() {
                 <Route path="/mypage/userAddr/input" element={<Layout><UserDeliveryInput /></Layout>} />
                 <Route path="/mypage/delivery/update/:mdNum" element={<Layout><UserDeliveryUpdateForm /></Layout>} />
                 <Route path="/mypage/:content" element={<Layout><MyPage /></Layout>} />
+                <Route path="/membership" element={<Layout><Membership /></Layout>} />
+
             </Routes>
             <Routes>
                 <Route path="/main" element={<Layout><Main /></Layout>} />
+                <Route path="/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
                 <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
                 <Route path="/productEventMain/:eiNum" element={<Layout><EventMain /></Layout>} />

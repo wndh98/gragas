@@ -18,5 +18,7 @@ public class User {
     private String userCoupon;
     private String userDel;
     private Date userRegist;
+    //조인용
+    private String ulImg;
 
 }

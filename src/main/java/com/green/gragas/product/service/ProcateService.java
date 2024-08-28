@@ -13,6 +13,7 @@ public interface ProcateService {
     int procateUpdate(int pcNum, ProductCate procate);
 
     int procateDelete(List<Integer> pcNum);
+
     int procateDelete(int pcNum);
 
 
@@ -30,7 +31,11 @@ public interface ProcateService {
 
     int proeventDelete(int eiNum);
 
-    EventItem proeventCheck(List<Integer> eiNum);
+    EventItem proeventCheck(int eiNum);
+
 
     int proeventDelete(List<Integer> eiNum);
+
+    void deletePcImgFile(int pcNum);
+    void deleteEiContentFile(int eiNum);
 }

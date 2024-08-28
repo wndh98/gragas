@@ -46,7 +46,7 @@ function Boxes(props) {
                         </div>
 
                         <div className='flex'>
-                            <img class="star-icon" src="/images/components/atoms/star.png" alt="별" height="12" />
+                            <img class="star-icon" src="/images/product/star.png" alt="별" height="12" />
                             <div color="rgba(61, 61, 61, 0.6)" text-decoration="none" class="sc-4bfd0cf4-0 gdqvpY"><span class="font footnote">4.8 (4)</span>
                             </div>
                         </div>

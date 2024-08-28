@@ -4,10 +4,12 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
+
 function CartLayout() {
     const ocId = getOcId();
     const [cartList, setCartList] = useState([{}]);
-    const navi = useNavigate();
     useEffect(() => {
         axios.get(`/orderCart/list?ocId=${ocId}`).then(response => {
             setCartList(response.data);
@@ -59,7 +61,6 @@ function CartLayout() {
                                                 <option value={i + 1} >{i + 1}</option>
                                             ))}
                                         </select>
-                                        {/* <input type="number" className="form-control" {...register("ocCnt")} onChange={(e) => { changeCnt(cart, e) }} value={cart.ocCnt} /> */}
                                     </td>
                                     <td><button type="button" className="btn btn-danger" onClick={() => { cartDelete(cart) }}>삭제</button></td>
                                 </tr>
