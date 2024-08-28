@@ -6,3 +6,4 @@ function getPrice(price, sale) {
     return sale > 0 ? sale : price;
 }
 export { salePercent, getPrice };
+

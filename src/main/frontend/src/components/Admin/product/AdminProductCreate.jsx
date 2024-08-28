@@ -11,47 +11,18 @@ function AdminProductCreate() {
     const { register, handleSubmit, formState: { error } } = useForm();
     const [events, setEvents] = useState([]);
     const [procates, setProcates] = useState([]);
-
     useEffect(() => {
-
         axios.get("/event/list")
             .then(response => {
                 setEvents(response.data);
             })
             .catch(error => console.error("Fetching error:", error));
-            
-            axios.get("/procate/list")
+        axios.get("/procate/list")
             .then(response => {
                 setProcates(response.data);
             })
             .catch(error => console.error("Fetching error:", error));
     }, [])
-
-
-    /*    const [productInput, setProductInput] = useState(
-           {
-               piNum: "",
-               pcNum: "",
-               piName: "",
-               piAlcohol: "",
-               piSweet: "",
-               piCarbonated: "",
-               poPrice: "",
-               poSale: "",
-               piContent: "",
-               poName: ""
-           }
-       );
-       const [productOptionInput, setProductOptionInput] = useState(
-           {
-               poPrice: "",
-               poSale: "",
-               poCnt: "",
-               poName: ""
-           }
-       );
-    */
-
     const [imageList, setImageList] = useState([]);
 
     const onChangeImageInput = e => {
@@ -74,7 +45,7 @@ function AdminProductCreate() {
         })
             .then(response => {
                 if (response.data != 0) {
-                    axios.post("/pevent/insert/" + response.data, [...(data.eiNum)])
+                    axios.post("/pevent/insert/" + response.data, data.eiNum)
                         .then(result => {
                             if (result.data == 1) {
                                 alert("성공");
@@ -95,21 +66,19 @@ function AdminProductCreate() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <table class="admin_board_wrap" id="user-admin">
                     <thead class="admin_boardList">
-
-                        <tr>카테고리번호
-                            <td>
-                                <select {...register("pcNum")} >
-                                    {procates.map((procate)=>{
-                                        return(
-                                            <option value={procate.pcNum}>
-                                                {procate.pcName}
-                                            </option>
-                                        );
-                                    })}
-                                 
-                                </select>
-                            </td>
-                        </tr>
+                        <tr><th>카테고리번호</th><td>
+                            <select {...register("pcNum")}>
+                                {procates.map((procate) => {
+                                    return (
+                                        <option
+                                            defaultValue={procate.pcNum}
+                                            value={procate.pcNum}>
+                                            {procate.pcName}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </td></tr>
                         <tr>상품명
                             <td><input type="text" {...register("piName")} /></td>
                         </tr>
@@ -165,7 +134,7 @@ function AdminProductCreate() {
                     </thead>
                 </table>
             </form>
-        </div>
+        </div >
     );
 }
 

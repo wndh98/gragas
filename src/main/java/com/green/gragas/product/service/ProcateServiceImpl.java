@@ -4,14 +4,18 @@ import com.green.gragas.product.dto.EventItem;
 import com.green.gragas.product.dto.ProductCate;
 import com.green.gragas.product.mappers.ProcateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 @Service
 public class ProcateServiceImpl implements ProcateService {
     @Autowired
     ProcateMapper cm;
+    @Value("${project.upload.path}")
+    private String rootPath;
 
     @Override
     public int procateInsert(ProductCate procate) {
@@ -28,26 +32,31 @@ public class ProcateServiceImpl implements ProcateService {
         procate.setPcNum(pcNum);
         return cm.procateUpdate(procate);
     }
+
     @Override
     public int nextEiNum() {
         return cm.nextEiNum();
     }
+
     @Override
     public int nextPcNum() {
         return cm.nextPcNum();
     }
 
     public int procateDelete(List<Integer> pcNum) {
-        int result =0;
-        for(int num:pcNum){
+        int result = 0;
+        for (int num : pcNum) {
             result = cm.procateDelete(num);
-            if(result==0)break;
+            if (result == 0) break;
         }
         return result;
     }
 
     @Override
     public int procateDelete(int pcNum) {
+        int result = 0;
+        result = cm.procateCount(pcNum);
+        if (result > 0) return -1;
         return cm.procateDelete(pcNum);
     }
 
@@ -64,6 +73,7 @@ public class ProcateServiceImpl implements ProcateService {
     public ProductCate procateCheck(int pcNum) {
         return cm.procateCheck(pcNum);
     }
+
     /*===========================================================================*/
     @Override
     public List<EventItem> proeventList() {
@@ -83,10 +93,9 @@ public class ProcateServiceImpl implements ProcateService {
 
 
     @Override
-    public EventItem proeventCheck(List<Integer> eiNum) {
+    public EventItem proeventCheck(int eiNum) {
         return cm.proeventCheck(eiNum);
     }
-
 
 
     @Override
@@ -104,4 +113,22 @@ public class ProcateServiceImpl implements ProcateService {
     }
 
 
+    public void deletePcImgFile(int pcNum) {
+        ProductCate productCate = cm.procateCheck(pcNum);
+        String filePath = rootPath + "/procate/" + pcNum + "/" + productCate.getPcImg();
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    @Override
+    public void deleteEiContentFile(int eiNum) {
+        EventItem eitem = cm.proeventCheck(eiNum);
+        String filePath = rootPath + "/event/" + eiNum + "/" + eitem.getEiContent();
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 }

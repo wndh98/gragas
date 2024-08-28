@@ -35,12 +35,15 @@
     </select>
 
 
-
     <select id="proeventList" resultType="EventItem">
         select * from EVENT_ITEM
     </select>
 
     <select id="proeventCheck" resultType="EventItem" parameterType="integer">
+        select * from EVENT_ITEM where EI_NUM=#{eiNum}
+    </select>
+
+    <select id="proeventCheckk" resultType="EventItem" parameterType="integer">
         select * from EVENT_ITEM where EI_NUM=#{eiNum}
     </select>
 
@@ -53,7 +56,7 @@
         insert into EVENT_ITEM(EI_NUM,EI_NAME,EI_CONTENT) values(#{eiNum},#{eiName},#{eiContent})
     </insert>
 
-    <update id="proeventUpdate" parameterType="productCate">
+    <update id="proeventUpdate" parameterType="EventItem">
         update EVENT_ITEM set EI_NAME=#{eiName}, EI_CONTENT=#{eiContent}
         <if test="eiContent!=null">
             ,EI_CONTENT=#{eiContent}
@@ -65,4 +68,7 @@
         delete from EVENT_ITEM where EI_NUM=#{eiNum}
     </delete>
 
+    <select id="procateCount" resultType="integer" parameterType="integer">
+        select count(*) from PRODUCT_ITEM where PC_NUM=#{pcNum}
+    </select>
 </mapper>

@@ -38,4 +38,5 @@ public interface ProductMapper {
 
     List<ProductEvent> peventListPi(int piNum);
 
+    List<ProductItem> productListPcNum(int pcNum);
 }
