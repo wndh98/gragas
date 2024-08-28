@@ -18,6 +18,10 @@ function isAdmin() {
 function getUserId() {
     return getCookie("isLogin");
 }
-
+// function getDeliList(userId){
+//     axios.get(`/userSearch/${userId}`).then(response => {
+//         setUser(response.data);
+//     });
+// }
 export { getUser, isLogin, getUserId, isAdmin };
 

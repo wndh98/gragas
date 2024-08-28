@@ -1,8 +1,10 @@
 package com.green.gragas.subscribe.dto;
 
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 @Data
+@Alias("subscribeOrder")
 public class SubscribeOrder {
     private int soNum;
     private int siNum;
