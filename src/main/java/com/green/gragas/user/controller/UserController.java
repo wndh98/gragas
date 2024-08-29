@@ -36,11 +36,11 @@ public class UserController {
         return sb.toString();
     }
 
-    @GetMapping("/view/{userId}")
+/*    @GetMapping("/view/{userId}")
     public User userView(@PathVariable String userId) {
         User user = us.userCheck(userId);
         return user;
-    }
+    }*/
 
     @PostMapping("/user/joinForm")
     public int userJoin(@RequestBody User user) {

@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function JoinForm() {
   const navigate = useNavigate();
+  const [isChecking, setIsChecking] = useState(false);
+
   const {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors, isDirty, isValid }
   } = useForm({ mode: 'onChange' });
 
   const userPw = watch('userPw');
+
+  const checkDuplicate = async () => {
+    const userId = watch('userId');
+    if (!userId) {
+      setError('userId', { type: 'manual', message: '이메일을 입력해주세요' });
+      return;
+    }
+
+    axios.get('/userSearch/' + userId)
+      .then((result) => {
+        console.log(result);
+        if (result.data != "") {
+          alert("중복된 이메일 입니다 다른 이메일을 사용해 주세요");
+        } else {
+          setIsChecking(true);
+          alert("사용 가능한 이메일 입니다");
+        }
+      });
+  }
 
   const onSubmit = async (data) => {
     const strArr = data.userBirth.split('-');
@@ -21,27 +43,32 @@ function JoinForm() {
     date2.setFullYear(date2.getFullYear() - 19);
     date2.setMonth(0);
     date2.setDate(1);
-    if (date <= date2) {
-      try {
-        const response = await axios.post('/user/joinForm', data)
-          .then((response) => {
-            if (response.data > 0) {
-              alert('회원가입 성공');
-              navigate("/");
-            } else {
-              alert('아이디 중복');
-            }
-          });
-      } catch (error) {
-        alert('에러 발생:', error);
+    if (!isChecking) {
+      alert('이메일 중복체크를 해주세요');
+    } else {
+      if (date <= date2) {
+        try {
+          const response = await axios.post('/user/joinForm', data)
+            .then((response) => {
+              if (response.data > 0) {
+                alert('회원가입 성공');
+                navigate("/");
+              } else {
+                alert('아이디 중복');
+              }
+            });
+        } catch (error) {
+          alert('에러 발생:', error);
+        }
+      } else {
+        alert("미성년자 가입 불가");
       }
-    }else {
-      alert("미성년자 가입 불가");
+
     }
   };
 
   return (
-    <div className='container col-4'>
+    <div className='join_wrap container'>
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-form-box">
@@ -52,7 +79,7 @@ function JoinForm() {
             {...register('userId', { required: '이메일을 입력해주세요.' })}
           />
           {errors.userId && <p>{errors.userId.message}</p>}
-          <button>중복체크</button>
+          <button type='button' onClick={checkDuplicate}>중복체크</button>
         </div>
         <div className="input-form-box">
           <input
