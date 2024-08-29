@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { isOcId, setOcId } from "../js/orderCart/cart";
 
 import Layout from "./Layout";
-
+import AuthRoute from "./AuthRoute";
 
 import AdminIndex from "../components/admin/AdminIndex";
 import Index from "../components/Index"
@@ -56,10 +56,12 @@ import CheckoutPage from "../components/subscribe/SubsPayMent";
 import BoardListLayout from "../components/board/BoardListLayout";
 import BoardForm from "../components/board/BoardForm";
 import BoardView from "../components/board/BoardView";
-import AuthRoute from "./AuthRoute";
+
 
 import CartLayout from "../components/cart/CartLayout";
 import OrderFormLayout from "../components/order/OrderFormLayout";
+import OrderSuccess from "../components/order/OrderSuccess";
+
 import Toss from "../components/Toss";
 
 
@@ -84,8 +86,8 @@ function Routers() {
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
                 <Route path="/subscribe/description/:siNum" element={<Layout><SubsDescription /></Layout>} />
                 <Route path="/subscribe/subsOrder/:siNum" element={<Layout><SubsOrder /></Layout>} />
-                <Route path="/subscribe/subsPayForm/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayForm/></Layout></AuthRoute>} />
-                <Route path="/subscribe/SubsPayMent" element={<AuthRoute to="/loginForm"><Layout><CheckoutPage/></Layout></AuthRoute>} />
+                <Route path="/subscribe/subsPayForm/:siNum" element={<AuthRoute to="/loginForm"><Layout><SubsPayForm /></Layout></AuthRoute>} />
+                <Route path="/subscribe/SubsPayMent" element={<AuthRoute to="/loginForm"><Layout><CheckoutPage /></Layout></AuthRoute>} />
             </Routes>
             <Routes>
                 <Route path="/loginForm" element={<Layout><LoginForm /></Layout>} />
@@ -130,6 +132,7 @@ function Routers() {
             <Routes>
                 <Route path="/cart/list" element={<Layout><CartLayout /></Layout>} />
                 <Route path="/order/orderForm" element={<Layout><OrderFormLayout /></Layout>} />
+                <Route path="/order/success" element={<Layout><OrderSuccess /></Layout>} />
                 <Route path="/order/orderForm/:ocId" element={<Layout><OrderFormLayout /></Layout>} />
 
             </Routes>

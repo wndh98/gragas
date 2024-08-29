@@ -17,4 +17,6 @@ public interface OrderCartMapper {
     List<OrderCart> selectOrderCartList(String ocId);
 
     OrderCart selectOrderCart(OrderCart orderCart);
+
+    void deleteCartId(String olId);
 }

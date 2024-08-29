@@ -6,11 +6,13 @@ const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 
 function OrderPayment(props) {
     const olId = props.olId;
+    const handleSubmit = props.handleSubmit;
+    const onSubmit = props.onSubmit;
     const [ready, setReady] = useState(false);
     const [widgets, setWidgets] = useState(null);
     const [amount, setAmount] = useState({
         currency: "KRW",
-        value: 50_000,
+        value: 10,
     });
 
 
@@ -69,26 +71,35 @@ function OrderPayment(props) {
                 <div id="payment-method" className="w-100" />
                 <div id="agreement" className="w-100" />
                 <div className="btn-wrapper w-100">
-                    <button
-                        className="btn primary w-100"
-                        onClick={async () => {
-                            try {
-
-                                await widgets?.requestPayment({
-                                    orderId: olId,
-                                    orderName: "토스 티셔츠 외 2건",
-                                    customerName: "김토스",
-                                    customerEmail: "customer123@gmail.com",
-                                    successUrl: window.location.origin + "/sandbox/success" + window.location.search,
-                                    failUrl: window.location.origin + "/sandbox/fail" + window.location.search
-                                });
-                            } catch (error) {
-                                // TODO: 에러 처리
-                            }
-                        }}
-                    >
-                        결제하기
-                    </button>
+                    <div className="p-5">
+                        <button type="button" className="btn btn-success w-100"
+                            onClick={async () => {
+                                // handleSubmit을 통해 onSubmit을 호출하고, 폼이 유효한 경우에만 결제 요청을 실행합니다.
+                                handleSubmit(async (data) => {
+                                    try {
+                                        // 먼저 onSubmit 핸들러의 작업을 실행합니다.
+                                        const isSuccess = await onSubmit(data);
+                                        if (isSuccess == 0) { return; }
+                                        // onSubmit 이후에 결제 요청을 보냅니다.
+                                        await widgets?.requestPayment({
+                                            orderId: olId,
+                                            orderName: "토스 티셔츠 외 2건",
+                                            customerName: "김토스",
+                                            customerEmail: "customer123@gmail.com",
+                                            successUrl: window.location.origin + "/order/success" + window.location.search,
+                                            failUrl: window.location.origin + "/order/fail" + window.location.search,
+                                        });
+                                    } catch (error) {
+                                        console.log(error);
+                                        alert("실패하였습니다.다시 시도해주세요.");
+                                        // TODO: 에러 처리
+                                    }
+                                })();
+                            }}
+                        >
+                            주문
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
