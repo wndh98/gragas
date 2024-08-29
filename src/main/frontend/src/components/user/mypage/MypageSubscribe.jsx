@@ -10,33 +10,33 @@ function MypageSubscribe() {
   function subsDescription(item) {
     setSelectedItem(item);
   }
-
   useEffect(() => {
     axios.get('/subscribe/itemList')
       .then(response => {
         setItems(response.data);
+        setSelectedItem(response.data[0]);
       })
       .catch(error => {
         console.error('There was an error fetching the users!', error);
       });
   }, []);
-
+  
   function moveSubsDescription(siNum) {
     navigate('/subscribe/description/' + siNum);
   }
 
   return (
     <div className="container text-center">
-      <div className='button_box'>
+      <div className='btn_box'>
         {items.map(item => (
-          <button key={item.siNum} onClick={() => subsDescription(item)}>{item.siTitle} 담화박스</button>
+          <button className='subs_btn' key={item.siNum} onClick={() => subsDescription(item)}>{item.siTitle} 담화박스</button>
         ))}
       </div>
       <div className='item_details'>
         <div>
           <h3>{selectedItem.siTitle} 담화박스</h3>
           <div>
-            <img src={`http://localhost:8080/upload/subscribe/${selectedItem.siNum}/${selectedItem.siMainImg}`} alt="Main" style={{ width: '100px', height: 'auto' }} />
+            <img src={`http://localhost:8080/upload/subscribe/${selectedItem.siNum}/${selectedItem.siMainImg}`} alt="Main" style={{ width: '300px', height: '250px' }} />
           </div>
           {/* 필요에 따라 더 많은 정보를 표시할 수 있습니다 */}
         </div>

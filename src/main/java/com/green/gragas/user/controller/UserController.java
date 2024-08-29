@@ -105,6 +105,13 @@ public class UserController {
         return map;
     }
 
+    @PostMapping("/admin/user/delete")
+    public int userListDelete(@RequestBody List<String> userId) {
+        int result = 0;
+        result = us.userListDelete(userId);
+        return result;
+    }
+
     @GetMapping("user/delete/{userId}")
     public int userDelete(@PathVariable("userId") String userId, HttpServletRequest request) {
         HttpSession session = request.getSession();

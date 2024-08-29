@@ -2,6 +2,7 @@ package com.green.gragas.user.service;
 
 import com.green.gragas.user.dto.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -19,4 +20,6 @@ public interface UserService {
     int userUpdate(User user);
 
     User userSearchPw(User user);
+
+    int userListDelete(List<String> userId);
 }

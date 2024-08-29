@@ -22,6 +22,5 @@ function BoardList(props) {
         </tr>
     );
 
-
 }
 export default BoardList;
