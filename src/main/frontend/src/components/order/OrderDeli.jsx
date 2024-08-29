@@ -8,7 +8,6 @@ function OrderDeli(props) {
     const register = props.register;
     const errors = props.errors;
     const setValue = props.setValue;
-    const setOrderStep = props.setOrderStep;
     const handleSubmit = props.handleSubmit;
     const [delivery, setDelivery] = useState([]);
     const userId = getUserId();
@@ -46,9 +45,9 @@ function OrderDeli(props) {
         console.log(data);
     }
     return (
-        <div className="d-flex flex-column">
-            <h1>배송지</h1>
-            <select onChange={(e) => { changeDeli(e) }} className="form-control">
+        <div className="d-flex flex-column border rounded p-4">
+            <h3 >배송지</h3>
+            <select onChange={(e) => { changeDeli(e) }} className="form-control mt-4">
                 <option value="">--배송지선택--</option>
                 {delivery.length > 0 ? (
                     delivery.map((deliveryItem, index) => (
@@ -97,7 +96,7 @@ function OrderDeli(props) {
                 <option>파손의 위험이 있는 상품입니다. 배송시 주의해주세요.</option>
                 <option id='textSelf'>직접 입력하겠습니다.</option>
             </select>
-            <button type="button" className="btn btn-success w-10 p-2 mt-3" onClick={handleSubmit(validOrder)}>주문</button>
+
 
         </div>
     );

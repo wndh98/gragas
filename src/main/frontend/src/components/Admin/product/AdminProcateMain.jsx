@@ -60,7 +60,6 @@ function AdminProcateMain() {
                     <tr>
                         <td><Link to="/procate/create">상품추가</Link></td>
                         <td><button type="button" onClick={handleSubmit(procateDelete)}>상품삭제</button></td>
-
                     </tr>
                 </table>
             </form>
