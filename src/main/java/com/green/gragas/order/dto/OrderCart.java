@@ -18,4 +18,9 @@ public class OrderCart {
     private int poPrice;
     private int poSale;
     private int poCnt;
+
+    public int getPrice() {
+        return (poSale > 0) ? poSale : poPrice;
+    }
+
 }

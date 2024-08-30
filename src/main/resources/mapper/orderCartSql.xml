@@ -19,4 +19,7 @@
     <delete id="deleteCart" parameterType="integer">
         delete from ORDER_CART where OC_NUM=#{ocNum}
     </delete>
+    <delete id="deleteCartId" parameterType="string">
+        delete from ORDER_CART where OC_ID=#{ocId}
+    </delete>
 </mapper>
