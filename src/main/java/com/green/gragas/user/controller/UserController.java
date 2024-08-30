@@ -36,11 +36,11 @@ public class UserController {
         return sb.toString();
     }
 
-    @GetMapping("/view/{userId}")
+/*    @GetMapping("/view/{userId}")
     public User userView(@PathVariable String userId) {
         User user = us.userCheck(userId);
         return user;
-    }
+    }*/
 
     @PostMapping("/user/joinForm")
     public int userJoin(@RequestBody User user) {
@@ -103,6 +103,13 @@ public class UserController {
     public Map<String, Object> userList(@PathVariable("pageNum") int pageNum) {
         Map<String, Object> map = us.userList(pageNum);
         return map;
+    }
+
+    @PostMapping("/admin/user/delete")
+    public int userListDelete(@RequestBody List<String> userId) {
+        int result = 0;
+        result = us.userListDelete(userId);
+        return result;
     }
 
     @GetMapping("user/delete/{userId}")

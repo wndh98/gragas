@@ -27,4 +27,6 @@ public interface UserMapper {
     int userUpdate(User user);
 
     User userSearchPw(User user);
+
+    int userListDelete(List<String> userId);
 }
