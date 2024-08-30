@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.order.mapper.OrderListMapper">
+    <insert id="preOrderListInsert" parameterType="orderList">
+        insert into PRE_ORDER_LIST(
+        OL_ID,USER_ID,OL_PRICE,OL_DELI,OL_CNT,OL_PAYMENT,
+        OL_PAY,OL_REGIST,OL_PAY_REGIST,OL_POINT,OL_NAME,OL_TEL,OL_ADDRESS,
+        OL_ADDRESS_DETAIL,OL_MEMO
+        )
+        values(
+        #{olId},#{userId},#{olPrice},#{olDeli},#{olCnt},#{olPayment},
+        #{olPay},now(),null,#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo}
+        )
+    </insert>
+    <insert id="orderListInsert" parameterType="orderList">
+        insert into ORDER_LIST(
+        OL_ID,USER_ID,OL_PRICE,OL_DELI,OL_CNT,OL_PAYMENT,
+        OL_PAY,OL_REGIST,OL_PAY_REGIST,OL_POINT,OL_NAME,OL_TEL,OL_ADDRESS,
+        OL_ADDRESS_DETAIL,OL_MEMO
+        )
+        values(
+        #{olId},#{userId},#{olPrice},#{olDeli},#{olCnt},#{olPayment},
+        #{olPay},now(),now(),#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo}
+        )
+    </insert>
+    <select id="preOrderListSelect" parameterType="string" resultType="orderList">
+        select * from PRE_ORDER_LIST where OL_ID=#{olId};
+    </select>
+    <delete id="deletePreOrderList" parameterType="string">
+        delete from PRE_ORDER_LIST where OL_ID=#{olId}
+    </delete>
+</mapper>

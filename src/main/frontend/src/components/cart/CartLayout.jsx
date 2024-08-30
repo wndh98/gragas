@@ -34,7 +34,7 @@ function CartLayout() {
         })
     }
     function buyCart() {
-        navi('/order/orderForm/${ocId}');
+        navi(`/order/orderForm/${ocId}`);
     }
     return (
         <div className="container">
