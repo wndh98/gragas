@@ -17,12 +17,13 @@ function SerchIdForm() {
     try {
       const response = await axios.post('/user/searchId', data)
       .then((response) => {
-        console.log(response)
-       if(response.data != null) {
-        alert(response.data.userId);
+      if(response.data.userList.length != 0) {
+        for(const key in response.data.userList) {
+          alert(parseInt(key)+ 1 + "번째 아이디 : " + response.data.userList[key].userId);
+        }
         navigate("/loginForm");
       } else {
-        alert('정보 오류');
+        alert('입력하신 정보가 옳지 않습니다');
       }});
     } catch (error) {
       alert('에러 발생:', error);
