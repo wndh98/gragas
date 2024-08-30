@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -136,4 +137,18 @@ public class UserController {
         result = us.userUpdate(user);
         return result;
     }
+
+    @Scheduled(cron = "0 0 0 1 * ?")
+    public void couponUpdate() {
+        us.couponUpdate();
+    }
+
+/*    @GetMapping("/test")
+    public void adminCreate() {
+        String userId = "admin";
+        String userPw = "1234";
+
+        userPw = (pwEncoder.encode(userPw));
+        us.adminInsert(userId, userPw);
+    }*/
 }
