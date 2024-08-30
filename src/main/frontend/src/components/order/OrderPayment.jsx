@@ -8,14 +8,15 @@ function OrderPayment(props) {
     const olId = props.olId;
     const handleSubmit = props.handleSubmit;
     const onSubmit = props.onSubmit;
-    const [ready, setReady] = useState(false);
     const [widgets, setWidgets] = useState(null);
     const [amount, setAmount] = useState({
         currency: "KRW",
         value: 10,
     });
 
+    useEffect(() => {
 
+    }, [])
     useEffect(() => {
         async function fetchPaymentWidgets() {
             const tossPayments = await loadTossPayments(clientKey);
@@ -59,8 +60,6 @@ function OrderPayment(props) {
                     variantKey: "AGREEMENT",
                 }),
             ]);
-
-            setReady(true);
         }
 
         renderPaymentWidgets();

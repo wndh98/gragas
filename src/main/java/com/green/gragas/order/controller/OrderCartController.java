@@ -18,6 +18,10 @@ public class OrderCartController {
     public String getOcId() {
         return UUID.randomUUID().toString();
     }
+    @GetMapping("/orderCart/totalPrice")
+    public int getTotalPrice(@RequestParam("ocId") String ocId) {
+        return ocs.getTotalPrice(ocId);
+    }
 
     @GetMapping("/orderCart/list")
     public List<OrderCart> getOrderCartList(@RequestParam("ocId") String ocId) {

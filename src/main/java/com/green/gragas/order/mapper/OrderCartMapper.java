@@ -19,4 +19,6 @@ public interface OrderCartMapper {
     OrderCart selectOrderCart(OrderCart orderCart);
 
     void deleteCartId(String olId);
+
+    int selectTotalPrice(String ocId);
 }

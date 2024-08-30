@@ -11,6 +11,7 @@ import java.util.List;
 public class OrderCartServiceImpl implements OrderCartService{
     @Autowired
     OrderCartMapper ocm;
+
     @Override
     public int saveCart(OrderCart orderCart) {
         return ocm.insertCart(orderCart);
@@ -34,5 +35,10 @@ public class OrderCartServiceImpl implements OrderCartService{
     @Override
     public OrderCart getOrderCart(OrderCart orderCart) {
         return ocm.selectOrderCart(orderCart);
+    }
+
+    @Override
+    public int getTotalPrice(String ocId) {
+        return ocm.selectTotalPrice(ocId);
     }
 }

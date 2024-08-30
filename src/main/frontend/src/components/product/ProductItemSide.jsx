@@ -32,7 +32,25 @@ function ProductItemSide(props) {
     setValue("piNum", piNum);
 
     function directBuy(data) {
-        console.log(data);
+        if (!isLogin()) {
+            alert("로그인후 이용가능합니다.");
+            navi("/loginForm")
+            return false;
+        }
+        data.ocId = crypto.randomUUID();
+        axios.post("/orderCart/select", data).then(response => {
+            console.log(response);
+            if (response.data != "") {
+                alert("이미 추가한 물건입니다.");
+                return false;
+            } else {
+                axios.post("/orderCart/saveCart", data).then(result => {
+                    if (result.data == 1) {
+                        navi(`/order/orderForm/${data.ocId}`);
+                    }
+                });
+            }
+        });
     }
     function addCart(data) {
         if (!isLogin()) {
@@ -46,7 +64,7 @@ function ProductItemSide(props) {
             if (response.data != "") {
                 alert("이미 추가한 물건입니다.");
                 return false;
-            }else{
+            } else {
                 axios.post("/orderCart/saveCart", data).then(result => {
                     if (result.data == 1) {
                         alert("장바구니에 물건을 담았습니다.");

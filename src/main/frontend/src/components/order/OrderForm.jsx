@@ -9,13 +9,13 @@ import axios from "axios";
 function OrderForm(props) {
     const ocId = props.ocId;
     const [user, setUser] = useState({});
+
+
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     let olId = ocId;
     useEffect(() => {
         getUser(setUser);
-        if (ocId == "" || ocId == null) {
-            olId = crypto.randomUUID();
-        }
+
         setValue("olId", olId)
         setValue("olPayment", "card")
     }, [])
