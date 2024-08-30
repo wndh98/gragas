@@ -87,7 +87,7 @@ function SubsOrder(props) {
                                         {...register("mdAddr", { required: { value: true, message: "주소를 입력해 주세요" } })} />
                                     <br />
                                     <input
-                                        id='mAddrDe'
+                                        id='mdAddrDetail'
                                         className='form-control'
                                         placeholder="상세주소를 입력해 주세요"
                                         {...register("mdAddrDetail", { required: { value: true, message: "상세주소를 입력해 주세요" } })} />

@@ -85,6 +85,7 @@ button{
 }
 
 .siContent {
+    width: 450px;
     font-size: 22px;
     font-weight: 400;
     line-height: 140%;
@@ -113,13 +114,14 @@ button{
 
 .des_img {
     display: block;
-    width: 100%;
+    width: 80%;
     height: 100%;
     max-width: 1680px;
+    margin: auto;
 }
 
 .subscribeButton {
-    margin-top: 100px;
+    margin-top: 80px;
     text-align: center;
     width: 350px;
     height: 50px;
@@ -184,7 +186,6 @@ button{
     width: 100%;
     height: 52px;
     padding: 0;
-    margin: 35px 0px 0px;
     white-space: nowrap;
     font-size: 16px;
     font-weight: 500;
@@ -239,9 +240,117 @@ label[for="agreeCheck"] {
     display: flex;
     justify-content: space-between;
 }
+.dispContent{
+    display: contents;
+}
 .otherInfo.selected{
     border: 1px solid #0b5ed7;
 }
 .selectClass .otherInfo:not(.selected){
     display:none;
+}
+
+.container-md{
+    width: 1140px;
+}
+
+.subsItemBox{
+    width: 270px;
+    height: 390px;
+    padding: 0px;
+    border-radius: 10px;
+}
+.subsItemBox:hover{
+    cursor: pointer;
+    border: 1px solid rgb(0, 150, 243);
+}
+.subsItemBox div img{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: 250px;
+}
+
+.subsItemBox div{
+    text-align: center;
+}
+
+.subsItemBox div div h4{
+    font-weight: bold;
+    margin-top: 4px;
+}
+.subsItemBox div p{
+    margin-top: 10px;
+}
+.imgBoxFlex{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.smallBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+}
+.smallBox p{
+    font-size: small;
+    margin-right: 10px;
+    background-color: rgb(227, 242, 253);
+    color: rgb(0, 150, 243);
+    padding: 4px 4px;
+    border-radius: 5px;
+    border: none;
+}
+/* ------------------------------------------------------------------------------- */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 1000px; 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 9999; 
+    overflow: hidden;
+}
+
+.spinner {
+    width: 70px;
+    height: 70px;
+    border: 7px solid rgba(163, 151, 198, 0.2);
+    border-top: 7px solid rgba(163, 151, 198, 1);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+.itemDiv{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.selected-button {
+    border-bottom: 2px solid rgb(255, 187, 0); /* 원하는 색상 */
+    color: #000;
+}
+.selected-button img {
+    filter: none;
+}
+.unselected-button {
+    color: #888; /* 회색 텍스트 */
+}
+.unselected-button img {
+    filter: grayscale(100%) brightness(80%);
 }
