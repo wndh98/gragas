@@ -6,62 +6,54 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ProHeader from './ProHeader';
 
-
 const typeList = [{ type: '주종', test: ['탁주', '청주'] }, { type: '도수', test: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', test: ['약한', '중간', '강한'] }, { type: '신맛', test: ['약한', '중간', '강한'] }, { type: '탄산', test: ['약한', '중간', '강한'] }, { type: '가격', test: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
-
 
 function Type(props) {
 
-
-    <div width="350px" className='spdla typebox'>
-        <div className='spdla tybox'>
-
-            {typeList.map((item, index) => {
-                return (
-
-                    <div className='spdla mutlple' key={index}>
-                        <div class="check-box flex">
-                            <div class="sc-d5ff5581-0 hNTfqe">
-                                <button type="button" class="custom-checkbox "><img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button></div>
-                            {item.test.map((testItem, testIndex) => {
-                                return (
-                                    <button class="option-text" key={testIndex}>{testItem}</button>
-                                )
-                            })}
+    return (
+        <div width="350px" className='spdla typebox'>
+            <div className='spdla tybox'>
+                {typeList.map(list => {
+                    return (
+                        <div className='spdla mutlple'>
+                            <div class="check-box flex">
+                                <div class="sc-d5ff5581-0 hNTfqe">
+                                    <button type="button" class="custom-checkbox "><img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button></div>
+                                {list.test.map(listTest => {
+                                    return (
+                                        <button class="option-text">{listTest}</button>
+                                    )
+                                })}
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
-
+                    )
+                })}
+            </div>
         </div>
-    </div>
-
-
+    )
 }
 
-function TList(props, testItem) {
+function TList(props) {
     const setBoxon = props.setBoxon;
     const type = props.type;
     const test = props.test;
 
-
     const handleClick = () => {
-        setBoxon(<Type key={testItem} test={test} />)
+        setBoxon(<Type test={test} />)
 
     }
 
     return (
         <>
             <button onClick={handleClick} className='filterflex'>
-                <span name="typeList">{type.type} {testItem.testItem}</span>
+                <span name="typeList">{type.type}</span>
                 <img src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png" width="20px" class="img" alt="arrow-down"></img></button>
         </>
     )
 }
 
 
-function CateMain(props) {
-
+function TotalItemList() {
     const pathParam = useParams();
     const pcNum = pathParam.pcNum;
     const [boxoff, setBoxon] = useState();
@@ -76,8 +68,8 @@ function CateMain(props) {
             .catch(error => console.error("Fetching error:", error))
     }, []);
 
-    return (
 
+    return (
         <div>
             <ProHeader />
             <div className='spdla type'>
@@ -85,7 +77,7 @@ function CateMain(props) {
                     <div className='flextype'>
                         <div className='filter-container'>
                             {typeList.map(type => {
-                                return (<TList type={type} test={props.test} setBoxon={setBoxon} />);
+                                return (<TList type={type} setBoxon={setBoxon} />);
                             })}
                             {boxoff}
                         </div>
@@ -130,6 +122,4 @@ function CateMain(props) {
 }
 
 
-
-
-export default CateMain;
+export default TotalItemList;

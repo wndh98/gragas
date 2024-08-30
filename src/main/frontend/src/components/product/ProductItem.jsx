@@ -87,11 +87,11 @@ function ProductItem() {
                                                 <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH"><div class=" body-regular">판매가격:</div>
                                                 </div>
                                             </div>
-                                            <span class="originPrice">{product.poPrice}원</span>
+                                            <span class="originPrice">{option.poPrice}원</span>
                                             <div className="direct-purchase-box">
                                                 <div className="flex">
-                                                    <div class="font title1-bold-bol">{salePercent(product.poPrice, product.poSale)}%</div>
-                                                    <div class="title1-bold">{product.poSale}원</div>
+                                                    <div class="font title1-bold-bol">{salePercent(option.poPrice, option.poSale)}%</div>
+                                                    <div class="title1-bold">{option.poSale}원</div>
                                                 </div>
                                                 <div className="reviews">
                                                     <div className="layout">
