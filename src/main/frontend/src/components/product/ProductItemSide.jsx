@@ -34,7 +34,7 @@ function ProductItemSide(props) {
     function directBuy(data) {
         if (!isLogin()) {
             alert("로그인후 이용가능합니다.");
-            navi("/loginForm")
+            navi("/loginForm");
             return false;
         }
         data.ocId = crypto.randomUUID();

@@ -17,4 +17,6 @@ public interface OrderCartService {
     OrderCart getOrderCart(OrderCart orderCart);
 
     int getTotalPrice(String ocId);
+
+    String getProductName(String ocId);
 }

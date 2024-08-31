@@ -22,7 +22,10 @@ public class OrderCartController {
     public int getTotalPrice(@RequestParam("ocId") String ocId) {
         return ocs.getTotalPrice(ocId);
     }
-
+    @GetMapping("/orderCart/getProductName")
+    public String getProductName(@RequestParam("ocId") String ocId) {
+        return ocs.getProductName(ocId);
+    }
     @GetMapping("/orderCart/list")
     public List<OrderCart> getOrderCartList(@RequestParam("ocId") String ocId) {
         return ocs.getOrderCartList(ocId);

@@ -16,6 +16,7 @@
     <select id="selectTotalPrice" parameterType="string">
         select SUM(if(PO_SALE>0,PO_SALE,PO_PRICE)) from ORDER_CART oc LEFT JOIN PRODUCT_OPTION po on oc.PO_NUM=po.PO_NUM where OC_ID=#{ocId}
     </select>
+
     <update id="updateCart" parameterType="orderCart">
         update ORDER_CART set OC_CNT=#{ocCnt} where OC_NUM=#{ocNum}
     </update>
