@@ -48,9 +48,13 @@
         where PI_NUM=#{piNum}
     </update>
 
-    <delete id="productDelete" parameterType="integer">
-        delete from PRODUCT_ITEM where PI_NUM=#{piNum}
-    </delete>
+<!--    <delete id="productDelete" parameterType="integer">-->
+<!--        delete from PRODUCT_ITEM where PI_NUM=#{piNum}-->
+<!--    </delete> -->
+
+    <update id="productDelete" parameterType="string">
+        UPDATE PRODUCT_ITEM SET PI_DEL = 'Y' WHERE PI_NUM = #{piNum}
+    </update>
 
 
     <select id="peventList" resultType="productItem" parameterType="integer">

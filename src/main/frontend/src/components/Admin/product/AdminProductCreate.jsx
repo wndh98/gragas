@@ -8,7 +8,7 @@ import { useEffect } from "react";
 function AdminProductCreate() {
 
 
-    const { register, handleSubmit, formState: { error } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [events, setEvents] = useState([]);
     const [procates, setProcates] = useState([]);
     useEffect(() => {
@@ -85,17 +85,28 @@ function AdminProductCreate() {
                         <tr>알콜도수
                             <td><input type="text" {...register("piAlcohol")} /></td>
                         </tr>
-                        <tr>맛
-                            <td><input type="text" {...register("piSweet")} /></td>
-                        </tr>
-                        <tr>탄산
-                            <td><input type="text" {...register("piCarbonated")} /></td>
-                        </tr>
+
+                        <tr><th>맛</th><td>
+                            <select {...register("piSweet")}>
+                                <option value='soft'>약한</option>
+                                <option value='middle'>중간</option>
+                                <option value='hard'>강한</option>
+                            </select>
+                        </td></tr>
+                        <tr><th>탄산</th><td>
+                            <select {...register("piCarbonated")}>
+                                <option value='soft'>약한</option>
+                                <option value='middle'>중간</option>
+                                <option value='hard'>강한</option>
+                            </select>
+                        </td></tr>
+
+
                         <tr>가격
-                            <td><input type="text" {...register("poPrice")} /></td>
+                            <td><input type="number" {...register("poPrice")} /></td>
                         </tr>
                         <tr>세일가
-                            <td><input type="text" {...register("poSale")} /></td>
+                            <td><input type="number" {...register("poSale")} /></td>
                         </tr>
                         <tr>재고
                             <td><input type="text" {...register("poCnt")} /></td>
@@ -119,13 +130,13 @@ function AdminProductCreate() {
                         </tr>
 
                         <tr>이미지
-                            <td><input type="file" {...register("piImgFile")} accept="image/jpg,image/png,image/jpeg,image/gif" />
-
+                            <td><input type="file" {...register("piImgFile", { required: "이미지를 넣어주세요." })} accept="image/jpg,image/png,image/jpeg,image/gif" />
+                                {errors.piImgFile && <p>{errors.piImgFile.message}</p>}
                             </td>
                         </tr>
-                        <tr>이미지2
-                            <td><input type="file" {...register("piContentFile")} accept="image/jpg,image/png,image/jpeg,image/gif" />
-
+                        <tr>Content
+                            <td><input type="file" {...register("piContentFile", { required: "이미지를 넣어주세요." })} accept="image/jpg,image/png,image/jpeg,image/gif" />
+                                {errors.piContentFile && <p>{errors.piContentFile.message}</p>}
                             </td>
                         </tr>
                         <tr>

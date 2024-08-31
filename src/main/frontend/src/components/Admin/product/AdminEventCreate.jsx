@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function AdminEventCreate(params) {
 
-    const { register, handleSubmit, formState: { error } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [imageList, setImageList] = useState([]);
     const onChangeImageInput = e => {
         setImageList([...imageList, ...e.target.files]);
@@ -47,7 +47,8 @@ function AdminEventCreate(params) {
                         </tr>
                         <tr>
                             <td className="table-secondary text-center align-middle">이미지</td>
-                            <td><input type="file" name="eiContentFile" {...register("eiContentFile")} accept="image/jpg,image/png,image/jpeg,image/gif" className="form-control w-50" /></td>
+                            <td><input type="file" name="eiContentFile" {...register("eiContentFile", { required: "이미지를 넣어주세요." })} accept="image/jpg,image/png,image/jpeg,image/gif" className="form-control w-50" /></td>
+                            {errors.eiContentFile && <p>{errors.eiContentFile.message}</p>}
                         </tr>
 
                     </tbody>

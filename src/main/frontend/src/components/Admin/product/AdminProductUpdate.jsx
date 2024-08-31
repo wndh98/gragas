@@ -139,49 +139,50 @@ function AdminProductUpdate(params) {
             </select>
           </td></tr>
           <tr><th>상품명</th><td><input type="text"  {...register("piName")} defaultValue={products.piName}></input></td></tr>
-          <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
+          <tr><th>알콜도수</th><td><input type="number"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
 
           <tr><th>맛</th><td>
             <select {...register("piSweet")}>
               <option defaultValue={products.piSweet}
-                value={products.piSweet}>
-                {products.piSweet}
-              </option>
+                value='soft'>약한</option>
+              <option value='middle'>중간</option>
+              <option value='hard'>강한</option>
             </select>
           </td></tr>
           <tr><th>탄산</th><td>
             <select {...register("piCarbonated")}>
               <option
                 defaultValue={products.piCarbonated}
-                value={products.piCarbonated}>
-                {products.piCarbonated}
-              </option>
-            </select>
+                value='soft'>약한</option>
+              <option value='middle'>중간</option>
+              <option value='hard'>강한</option>
+          </select>
           </td></tr>
 
 
-          {
-            events.map((product) => {
+        {
+          events.map((product) => {
 
-              return (
+            return (
 
-                <tr>{product.eiName}
-                  <td>
-                    <input id="eiNum" type="checkbox" defaultValue={product.eiNum} {...register("eiNum")} />
-                  </td>
-                </tr>
-              );
-            })}
-          <tr>이미지<td><input type="file"  {...register("piImgFile")} defaultValue={products.piImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
-          <tr><th>Content</th><td><input type="file"  {...register("piContentFile")} defaultValue={products.piContentFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
-
-          <tr>
-            <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
-            <td><input type="submit" value="전송" />
-            </td>
-          </tr>
-        </table>
-      </form>
+              <tr>{product.eiName}
+                <td>
+                  <input id="eiNum" type="checkbox" defaultValue={product.eiNum} {...register("eiNum")} />
+                </td>
+              </tr>
+            );
+          })}
+        <tr>이미지<td><input type="file"  {...register("piImgFile", { required: "이미지를 넣어주세요." })} defaultValue={products.piImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+        {errors.piImgFile && <p>{errors.piImgFile.message}</p>}
+        <tr><th>Content</th><td><input type="file"  {...register("piContentFile", { required: "이미지를 넣어주세요." })} defaultValue={products.piContentFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+        {errors.piContentFile && <p>{errors.piContentFile.message}</p>}
+        <tr>
+          <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
+          <td><input type="submit" value="전송" />
+          </td>
+        </tr>
+      </table>
+    </form>
     </div >
   );
 }

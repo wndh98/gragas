@@ -73,7 +73,8 @@ function AdminProcatetUpdate(params) {
         <table class="admin_board_wrap" id="user-admin">
 
           <tr><th>카테고리이름</th><td><input type="text" {...register("pcName")} defaultValue={products.pcName}></input></td></tr>
-          <tr><th>이미지</th><td><input type="file"  {...register("pcImgFile")} defaultValue={products.pcImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+          <tr><th>이미지</th><td><input type="file"  {...register("pcImgFile", { required: "이미지를 넣어주세요." })} defaultValue={products.pcImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+          {errors.pcImgFile && <p>{errors.pcImgFile.message}</p>}
           <tr>
             <td><button type="button" onClick={(e) => { procateDelete(e) }}>삭제</button></td>
             <td><input type="submit" value="전송" />

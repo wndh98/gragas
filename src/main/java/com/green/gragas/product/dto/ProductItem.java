@@ -19,5 +19,6 @@ public class ProductItem {
     private int poPrice;
     private int poSale;
     private int poCnt;
+    private String piDel;
     private int[] eiNum;
 }

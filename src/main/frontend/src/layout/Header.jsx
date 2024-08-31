@@ -39,6 +39,7 @@ function Header() {
                         <li><Link to="/total" className="nav-link px-2 text-dark">상품</Link></li>
                         <li><Link to="/subscribe/itemList" className="nav-link px-2 text-dark">구독</Link></li>
                         <li><Link to="/board/free/list/1" className="nav-link px-2 text-dark">게시판</Link></li>
+                        <li><Link to="/productEvent" className="nav-link px-2 text-dark">이벤트</Link></li>
                         <li>
                             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                                 <input type="search" className="form-control form-control" placeholder="Search..." aria-label="Search" />

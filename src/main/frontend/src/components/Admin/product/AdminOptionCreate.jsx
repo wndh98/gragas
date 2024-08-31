@@ -48,7 +48,7 @@ function AdminOptionCreate(params) {
                             <td><input type="text" name="piNum" onChange={(event) => handleInputChange("piNum", event)}></input></td>
                         </tr>
                         <tr>재고수량
-                            <td><input type="text" name="poCnt" onChange={(event) => handleInputChange("poCnt", event)}></input></td>
+                            <td><input type="number" name="poCnt" onChange={(event) => handleInputChange("poCnt", event)}></input></td>
                         </tr>
 
 
