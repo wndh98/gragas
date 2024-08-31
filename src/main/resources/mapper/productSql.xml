@@ -32,12 +32,12 @@
         select * from Product_Item where PI_NUM=#{piNum}
     </select>
     <insert id="productInsert" parameterType="productItem">
-        insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT)
-        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},#{piImg},#{piContent})
+        insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT,PI_PRICE)
+        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},#{piImg},#{piContent},#{piPrice})
     </insert>
     <update id="productUpdate" parameterType="productItem">
         update PRODUCT_ITEM set PC_NUM=#{pcNum}, PI_NAME=#{piName},
-        PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
+        PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},PI_PRICE=#{piPrice},
         PI_CARBONATED=#{piCarbonated}
         <if test="piContent!=null">
             ,PI_CONTENT=#{piContent}

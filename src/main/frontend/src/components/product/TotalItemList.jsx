@@ -4,63 +4,96 @@ import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import ProHeader from './ProHeader';
+import ProHeaderList from './ProHeader';
 
-const typeList = [{ type: '주종', test: ['탁주', '청주'] }, { type: '도수', test: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', test: ['약한', '중간', '강한'] }, { type: '신맛', test: ['약한', '중간', '강한'] }, { type: '탄산', test: ['약한', '중간', '강한'] }, { type: '가격', test: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
+
+const typeList = [{ type: '주종', cate: ['탁주', '청주'] }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '신맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
+
 
 function Type(props) {
 
+    const [checkBox, setCheckBox] = useState([]);
+
+
+
+    const handleCheck = () => {
+        setCheckBox(<img className='cpzm' src="/images/product/icon_checked_square.png" alt="checkbox" />)
+    }
+
+    const cate = props.cate;
     return (
         <div width="350px" className='spdla typebox'>
             <div className='spdla tybox'>
-                {typeList.map(list => {
+                {cate.map((testItem, testIndex) => {
                     return (
                         <div className='spdla mutlple'>
                             <div class="check-box flex">
                                 <div class="sc-d5ff5581-0 hNTfqe">
-                                    <button type="button" class="custom-checkbox "><img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button></div>
-                                {list.test.map(listTest => {
-                                    return (
-                                        <button class="option-text">{listTest}</button>
-                                    )
-                                })}
+                                    <button type="button" onClick={() => { handleCheck() }} class="custom-checkbox ">
+                                        <img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button>{checkBox}
+                                </div>
+                                <button class="option-text" key={testIndex}>{testItem}</button>
                             </div>
                         </div>
                     )
                 })}
             </div>
         </div>
-    )
+    );
+
 }
 
+
+
 function TList(props) {
-    const setBoxon = props.setBoxon;
+    // const setBoxon = props.setBoxon;
     const type = props.type;
-    const test = props.test;
+    const cate = props.cate;
+    const boxClose = props.boxClose;
+    const setBoxClose = props.setBoxClose;
 
-    const handleClick = () => {
-        setBoxon(<Type test={test} />)
+    const [boxoff, setBoxon] = useState();
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        if (boxClose != false) {
+            setBoxon("");
+            if (isOpen) {
+                setIsOpen(false);
+            } else if (boxClose == type.type) {
+                setBoxon(<Type cate={type.cate} />);
+                setIsOpen(true);
+            }
+        }
+        setBoxClose(false);
+    }, [boxClose])
 
+    const handleClick = async () => {
+        await setBoxClose(type.type);
     }
+
 
     return (
         <>
-            <button onClick={handleClick} className='filterflex'>
-                <span name="typeList">{type.type}</span>
-                <img src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png" width="20px" class="img" alt="arrow-down"></img></button>
+            <div>
+                <button onClick={() => { handleClick() }} className='filterflex'>
+                    <span name="typeList">{type.type}</span>
+                    <img src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png" width="20px" class="img" alt="arrow-down"></img></button>
+                {boxoff}
+            </div>
         </>
     )
 }
 
+function TotalItemList(props) {
 
-function TotalItemList() {
     const pathParam = useParams();
     const pcNum = pathParam.pcNum;
-    const [boxoff, setBoxon] = useState();
+    const [boxClose, setBoxClose] = useState(false);
     const [products, setProducts] = useState([]);
 
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
     useEffect(() => {
+
         axios.get("/product/list/" + pcNum)
             .then(response => {
 
@@ -68,18 +101,17 @@ function TotalItemList() {
             .catch(error => console.error("Fetching error:", error))
     }, []);
 
-
     return (
+
         <div>
-            <ProHeader />
+            <ProHeaderList pcNum={pcNum} />
             <div className='spdla type'>
                 <div className='spdla typetwo'>
                     <div className='flextype'>
                         <div className='filter-container'>
                             {typeList.map(type => {
-                                return (<TList type={type} setBoxon={setBoxon} />);
+                                return (<TList type={type} cate={props.cate} boxClose={boxClose} setBoxClose={setBoxClose} />);
                             })}
-                            {boxoff}
                         </div>
                         {/* <Type />버튼 누르면 튀어나오게 */}
                     </div>
@@ -120,6 +152,8 @@ function TotalItemList() {
 
     );
 }
+
+
 
 
 export default TotalItemList;

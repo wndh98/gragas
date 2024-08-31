@@ -1,4 +1,4 @@
-import './Admin.css'
+import "./ProPage.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -34,27 +34,30 @@ function AdminEventCreate(params) {
         console.log(data)
         console.log(data.eiContentFile)
     }
-    
+
 
     return (
-        <div>
+        <main className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <table class="admin_board_wrap" id="user-admin">
-                    <thead class="admin_boardList">
-                        <tr>이벤트명
-                            <td><input type="text" name="eiName" {...register("eiName")}></input></td>
-                        </tr>
-                        <tr>이미지
-                            <td><input type="file" name="eiContentFile" {...register("eiContentFile")} accept="image/jpg,image/png,image/jpeg,image/gif" /></td>
+                <table class="admin_board_wrap table mt-5" id="user-admin">
+                    <tbody class="admin_boardList">
+                        <tr>
+                            <td className="table-secondary text-center align-middle">이벤트명</td>
+                            <td><input type="text" name="eiName" {...register("eiName")} className="form-control w-50"></input></td>
                         </tr>
                         <tr>
-                            <td><input type="submit" value="전송" /></td>
+                            <td className="table-secondary text-center align-middle">이미지</td>
+                            <td><input type="file" name="eiContentFile" {...register("eiContentFile")} accept="image/jpg,image/png,image/jpeg,image/gif" className="form-control w-50" /></td>
                         </tr>
-                    </thead>
+
+                    </tbody>
 
                 </table>
+                <div className="d-flex justify-content-center">
+                    <input type="submit" value="전송" className="btn btn-success" />
+                </div>
             </form>
-        </div>
+        </main>
     );
 }
 

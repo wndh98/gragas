@@ -1,4 +1,4 @@
-import "./Admin.css";
+import "./ProPage.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -140,21 +140,38 @@ function AdminProductUpdate(params) {
           </td></tr>
           <tr><th>상품명</th><td><input type="text"  {...register("piName")} defaultValue={products.piName}></input></td></tr>
           <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
-          <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
-          <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
+
+          <tr><th>맛</th><td>
+            <select {...register("piSweet")}>
+              <option defaultValue={products.piSweet}
+                value={products.piSweet}>
+                {products.piSweet}
+              </option>
+            </select>
+          </td></tr>
+          <tr><th>탄산</th><td>
+            <select {...register("piCarbonated")}>
+              <option
+                defaultValue={products.piCarbonated}
+                value={products.piCarbonated}>
+                {products.piCarbonated}
+              </option>
+            </select>
+          </td></tr>
+
+
           {
             events.map((product) => {
 
               return (
 
-                <tr>이벤트
+                <tr>{product.eiName}
                   <td>
                     <input id="eiNum" type="checkbox" defaultValue={product.eiNum} {...register("eiNum")} />
                   </td>
                 </tr>
               );
-            })
-          }
+            })}
           <tr>이미지<td><input type="file"  {...register("piImgFile")} defaultValue={products.piImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
           <tr><th>Content</th><td><input type="file"  {...register("piContentFile")} defaultValue={products.piContentFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
 
@@ -168,5 +185,4 @@ function AdminProductUpdate(params) {
     </div >
   );
 }
-
 export default AdminProductUpdate;

@@ -25,6 +25,11 @@ a {
   letter-spacing: 0.6px !important;
 }
 
+.cpzm {
+  width: 25px;
+  height: 25px;
+}
+
 .mainbox {
   width: 100%;
   max-width: 1244px;

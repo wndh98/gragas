@@ -1,4 +1,4 @@
-import './Admin.css'
+import "./ProPage.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
