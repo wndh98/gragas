@@ -88,16 +88,16 @@ function AdminProductCreate() {
 
                         <tr><th>맛</th><td>
                             <select {...register("piSweet")}>
-                                <option value='soft'>약한</option>
-                                <option value='middle'>중간</option>
-                                <option value='hard'>강한</option>
+                                <option value='1'>약한</option>
+                                <option value='2'>중간</option>
+                                <option value='3'>강한</option>
                             </select>
                         </td></tr>
                         <tr><th>탄산</th><td>
                             <select {...register("piCarbonated")}>
-                                <option value='soft'>약한</option>
-                                <option value='middle'>중간</option>
-                                <option value='hard'>강한</option>
+                                <option value='1'>약한</option>
+                                <option value='2'>중간</option>
+                                <option value='3'>강한</option>
                             </select>
                         </td></tr>
 
@@ -117,7 +117,7 @@ function AdminProductCreate() {
 
                             return (
 
-                                <tr>이벤트
+                                <tr>{product.eiName}
                                     <td>
                                         <input id="eiNum" type="checkbox" value={product.eiNum} {...register("eiNum")} />
                                     </td>
