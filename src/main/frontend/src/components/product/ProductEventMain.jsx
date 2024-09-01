@@ -87,12 +87,7 @@ function TList(props) {
 function ProductEventMain(props) {
     const { eiNum } = useParams();
     const product = props.product;
-    console.log(product);
-    function price() {
-        let prices = 0;
-        prices = (product.poPrice) * (product.poSale)
-        return prices;
-    }
+  
     const pathParam = useParams();
     const pcNum = pathParam.pcNum;
     const [boxClose, setBoxClose] = useState(false);
