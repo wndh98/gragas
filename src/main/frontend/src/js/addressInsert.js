@@ -28,9 +28,9 @@ function execDaumPostcode() {
 	                }
 	
 	                // 선택된 우편번호와 주소 정보를 input 박스에 넣는다.
-	                document.getElementById("mAddr").value = addr;
-	                document.getElementById("mAddr").value += extraAddr;
-	                document.getElementById("mAddrDe").focus(); // 우편번호 + 주소 입력이 완료되었음으로 상세주소로 포커스 이동
+	                document.getElementById("mdAddr").value = addr;
+	                document.getElementById("mdAddr").value += extraAddr;
+	                document.getElementById("mdAddrDetail").focus(); // 우편번호 + 주소 입력이 완료되었음으로 상세주소로 포커스 이동
 	            }
 	        }).open();
 	    }

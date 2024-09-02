@@ -208,3 +208,14 @@
 .user_info_update_text {
     text-decoration: underline;
 }
+
+.mypage_order_list_nav_content {
+    margin-right: 10px;
+    color: grey;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mypage_order_list_nav_content span, .mypage_order_list_nav_content div {
+    font-size: 13px;
+}
