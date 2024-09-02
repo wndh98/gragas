@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- mapper DTD 선언 -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- SQL Mapping -->
 <mapper namespace="com.green.gragas.user.mappers.UserMapper">
-    <select id="userList" resultType="user">
-        select * from User
+    <select id="userList" resultType="user" parameterType="userSearch">
+        select * from user
+        <if test="keyword!=null and searchType!=null">
+            where ${searchType} like concat('%',#{keyword},'%')
+        </if>
+        order by ${orderType} ${orderAsc} limit #{startPage},#{endPage}
+    </select>
+    <select id="totalCnt" resultType="integer" parameterType="string">
+        select count(*) from user
     </select>
     <select id="userCheck" resultType="user" parameterType="string">
-        select * from User where USER_ID=#{userId}
+        SELECT u.*, mc.UL_IMG
+        FROM user u
+        JOIN MEMBER_COUPON mc ON u.USER_LEVEL = mc.USER_LEVEL
+        WHERE u.USER_ID = #{userId}
     </select>
     <insert id="userJoin" parameterType="user">
-        insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userBirth}, #{userPhone}, 0, 'n', 'n', now())
+        insert into User values(#{userId}, 'Yellow', #{userPw}, #{userName}, #{userBirth}, #{userPhone}, 0, 'Y', 'N', now())
     </insert>
+    <select id="userSearchIdList" resultType="user" parameterType="user">
+        select * from User where USER_NAME=#{userName} and USER_PHONE=#{userPhone}
+    </select>
+    <update id="userDelete" parameterType="string">
+        update user set user_del = 'Y' where user_Id = #{userId}
+    </update>
+    <update id="userUpdate" parameterType="user">
+        update user set user_pw = #{userPw}, user_name = #{userName}, user_phone = #{userPhone} where user_id = #{userId}
+    </update>
+    <select id="userSearchPw" parameterType="user" resultType="user">
+        select * from User where user_id=#{userId} and user_name=#{userName}
+            and user_birth=#{userBirth}
+    </select>
+    <update id="userListDelete" parameterType="list">
+        update user set user_del = 'Y'
+        where
+        <foreach item="userId" index="index" collection="userId" open="user_id in (" separator="," close=")">
+            #{userId}
+        </foreach>
+    </update>
 </mapper>

@@ -7,23 +7,91 @@
     <select id="productList" resultType="productItem">
         select * from Product_Item
     </select>
+    <select id="productListPcNum" resultType="productItem" parameterType="productSearch">
+        select * from Product_Item
+        <if test="pc_num!=0 or searchType!=null or keyword!=null">
+            where
+            <if test="pc_num!=0">
+                PC_NUM=#{pcNum}
+            </if>
+            <if test="searchType!=null and keyword!=null">
+                <if test="pc_num!=0">
+                    and
+                </if>
+                ${searchType} like concat('%',#{keyword},'%')
+            </if>
+        </if>
+<!--        order by ${orderType} ${orderDesc} limit #{startPage},#{pageSize}-->
+    </select>
 
+    <select id="nextPiNum" resultType="integer">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name='PRODUCT_ITEM'
+    </select>
     <select id="productCheck" resultType="productItem" parameterType="integer">
         select * from Product_Item where PI_NUM=#{piNum}
     </select>
     <insert id="productInsert" parameterType="productItem">
         insert into PRODUCT_ITEM(PC_NUM,PI_NAME,PI_DELI,PI_ALCOHOL,PI_SWEET,PI_CARBONATED,PI_IMG,PI_CONTENT)
-        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},'',#{piContent});
+        values(#{pcNum},#{piName},#{piDeli},#{piAlcohol},#{piSweet},#{piCarbonated},#{piImg},#{piContent})
     </insert>
     <update id="productUpdate" parameterType="productItem">
-        update PRODUCT_ITEM set PI_NAME=#{piName}, PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
-        PI_CARBONATED=#{piCarbonated},PI_CONTENT=#{piContent}
+        update PRODUCT_ITEM set PC_NUM=#{pcNum}, PI_NAME=#{piName},
+        PI_DELI=#{piDeli},PI_ALCOHOL=#{piAlcohol},PI_SWEET=#{piSweet},
+        PI_CARBONATED=#{piCarbonated}
+        <if test="piContent!=null">
+            ,PI_CONTENT=#{piContent}
+        </if>
         <if test="piImg!=null">
             ,PI_IMG=#{piImg}
         </if>
         where PI_NUM=#{piNum}
     </update>
+
     <delete id="productDelete" parameterType="integer">
         delete from PRODUCT_ITEM where PI_NUM=#{piNum}
     </delete>
+
+
+    <select id="peventList" resultType="productItem" parameterType="integer">
+        SELECT *
+        FROM Product_ITEM
+        WHERE PI_NUM IN (
+        SELECT PI_NUM
+        FROM Product_EVENT
+        WHERE EI_NUM = #{eiNum}
+        )
+        <!--        select * from Product_EVENT where EI_NUM=#{eiNum}-->
+    </select>
+
+    <select id="peventListPe" resultType="productEvent" parameterType="integer">
+        select * from Product_EVENT where PI_NUM=#{piNum} and EI_NUM=#{eiNum}
+    </select>
+
+    <select id="peventCheke" resultType="productItem" parameterType="integer">
+        SELECT *
+        FROM Product_ITEM
+        WHERE PI_NUM IN (
+        SELECT PI_NUM
+        FROM Product_EVENT
+        WHERE EI_NUM = #{eiNum}
+        )
+    </select>
+
+    <insert id="peventInsert" parameterType="map">
+        insert into PRODUCT_EVENT(PI_NUM,EI_NUM)
+        values(#{piNum},#{eiNum})
+    </insert>
+
+    <update id="peventUpdate" parameterType="map">
+        update PRODUCT_EVENT set PI_NUM=#{piNum} where EI_NUM=#{eiNum}
+    </update>
+
+    <delete id="peventDelete" parameterType="integer">
+        DELETE FROM PRODUCT_EVENT WHERE PI_NUM = #{piNum}
+    </delete>
+
+    <select id="peventListPi" parameterType="integer" resultType="productEvent">
+        select * from PRODUCT_EVENT where PI_NUM = #{piNum}
+    </select>
 </mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.product.mappers.ProopMapper">
+    <select id="proopList" resultType="productOption">
+        select * from PRODUCT_OPTION
+    </select>
+    <select id="proopListPi" resultType="productOption" parameterType="integer">
+        select * from PRODUCT_OPTION where PI_NUM=#{piNum}
+    </select>
+
+    <select id="proopCheck" resultType="productOption" parameterType="integer">
+        select * from PRODUCT_OPTION where PO_NUM=#{poNum}
+    </select>
+
+    <insert id="proopInsert" parameterType="productOption">
+        insert into PRODUCT_OPTION(PO_NUM,PI_NUM,PO_PRICE,PO_SALE,PO_NAME,PO_CNT)
+        values(#{poNum},#{piNum},#{poPrice},#{poSale},#{poName},#{poCnt})
+    </insert>
+
+    <update id="proopUpdate" parameterType="productOption">
+        update PRODUCT_OPTION set PO_NAME=#{poName},PO_CNT=#{poCnt} where PO_NUM=#{poNum}
+    </update>
+
+    <delete id="proopDelete" parameterType="integer">
+        delete from PRODUCT_OPTION where PO_NUM=#{poNum}
+    </delete>
+</mapper>

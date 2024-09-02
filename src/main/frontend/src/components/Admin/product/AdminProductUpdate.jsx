@@ -1,82 +1,172 @@
-import './Admin.css'
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-
-
+import "./Admin.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
 function AdminProductUpdate(params) {
-    const [productInput, setProductInput] = useState(
-        {
-            piNum: "",
-            pcNum: "",
-            piName: "",
-            piAlcohol: "",
-            piSweet: "",
-            piCarbonated: "",
-            piPrice: 0,
-            piContent: ""
+  const pathParam = useParams();
+  const piNum = pathParam.piNum;
+  const [products, setProducts] = useState([]);
+  const viewUrl = "/product/view/" + piNum;
+  const [events, setEvents] = useState([]);
+  const [procates, setProcates] = useState([]);
+  const [selectEvents, setSelectEvents] = useState([{}]);
+  useEffect(() => {
+
+    axios.get("/event/list")
+      .then(response => {
+        setEvents(response.data);
+      })
+      .catch(error => console.error("Fetching error:", error));
+
+    axios.get(viewUrl)
+      .then(response => {
+
+        setProducts(response.data); // 가져온 상품정보를 상태에 저장
+      })
+      .catch(error => console.error("Fetching error:", error))
+
+    axios.get(`/pevent/listPi/${piNum}`)
+      .then(response => {
+        setSelectEvents(response.data);
+
+      })
+      .catch(error => console.error("Fetching error:", error));
+
+    axios.get("/procate/list")
+      .then(response => {
+        setProcates(response.data);
+      })
+      .catch(error => console.error("Fetching error:", error));
+
+  }, [])
+
+  useEffect(() => {
+    const eiNums = document.getElementsByName("eiNum");
+    let checkValue = [];
+    for (let i = 0; i < eiNums.length; i++) {
+      for (let j = 0; j < selectEvents.length; j++) {
+        if (eiNums[i].value == selectEvents[j].eiNum) {
+          eiNums[i].checked = true;
+          checkValue.push(eiNums[i].value);
+          break;
         }
-    );
-    function handleInputChange(inputId, event) {
-        setProductInput((prevState => ({
-            ...prevState,
-            [inputId]: event.target.value,
-        })));
+      }
+
     }
-    const loc=useNavigate();
-    function handleSubmit(event) {
-        event.preventDefault();
-        console.log(productInput);
-        axios.post('/product/update', productInput)
-            .then(response => {
-                if(response.data==1){
-                    alert("수정성공");
-                    loc("/main");
-                }else{
-                    alert("실패");
-                }
+    setValue("eiNum", checkValue);
+  }, [selectEvents])
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setValue
+  } = useForm();
+
+  const [imageList, setImageList] = useState([]);
+  const onChangeImageInput = e => {
+    setImageList([...imageList, ...e.target.files]);
+  };
+
+  const loc = useNavigate();
+
+  function onSubmit(data) {
+    if (data.eiNum == null || data.eiNum == "") data.eiNum = [];
+    data.eiNum = [...(data.eiNum)];
+    const formData = new FormData();
+    formData.append('piImgFile', data.piImgFile[0]);
+    formData.append('piContentFile', data.piContentFile[0]);
+
+    formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }));
+    console.log(formData.getAll("product"));
+    axios.post("/product/update/" + piNum, formData, {
+      headers: { 'Content-Type': 'multipart/form-data', chatset: 'utf-8' }
+    })
+      .then(response => {
+        if (response.data != 0) {
+          axios.post("/pevent/insert/" + piNum, data.eiNum)
+            .then(result => {
+              if (result.data == 1) {
+                alert("성공");
+                loc("/product/main");
+              } else {
+                alert("실패");
+              }
+            });
+        } else {
+          alert("실패");
+        }
+      })
+
+    console.log(data)
+  }
+  function productDelete(event) {
+    console.log(piNum)
+
+    event.preventDefault();
+    axios.get('/product/delete/' + piNum)
+      .then(response => {
+        if (response.data == 1) {
+          alert("성공");
+          loc("/product/main");
+        } else {
+          alert("실패");
+        }
+      });
+  }
+
+
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <table class="admin_board_wrap" id="user-admin">
+
+          <tr><th>카테고리번호</th><td>
+            <select {...register("pcNum")}>
+              {procates.map((procate) => {
+                return (
+                  <option
+                    defaultValue={procate.pcNum}
+                    value={procate.pcNum}>
+                    {procate.pcName}
+                  </option>
+                );
+              })}
+            </select>
+          </td></tr>
+          <tr><th>상품명</th><td><input type="text"  {...register("piName")} defaultValue={products.piName}></input></td></tr>
+          <tr><th>알콜도수</th><td><input type="text"  {...register("piAlcohol")} defaultValue={products.piAlcohol}></input></td></tr>
+          <tr><th>맛</th><td><input type="selected"  {...register("piSweet")} defaultValue={products.piSweet}></input></td></tr>
+          <tr><th>탄산</th><td><input type="text"  {...register("piCarbonated")} defaultValue={products.piCarbonated}></input></td></tr>
+          {
+            events.map((product) => {
+
+              return (
+
+                <tr>이벤트
+                  <td>
+                    <input id="eiNum" type="checkbox" defaultValue={product.eiNum} {...register("eiNum")} />
+                  </td>
+                </tr>
+              );
             })
-    }
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <table class="admin_board_wrap" id="user-admin">
-                    <thead class="admin_boardList">
+          }
+          <tr>이미지<td><input type="file"  {...register("piImgFile")} defaultValue={products.piImgFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+          <tr><th>Content</th><td><input type="file"  {...register("piContentFile")} defaultValue={products.piContentFile} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
 
-                        <tr>카테고리번호
-                            <td><input type="text" name="pcNum" onChange={(event) => handleInputChange("pcNum", event)}></input></td>
-                        </tr>
-                        <tr>상품명
-                            <td><input type="text" name="piName" onChange={(event) => handleInputChange("piName", event)}></input></td>
-                        </tr>
-                        <tr>알콜도수
-                            <td><input type="text" name="piAlcohol" onChange={(event) => handleInputChange("piAlcohol", event)}></input></td>
-                        </tr>
-                        <tr>맛
-                            <td><input type="selected" name="piSweet" onChange={(event) => handleInputChange("piSweet", event)}></input></td>
-                        </tr>
-                        <tr>탄산
-                            <td><input type="text" name="piCarbonated" onChange={(event) => handleInputChange("piCarbonated", event)}></input></td>
-                        </tr>
-                        <tr>가격
-                            <td><input type="text" name="piPrice" onChange={(event) => handleInputChange("piPrice", event)}></input></td>
-                        </tr>
-                        <tr>상황별
-                            <td><input type="text" name="piContent" onChange={(event) => handleInputChange("piContent", event)}></input></td>
-                        </tr>
-                        {/* <tr>이미지
-                            <td><input type="file" name="piPhoto"></input></td>
-                        </tr> */}
-                        <tr>
-                            <td><input type="submit" value="전송" /></td>
-                        </tr>
-                    </thead>
-
-                </table>
-            </form>
-        </div>
-    );
+          <tr>
+            <td><button type="button" onClick={(e) => { productDelete(e) }}>삭제</button></td>
+            <td><input type="submit" value="전송" />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div >
+  );
 }
 
 export default AdminProductUpdate;

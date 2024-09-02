@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.delivery.mappers.DeliveryMapper">
+    <insert id="insert" parameterType="delivery">
+        insert into member_delivery(`user_id`, `md_Name`, `md_tel`, `md_addr`,
+        `md_addrdetail`, `md_message`) values(#{userId}, #{mdName}, #{mdTel}
+            , #{mdAddr}, #{mdAddrDetail}, #{mdMessage})
+    </insert>
+    <select id="select" parameterType="integer" resultType="delivery">
+        select * from member_delivery where md_num = #{mdNum}
+    </select>
+    <select id="deliveryList" resultType="delivery" parameterType="string">
+        select * from member_delivery where user_id = #{userId}
+    </select>
+    <update id="update" parameterType="delivery">
+        update member_delivery set md_name = #{mdName}, md_tel = #{mdTel},
+        md_addr = #{mdAddr}, md_addrDetail = #{mdAddrDetail}, md_message = #{mdMessage}
+        where md_num = #{mdNum}
+    </update>
+    <delete id="delete" parameterType="integer">
+        delete from member_delivery where md_num = #{mdNum}
+    </delete>
+</mapper>

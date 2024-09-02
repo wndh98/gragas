@@ -1,0 +1,43 @@
+import './subs.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+function ItemList() {
+    const [items, setItems] = useState([]);
+    const navigate = useNavigate();
+
+    function subsDescription(item) {
+
+        navigate(`/subscribe/description/${item.siNum}`, { state: { item } });
+    }
+
+    useEffect(() => {
+        axios.get('/subscribe/itemList')
+            .then(response => {
+                setItems(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the users!', error);
+            });
+    }, []);
+
+    return (
+        <>
+            <div>구독상품 목록</div>
+            <div className="container">{items.map(item => (
+                <div key={item.siNum} onClick={() => subsDescription(item)}>
+                        <div>{item.siMainImg ? <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" style={{ width: '100px', height: 'auto' }} /> : '-'}
+                        </div>
+                        <div>
+                            <h2>{item.siSubject}</h2>
+                            <p>{item.siContent}</p>
+                        </div>
+                </div>
+            ))}
+            </div>
+        </>
+    );
+}
+
+export default ItemList;

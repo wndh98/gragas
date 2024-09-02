@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Routers from "./layout/Routers";
-
+import "./css/style.css"
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Routers/>
-  </React.StrictMode>
+
+  <Routers />
+
 );
 
 // If you want to start measuring performance in your app, pass a function

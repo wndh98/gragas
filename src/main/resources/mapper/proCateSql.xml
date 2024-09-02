@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.product.mappers.ProcateMapper">
+    <select id="procateList" resultType="productCate">
+        select * from PRODUCT_CATE
+    </select>
+
+    <select id="procateCheck" resultType="productCate" parameterType="integer">
+        select * from PRODUCT_CATE where PC_NUM=#{pcNum}
+    </select>
+
+    <insert id="procateInsert" parameterType="productCate">
+        insert into PRODUCT_CATE(PC_NUM,PC_NAME,PC_IMG) values(#{pcNum},#{pcName},#{pcImg})
+    </insert>
+
+    <update id="procateUpdate" parameterType="productCate">
+        update PRODUCT_CATE set PC_NAME=#{pcName}, PC_IMG=#{pcImg}
+        <if test="pcImg!=null">
+            ,PC_IMG=#{pcImg}
+        </if>
+        where PC_NUM=#{pcNum}
+
+    </update>
+    <delete id="procateDelete" parameterType="integer">
+        delete from PRODUCT_CATE where PC_NUM=#{pcNum}
+    </delete>
+
+
+    <select id="nextPcNum" resultType="integer">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name='PRODUCT_CATE'
+    </select>
+
+
+    <select id="proeventList" resultType="EventItem">
+        select * from EVENT_ITEM
+    </select>
+
+    <select id="proeventCheck" resultType="EventItem" parameterType="integer">
+        select * from EVENT_ITEM where EI_NUM=#{eiNum}
+    </select>
+
+    <select id="proeventCheckk" resultType="EventItem" parameterType="integer">
+        select * from EVENT_ITEM where EI_NUM=#{eiNum}
+    </select>
+
+    <select id="nextEiNum" resultType="integer">
+        select auto_increment from information_schema.tables where table_schema='gragasDB' and
+        table_name='EVENT_ITEM'
+    </select>
+
+    <insert id="proeventInsert" parameterType="EventItem">
+        insert into EVENT_ITEM(EI_NUM,EI_NAME,EI_CONTENT) values(#{eiNum},#{eiName},#{eiContent})
+    </insert>
+
+    <update id="proeventUpdate" parameterType="EventItem">
+        update EVENT_ITEM set EI_NAME=#{eiName}, EI_CONTENT=#{eiContent}
+        <if test="eiContent!=null">
+            ,EI_CONTENT=#{eiContent}
+        </if>
+        where EI_NUM=#{eiNum}
+    </update>
+
+    <delete id="proeventDelete" parameterType="integer">
+        delete from EVENT_ITEM where EI_NUM=#{eiNum}
+    </delete>
+
+    <select id="procateCount" resultType="integer" parameterType="integer">
+        select count(*) from PRODUCT_ITEM where PC_NUM=#{pcNum}
+    </select>
+</mapper>

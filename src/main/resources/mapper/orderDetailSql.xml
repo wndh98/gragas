@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.order.mapper.OrderDetailMapper">
+    <insert id="preOrderDetailInsert" parameterType="orderDetail">
+        insert into PRE_ORDER_DETAIL
+        (OL_ID,PI_NUM,PI_NAME,PO_NUM,PO_NAME,PO_PRICE,
+        PO_SALE,OD_CNT,OD_PRICE,OD_POINT,OD_STATUS)
+        values(#{olId},#{piNum},#{piName},#{poNum},#{poName},#{poPrice},#{poSale},#{odCnt},#{odPrice},#{odPoint},#{odStatus})
+    </insert>
+    <insert id="orderDetailInsert" parameterType="orderDetail">
+        insert into ORDER_DETAIL
+        (OL_ID,PI_NUM,PI_NAME,PO_NUM,PO_NAME,PO_PRICE,
+        PO_SALE,OD_CNT,OD_PRICE,OD_POINT,OD_STATUS)
+        values(#{olId},#{piNum},#{piName},#{poNum},#{poName},#{poPrice},#{poSale},#{odCnt},#{odPrice},#{odPoint},#{odStatus})
+    </insert>
+    <select id="preOrderDetailSelects" resultType="orderDetail" parameterType="string">
+        select * from PRE_ORDER_DETAIL where OL_ID=#{olId}
+    </select>
+    <delete id="deletePreOrderDetail">
+        delete from PRE_ORDER_DETAIL where OL_ID=#{olId}
+    </delete>
+</mapper>

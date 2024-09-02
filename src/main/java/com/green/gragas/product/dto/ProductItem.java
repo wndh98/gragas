@@ -15,4 +15,8 @@ public class ProductItem {
     private int piCarbonated;
     private String piImg;
     private String piContent;
+    private int poPrice;
+    private int poSale;
+    private int poCnt;
+    private int[] eiNum;
 }

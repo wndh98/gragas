@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.gragas.subscribe.mapper.SubscribeOrderMapper">
+    <resultMap id="subscribeOrderResult" type="com.green.gragas.subscribe.dto.SubscribeOrder">
+        <result property="soNum" column="SO_NUM"/>
+        <result property="siNum" column="SI_NUM"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="soName" column="SO_NAME"/>
+        <result property="soTel" column="SO_TEL"/>
+        <result property="soAddr" column="SO_ADDR"/>
+        <result property="soAddrDe" column="SO_ADDR_DE"/>
+        <result property="soMemo" column="SO_MEMO"/>
+        <result property="soStatus" column="SO_STATUS"/>
+
+    </resultMap>
+    <select id="soSelectOne" parameterType="integer" resultType="subscribeOrder">
+        select * from SUBSCRIBE_Order where SO_NUM = #{soNum}
+    </select>
+    <select id="soSelectList" parameterType="string" resultType="integer">
+        select SO_NUM from SUBSCRIBE_Order where USER_ID = #{userId}
+    </select>
+    <insert id="insertOrderInfo" parameterType="subscribeOrder">
+        INSERT INTO subscribe_order (SI_NUM, USER_ID, SO_NAME, SO_TEL, SO_ADDR,SO_ADDR_DE,SO_MEMO)
+        VALUES (#{siNum}, #{userId}, #{soName}, #{soTel}, #{soAddr}, #{soAddrDe}, #{soMemo})
+    </insert>
+</mapper>

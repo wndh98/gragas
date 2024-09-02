@@ -1,9 +1,11 @@
 use gragasdb;
 
-
+select * from board_file;
 drop table if exists `ORDER_DETAIL`;
 drop table if exists `ORDER_LIST`;
 drop table if exists `ORDER_CART`;
+drop table if exists PRE_ORDER_DETAIL;
+drop table if exists PRE_ORDER_LIST;
 
 
 DROP TABLE IF EXISTS `BOARD_FILE`;
@@ -51,26 +53,21 @@ DROP TABLE IF EXISTS MEMBER_CUPON;
 
 create table MEMBER_CUPON (
 	USER_LEVEL VARCHAR(20) not null primary key,
-	UL_IMG VARCHAR(255),
 	MC_SAIL INT not null,
 	MC_SUBJECT VARCHAR(255) not null
 );
 
 -- 회원테이블
 
-drop table user;
-
-select * from user;
-
 create table user (
 	USER_ID varchar(50) not null primary key,
 	USER_LEVEL VARCHAR(20) not null,
 	USER_PW VARCHAR(255) not null,
 	USER_NAME VARCHAR(50) not null,
-	USER_BIRTH DATETIME not null,
+	USER_BIRTH DATE not null,
 	USER_PHONE VARCHAR(50) not null,
 	USER_POINT INT not null default 0,
-	USER_COUPON VARCHAR(1) not null default 'N',
+	USER_COUPON VARCHAR(1) not null default 'Y',
 	USER_DEL VARCHAR(1) not null default 'N',
 	USER_REGIST DATETIME not null default NOW()
 );
@@ -114,7 +111,8 @@ alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) refer
 
 CREATE TABLE PRODUCT_CATE (
    PC_NUM INT NOT null primary key auto_increment,
-   PC_NAME   VARCHAR(30)   NOT NULL
+   PC_NAME   VARCHAR(30)   NOT NULL,
+   PC_IMG VARCHAR(255)
 );
 
 -- 이벤트
@@ -122,6 +120,7 @@ CREATE TABLE EVENT_ITEM (
    EI_NUM INT NOT NULL primary key AUTO_INCREMENT,
    EI_NAME   VARCHAR(30)   NOT NULL,
    EI_CONTENT VARCHAR(255)   NOT NULL
+
 );
 
 -- 상품
@@ -134,7 +133,7 @@ CREATE TABLE PRODUCT_ITEM (
    PI_SWEET INT,
    PI_SOUR   INT,
    PI_CARBONATED INT,
-   PI_IMG   VARCHAR(30),
+   PI_IMG   VARCHAR(255),
    PI_CONTENT   VARCHAR(255) NOT null,
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
@@ -143,8 +142,10 @@ CREATE TABLE PRODUCT_ITEM (
 CREATE TABLE PRODUCT_EVENT (
    PI_NUM INT NOT NULL,
    EI_NUM INT NOT null,
-   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM),
+   FOREIGN key(PI_NUM) references PRODUCT_ITEM(PI_NUM)
+   on delete cascade,
    FOREIGN key(EI_NUM) references EVENT_ITEM(EI_NUM)
+   on delete cascade
 );
 
 -- 상품옵션
@@ -156,6 +157,7 @@ CREATE TABLE PRODUCT_OPTION (
    PO_NAME   VARCHAR(30)   NOT NULL,
    PO_CNT INT   NOT null,
    FOREIGN KEY(PI_NUM) references PRODUCT_ITEM(PI_NUM)
+   on delete cascade
 );
 
 
@@ -220,9 +222,9 @@ references `SUBSCRIBE_ITEM` (`SI_NUM`);
 create table `BOARD_REVIEW` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
-	`B_REF` INT null,
+	`B_REF` INT not null,
 	`B_SUBJECT` VARCHAR(255) not null,
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
@@ -241,7 +243,7 @@ create table `COMMENT_REVIEW` (
 create table `BOARD_QA` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
@@ -262,7 +264,7 @@ create table `COMMENT_QA` (
 create table `BOARD_FREE` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
@@ -283,7 +285,7 @@ create table `COMMENT_FREE` (
 create table `BOARD_NOTICE` (
 	`B_NUM` INT not null auto_increment primary key,
 	`SI_NUM` INT null,											#구독상품 번호
-	`PI_NUM` INT not null,										#상품번호
+	`PI_NUM` INT null,										#상품번호
 	`USER_ID` VARCHAR(50) not null,
 	`B_REF` INT null,
 	`B_SUBJECT` VARCHAR(255) not null,
@@ -308,25 +310,30 @@ create table `BOARD_FILE` (
 	`BF_O_NAME` VARCHAR(255) not null,
 	`BF_ROOT` VARCHAR(255) not null,
 	`BF_BOARD` VARCHAR(50) not null,
+	`BF_ORDER` int null,
 	`BF_REGIST` DATETIME not null default NOW()
 );
 
-ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
-ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
-ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
-ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
-ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
-ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
-ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
-ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM);
+ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_REVIEW` ADD CONSTRAINT `FK_BR_USER_ID` foreign key(USER_ID) references USER(USER_ID);
+ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_QA` ADD CONSTRAINT `FK_BQ_USER_ID` foreign key(USER_ID) references USER(USER_ID);
+ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_FREE` ADD CONSTRAINT `FK_BF_USER_ID` foreign key(USER_ID) references USER(USER_ID);
+ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_SI_NUM` foreign key(SI_NUM) references SUBSCRIBE_ITEM(SI_NUM) ON DELETE CASCADE;
+ALTER TABLE `BOARD_NOTICE` ADD CONSTRAINT `FK_BN_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
-ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_B_NUM` foreign key(B_NUM) references BOARD_REVIEW(B_NUM);
+ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_B_NUM` foreign key(B_NUM) references BOARD_REVIEW(B_NUM) ON DELETE CASCADE;
 ALTER TABLE `COMMENT_REVIEW` ADD CONSTRAINT `FK_CR_USER_ID` foreign key(USER_ID) references USER(USER_ID);
-ALTER TABLE `COMMENT_QA` ADD CONSTRAINT `FK_CQ_B_NUM` foreign key(B_NUM) references BOARD_QA(B_NUM);
+ALTER TABLE `COMMENT_QA` ADD CONSTRAINT `FK_CQ_B_NUM` foreign key(B_NUM) references BOARD_QA(B_NUM) ON DELETE CASCADE;
 ALTER TABLE `COMMENT_QA` ADD CONSTRAINT `FK_CQ_USER_ID` foreign key(USER_ID) references USER(USER_ID);
-ALTER TABLE `COMMENT_FREE` ADD CONSTRAINT `FK_CF_B_NUM` foreign key(B_NUM) references BOARD_FREE(B_NUM);
+ALTER TABLE `COMMENT_FREE` ADD CONSTRAINT `FK_CF_B_NUM` foreign key(B_NUM) references BOARD_FREE(B_NUM) ON DELETE CASCADE;
 ALTER TABLE `COMMENT_FREE` ADD CONSTRAINT `FK_CF_USER_ID` foreign key(USER_ID) references USER(USER_ID);
-ALTER TABLE `COMMENT_NOTICE` ADD CONSTRAINT `FK_CN_B_NUM` foreign key(B_NUM) references BOARD_NOTICE(B_NUM);
+ALTER TABLE `COMMENT_NOTICE` ADD CONSTRAINT `FK_CN_B_NUM` foreign key(B_NUM) references BOARD_NOTICE(B_NUM) ON DELETE CASCADE;
 ALTER TABLE `COMMENT_NOTICE` ADD CONSTRAINT `FK_CN_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 -- 게시판END
@@ -356,32 +363,87 @@ create table `ORDER_DETAIL` (
 	`OD_NUM` INT not null auto_increment primary key,
 	`OL_ID` VARCHAR(255) not null,
 	`PI_NUM` INT not null,
+	`PI_NAME` VARCHAR(255) not null,
 	`PO_NUM` INT not null,
+	`PO_NAME` varchar(255) not null,
+	`PO_PRICE` int not null,
+	`PO_SALE` int not null,
 	`OD_CNT` INT not null,
 	`OD_PRICE` INT not null,
 	`OD_POINT` INT not null default 0,
 	`OD_STATUS` VARCHAR(10) not null default 'READY'
 );
 
+
+
+
+
 -- 장바구니
 create table `ORDER_CART` (
-	`OC_ID` VARCHAR(255) not null primary key,
+    `OC_NUM` int primary key not null auto_increment,
+	`OC_ID` VARCHAR(255) not null,
 	`PI_NUM` INT not null,
 	`PO_NUM` INT not null,
 	`USER_ID` VARCHAR(50) not null,
 	`OC_CNT` INT not null
 );
+
+
+-- 주문전 주문리스트
+create table `PRE_ORDER_LIST` (
+	`OL_ID` VARCHAR(255) not null primary key,
+	`USER_ID` VARCHAR(50) not null,
+	`OL_PRICE` INT not null,
+	`OL_DELI` INT not null,
+	`OL_CNT` INT not null,
+	`OL_PAYMENT` VARCHAR(50) not null,
+	`OL_PAY` INT not null,
+	`OL_REGIST` DATETIME not null,
+	`OL_PAY_REGIST` DATETIME null,
+	`OL_POINT` int not null default 0,
+	`OL_NAME` VARCHAR(255) not null,
+	`OL_TEL` VARCHAR(255) not null,
+	`OL_ADDRESS` VARCHAR(255) not null,
+	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
+	`OL_MEMO` VARCHAR(255) null
+);
+-- 주문전 주문상세
+create table `PRE_ORDER_DETAIL` (
+	`OD_NUM` INT not null auto_increment primary key,
+	`OL_ID` VARCHAR(255) not null,
+	`PI_NUM` INT not null,
+	`PI_NAME` VARCHAR(255) not null,
+	`PO_NUM` INT not null,
+	`PO_NAME` varchar(255) not null,
+	`PO_PRICE` int not null,
+	`PO_SALE` int not null,
+	`OD_CNT` INT not null,
+	`OD_PRICE` INT not null,
+	`OD_POINT` INT not null default 0,
+	`OD_STATUS` VARCHAR(10) not null default 'READY'
+);
+ALTER TABLE `PRE_ORDER_DETAIL` ADD CONSTRAINT `PRE_FK_OL_ID` foreign key(OL_ID) references PRE_ORDER_LIST(OL_ID) on delete cascade;
+
+
+
+
 ALTER TABLE `ORDER_LIST` ADD CONSTRAINT `FK_OL_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 alter table `ORDER_DETAIL` add constraint `FK_OD_OL_ID` foreign key(OL_ID) references ORDER_LIST(OL_ID);
-alter table `ORDER_DETAIL` add constraint `FK_OD_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
-alter table `ORDER_DETAIL` add constraint `FK_OD_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
+--alter table `ORDER_DETAIL` add constraint `FK_OD_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
+--alter table `ORDER_DETAIL` add constraint `FK_OD_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
 
 alter table `ORDER_CART` add constraint `FK_OC_USER_ID` foreign key(USER_ID) references user(USER_ID);
-alter table `ORDER_CART` add constraint `FK_OC_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
-alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
+alter table `ORDER_CART` add constraint `FK_OC_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
+alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM)ON DELETE CASCADE;
+
+
 
 -- 주문 END
 
 
 
+
+
+
+--insert into MEMBER_CUPON values('Yellow',100,'테스트1');

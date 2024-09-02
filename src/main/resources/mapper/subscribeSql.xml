@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.gragas.subscribe.mapper.SubscribeMapper">
+  <resultMap id="subscribeItemResult" type="com.green.gragas.subscribe.dto.SubscribeItem">
+    <result property="siNum" column="SI_NUM"/>
+    <result property="siSubject" column="SI_SUBJECT"/>
+    <result property="siContent" column="SI_CONTENT"/>
+    <result property="siDescription" column="SI_DESCRIPTION"/>
+    <result property="siPrice" column="SI_PRICE"/>
+    <result property="siPayDate" column="SI_PAY_DATE"/>
+    <result property="siMainImg" column="SI_MAIN_IMG"/>
+    <result property="siDesImg" column="SI_DES_IMG"/>
+    <result property="siTitle" column="SI_TITLE"/>
+    <result property="siArrive" column="SI_ARRIVE"/>
+  </resultMap>
+    <select id="itemList" resultMap="subscribeItemResult">
+        select * from SUBSCRIBE_ITEM
+    </select>
+    <select id="titleList" resultMap="subscribeItemResult">
+        select * from SUBSCRIBE_ITEM
+    </select>
+    <select id="selectSubsItem" parameterType="integer" resultType="subscribeItem">
+        select * from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
+    </select>
+  <select id="nextSiNum" resultType="integer">
+    select auto_increment from information_schema.tables where table_schema='gragasDB' and
+    table_name='SUBSCRIBE_ITEM'
+  </select>
+    <insert id="subscribeInsert" parameterType="subscribeItem">
+      INSERT INTO SUBSCRIBE_ITEM(
+      SI_SUBJECT,
+      SI_CONTENT,
+      SI_DESCRIPTION,
+      SI_PRICE,
+      SI_PAY_DATE,
+      SI_MAIN_IMG,
+      SI_DES_IMG,
+      SI_TITLE,
+      SI_ARRIVE
+      ) VALUES (
+      #{siSubject},
+      #{siContent},
+      #{siDescription},
+      #{siPrice},
+      #{siPayDate},
+      #{siMainImg},
+      #{siDesImg},
+      #{siTitle},
+      #{siArrive}
+      )
+    </insert>
+    <update id="subscribeUpdate" parameterType="subscribeItem">
+        update SUBSCRIBE_ITEM set
+      SI_SUBJECT = #{siSubject},
+      SI_CONTENT=#{siContent},
+      SI_DESCRIPTION=#{siDescription},
+      SI_PRICE=#{siPrice},
+      SI_PAY_DATE=#{siPayDate},
+      <if test="siMainImg!=null">
+      SI_MAIN_IMG=#{siMainImg},
+      </if>
+      <if test="siDesImg!=null">
+      SI_DES_IMG=#{siDesImg},
+      </if>
+      SI_TITLE=#{siTitle},SI_ARRIVE=#{siArrive}
+      where SI_NUM = #{siNum}
+    </update>
+    <delete id="subscribeDelete" parameterType="integer">
+      delete from SUBSCRIBE_ITEM where SI_NUM = #{siNum}
+    </delete>
+</mapper>
