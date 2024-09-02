@@ -7,6 +7,11 @@ function OrderCart(props) {
     const register = props.register;
     const user = props.user;
     const watch = props.watch;
+    const setValue = props.setValue;
+    const setAmount = props.setAmount;
+    const deliveryPrice = props.deliveryPrice;
+    const amount = props.amount;
+
     const watchUseCoupon = watch("useCoupon");
     const watchUsePoint = watch("usePoint", 0);
     const [cartList, setCartList] = useState([{}]);
@@ -17,6 +22,17 @@ function OrderCart(props) {
                 setCartList([...(response.data)]);
             })
     }, []);
+    useEffect(() => {
+        let newAmount = amount;
+        newAmount.value = amount.value * 1 - watchUsePoint * 1;
+        setAmount(newAmount);
+        if (watchUsePoint > user.userPoint) {
+            setValue("usePoint", user.userPoint);
+        }
+        if (watchUsePoint < 0) {
+            setValue("usePoint", 0);
+        }
+    }, [watchUsePoint])
     return (
         <div className="d-flex flex-column mt-5 border rounded p-4">
             <h3 className="rounded p-3 mb-4">주문 목록</h3>
@@ -66,21 +82,21 @@ function OrderCart(props) {
                 </div>
                 <div className="d-flex justify-content-between p-3 align-items-center">
                     <span>사용할포인트</span>
-                    <span><input type="number" className="form-control" {...register("usePoint")} /></span>
+                    <span><input type="number" className="form-control" {...register("usePoint")} pattern="[0-9]" /></span>
                 </div>
             </div>
             <div className="mt-5 p-3 d-flex flex-column border rounded">
                 <div className="d-flex justify-content-between">
                     <strong className="fs-3">총금액</strong>
-                    <strong className="fs-4">100원</strong>
+                    <strong className="fs-4">{numberFormat(amount.value)}원</strong>
                 </div>
                 <div className="d-flex justify-content-between p-3">
                     <span>상품금액</span>
-                    <span>100원</span>
+                    <span>{numberFormat(amount.value)}원</span>
                 </div>
                 <div className="d-flex justify-content-between p-3">
                     <span>배송비</span>
-                    <span>100원</span>
+                    <span>{numberFormat(deliveryPrice)}원</span>
                 </div>
                 {watchUseCoupon == true ?
                     <div className="d-flex justify-content-between p-3">

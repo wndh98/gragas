@@ -8,6 +8,7 @@ import axios from "axios";
 
 function OrderForm(props) {
     const ocId = props.ocId;
+    const deliveryPrice = 1000;
     const [user, setUser] = useState({});
     const [amount, setAmount] = useState({});
     const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -49,6 +50,10 @@ function OrderForm(props) {
                     register={register}
                     user={user}
                     watch={watch}
+                    setValue={setValue}
+                    amount={amount}
+                    setAmount={setAmount}
+                    deliveryPrice={deliveryPrice}
                 />
                 <OrderPayment
                     olId={olId}
@@ -56,6 +61,7 @@ function OrderForm(props) {
                     onSubmit={onSubmit}
                     amount={amount}
                     setAmount={setAmount}
+                    deliveryPrice={deliveryPrice}
                 ></OrderPayment>
 
 

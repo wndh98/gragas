@@ -12,6 +12,7 @@ function OrderPayment(props) {
     const onSubmit = props.onSubmit;
     const amount = props.amount;
     const setAmount = props.setAmount;
+    const deliveryPrice = props.deliveryPrice;
     const [widgets, setWidgets] = useState(null);
 
     const [user, setUser] = useState({});
@@ -26,16 +27,15 @@ function OrderPayment(props) {
             const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
             const getPrice = await axios.get(`/orderCart/totalPrice?ocId=${olId}`);
             const getProduct = await axios.get(`/orderCart/getProductName?ocId=${olId}`);
-            setAmount({ currency: "KRW", value: getPrice.data });
+            setAmount({ currency: "KRW", value: getPrice.data + deliveryPrice });
             setProductName(getProduct.data + "");
             setWidgets(widgets);
         }
         fetchPaymentWidgets();
     }, [clientKey]);
     useEffect(() => {
-
+        console.log(amount);
     }, [amount])
-    useEffect(() => { console.log(productName) }, [productName])
     useEffect(() => {
         async function renderPaymentWidgets() {
             if (widgets == null) {
