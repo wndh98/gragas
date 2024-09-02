@@ -16,7 +16,7 @@
         select count(*) from user
     </select>
     <select id="userCheck" resultType="user" parameterType="string">
-        SELECT u.*, mc.UL_IMG
+        SELECT u.*, mc.UL_IMG,mc.MC_SAIL
         FROM user u
         JOIN MEMBER_COUPON mc ON u.USER_LEVEL = mc.USER_LEVEL
         WHERE u.USER_ID = #{userId}

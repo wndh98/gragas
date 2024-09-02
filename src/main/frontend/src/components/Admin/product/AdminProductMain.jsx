@@ -1,4 +1,4 @@
-import "./Admin.css";
+
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ function AdminProductMain(props) {
     const [products, setProducts] = useState([]);
     const listUrl = "/product/list";
     const loc = useNavigate()
+
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
     useEffect(() => {
         axios.get(listUrl)
@@ -17,6 +18,8 @@ function AdminProductMain(props) {
                 setProducts(response.data); // 가져온 상품정보를 상태에 저장
             })
             .catch(error => console.error("Fetching error:", error));
+
+
     }, [])
 
 
@@ -59,60 +62,66 @@ function AdminProductMain(props) {
 
     return (
 
-        <div>
+        <main className="container">
             <form name="frm">
-                <table className="table">
+                <table className="table mt-5">
+                    <tbody>
 
-                    <tr className="">
-                        <input
-                            type="checkbox"
-                            /* 전체선택 */
-                            onChange={(e) => handleChangeCheck(e)} />
+                        <tr className="table-secondary">
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    /* 전체선택 */
+                                    onChange={(e) => handleChangeCheck(e)} />
+                            </td>
+                            <td>상품번호</td>
+                            <td>카테고리</td>
+                            <td>상품명</td>
+                            <td>알콜도수</td>
+                            <td>맛</td>
+                            <td>탄산</td>
+                            <td>가격</td>
+                            <td>세일가</td>
+                            <td>재고</td>
+                            <td>Content</td>
+                            <td>이미지</td>
+                            <td>옵션</td>
 
-                        <label>전체선택</label>
-                        <td>상품번호</td>
-                        <td>카테고리</td>
-                        <td>상품명</td>
-                        <td>알콜도수</td>
-                        <td>맛</td>
-                        <td>탄산</td>
-                        <td>가격</td>
-                        <td>세일가</td>
-                        <td>재고</td>
-                        <td>Content</td>
-                        <td>이미지</td>
-                    </tr>
+                        </tr>
 
-                    {products.map((product) => {
 
-                        return (
-                            <tr>
-                                <td><input type="checkbox" {...register("piNum")} value={product.piNum} /></td>
-                                <td><Link to={"/product/update/" + product.piNum}>{product.piNum}</Link></td>
+                        {products.map((product) => {
 
-                                <td value={product.pcNum} >{product.pcNum}</td>
-                                <td value={product.piName}>{product.piName}</td>
-                                <td value={product.piAlcohol}>{product.piAlcohol}</td>
-                                <td value={product.piSweet}>{product.piSweet}</td>
-                                <td value={product.piCarbonated}>{product.piCarbonated}</td>
-                                <td value={product.poPrice}>{product.poPrice}</td>
-                                <td value={product.poSale}>{product.poSale}</td>
-                                <td value={product.poCnt}>{product.poCnt}</td>
-                                <td value={product.piContent}>{product.piContent}</td>
-                                <td value={product.piImg}>{product.piImg}</td>
-                            </tr>
+                            return (
+                                <tr>
+                                    <td><input type="checkbox" {...register("piNum")} value={product.piNum} /></td>
+                                    <td><Link to={"/product/update/" + product.piNum}>{product.piNum}</Link></td>
 
-                        );
-                    })}
+                                    <td value={product.pcNum} >{product.pcNum}</td>
+                                    <td value={product.piName}>{product.piName}</td>
+                                    <td value={product.piAlcohol}>{product.piAlcohol}</td>
+                                    <td value={product.piSweet}>{product.piSweet}</td>
+                                    <td value={product.piCarbonated}>{product.piCarbonated}</td>
+                                    <td value={product.poPrice}>{product.poPrice}</td>
+                                    <td value={product.poSale}>{product.poSale}</td>
+                                    <td value={product.poCnt}>{product.poCnt}</td>
+                                    <td value={product.piContent}>{product.piContent}</td>
+                                    <td value={product.piImg}>{product.piImg}</td>
+                                    <td><Link to={"/option/main/" + product.piNum} className="btn btn-primary">수정</Link></td>
+                                </tr>
 
-                    <tr>
-                        <td><Link to="/product/create">상품추가</Link></td>
-                        <td><button type="button" onClick={handleSubmit(productDelete)}>상품삭제</button></td>
+                            );
+                        })}
 
-                    </tr>
+                    </tbody>
                 </table>
+                <div className="d-flex justify-content-end">
+                    <Link to="/product/create" className="btn btn-primary">상품추가</Link>
+                    <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(productDelete)}>상품삭제</button>
+
+                </div>
             </form>
-        </div>
+        </main>
 
     );
 }

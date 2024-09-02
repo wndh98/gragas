@@ -1,21 +1,28 @@
-import "./Admin.css";
+
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function AdminOptionMain() {
     const { register, handleSubmit, formState: { error } } = useForm();
     const [option, setOptions] = useState([]);
-    const listUrl = "/option/list";
-
+    const pathParam = useParams();
+    const piNum = pathParam.piNum;
+    const viewUrl = "/option/list/" + piNum;
     // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
 
-    axios.get(listUrl)
-        .then(response => {
-            setOptions(response.data); // 가져온 상품정보를 상태에 저장
-        })
-        .catch(error => console.error("Fetching error:", error));
+    useEffect(() => {
+        axios.get(viewUrl)
+            .then(response => {
+                setOptions(response.data); // 가져온 상품정보를 상태에 저장
+            })
+            .catch(error => console.error("Fetching error:", error));
+    }, []);
+
+
 
     function optionDelete(data) {
 
@@ -33,39 +40,42 @@ function AdminOptionMain() {
 
     return (
 
-        <div>
+        <main className="container">
             <form name="frm">
-                <table className="table">
+                <table className="table mt-5">
+                    <tbody>
 
-                    <tr className="">
-                        <input type="checkbox"></input>
-                        <label>전체선택</label>
-                        <td>옵션 번호</td>
-                        <td>상품 번호</td>
-                        <td>옵션명</td>
-                        <td>재고</td>
+                        <tr className="table-secondary">
+                            <td> <input type="checkbox"></input>
+                            </td>
+                            <td>옵션 번호</td>
+                            <td>상품 번호</td>
+                            <td>옵션명</td>
+                            <td>재고</td>
 
-                    </tr>
-                    {option.map((proop) => {
+                        </tr>
 
-                        return (
-                            <tr>
-                                <td><input type="checkbox" {...register("poNum")} value={proop.poNum} /></td>
-                                <td><Link to={"/option/update/" + proop.poNum}>{proop.poNum}</Link></td>
-                                <td value={proop.piNum}>{proop.piNum}</td>
-                                <td value={proop.poName}>{proop.poName}</td>
-                                <td value={proop.poCnt}>{proop.poCnt}</td>
-                            </tr>
 
-                        );
-                    })}
-                    <tr>
-                        <td><Link to="/option/create">옵션추가</Link></td>
-                        <td><button type="button" onClick={handleSubmit(optionDelete)}>옵션삭제</button></td>
-                    </tr>
+                        {option.map((proop) => {
+                            return (
+                                <tr>
+                                    <td><input type="checkbox" {...register("poNum")} value={proop.poNum} /></td>
+                                    <td><Link to={"/option/update/" + proop.poNum}>{proop.poNum}</Link></td>
+                                    <td value={proop.piNum}>{proop.piNum}</td>
+                                    <td value={proop.poName}>{proop.poName}</td>
+                                    <td value={proop.poCnt}>{proop.poCnt}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
                 </table>
+                <div className="d-flex justify-content-end">
+                    <Link to="/option/create" className="btn btn-primary">옵션추가</Link>
+                    <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(optionDelete)}>옵션삭제</button>
+
+                </div>
             </form>
-        </div>
+        </main>
 
     );
 }

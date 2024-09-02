@@ -21,4 +21,6 @@ public interface ProopMapper {
     int proopDeleteList(List<Integer> poNum);
 
     List<ProductOption> proopListPi(int piNum);
+
+    ProductOption proopSelectOne(int piNum);
 }
