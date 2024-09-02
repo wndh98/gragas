@@ -1,4 +1,4 @@
-import "./Admin.css";
+
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -31,37 +31,40 @@ function AdminEventMain() {
 
     return (
 
-        <div>
+        <main className="container">
             <form name="frm">
-                <table className="table">
+                <table className="table mt-5">
+                    <tbody>
+                        <tr className="table-secondary">
+                            <td>
+                                <input type="checkbox"></input>
+                            </td>
+                            <td>이벤트 번호</td>
+                            <td>이벤트명</td>
+                            <td>이미지</td>
 
-                    <tr className="">
-                        <input type="checkbox"></input>
-                        <label>전체선택</label>
-                        <td>이벤트 번호</td>
-                        <td>이벤트명</td>
-                        <td>이미지</td>
+                        </tr>
+                        {events.map((eitem) => {
 
-                    </tr>
-                    {events.map((eitem) => {
+                            return (
+                                <tr>
+                                    <td><input type="checkbox" {...register("eiNum")} value={eitem.eiNum} /></td>
+                                    <td><Link to={"/event/update/" + eitem.eiNum}>{eitem.eiNum}</Link></td>
+                                    <td value={eitem.eiName}>{eitem.eiName}</td>
+                                    <td value={eitem.eiContent}>{eitem.eiContent}</td>
+                                </tr>
 
-                        return (
-                            <tr>
-                                <td><input type="checkbox" {...register("eiNum")} value={eitem.eiNum} /></td>
-                                <td><Link to={"/event/update/" + eitem.eiNum}>{eitem.eiNum}</Link></td>
-                                <td value={eitem.eiName}>{eitem.eiName}</td>
-                                <td value={eitem.eiContent}>{eitem.eiContent}</td>
-                            </tr>
+                            );
+                        })}
 
-                        );
-                    })}
-                    <tr>
-                        <td><Link to="/event/create">상품추가</Link></td>
-                        <td><button type="button" onClick={handleSubmit(eventDelete)}>상품삭제</button></td>
-                    </tr>
+                    </tbody>
                 </table>
+                <div className="d-flex justify-content-end">
+                    <Link to="/event/create" className="btn btn-primary">상품추가</Link>
+                    <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(eventDelete)}>상품삭제</button>
+                </div>
             </form>
-        </div>
+        </main>
 
     );
 }

@@ -31,10 +31,10 @@ function SerchIdForm() {
   };
 
   return (
-    <div className='container user_search_id'>
+    <div className='input_container container'>
     <h2>아이디 찾기</h2>
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="input-form-box">
+      <div className="id_input_box input-form-box">
         <input
           className="form-control"
           name='userName'
@@ -58,7 +58,7 @@ function SerchIdForm() {
       </div>
       <div className="button-signup-box">
         <input
-          className="btn btn-secondary btn-xs col-12"
+          className="btn btn-primary btn-xs col-12"
           type="submit"
           value="아이디 찾기"
         />

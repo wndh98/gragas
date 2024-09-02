@@ -1,70 +1,158 @@
 import './App.css';
 import React from 'react';
+import Boxes from './Boxes';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
+
+
+
+const typeList = [{ type: '주종', cate: ['탁주', '청주'] }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '신맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
+
+
+function Type(props) {
+
+    const [checkBox, setCheckBox] = useState([]);
+
+
+
+    const handleCheck = () => {
+        setCheckBox(<img className='cpzm' src="/images/product/icon_checked_square.png" alt="checkbox" />)
+    }
+
+    const cate = props.cate;
+    return (
+        <div width="350px" className='spdla typebox'>
+            <div className='spdla tybox'>
+                {cate.map((testItem, testIndex) => {
+                    return (
+                        <div className='spdla mutlple'>
+                            <div class="check-box flex">
+                                <div class="sc-d5ff5581-0 hNTfqe">
+                                    <button type="button" onClick={() => { handleCheck() }} class="custom-checkbox ">
+                                        <img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button>{checkBox}
+                                </div>
+                                <button class="option-text" key={testIndex}>{testItem}</button>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
+    );
+
+}
+
+
+
+function TList(props) {
+    // const setBoxon = props.setBoxon;
+    const type = props.type;
+    const cate = props.cate;
+    const boxClose = props.boxClose;
+    const setBoxClose = props.setBoxClose;
+
+    const [boxoff, setBoxon] = useState();
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        if (boxClose != false) {
+            setBoxon("");
+            if (isOpen) {
+                setIsOpen(false);
+            } else if (boxClose == type.type) {
+                setBoxon(<Type cate={type.cate} />);
+                setIsOpen(true);
+            }
+        }
+        setBoxClose(false);
+    }, [boxClose])
+
+    const handleClick = async () => {
+        await setBoxClose(type.type);
+    }
+
+
+    return (
+        <>
+            <div>
+                <button onClick={() => { handleClick() }} className='filterflex'>
+                    <span name="typeList">{type.type}</span>
+                    <img src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png" width="20px" class="img" alt="arrow-down"></img></button>
+                {boxoff}
+            </div>
+        </>
+    )
+}
 
 function ProductEventMain(props) {
     const { eiNum } = useParams();
     const product = props.product;
-    console.log(product);
-    function price() {
-        let prices = 0;
-        prices = (product.poPrice) * (product.poSale)
-        return prices;
-    }
+  
+    const pathParam = useParams();
+    const pcNum = pathParam.pcNum;
+    const [boxClose, setBoxClose] = useState(false);
+    const [products, setProducts] = useState([]);
+
+    // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+    useEffect(() => {
+
+        axios.get("/product/list/" + pcNum)
+            .then(response => {
+
+            })
+            .catch(error => console.error("Fetching error:", error))
+    }, []);
 
     return (
-        <div className='swiper-side'>
-            <div className='spdla product'>
-                <a href={"/productEventItem/" + eiNum + "/" + product.piNum}>
-                    <div className='image-weapper'>
-                        <span className='spdla tmvps'>
-                            <img className='boximg' src={`http://localhost:8080/upload/product/${product.piNum}/${product.piImg}`} alt="img" />
-                        </span>
+
+        <div>
+           
+            <div className='spdla type'>
+                <div className='spdla typetwo'>
+                    <div className='flextype'>
+                        <div className='filter-container'>
+                            {typeList.map(type => {
+                                return (<TList type={type} cate={props.cate} boxClose={boxClose} setBoxClose={setBoxClose} />);
+                            })}
+                        </div>
+                        {/* <Type />버튼 누르면 튀어나오게 */}
+                    </div>
+                </div>
+            </div>
+
+
+            <div className='spdla prowrap'>
+                <div className='prowraptwo'>
+                    <div className='spdla wrappertwo'>
+                        <div className='wrapperflex'>
+                            <div class='spdla search-result'>
+                                <div className='spdla search'>{pcNum}</div>
+                                <div>건의 결과가 있어요</div></div>
+                            <div className='filter-wrapper'>
+                                <div class="MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiNativeSelect-root css-1f63zq5"><select class="MuiNativeSelect-select MuiNativeSelect-standard MuiInputBase-input MuiInput-input css-1vynybe" id="outlined-age-native-simple" name="age"><option value="recommend">추천순</option><option value="released_at">최신순</option><option value="rating">평점순</option><option value="star_count">리뷰 많은 순</option><option value="selling_count">판매순</option><option value="price_high">높은 가격순</option><option value="price_low">낮은 가격순</option><option value="discount_high">할인율 높은 순</option></select><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconStandard css-1utq5rl" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon"><path d="M7 10l5 5 5-5z"></path></svg></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className='spdla foq'>
+                        <div className='spdla foqtwo'>
+                            {products.map((product) => {
+
+                                return (
+                                    <Boxes product={product} />
+                                )
+                            })}
+                        </div>
                     </div>
 
-                    <div className='spdla three'>
-                        <div className='font subheadline-regular'>
-                            {product.piName}
-                        </div>
-                        <div className='wrapper'>
-                            <div className='spdla secn'>
-                                <span class="font subheadline-regular">{product.piPrice}</span>
-                                <div className='spdla one'>
-                                    <div className='spdla two'>
-                                        <div className='discount-area'>
-                                            <div className='special-price-percent'><span class="font body-bold">{product.poSale}%</span></div>
-                                            <div className='discount-price'>
-                                                <div color="black" text-decoration="none" letter-spacing="0.6px" class="sc-4bfd0cf4-0 eDMdoA"><div class="font body-bold">{price()}</div></div>
-                                                <div class="won">
-                                                    <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH">
-                                                        <div class="font subheadline-regular">원</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className='flex'>
-                            <img class="star-icon" src="/images/components/atoms/star.png" alt="별" height="12" />
-                            <div color="rgba(61, 61, 61, 0.6)" text-decoration="none" class="sc-4bfd0cf4-0 gdqvpY"><span class="font footnote">4.8 (4)</span>
-                            </div>
-                        </div>
-                        <div className='spdla name'>
-                            <div>
-
-                            </div>
-                            <div>
-
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                </div>
+{/* <a href={"/productEventItem/" + eiNum + "/" + product.piNum}></a> */}
             </div>
         </div>
+
+
+
     );
 }
-
+ 
 export default ProductEventMain;

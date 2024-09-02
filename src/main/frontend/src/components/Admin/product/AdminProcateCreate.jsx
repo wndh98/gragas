@@ -1,4 +1,4 @@
-import './Admin.css'
+import "./ProPage.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 
 function AdminProcateCreate(params) {
-    const { register, handleSubmit, formState: { error } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [imageList, setImageList] = useState([]);
     const onChangeImageInput = e => {
         setImageList([...imageList, ...e.target.files]);
@@ -47,7 +47,8 @@ function AdminProcateCreate(params) {
                         </tr>
 
                         <tr>이미지
-                            <td><input type="file" name="pcImgFile" {...register("pcImgFile")} accept="image/jpg,image/png,image/jpeg,image/gif" /></td>
+                            <td><input type="file" name="pcImgFile" {...register("pcImgFile", { required: "이미지를 넣어주세요." })} accept="image/jpg,image/png,image/jpeg,image/gif" /></td>
+                            {errors.pcImgFile && <p>{errors.pcImgFile.message}</p>}
                         </tr>
 
                         <tr>

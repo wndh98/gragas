@@ -8,14 +8,14 @@ import axios from "axios";
 
 function OrderForm(props) {
     const ocId = props.ocId;
+    const deliveryPrice = 1000;
     const [user, setUser] = useState({});
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const [amount, setAmount] = useState({});
+    const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm();
     let olId = ocId;
-    useEffect(() => {
+    useEffect(async () => {
         getUser(setUser);
-        if (ocId == "" || ocId == null) {
-            olId = crypto.randomUUID();
-        }
+
         setValue("olId", olId)
         setValue("olPayment", "card")
     }, [])
@@ -47,11 +47,21 @@ function OrderForm(props) {
                 />
                 <OrderCart
                     ocId={ocId}
+                    register={register}
+                    user={user}
+                    watch={watch}
+                    setValue={setValue}
+                    amount={amount}
+                    setAmount={setAmount}
+                    deliveryPrice={deliveryPrice}
                 />
                 <OrderPayment
                     olId={olId}
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
+                    amount={amount}
+                    setAmount={setAmount}
+                    deliveryPrice={deliveryPrice}
                 ></OrderPayment>
 
 

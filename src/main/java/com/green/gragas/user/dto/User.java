@@ -21,4 +21,6 @@ public class User {
     //조인용
     private String ulImg;
 
+    //김주오 추가 쿠폰 조인
+    private int mcSail;
 }

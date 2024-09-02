@@ -26,6 +26,8 @@ public class SubscribeServiceImpl implements SubscribeService{
     public int subscribeDelete(int siNum) {return sm.subscribeDelete(siNum);}
     public List<SubscribeItem> titleList() { return sm.titleList();}
     public int nextSiNum() {return sm.nextSiNum(); }
+    public int getPrice(int siNum) {return sm.getPrice(siNum);}
+    public String getSiSubject(int siNum) {return sm.getSiSubject(siNum);}
     public int subscribeUploadFile(SubscribeItem subscribeItem, MultipartFile siMainImg, MultipartFile siDesImg, String rootPath) {
         try {
             // Insert the subscribe item into the database

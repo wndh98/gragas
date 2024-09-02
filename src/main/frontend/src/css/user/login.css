@@ -34,15 +34,34 @@
   margin-bottom: 30px;
 }
 
-.user_search_id {
-  width: 390px;
-}
-
 .login_search a{
   color: rgb(62, 62, 62);
   margin: 5px 10px;
 }
 
-.join_wrap {
+.login_search a:hover {
+  text-decoration: underline;
+}
+
+.input_container {
   width: 390px;
+  border: 1px solid rgb(224,224,224);
+  border-radius: 5px;
+  margin: 30px auto;
+  padding: 30px 20px;
+}
+
+.id_check_btn{
+  border: 1px solid rgb(224,224,224);
+  border-radius: 5px;
+  padding: 8px 8px;
+  margin-top: 5px;
+}
+
+.id_check_btn:hover{
+  background-color: rgb(224,224,224);
+}
+
+.id_input_box {
+  margin-top: 20px;
 }

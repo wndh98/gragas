@@ -1,4 +1,4 @@
-import "./Admin.css";
+import "./ProPage.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -72,7 +72,9 @@ function AdminEventUpdate(params) {
         <table class="admin_board_wrap" id="user-admin">
 
           <tr><th>이벤트명</th><td><input type="text" name="eiName" {...register("eiName")} defaultValue={events.eiName}></input></td></tr>
-          <tr><th>이미지</th><td><input type="file" name="eiContentFile" {...register("eiContentFile")} accept="image/jpg,image/png,image/jpeg,image/gif"></input></td></tr>
+          <tr><th>이미지</th><td><input type="file" name="eiContentFile" {...register("eiContentFile", { required: "이미지를 넣어주세요." })} accept="image/jpg,image/png,image/jpeg,image/gif"></input>
+          {errors.eiContentFile && <p>{errors.eiContentFile.message}</p>}
+          </td></tr>
           <tr>
             <td><button type="button" onClick={(e) => { eventDelete(e) }}>삭제</button></td>
             <td><input type="submit" value="전송" />

@@ -1,3 +1,5 @@
+create database gragasdb;
+
 use gragasdb;
 
 select * from board_file;
@@ -45,14 +47,15 @@ DROP TABLE IF EXISTS MEMBER_DELIVERY;
 
 DROP TABLE IF EXISTS USER;
 
-DROP TABLE IF EXISTS MEMBER_CUPON;
+DROP TABLE IF EXISTS MEMBER_COUPON;
 
 -- 회원
 
 -- 쿠폰&회원등급테이블
 
-create table MEMBER_CUPON (
+create table MEMBER_COUPON (
 	USER_LEVEL VARCHAR(20) not null primary key,
+	UL_IMG VARCHAR(255),
 	MC_SAIL INT not null,
 	MC_SUBJECT VARCHAR(255) not null
 );
@@ -97,7 +100,7 @@ alter table `MEMBER_DELIVERY` add constraint `FK_MD_USER_ID` foreign key (USER_I
 
 alter table `MEMBER_POINT` add constraint `FK_MP_USER_ID` foreign key (USER_ID) references user(USER_ID) ;
 
-alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) references MEMBER_CUPON(USER_LEVEL);
+alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) references MEMBER_COUPON(USER_LEVEL);
 
 
 
@@ -135,6 +138,8 @@ CREATE TABLE PRODUCT_ITEM (
    PI_CARBONATED INT,
    PI_IMG   VARCHAR(255),
    PI_CONTENT   VARCHAR(255) NOT null,
+   PI_PRICE INT NOT NULL,
+   PI_DEL VARCHAR(1) NOT NULL default 'N',
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
 
@@ -446,4 +451,4 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
---insert into MEMBER_CUPON values('Yellow',100,'테스트1');
+--insert into MEMBER_COUPON values('Yellow',100,'테스트1');

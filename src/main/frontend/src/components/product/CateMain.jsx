@@ -4,47 +4,64 @@ import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Type from './Type';
+import ProHeader from './ProHeader';
 
-function CateMain() {
+
+
+function CateMain(props) {
+
     const pathParam = useParams();
     const pcNum = pathParam.pcNum;
-
+    const [boxClose, setBoxClose] = useState(false);
     const [products, setProducts] = useState([]);
-    // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+    const [procate, setProcates] = useState([]);
+    const [tList, setTList] = useState([{}]);
+    const [name, setNames] = useState([{}]);
+    const [pcNums, setPcNums] = useState([{}]);
+    
+
+    let nameArr=[];
+    let pcNumsArr=[];
+    const typeList = [
+        { type: '주종', cate: tList }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '신맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
+    // console.log(...procate)
+
     useEffect(() => {
+
         axios.get("/product/list/" + pcNum)
             .then(response => {
-                console.log(response.data);
-                setProducts(response.data);
             })
             .catch(error => console.error("Fetching error:", error))
+
+        axios.get("/procate/list")
+            .then(response => {
+                
+                setProcates(response.data);
+                response.data.map(cate => {
+                    pcNumsArr.push(cate.pcNum);
+                    nameArr.push(cate.pcName);
+                })
+                setTList(nameArr);
+                setPcNums(pcNumsArr);
+            })
+            .catch(error => console.error("Fetching error:", error))
+
+        
     }, []);
-    const typeList = ['주종', '도수', '단맛', '신맛', '탄산', '가격']
 
-
-
-    console.log(setProducts)
     return (
+
         <div>
+            <ProHeader pcNum={pcNum} />
             <div className='spdla type'>
                 <div className='spdla typetwo'>
                     <div className='flextype'>
-                        <Type />
-                        {typeList.map(typest => {
-                            return (
-                                <div className='filter-container'>
-                                    <button className='filterflex'>
-                                        <span>{typest}</span>
-                                        <img src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png" width="20px" class="img" alt="arrow-down"></img>
-                                    </button>
-                                    <div width="350px" className='spdla typebox'>
-                                        {/* <Type />버튼 누르면 튀어나오게 */}
-
-                                    </div>
-                                </div>
-                            );
-                        })}
+                        <div className='filter-container'>
+                            {typeList.map(type => {
+                                return (<TList type={type} cate={props.cate} boxClose={boxClose} setBoxClose={setBoxClose} />);
+                            })}
+                        </div>
+                        {/* <Type />버튼 누르면 튀어나오게 */}
                     </div>
                 </div>
             </div>
@@ -83,5 +100,84 @@ function CateMain() {
 
     );
 }
+
+function Type(props) {
+
+    const [checkBox, setCheckBox] = useState([]);
+
+
+
+    const handleCheck = () => {
+        setCheckBox(<img className='cpzm' src="/images/product/icon_checked_square.png" alt="checkbox" />)
+    }
+
+    const cate = props.cate;
+
+    return (
+        <div width="350px" className='spdla typebox'>
+            <div className='spdla tybox'>
+                {cate.map((testItem) => {
+                    return (
+                        <div className='spdla mutlple'>
+                            <div class="check-box flex">
+                                <div class="sc-d5ff5581-0 hNTfqe">
+                                    <button type="button" onClick={() => { handleCheck() }} class="custom-checkbox ">
+                                        <img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button>{checkBox}
+                                </div>
+                                <button class="option-text" >{testItem}</button>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
+    );
+
+}
+
+
+
+function TList(props) {
+    // const setBoxon = props.setBoxon;
+    const type = props.type;
+    const cate = props.cate;
+    const boxClose = props.boxClose;
+    const setBoxClose = props.setBoxClose;
+
+    const [boxoff, setBoxon] = useState();
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        if (boxClose != false) {
+            setBoxon("");
+            if (isOpen) {
+                setIsOpen(false);
+            } else if (boxClose == type.type) {
+                setBoxon(<Type cate={type.cate} />);
+                setIsOpen(true);
+            }
+        }
+        setBoxClose(false);
+    }, [boxClose])
+
+    const handleClick = async () => {
+        await setBoxClose(type.type);
+    }
+
+
+    return (
+        <>
+            <div>
+                <button onClick={() => { handleClick() }} className='filterflex'>
+                    <span name="typeList">{type.type}</span>
+                    <img src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png" width="20px" class="img" alt="arrow-down"></img></button>
+                {boxoff}
+            </div>
+        </>
+    )
+}
+
+
+
+
 
 export default CateMain;

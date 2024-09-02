@@ -21,7 +21,7 @@ import UserDeliveryUpdateForm from "../components/user/mypage/UserDeliveryUpdate
 import Membership from "../components/user/Membership";
 import SearchPwForm from "../components/user/login/SearchPwForm";
 
-
+import TotalItemList from "../components/product/TotalItemList";
 import MainList from "../components/product/MainList";
 import ProductItem from "../components/product/ProductItem";
 import ProductEvent from "../components/product/ProductEvent";
@@ -105,6 +105,7 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/main" element={<Layout><MainList /></Layout>} />
+                <Route path="/total" element={<Layout><TotalItemList /></Layout>} />
                 <Route path="/main/CateMain/:pcNum" element={<Layout><CateMain /></Layout>} />
                 <Route path="/productItem/:piNum" element={<Layout><ProductItem /></Layout>} />
                 <Route path="/productEvent" element={<Layout><ProductEvent /></Layout>} />
@@ -119,7 +120,7 @@ function Routers() {
                 <Route path="/event/main" element={<AdminLayout><AdminEventMain /></AdminLayout>} />
                 <Route path="/event/create" element={<AdminLayout><AdminEventCreate /></AdminLayout>} />
                 <Route path="/event/update/:eiNum" element={<AdminLayout><AdminEventUpdate /></AdminLayout>} />
-                <Route path="/option/main" element={<AdminLayout><AdminOptionMain /></AdminLayout>} />
+                <Route path="/option/main/:piNum" element={<AdminLayout><AdminOptionMain /></AdminLayout>} />
                 <Route path="/option/create" element={<AdminLayout><AdminOptionCreate /></AdminLayout>} />
                 <Route path="/option/update/:poNum" element={<AdminLayout><AdminOptionUpdate /></AdminLayout>} />
             </Routes>
@@ -130,10 +131,10 @@ function Routers() {
                 <Route path="/board/:boardType/view/:pageNum/:bNum" element={<Layout><BoardView /></Layout>} />
             </Routes>
             <Routes>
-                <Route path="/cart/list" element={<Layout><CartLayout /></Layout>} />
-                <Route path="/order/orderForm" element={<Layout><OrderFormLayout /></Layout>} />
-                <Route path="/order/success" element={<Layout><OrderSuccess /></Layout>} />
-                <Route path="/order/orderForm/:ocId" element={<Layout><OrderFormLayout /></Layout>} />
+                <Route path="/cart/list" element={<AuthRoute to="/loginForm"><Layout><CartLayout /></Layout></AuthRoute>} />
+                <Route path="/order/orderForm" element={<AuthRoute to="/loginForm"><Layout><OrderFormLayout /></Layout></AuthRoute>} />
+                <Route path="/order/success" element={<AuthRoute to="/loginForm"><Layout><OrderSuccess /></Layout></AuthRoute>} />
+                <Route path="/order/orderForm/:ocId" element={<AuthRoute to="/loginForm"><Layout><OrderFormLayout /></Layout></AuthRoute>} />
 
             </Routes>
         </BrowserRouter>

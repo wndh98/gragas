@@ -25,6 +25,11 @@ a {
   letter-spacing: 0.6px !important;
 }
 
+.cpzm {
+  width: 25px;
+  height: 25px;
+}
+
 .mainbox {
   width: 100%;
   max-width: 1244px;
@@ -516,6 +521,24 @@ button {
   font-size: 16px;
   font-weight: 400;
   line-height: 160%;
+  color: black;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.review-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 160%;
+  letter-spacing: .28px;
+  color: #0096f3;
+}
+
+.button-content-layout {
+  display: inline-flex;
+  width: auto;
+  align-items: baseline;
 }
 
 .direct-purchase-box {
@@ -538,6 +561,10 @@ button {
   font-weight: 700;
   line-height: 140%;
   letter-spacing: -0.56px;
+  color: black;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
 }
 
 .jsx-2907305229 {
@@ -555,6 +582,10 @@ button {
 }
 
 .title1-bold-bol {
+  color: rgb(255, 125, 58);
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
   font-size: 28px;
   font-weight: 700;
   line-height: 140%;
@@ -888,6 +919,7 @@ button {
 }
 
 .filter-container {
+  display: flex;
   position: relative;
 }
 
@@ -1092,4 +1124,56 @@ button {
 
 .option-text {
   margin-left: 15px;
+}
+
+.heawrap {
+  padding: 15px 69px;
+
+}
+
+.heawrap2 {
+  max-width: 1144px;
+  height: 120px;
+  position: relative;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  background-color: rgb(247, 247, 247);
+  margin: 0px auto;
+  padding: 32px 40px;
+  border-radius: 10px;
+  color: rgb(112, 112, 112);
+  text-align: left;
+}
+
+.cXVSbx {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(62, 62, 62);
+  line-height: 1.2;
+}
+
+.znzLJ {
+  font-size: 16px;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.icon-wrapper {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  border-radius: 50%;
+}
+
+
+.icon-wrapper img {
+  width: 80%;
 }

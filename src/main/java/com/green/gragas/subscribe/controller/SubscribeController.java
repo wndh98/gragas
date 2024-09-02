@@ -31,6 +31,16 @@ public class SubscribeController {
     @Value("${project.upload.path}")
     private String rootPath;
 
+    @GetMapping("/subscribe/getPrice/{siNum}")
+    public int getPrice(@PathVariable int siNum){
+        int siPrice = ss.getPrice(siNum);
+        return siPrice;
+    }
+    @GetMapping("/subscribe/getSiSubject/{siNum}")
+    public String getSiSubject(@PathVariable int siNum){
+        String siSubject = ss.getSiSubject(siNum);
+        return siSubject;
+    }
     @GetMapping("/subscribe/itemList")
     public List<SubscribeItem> itemList(){
         List<SubscribeItem> sublist = ss.itemList();
