@@ -30,10 +30,10 @@ function SearchPwForm() {
   };
 
   return (
-    <div className='container user_search_id'>
+    <div className='input_container container'>
     <h2>비밀번호 찾기</h2>
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="input-form-box">
+      <div className="id_input_box input-form-box">
         <input
           className="form-control"
           name='userId'
@@ -58,14 +58,16 @@ function SearchPwForm() {
           className="form-control"
           name='userBirth'
           type="text"
-          placeholder="생년월일을 입력해 주세요"
+          placeholder="생년월일을 입력해 주세요  예시 : (2000-01-01)"
+          pattern='[0-9]{4}-[0-1][0-9]-[0-3][0-9]'
+          title='2000-01-01'
           {...register('userBirth', { required: '생년월일은 필수 입력 항목입니다.' })}
         />
         {errors.userBirth && <p>{errors.userBirth.message}</p>}
       </div>
       <div className="button-signup-box">
         <input
-          className="btn btn-secondary btn-xs col-12"
+          className="btn btn-primary btn-xs col-12"
           type="submit"
           value="비밀번호 찾기"
         />
