@@ -14,6 +14,12 @@
     <result property="siTitle" column="SI_TITLE"/>
     <result property="siArrive" column="SI_ARRIVE"/>
   </resultMap>
+  <select id="getSiSubject" resultType="string">
+    select SI_SUBJECT from SUBSCRIBE_ITEM where SI_NUM=#{siNum}
+  </select>
+    <select id="getPrice" parameterType="integer" resultType="integer">
+      select SI_PRICE from SUBSCRIBE_ITEM where SI_NUM=#{siNum}
+    </select>
     <select id="itemList" resultMap="subscribeItemResult">
         select * from SUBSCRIBE_ITEM
     </select>

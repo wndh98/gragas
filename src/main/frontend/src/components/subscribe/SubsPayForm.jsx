@@ -1,6 +1,7 @@
 import './subs.css';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { getUser, getUserId } from "../../js/userInfo";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { getCookie } from '../../js/cookieJs';
@@ -11,12 +12,13 @@ import SubsPayment from './SubsPayMent';
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
 function SubsPayForm() {
-    const soId = /* crypto.randomUUID() */ 'soid';
-    const location = useLocation();
-    const { soNum, siNum } = useParams(); // useParams를 비구조화 할당으로 사용
-    const { register, handleSubmit } = useForm();
+    const soId = crypto.randomUUID();
+    const { siNum } = useParams();
+    const intSiNum = parseInt(siNum);
+    const { register,handleSubmit, setValue } = useForm();
     const navigate = useNavigate();
-    const userId = getCookie("isLogin");
+    const [user, setUser] = useState({});
+    const [amount, setAmount] = useState({});
     const [delivery, setDelivery] = useState([]);
     const [selectedDeliveryId, setSelectedDeliveryId] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -29,11 +31,22 @@ function SubsPayForm() {
         siPayDate: '',
         siArrive: ''
     });
+    useEffect(async () => {
+        getUser(setUser);
+
+        setValue("soId", soId)
+        setValue("soPayment", "card")
+    }, [])
+    useEffect(() => {
+        setValue("userId", user.userId);
+        setValue("siNum",intSiNum);
+    }, [user])
 
     useEffect(() => {
         axios.get(`/subscribe/description/${siNum}`)
             .then(response => {
                 setItem(response.data);
+                setValue("soPrice", response.data.siPrice);
             })
             .catch(error => {
                 console.error('Error fetching the item data:', error);
@@ -43,7 +56,7 @@ function SubsPayForm() {
     }, [siNum]);
 
     useEffect(() => {
-        axios.get(`/delivery/select/${userId}`)
+        axios.get(`/delivery/select/${user.userId}`)
             .then(response => {
                 if (response.data && Array.isArray(response.data.deliveryList)) {
                     setDelivery(response.data.deliveryList);
@@ -55,21 +68,27 @@ function SubsPayForm() {
             .catch(error => {
                 alert(error + ":오류 발생")
             })
-    }, [userId])
+    }, [user.userId])
 
     const handleClick = () => {
         setIsVisible(!isVisible);
     }
-    const handleSelectDelivery = (selectedDelivery) => {
-        if (selectedDeliveryId === selectedDelivery.mdNum) {
+    const handleSelectDelivery = (member) => {
+        if (selectedDeliveryId === member.mdNum) {
             setSelectedDeliveryId(null);
             setSelectClass("");
         } else {
-            setSelectedDeliveryId(selectedDelivery.mdNum);
+            setSelectedDeliveryId(member.mdNum);
             setSelectClass("selectClass");
+            setValue("soName", member.mdName);
+            setValue("soTel", member.mdTel);
+            setValue("soAddr", member.mdAddr);
+            setValue("soAddrDe", member.mdAddrDetail);
+            setValue("soMemo", member.mdMessage);
         }
     };
     function onSubmit(data) {
+        console.log(data);
         axios.post("/subsOrder/insert", data)
             .then(response => {
                 return response.data;
@@ -79,24 +98,24 @@ function SubsPayForm() {
     return (
         <main className='container'>
             <form onSubmit={handleSubmit(onSubmit)} className='formBox'>
-            <div className='d-flex flex-column justify-content-center align-items-center'>
-                    <div className="mt-5 border p-4 rounded col-4">
+                <div className='d-flex flex-column justify-content-center align-items-center'>
+                    <div className="mt-5 border p-4 rounded col-6">
                         <div>
                             <div className={`subsDeli ${selectClass}`}>
-                                <div className="otherTitle">배송지 정보</div>
+                                <div className="otherTitle fs-3">배송지 정보</div>
                                 {delivery.length > 0 ? (
-                                    delivery.map((item, index) => (
-                                        <div className={`otherInfo ${selectedDeliveryId === item.mdNum ? 'selected' : ''}`} key={index}>
-                                            <div>{item.mdName}</div>
+                                    delivery.map((member, index) => (
+                                        <div className={`otherInfo ${selectedDeliveryId === member.mdNum ? 'selected' : ''}`} key={index}>
+                                            <div>{member.mdName}</div>
                                             <br />
-                                            <div>{item.mdTel}</div>
+                                            <div>{member.mdTel}</div>
                                             <br />
-                                            <div>{item.mdAddr}</div>
-                                            <div>{item.mdAddrDetail}</div>
+                                            <div>{member.mdAddr}</div>
+                                            <div>{member.mdAddrDetail}</div>
                                             <br />
-                                            <div>{item.mdMessage}</div>
+                                            <div>{member.mdMessage}</div>
                                             <br />
-                                            <button className='btn btn-secondary' onClick={() => handleSelectDelivery(item)}>선택</button>
+                                            <button type='button' className='btn btn-secondary' onClick={() => handleSelectDelivery(member)}>선택</button>
                                         </div>
                                     ))
                                 ) : (
@@ -106,28 +125,26 @@ function SubsPayForm() {
 
                         </div>
                     </div>
-                    <div className="mt-5 border p-4 rounded col-4">
+                    <div className="mt-5 border p-4 rounded col-6">
                         <div className="container">
                             <div className="itemDesc">
-                                <div className="otherTitle">구독 상품 정보</div>
+                                <div className="otherTitle fs-3">구독 상품 정보</div>
                                 <div>
                                     <div><img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="" /></div>
                                     <div>
                                         <div className="subsItemInfo">
-                                            <div>{item.siSubject}</div>
+                                            <div className='fw-bold fs-3'>{item.siSubject}</div>
                                             <div>
-                                                <div>1개</div>
-                                                <div>{item.siPrice}원/월</div>
+                                                <div className='text-end fs-5'>1개</div>
+                                                <div className='fs-3 mt-4 mb-4'><span className='text-primary fs-2'>{item.siPrice}</span>원/월</div>
                                             </div>
                                         </div>
                                         <div className="dateOrNote">
-                                            <div>결제일</div>
+                                            <div className='mt-3 fw-bold'>결제일</div>
+                                            <div className='text-secondary px-4 mt-2'>{item.siPayDate}</div>
                                             <br />
-                                            <div>{item.siPayDate}</div>
-                                            <br />
-                                            <div>배송일</div>
-                                            <br />
-                                            <div>{item.siArrive}</div>
+                                            <div className='fw-bold'>배송일</div>
+                                            <div className='text-secondary px-4 mt-2'>{item.siArrive}</div>
                                             <br />
                                             <SubsNote />
                                         </div>
@@ -136,14 +153,19 @@ function SubsPayForm() {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-5 col-4 border p-4 rounded">
+                    <div className="mt-5 mb-5 col-6 border p-4 rounded">
                         <SubsPayment
                             soId={soId}
                             handleSubmit={handleSubmit}
                             onSubmit={onSubmit}
+                            amount={amount}
+                            setAmount={setAmount}
+                            siNum={siNum}
+                            isVisible={isVisible}
+                            setIsVisible={setIsVisible}
                         ></SubsPayment>
                     </div>
-                    <div className="mt-5 col-4 border p-4 rounded">
+                    {/* <div className="mt-5 col-6 border p-4 rounded">
                         <div className="container">
                             <div className="spmAgreeBox">
                                 <div>
@@ -153,7 +175,6 @@ function SubsPayForm() {
                                             <label htmlFor="agreeCheck">구매자의 정보수집ㆍ이용에 동의(필수)</label>
                                         </div>
                                         <div>
-                                            
                                             <button className='btn btn-secondary' onClick={handleClick}>보기</button>
                                         </div>
                                     </div>
@@ -163,12 +184,12 @@ function SubsPayForm() {
                                 {isVisible && <SubsAgree />}
                             </div>
                         </div>
-                    </div>
-                    <div className="mt-5 col-4 rounded">
-                        <button className='otherButton btn btn-primary'>구독 신청하기</button>
-                    </div>
-                
-            </div>
+                    </div> */}
+                    {/* <div className="mt-5 col-6 rounded">
+                        <button type='submit' className='otherButton btn btn-primary'>구독 신청하기</button>
+                    </div> */}
+
+                </div>
             </form>
         </main>
     );
