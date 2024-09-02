@@ -43,7 +43,6 @@ function MypageSubscribe() {
       </div>
       <div>
         <button onClick={() => moveSubsDescription(selectedItem.siNum)}>이 달의 술 보기</button>
-        <button>구독하기</button>
       </div>
     </div>
   );

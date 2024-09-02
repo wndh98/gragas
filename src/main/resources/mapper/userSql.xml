@@ -44,4 +44,11 @@
             #{userId}
         </foreach>
     </update>
+    <update id="couponUpdate">
+        update user set user_coupon = 'Y';
+    </update>
+    <insert id="adminInsert" parameterType="string">
+        insert into user values(#{userId}, 'admin', #{userPw}, '관리자',
+            '2020-01-01', '010-1234-5678', 100000000, 'N', 'N', now())
+    </insert>
 </mapper>
