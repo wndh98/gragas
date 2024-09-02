@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
+import axios from "axios";
+import { getUser } from "../../js/userInfo";
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
@@ -8,24 +10,32 @@ function OrderPayment(props) {
     const olId = props.olId;
     const handleSubmit = props.handleSubmit;
     const onSubmit = props.onSubmit;
-    const [ready, setReady] = useState(false);
+    const amount = props.amount;
+    const setAmount = props.setAmount;
     const [widgets, setWidgets] = useState(null);
-    const [amount, setAmount] = useState({
-        currency: "KRW",
-        value: 10,
-    });
 
+    const [user, setUser] = useState({});
+    const [productName, setProductName] = useState({});
 
+    useEffect(() => {
+        getUser(setUser);
+    }, []);
     useEffect(() => {
         async function fetchPaymentWidgets() {
             const tossPayments = await loadTossPayments(clientKey);
             const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+            const getPrice = await axios.get(`/orderCart/totalPrice?ocId=${olId}`);
+            const getProduct = await axios.get(`/orderCart/getProductName?ocId=${olId}`);
+            setAmount({ currency: "KRW", value: getPrice.data });
+            setProductName(getProduct.data + "");
             setWidgets(widgets);
         }
-
         fetchPaymentWidgets();
     }, [clientKey]);
+    useEffect(() => {
 
+    }, [amount])
+    useEffect(() => { console.log(productName) }, [productName])
     useEffect(() => {
         async function renderPaymentWidgets() {
             if (widgets == null) {
@@ -59,8 +69,6 @@ function OrderPayment(props) {
                     variantKey: "AGREEMENT",
                 }),
             ]);
-
-            setReady(true);
         }
 
         renderPaymentWidgets();
@@ -83,9 +91,9 @@ function OrderPayment(props) {
                                         // onSubmit 이후에 결제 요청을 보냅니다.
                                         await widgets?.requestPayment({
                                             orderId: olId,
-                                            orderName: "토스 티셔츠 외 2건",
-                                            customerName: "김토스",
-                                            customerEmail: "customer123@gmail.com",
+                                            orderName: productName,
+                                            customerName: user.userName,
+                                            customerEmail: user.userId,
                                             successUrl: window.location.origin + "/order/success" + window.location.search,
                                             failUrl: window.location.origin + "/order/fail" + window.location.search,
                                         });

@@ -4,7 +4,7 @@ import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import ProHeaderList from './ProHeader';
 
 
 const typeList = [{ type: '주종', cate: ['탁주', '청주'] }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '신맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
@@ -84,10 +84,8 @@ function TList(props) {
     )
 }
 
-function ProductEventMain(props) {
-    const { eiNum } = useParams();
-    const product = props.product;
-  
+function TotalItemList(props) {
+
     const pathParam = useParams();
     const pcNum = pathParam.pcNum;
     const [boxClose, setBoxClose] = useState(false);
@@ -106,7 +104,7 @@ function ProductEventMain(props) {
     return (
 
         <div>
-           
+            <ProHeaderList pcNum={pcNum} />
             <div className='spdla type'>
                 <div className='spdla typetwo'>
                     <div className='flextype'>
@@ -146,7 +144,7 @@ function ProductEventMain(props) {
                     </div>
 
                 </div>
-{/* <a href={"/productEventItem/" + eiNum + "/" + product.piNum}></a> */}
+
             </div>
         </div>
 
@@ -154,5 +152,8 @@ function ProductEventMain(props) {
 
     );
 }
- 
-export default ProductEventMain;
+
+
+
+
+export default TotalItemList;

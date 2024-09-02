@@ -53,4 +53,9 @@ public class ProopServiceImpl implements ProopService{
         return om.proopListPi(piNum);
     }
 
+    @Override
+    public ProductOption proopSelectOne(int piNum) {
+        return om.proopSelectOne(piNum);
+    }
+
 }

@@ -10,6 +10,9 @@
     <select id="proopListPi" resultType="productOption" parameterType="integer">
         select * from PRODUCT_OPTION where PI_NUM=#{piNum}
     </select>
+    <select id="proopSelectOne" resultType="productOption" parameterType="integer">
+        select * from PRODUCT_OPTION where PI_NUM=#{piNum} order by PO_NUM asc limit 1
+    </select>
 
     <select id="proopCheck" resultType="productOption" parameterType="integer">
         select * from PRODUCT_OPTION where PO_NUM=#{poNum}
