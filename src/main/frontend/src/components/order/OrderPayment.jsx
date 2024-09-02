@@ -10,8 +10,10 @@ function OrderPayment(props) {
     const olId = props.olId;
     const handleSubmit = props.handleSubmit;
     const onSubmit = props.onSubmit;
+    const amount = props.amount;
+    const setAmount = props.setAmount;
     const [widgets, setWidgets] = useState(null);
-    const [amount, setAmount] = useState({});
+
     const [user, setUser] = useState({});
     const [productName, setProductName] = useState({});
 
@@ -28,9 +30,11 @@ function OrderPayment(props) {
             setProductName(getProduct.data + "");
             setWidgets(widgets);
         }
-
         fetchPaymentWidgets();
     }, [clientKey]);
+    useEffect(() => {
+
+    }, [amount])
     useEffect(() => { console.log(productName) }, [productName])
     useEffect(() => {
         async function renderPaymentWidgets() {

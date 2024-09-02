@@ -9,11 +9,10 @@ import axios from "axios";
 function OrderForm(props) {
     const ocId = props.ocId;
     const [user, setUser] = useState({});
-
-
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const [amount, setAmount] = useState({});
+    const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm();
     let olId = ocId;
-    useEffect(() => {
+    useEffect(async () => {
         getUser(setUser);
 
         setValue("olId", olId)
@@ -47,11 +46,16 @@ function OrderForm(props) {
                 />
                 <OrderCart
                     ocId={ocId}
+                    register={register}
+                    user={user}
+                    watch={watch}
                 />
                 <OrderPayment
                     olId={olId}
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
+                    amount={amount}
+                    setAmount={setAmount}
                 ></OrderPayment>
 
 

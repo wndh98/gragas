@@ -8,7 +8,11 @@ function salePercent(price, sale) {
 function getPrice(price, sale) {
     return sale > 0 ? sale : price;
 }
+function numberFormat(num) {
+    return new Intl.NumberFormat('en-US').format(num);
+}
 export {
     salePercent,
-    getPrice
+    getPrice,
+    numberFormat
 };

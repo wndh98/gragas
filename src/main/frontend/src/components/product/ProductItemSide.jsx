@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { getOcId, isOcId, setOcId } from "../../js/orderCart/cart";
 import { getUserId, isLogin } from "../../js/userInfo";
 import { useNavigate } from "react-router-dom";
+import { numberFormat } from "../../js/order";
 
 function ProductItemSide(props) {
     const navi = useNavigate();
@@ -108,7 +109,7 @@ function ProductItemSide(props) {
                     총 상품가격
                 </div>
                 <div className="select-wrapper position-sticky top-0 border border-secondary-subtle" style={{ height: "40px" }}>
-                    {price}
+                    {numberFormat(price)}원
                 </div>
                 <div className="buttons">
                     <div className="button cart-button-gift-button">
