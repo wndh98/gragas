@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderCartServiceImpl implements OrderCartService{
+public class OrderCartServiceImpl implements OrderCartService {
     @Autowired
     OrderCartMapper ocm;
+
     @Override
     public int saveCart(OrderCart orderCart) {
         return ocm.insertCart(orderCart);
@@ -34,5 +35,21 @@ public class OrderCartServiceImpl implements OrderCartService{
     @Override
     public OrderCart getOrderCart(OrderCart orderCart) {
         return ocm.selectOrderCart(orderCart);
+    }
+
+    @Override
+    public int getTotalPrice(String ocId) {
+        return ocm.selectTotalPrice(ocId);
+    }
+
+    @Override
+    public String getProductName(String ocId) {
+        List<OrderCart> orderCarts = ocm.selectOrderCartList(ocId);
+        String productName = "";
+        int cartSize = orderCarts.size();
+        productName = orderCarts.get(0).getPiName();
+        if (cartSize > 1) productName += "외 " + cartSize + " 종";
+
+        return productName;
     }
 }

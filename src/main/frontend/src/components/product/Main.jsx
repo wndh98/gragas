@@ -4,6 +4,7 @@ import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const division = (arr, n) => {
   const length = arr.length;
   const divide = Math.floor(length / n) + (Math.floor(length % n) > 0 ? 1 : 0);
@@ -16,6 +17,7 @@ const division = (arr, n) => {
 
   return newArray;
 }
+
 function Main() {
   const [products, setProducts] = useState([]);
   const [option, setOptions] = useState([]);
@@ -37,9 +39,9 @@ function Main() {
       .catch(error => console.error("Fetching error:", error))
   }, []);
 
-  console.log(setProducts)
   return (
-    <div>
+    <>
+
       <div id="carouselExampleControls" class="carousel slide spdla mainbox" data-bs-interval="false">
         <div className='spdla hb'>
           <img src='/images/product/WVnH-1721969714247-medal.png' alt='메달' width="45" height="45"></img>
@@ -56,12 +58,12 @@ function Main() {
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          {products.map((product) => {
+          {products.map((product, index) => {
 
             return (
               <>
                 {product[0] != null ?
-                  <div class="carousel-item active">
+                  <div className={`carousel-item ${index == 0 ? "active" : ""}`}>
                     <div className="d-flex">
                       {product.map(p => {
                         return (
@@ -84,7 +86,7 @@ function Main() {
 
       </div>
 
-    </div >
+    </>
   );
 }
 

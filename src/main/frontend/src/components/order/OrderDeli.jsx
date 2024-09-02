@@ -41,9 +41,6 @@ function OrderDeli(props) {
             setValue("olMemo", deliveryInfo.mdMessage || "");
         }
     }
-    function validOrder(data) {
-        console.log(data);
-    }
     return (
         <div className="d-flex flex-column border rounded p-4">
             <h3 >배송지</h3>

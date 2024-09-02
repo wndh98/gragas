@@ -296,7 +296,11 @@ public class ProductController {
         ProductOption proopItem = os.proopCheck(poNum);
         return proopItem;
     }
-
+    @GetMapping("/option/view/{piNum}")
+    public ProductOption proopSelectOne(@PathVariable("piNum") int piNum) {
+        ProductOption proopItem = os.proopSelectOne(piNum);
+        return proopItem;
+    }
     @PostMapping("/option/insert")
     public int proopInsert(@RequestBody ProductOption proop) {
         int result = os.proopInsert(proop);
