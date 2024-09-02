@@ -130,10 +130,10 @@ function Routers() {
                 <Route path="/board/:boardType/view/:pageNum/:bNum" element={<Layout><BoardView /></Layout>} />
             </Routes>
             <Routes>
-                <Route path="/cart/list" element={<Layout><CartLayout /></Layout>} />
-                <Route path="/order/orderForm" element={<Layout><OrderFormLayout /></Layout>} />
-                <Route path="/order/success" element={<Layout><OrderSuccess /></Layout>} />
-                <Route path="/order/orderForm/:ocId" element={<Layout><OrderFormLayout /></Layout>} />
+                <Route path="/cart/list" element={<AuthRoute to="/loginForm"><Layout><CartLayout /></Layout></AuthRoute>} />
+                <Route path="/order/orderForm" element={<AuthRoute to="/loginForm"><Layout><OrderFormLayout /></Layout></AuthRoute>} />
+                <Route path="/order/success" element={<AuthRoute to="/loginForm"><Layout><OrderSuccess /></Layout></AuthRoute>} />
+                <Route path="/order/orderForm/:ocId" element={<AuthRoute to="/loginForm"><Layout><OrderFormLayout /></Layout></AuthRoute>} />
 
             </Routes>
         </BrowserRouter>
