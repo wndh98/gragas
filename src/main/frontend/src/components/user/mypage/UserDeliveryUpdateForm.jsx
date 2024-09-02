@@ -1,14 +1,52 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 function UserDeliveryUpdateForm() {
     const pathParam = useParams();
     const [detail, setDetail] = useState({});
     const mdNum = pathParam.mdNum;
     const navigate = useNavigate();
+    const [isSearchVisible, setIsSearchVisible] = useState(false); // 검색창 표시 여부
+    const [selectedAddress, setSelectedAddress] = useState(detail.mdAddr); // 선택된 주소
+    const searchRef = useRef(null); // 검색창 위치 지정
+  
+    function handlePostcode() {
+      setIsSearchVisible(true); // 검색창 보이기
+  
+      new window.daum.Postcode({
+        oncomplete: function (data) {
+          // 주소 검색 결과를 처리하는 로직
+          const fullAddr = data.address; // 최종 주소 변수
+          const extraAddr = data.addressType === 'R' ? (data.bname ? data.bname : '') + (data.buildingName ? ', ' + data.buildingName : '') : ''; // 참고 항목
+  
+          setSelectedAddress(fullAddr + (extraAddr ? ` (${extraAddr})` : '')); // 선택된 주소 저장
+          setIsSearchVisible(false); // 검색창 숨기기
+        },
+        onclose: function () {
+          setIsSearchVisible(false); // 검색창 숨기기
+        }
+      }).open({
+        popupName: 'postcodePopup',
+        left: 0,
+        top: searchRef.current ? searchRef.current.getBoundingClientRect().bottom : 0 // 검색창 위치 조정
+      });
+    }
+  
+    useEffect(() => {
+      // Daum Postcode script 로드
+      const script = document.createElement("script");
+      script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+      script.async = true;
+      document.head.appendChild(script);
+  
+      return () => {
+        document.head.removeChild(script);
+      };
+    }, []);
 
     useEffect(() => {
         axios.get("/user/delivery/update/" + mdNum)
@@ -99,8 +137,13 @@ function UserDeliveryUpdateForm() {
                     <div className="input-form-box">
                         배송지
                         <input
-                            className="form-control form_addr"
-                            type="text"
+                            ref={searchRef}
+                            className="form-control form_addr" 
+                            type="text" 
+                            placeholder="주소를 입력해 주세요"
+                            value={selectedAddress}
+                            onClick={handlePostcode}
+                            readOnly
                             {...register('mdAddr', { required: '배송지를 입력해주세요.' })}
                         />
                         {errors.mdAddr && <p>{errors.mdAddr.message}</p>}

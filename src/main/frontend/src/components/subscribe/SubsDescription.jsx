@@ -21,7 +21,7 @@ function SubsDescription() {
             alert("로그인이 필요합니다.")
             return false;
         } else
-            navigate(`/subscribe/subsOrder/${num}`)
+            navigate(`/subscribe/subsPayForm/${num}`)
     }
     useEffect(() => {
         axios.get(`/subscribe/description/${siNum}`)

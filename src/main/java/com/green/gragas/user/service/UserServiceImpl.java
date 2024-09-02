@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -54,5 +55,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userSearchPw(User user) {
         return um.userSearchPw(user);
+    }
+
+    @Override
+    public int userListDelete(List<String> userId) {
+        return um.userListDelete(userId);
     }
 }

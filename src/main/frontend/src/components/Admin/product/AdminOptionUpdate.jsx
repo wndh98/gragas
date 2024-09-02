@@ -1,4 +1,4 @@
-import "./Admin.css";
+import "./ProPage.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -60,9 +60,9 @@ function AdminOptionUpdate(params) {
         <table class="admin_board_wrap" id="user-admin">
 
           <tr><th>옵션명</th><td><input type="text" {...register("poName")} defaultValue={option.poName}></input></td></tr>
-          <tr><th>재고수량</th><td><input type="text" {...register("poCnt")} defaultValue={option.poCnt}></input></td></tr>
-          <tr><th>가격</th><td><input type="text" {...register("poPrice")} defaultValue={option.poPrice}></input></td></tr>
-          <tr><th>세일가</th><td><input type="text" {...register("poSale")} defaultValue={option.poSale}></input></td></tr>
+          <tr><th>재고수량</th><td><input type="number" {...register("poCnt")} defaultValue={option.poCnt}></input></td></tr>
+          <tr><th>가격</th><td><input type="number" {...register("poPrice")} defaultValue={option.poPrice}></input></td></tr>
+          <tr><th>세일가</th><td><input type="number" {...register("poSale")} defaultValue={option.poSale}></input></td></tr>
 
           <tr>
             <td><button type="button" onClick={(e) => { optionDelete(e) }}>삭제</button></td>

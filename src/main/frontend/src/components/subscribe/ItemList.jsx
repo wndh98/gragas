@@ -26,14 +26,13 @@ function ItemList() {
         <>
             <div>구독상품 목록</div>
             <div className="container">{items.map(item => (
-                <div className="row" key={item.siNum} onClick={() => subsDescription(item)}>
-                    <div className="border col-10 subscribe_box">
-                        <div>{item.siMainImg ? <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" style={{ width: '100px', height: 'auto' }} /> : '-'}</div>
+                <div key={item.siNum} onClick={() => subsDescription(item)}>
+                        <div>{item.siMainImg ? <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" style={{ width: '100px', height: 'auto' }} /> : '-'}
+                        </div>
                         <div>
-                            <h2>{item.siTitle} 구독박스</h2>
+                            <h2>{item.siSubject}</h2>
                             <p>{item.siContent}</p>
                         </div>
-                    </div>
                 </div>
             ))}
             </div>

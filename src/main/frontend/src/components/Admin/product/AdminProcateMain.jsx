@@ -1,4 +1,3 @@
-import "./Admin.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -33,38 +32,43 @@ function AdminProcateMain() {
 
     return (
 
-        <div>
+        <main className="container">
             <form name="frm">
-                <table className="table">
+                <table className="table mt-5">
+                    <tbody>
 
-                    <tr className="">
-                        <input type="checkbox"></input>
-                        <label>전체선택</label>
-                        <td>카테고리 번호</td>
-                        <td>카테고리 이름</td>
-                        <td>이미지</td>
+                        <tr className="table-secondary">
+                            <td>
+                                <input type="checkbox"></input></td>
 
-                    </tr>
-                    {procates.map((procate) => {
+                            <td>카테고리 번호</td>
+                            <td>카테고리 이름</td>
+                            <td>이미지</td>
 
-                        return (
-                            <tr>
-                                <td><input type="checkbox" {...register("pcNum")} value={procate.pcNum} /></td>
-                                <td><Link to={"/procate/update/" + procate.pcNum}>{procate.pcNum}</Link></td>
-                                <td value={procate.pcName}>{procate.pcName}</td>
-                                <td value={procate.pcImg}>{procate.pcImg}</td>
-                            </tr>
+                        </tr>
+                        {procates.map((procate) => {
 
-                        );
-                    })}
-                    <tr>
-                        <td><Link to="/procate/create">상품추가</Link></td>
-                        <td><button type="button" onClick={handleSubmit(procateDelete)}>상품삭제</button></td>
-                    </tr>
+                            return (
+                                <tr>
+                                    <td><input type="checkbox" {...register("pcNum")} value={procate.pcNum} /></td>
+                                    <td><Link to={"/procate/update/" + procate.pcNum}>{procate.pcNum}</Link></td>
+                                    <td value={procate.pcName}>{procate.pcName}</td>
+                                    <td value={procate.pcImg}>{procate.pcImg}</td>
+                                </tr>
+
+                            );
+                        })}
+                    </tbody>
                 </table>
-            </form>
-        </div>
 
+
+                <div className="d-flex justify-content-end">
+                    <Link to="/procate/create" className="btn btn-primary">상품추가</Link>
+                    <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(procateDelete)}>상품삭제</button>
+
+                </div>
+            </form>
+        </main>
     );
 }
 
