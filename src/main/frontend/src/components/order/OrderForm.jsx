@@ -11,7 +11,8 @@ function OrderForm(props) {
     const deliveryPrice = 1000;
     const [user, setUser] = useState({});
     const [amount, setAmount] = useState({});
-    const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm();
+    const [totalPrice,setTotalPrice]=useState(0);
+    const { register, watch, handleSubmit, formState: { errors }, setValue,getValues } = useForm();
     let olId = ocId;
     useEffect(async () => {
         getUser(setUser);
@@ -54,6 +55,8 @@ function OrderForm(props) {
                     amount={amount}
                     setAmount={setAmount}
                     deliveryPrice={deliveryPrice}
+                    totalPrice={totalPrice}
+                    getValues={getValues}
                 />
                 <OrderPayment
                     olId={olId}
@@ -62,6 +65,7 @@ function OrderForm(props) {
                     amount={amount}
                     setAmount={setAmount}
                     deliveryPrice={deliveryPrice}
+                    setTotalPrice={setTotalPrice}
                 ></OrderPayment>
 
 

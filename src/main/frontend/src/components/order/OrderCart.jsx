@@ -11,7 +11,8 @@ function OrderCart(props) {
     const setAmount = props.setAmount;
     const deliveryPrice = props.deliveryPrice;
     const amount = props.amount;
-
+    const totalPrice=props.totalPrice;
+    const getValues=props.getValues;
     const watchUseCoupon = watch("useCoupon");
     const watchUsePoint = watch("usePoint", 0);
     const [cartList, setCartList] = useState([{}]);
@@ -23,16 +24,18 @@ function OrderCart(props) {
             })
     }, []);
     useEffect(() => {
-        let newAmount = amount;
-        newAmount.value = amount.value * 1 - watchUsePoint * 1;
-        setAmount(newAmount);
-        if (watchUsePoint > user.userPoint) {
+
+        if ( getValues("usePoint") > user.userPoint) {
             setValue("usePoint", user.userPoint);
         }
-        if (watchUsePoint < 0) {
+        if ( getValues("usePoint") < 0) {
             setValue("usePoint", 0);
         }
+        let newAmount = amount;
+        newAmount.value = totalPrice * 1 - getValues("usePoint") * 1;
+        setAmount(newAmount);
     }, [watchUsePoint])
+    
     return (
         <div className="d-flex flex-column mt-5 border rounded p-4">
             <h3 className="rounded p-3 mb-4">주문 목록</h3>

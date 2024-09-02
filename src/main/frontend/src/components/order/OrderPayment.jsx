@@ -13,8 +13,9 @@ function OrderPayment(props) {
     const amount = props.amount;
     const setAmount = props.setAmount;
     const deliveryPrice = props.deliveryPrice;
+    const setTotalPrice=props.setTotalPrice;
     const [widgets, setWidgets] = useState(null);
-
+    
     const [user, setUser] = useState({});
     const [productName, setProductName] = useState({});
 
@@ -28,6 +29,7 @@ function OrderPayment(props) {
             const getPrice = await axios.get(`/orderCart/totalPrice?ocId=${olId}`);
             const getProduct = await axios.get(`/orderCart/getProductName?ocId=${olId}`);
             setAmount({ currency: "KRW", value: getPrice.data + deliveryPrice });
+            setTotalPrice(getPrice.data + deliveryPrice);
             setProductName(getProduct.data + "");
             setWidgets(widgets);
         }
