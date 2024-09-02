@@ -7,10 +7,11 @@ import { getCookie } from '../../js/cookieJs';
 import SubsNote from './SubsNote';
 import SubsAgree from './SubsAgree';
 import SubsOrder from './SubsOrder';
+import SubsPayment from './SubsPayMent';
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
-function SubsPayMent() {
-    const soId = generateRandomString();
+function SubsPayForm() {
+    const soId = /* crypto.randomUUID() */ 'soid';
     const location = useLocation();
     const { soNum, siNum } = useParams(); // useParams를 비구조화 할당으로 사용
     const { register, handleSubmit } = useForm();
@@ -56,18 +57,6 @@ function SubsPayMent() {
             })
     }, [userId])
 
-    function creatVirtualAccount() {
-        axios.post('/subscribe/virtualAccountCreat')
-            .then(response => {
-                // 서버 응답을 처리하고 상태를 업데이트하거나 사용자에게 알림
-                console.log(response.data);
-                alert("가상계좌가 생성되었습니다: " + JSON.stringify(response.data));
-            })
-            .catch(error => {
-                console.error('Error creating virtual account:', error);
-                alert("가상계좌 생성 중 오류가 발생했습니다: " + error.message);
-            });
-    }
     const handleClick = () => {
         setIsVisible(!isVisible);
     }
@@ -89,8 +78,8 @@ function SubsPayMent() {
     }
     return (
         <main className='container'>
+            <form onSubmit={handleSubmit(onSubmit)} className='formBox'>
             <div className='d-flex flex-column justify-content-center align-items-center'>
-                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-5 border p-4 rounded col-4">
                         <div>
                             <div className={`subsDeli ${selectClass}`}>
@@ -148,11 +137,11 @@ function SubsPayMent() {
                         </div>
                     </div>
                     <div className="mt-5 col-4 border p-4 rounded">
-                        <SubsPayMent
+                        <SubsPayment
                             soId={soId}
                             handleSubmit={handleSubmit}
                             onSubmit={onSubmit}
-                        ></SubsPayMent>
+                        ></SubsPayment>
                     </div>
                     <div className="mt-5 col-4 border p-4 rounded">
                         <div className="container">
@@ -164,6 +153,7 @@ function SubsPayMent() {
                                             <label htmlFor="agreeCheck">구매자의 정보수집ㆍ이용에 동의(필수)</label>
                                         </div>
                                         <div>
+                                            
                                             <button className='btn btn-secondary' onClick={handleClick}>보기</button>
                                         </div>
                                     </div>
@@ -177,10 +167,11 @@ function SubsPayMent() {
                     <div className="mt-5 col-4 rounded">
                         <button className='otherButton btn btn-primary'>구독 신청하기</button>
                     </div>
-                </form>
+                
             </div>
+            </form>
         </main>
     );
 }
 
-export default SubsPayMent;
+export default SubsPayForm;

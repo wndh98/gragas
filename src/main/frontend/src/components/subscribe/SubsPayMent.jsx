@@ -5,7 +5,7 @@ const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 
 function SubsPayment(props) {
-    const olId = props.olId;
+    const soId = props.soId;
     const handleSubmit = props.handleSubmit;
     const onSubmit = props.onSubmit;
     const [ready, setReady] = useState(false);
@@ -82,7 +82,7 @@ function SubsPayment(props) {
                                         if (isSuccess == 0) { return; }
                                         // onSubmit 이후에 결제 요청을 보냅니다.
                                         await widgets?.requestPayment({
-                                            orderId: olId,
+                                            orderId: soId,
                                             orderName: "토스 티셔츠 외 2건",
                                             customerName: "김토스",
                                             customerEmail: "customer123@gmail.com",

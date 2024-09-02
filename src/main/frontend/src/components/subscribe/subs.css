@@ -354,3 +354,7 @@ label[for="agreeCheck"] {
 .unselected-button img {
     filter: grayscale(100%) brightness(80%);
 }
+
+.formBox{
+    width: 100%;
+}
