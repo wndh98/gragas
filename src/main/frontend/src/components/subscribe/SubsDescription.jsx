@@ -7,8 +7,10 @@ import { getCookie } from '../../js/cookieJs';
 
 function SubsDescription() {
     const { siNum } = useParams();
-    const [item, setItem] = useState({});
+    const [items, setItems] = useState({});
     const [siTitles, setTitles] = useState([]);
+    const [selectedIndex, setSelectedIndex] = useState(null);
+    const [basicMap, setBasicMap] = useState(['basic', 'yakchungju', 'soju']);
     const navigate = useNavigate();
     const userId = getCookie("isLogin");
 
@@ -26,7 +28,7 @@ function SubsDescription() {
     useEffect(() => {
         axios.get(`/subscribe/description/${siNum}`)
             .then(response => {
-                setItem(response.data);
+                setItems(response.data);
                 axios.get('/subscribe/itemList')
                     .then(response => {
                         setTitles(response.data);
@@ -39,19 +41,54 @@ function SubsDescription() {
                 console.error('Error fetching the item data:', error);
             });
     }, [siNum]);
+    const handleLoad = (index) => {
+        setBasicMap(prevState => {
+            let newBasicValue;
+            if (index === 0) {
+                newBasicValue = 'basic';
+            } else if (index === 1) {
+                newBasicValue = 'yakchungju';
+            } else {
+                newBasicValue = 'soju';
+            }
 
-    if (!item || siTitles.length === 0) {
-        return <p>Loading...</p>; // 데이터 로딩 중 메시지 표시
+            return {
+                ...prevState,
+                [index]: newBasicValue
+            };
+        });
     }
-
+    if (!items || siTitles.length === 0) {
+        return (
+            <div class="spinContainer" style={{}}>
+                <div class="spinner"></div>
+            </div>
+        )
+    }
+    const handleButtonClick = (index) => {
+        setSelectedIndex(index);
+        descriptionCategory(siTitles[index].siNum);
+    };
     return (
         <div>
             <div className='subscribe_header'>
                 <div className='container button_wrap'>
                     <div className='button_flex'>
-                        {siTitles.map(({ siNum, siTitle }) => (
-                            <button key={siNum} onClick={() => descriptionCategory(siNum)}>
-                                {siTitle} 구독
+                    {siTitles.map((item, index) => (
+                            <button 
+                                key={item.siNum} 
+                                onClick={() => handleButtonClick(index)} 
+                                className={selectedIndex == index ? 'selected-button' : 'unselected-button'}>
+                                <img 
+                                    onLoad={() => handleLoad(index)}
+                                    src={`https://www.sooldamhwa.com/_next/image?url=%2Fimages%2Fmodules%2Fsubscribe%2Ficon_${basicMap[index]}_damhwabox.png&w=32&q=75`} 
+                                    alt="" 
+                                    style={{ 
+                                        width: '18px', 
+                                        height: '18px',
+                                    }} 
+                                />
+                                {item.siTitle} 구독
                             </button>
                         ))}
                     </div>
@@ -59,21 +96,26 @@ function SubsDescription() {
             </div>
             <div className="container subs_box">
                 <div className='col main_div1'>
-                    <img className='subs_img' src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" />
+                    <img className='subs_img' src={`http://localhost:8080/upload/subscribe/${items.siNum}/${items.siMainImg}`} alt="Main" style={{ width: '464px', height: '464px' }} />
                 </div>
                 <div className='col main_div2'>
                     <div>
-                        <div className='siSubject'>{item.siSubject}</div>
-                        <div className='siPrice'>월 {item.siPrice}원</div>
-                        <div className="mediumMarginBox"></div>
-                        <div className='siContent'>{item.siContent}</div>
+                        <div className="smallMarginBox"/>
+                        <div className='siSubject'>{items.siSubject}</div>
+                        <div className='siPrice'>월 {items.siPrice}원</div>
+                        <div className="smallMarginBox">
+                            <div className='smallBox' style={{justifyContent : 'flex-start'}}>
+                                <p>단품 구매보다 저렴해요!</p>
+                            </div>
+                        </div>
+                        <div className='siContent fs-5'>{items.siContent}</div>
                         <div className="largeMarginBox"></div>
-                        <div className='smallFont'>결제일 {item.siPayDate}</div>
+                        <div className='smallFont'>결제일 {items.siPayDate}</div>
                         <div className="smallMarginBox"></div>
-                        <div className='smallFont'>배송일 {item.siArrive}</div>
+                        <div className='smallFont'>배송일 {items.siArrive}</div>
                     </div>
                     <div className='subscribeButton'>
-                        <button type='button' onClick={() => subscribeOrder(item.siNum)}><strong>구독 신청하기</strong></button>
+                        <button type='button' onClick={() => subscribeOrder(items.siNum)}><strong>구독 신청하기</strong></button>
                     </div>
                 </div>
             </div>
@@ -86,7 +128,7 @@ function SubsDescription() {
                 </div>
                 <div className="desMain container">
                     <div className="siDescription">
-                        <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siDesImg}`} alt="Des" className='des_img' />
+                        <img src={`http://localhost:8080/upload/subscribe/${items.siNum}/${items.siDesImg}`} alt="Des" className='des_img' />
                     </div>
                 </div>
             </div>
