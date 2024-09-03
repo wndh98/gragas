@@ -34,9 +34,9 @@ public class ProductController {
         return list;
     }
 
-    @GetMapping("/product/list/{pcNum}")
-    public List<ProductItem> productListPcNum(@PathVariable("pcNum") int pcNum) {
-        List<ProductItem> list = ps.productListPcNum(pcNum);
+    @GetMapping("/product/listPcNum/{pcNum}")
+    public List<ProductItem> productListPcNum(@PathVariable("pcNum") int pcNum,@RequestParam(value = "orderType",required = false)String orderType) {
+        List<ProductItem> list = ps.productListPcNum(pcNum,orderType);
         return list;
     }
 
@@ -66,8 +66,6 @@ public class ProductController {
         ProductOption proop = new ProductOption();
         int nextPiNum = ps.nextPiNum();
         proop.setPiNum(nextPiNum);
-        proop.setPoPrice(product.getPoPrice());
-        proop.setPoSale(product.getPoSale());
         proop.setPoCnt(product.getPoCnt());
         proop.setPoName(product.getPiName());
         int result = ps.productInsert(product);
@@ -291,7 +289,8 @@ public class ProductController {
         List<ProductOption> list = os.proopListPi(piNum);
         return list;
     }
-    @GetMapping("/option/view/{poNum}")
+
+    @GetMapping("/option/viewPoNum/{poNum}")
     public ProductOption proopView(@PathVariable("poNum") int poNum) {
         ProductOption proopItem = os.proopCheck(poNum);
         return proopItem;

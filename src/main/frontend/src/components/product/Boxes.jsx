@@ -21,16 +21,16 @@ function Boxes(props) {
                         </div>
                         <div className='wrapper'>
                             <div className='spdla secn'>
-                                <span class="font subheadline-regular alxwnf">{product.poPrice}</span>
+                                <span class="font subheadline-regular alxwnf">{product.piPrice}</span>
                                 <div className='spdla one'>
                                     <div className='spdla two'>
                                         <div className='discount-area'>
-                                            <div className='special-price-percent'><span class="font body-bold">{salePercent(product.poPrice, product.poSale)}%</span></div>
+                                            <div className='special-price-percent'><span class="font body-bold">{salePercent(product.piPrice, product.piSale)}%</span></div>
                                             <div className='discount-price'>
                                                 <div color="black" text-decoration="none" letter-spacing="0.6px" class="sc-4bfd0cf4-0 eDMdoA"><div class="font body-bold"></div></div>
                                                 <div class="won">
                                                     <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH">
-                                                        <div class="font subheadline-regular">원</div>
+                                                        <div class="font subheadline-regular">{product.piSale}원</div>
                                                     </div>
                                                 </div>
                                             </div>

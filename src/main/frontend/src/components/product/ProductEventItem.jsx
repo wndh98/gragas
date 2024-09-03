@@ -1,11 +1,10 @@
 import React from "react";
 import './App.css';
-import InfoList from "./InfoList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
-
+import { salePercent } from "../../js/order";
+import ProductItemSide from "./ProductItemSide";
 
 const information = [
     {
@@ -34,7 +33,8 @@ function ProductEventItem() {
 
     const { eiNum, piNum } = useParams();
     const [product, setProducts] = useState([]);
-    console.log(piNum)
+    const [option, setOptions] = useState([]);
+
 
     useEffect(() => {
         axios.get("/pevent/list/" + eiNum + "/" + piNum)
@@ -43,26 +43,23 @@ function ProductEventItem() {
                 setProducts(response.data);
             })
             .catch(error => console.error("Fetching error:", error))
-    }, []);
 
-
-
-    useEffect(() => {
         axios.get("/product/view/" + piNum)
             .then(response => {
 
                 setProducts(response.data);
             })
             .catch(error => console.error("Fetching error:", error))
+
+        axios.get("/option/view/" + piNum)
+            .then(response => {
+
+                setOptions(response.data); // 가져온 상품정보를 상태에 저장
+            })
+            .catch(error => console.error("Fetching error:", error))
     }, []);
 
 
-
-    function price() {
-        let prices = 0;
-        prices = (product.poPrice) * (product.poSale)
-        return prices;
-    }
 
     return (
 
@@ -90,11 +87,11 @@ function ProductEventItem() {
                                                 <div color="black" text-decoration="none" class="sc-4bfd0cf4-0 dnOYVH"><div class=" body-regular">판매가격:</div>
                                                 </div>
                                             </div>
-                                            <span class="originPrice">{product.poPrice}원</span>
+                                            <span class="originPrice">{option.poPrice}원</span>
                                             <div className="direct-purchase-box">
                                                 <div className="flex">
-                                                    <div class="font title1-bold-bol">{product.poSale}%</div>
-                                                    <div class="title1-bold">{price()}원</div>
+                                                    <div class="font title1-bold-bol">{salePercent(option.poPrice, option.poSale)}%</div>
+                                                    <div class="title1-bold">{option.poSale}원</div>
                                                 </div>
                                                 <div className="reviews">
                                                     <div className="layout">
@@ -123,7 +120,11 @@ function ProductEventItem() {
                                     {information.map((list) => {
 
                                         return (
-                                            <InfoList info={list.info} mation={list.mation} />
+                                            <div class="jsx-3608760935 flex">
+                                                <div class="jsx-3608760935 label">{list.info}</div>
+                                                <div class="jsx-3608760935 content">{list.mation}</div>
+                                            </div>
+
                                         );
                                     })}
                                 </div>
@@ -136,49 +137,7 @@ function ProductEventItem() {
                         </p>
                     </div>
                 </div>
-                <div className="right-side position-sticky top-0 border border-secondary-subtle rounded">
-                    <div className="label">
-                        옵션
-                    </div>
-                    <div className="select-wrapper">
-                        <select class="form-select">
-                            <option selected></option>
-                            <option value="1">어떤 옵션을 원하시나요?</option>
-                            <option value={product.eiNum}>{product.poName}</option>
-
-
-                        </select>
-                    </div>
-                    <div className="label">
-                        수량
-                    </div>
-                    <div className="count">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button" id="button-minus">-</button>
-                            </div>
-                            <input type="text" class="form-control quantity-input" id="quantity" value="1" readonly />
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="label">
-                        총 상품가격
-                    </div>
-                    <div className="select-wrapper position-sticky top-0 border border-secondary-subtle" style={{ height: "40px" }}>
-                        {price()}원
-                    </div>
-                    <div className="buttons">
-                        <div className="button cart-button-gift-button">
-                            <button type="button" class="btn btn-outline-secondary">장바구니</button><button type="button" class="btn btn-outline-secondary">선물하기</button>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" type="button">바로 구매하기</button>
-                        </div>
-                    </div>
-
-                </div>
+                <ProductItemSide piNum={piNum}></ProductItemSide>
             </div>
         </div >
     );

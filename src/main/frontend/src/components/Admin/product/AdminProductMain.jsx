@@ -102,8 +102,8 @@ function AdminProductMain(props) {
                                     <td value={product.piAlcohol}>{product.piAlcohol}</td>
                                     <td value={product.piSweet}>{product.piSweet}</td>
                                     <td value={product.piCarbonated}>{product.piCarbonated}</td>
-                                    <td value={product.poPrice}>{product.poPrice}</td>
-                                    <td value={product.poSale}>{product.poSale}</td>
+                                    <td value={product.piPrice}>{product.piPrice}</td>
+                                    <td value={product.piSale}>{product.piSale}</td>
                                     <td value={product.poCnt}>{product.poCnt}</td>
                                     <td value={product.piContent}>{product.piContent}</td>
                                     <td value={product.piImg}>{product.piImg}</td>

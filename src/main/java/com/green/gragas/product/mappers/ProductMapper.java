@@ -2,6 +2,7 @@ package com.green.gragas.product.mappers;
 
 import com.green.gragas.product.dto.ProductEvent;
 import com.green.gragas.product.dto.ProductItem;
+import com.green.gragas.product.dto.SearchDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -38,5 +39,5 @@ public interface ProductMapper {
 
     List<ProductEvent> peventListPi(int piNum);
 
-    List<ProductItem> productListPcNum(int pcNum);
+    List<ProductItem> productListPcNum(SearchDTO pcNum);
 }

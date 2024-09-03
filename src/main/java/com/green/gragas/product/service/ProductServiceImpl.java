@@ -3,6 +3,7 @@ package com.green.gragas.product.service;
 import com.green.gragas.board.dto.BoardFile;
 import com.green.gragas.product.dto.ProductEvent;
 import com.green.gragas.product.dto.ProductItem;
+import com.green.gragas.product.dto.SearchDTO;
 import com.green.gragas.product.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,8 +30,21 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductItem> productListPcNum(int pcNum) {
-        return pm.productListPcNum(pcNum);
+    public List<ProductItem> productListPcNum(int pcNum,String orderType) {
+        SearchDTO searchDTO = new SearchDTO(1,1,pcNum);
+        if(orderType!=null) {
+            if (orderType.equals("NUM_DESC")) {
+                searchDTO.setOrderType("PI_NUM");
+                searchDTO.setOrderAsc("DESC");
+            } else if (orderType.equals("PRICE_DESC")) {
+                searchDTO.setOrderType("PI_PRICE");
+                searchDTO.setOrderAsc("DESC");
+            } else if (orderType.equals("PRICE_ASC")) {
+                searchDTO.setOrderType("PI_PRICE");
+                searchDTO.setOrderAsc("ASC");
+            }
+        }
+        return pm.productListPcNum(searchDTO);
     }
 
 
