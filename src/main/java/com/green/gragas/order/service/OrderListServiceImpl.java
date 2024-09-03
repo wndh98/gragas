@@ -30,16 +30,10 @@ public class OrderListServiceImpl implements OrderListService {
     public int preOrderListInsert(OrderList orderList) {
         int result = 0;
         List<OrderCart> orderCarts = ocm.selectOrderCartList(orderList.getOlId());
-//        int totalPrice = orderList.getOlDeli();
         String olId = orderList.getOlId();
         olm.deletePreOrderList(olId);
         odm.deletePreOrderDetail(olId);
-//
-//        for(OrderCart orderCart : orderCarts){
-//            int price = orderCart.getPrice();
-//            totalPrice+=price;
-//        }
-//        orderList.setOlPay(totalPrice);
+        orderList.setOlStatus("READY");
         result = olm.preOrderListInsert(orderList);
         if (result == 0) return result;
 

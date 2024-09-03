@@ -7,14 +7,14 @@
     <insert id="preOrderDetailInsert" parameterType="orderDetail">
         insert into PRE_ORDER_DETAIL
         (OL_ID,PI_NUM,PI_NAME,PO_NUM,PO_NAME,PO_PRICE,
-        PO_SALE,OD_CNT,OD_PRICE,OD_POINT,OD_STATUS)
-        values(#{olId},#{piNum},#{piName},#{poNum},#{poName},#{poPrice},#{poSale},#{odCnt},#{odPrice},#{odPoint},#{odStatus})
+        PO_SALE,OD_CNT,OD_PRICE,OD_POINT)
+        values(#{olId},#{piNum},#{piName},#{poNum},#{poName},#{poPrice},#{poSale},#{odCnt},#{odPrice},#{odPoint})
     </insert>
     <insert id="orderDetailInsert" parameterType="orderDetail">
         insert into ORDER_DETAIL
         (OL_ID,PI_NUM,PI_NAME,PO_NUM,PO_NAME,PO_PRICE,
-        PO_SALE,OD_CNT,OD_PRICE,OD_POINT,OD_STATUS)
-        values(#{olId},#{piNum},#{piName},#{poNum},#{poName},#{poPrice},#{poSale},#{odCnt},#{odPrice},#{odPoint},#{odStatus})
+        PO_SALE,OD_CNT,OD_PRICE,OD_POINT)
+        values(#{olId},#{piNum},#{piName},#{poNum},#{poName},#{poPrice},#{poSale},#{odCnt},#{odPrice},#{odPoint})
     </insert>
     <select id="preOrderDetailSelects" resultType="orderDetail" parameterType="string">
         select * from PRE_ORDER_DETAIL where OL_ID=#{olId}

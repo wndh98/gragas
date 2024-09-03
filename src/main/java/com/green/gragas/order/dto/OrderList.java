@@ -24,6 +24,7 @@ public class OrderList {
     private String olAddressDetail;
     private String olMemo;
     private String olUseCoupon;
+    private String olStatus;
 
 
 
