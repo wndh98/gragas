@@ -61,12 +61,10 @@ public class OrderListServiceImpl implements OrderListService {
         MemberPoint memberPoint=new MemberPoint();
         memberPoint.setUserId(orderListSelect.getUserId());
         if(orderListSelect.getOlPoint()>0){
-            // todo 포인트 사용추가
             memberPoint.setMpPoint(orderListSelect.getOlPoint()*-1);
             memberPoint.setMpSubject("상품구매 포인트 사용");
             mps.usePoint(memberPoint);
         }
-        // todo 포인트 적립 추가
         memberPoint.setMpPoint(orderListSelect.getOlPay()/10);
         memberPoint.setMpSubject("상품구매 포인트 적립");
         mps.usePoint(memberPoint);
