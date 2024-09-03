@@ -40,7 +40,6 @@ function EmailLogin() {
     const user={userId:userId,userPw:userPw};
     
     axios.post("/login",user).then(response=>{
-      console.log(response);
       if(response.data > 0) {
         alert("로그인 성공");
         setCookie("isLogin",userId,1);

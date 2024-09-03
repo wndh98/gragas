@@ -23,8 +23,8 @@ function UserInfoUpdate() {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors }
-  } = useForm();
+    formState: { errors, isDirty, isValid }
+  } = useForm({ mode: 'onChange' });
 
   const userPw = watch('userPw');
 
@@ -55,11 +55,11 @@ function UserInfoUpdate() {
             <input type="hidden"{...register("userId")} value={userId} />
             <div className="d-flex justify-content-between text-secondary">
               <div>아이디</div>
-              <div>{user.userId}</div>
+              <div className="user_update_text">{user.userId}</div>
             </div>
             <div className="d-flex justify-content-between text-secondary">
               <div>비밀번호</div>
-              <div>
+              <div className="user_update_input">
                 <input
                   className="form-control"
                   type="password"
@@ -80,12 +80,12 @@ function UserInfoUpdate() {
                     }
                   })}
                 />
-                {errors.userPw && <p>{errors.userPw.message}</p>}
+                {errors.userPw && <p className="error_message">{errors.userPw.message}</p>}
               </div>
             </div>
             <div className="d-flex justify-content-between text-secondary">
               <div>비밀번호 확인</div>
-              <div>
+              <div className="user_update_input">
                 <input
                   className="form-control"
                   type="password"
@@ -108,28 +108,28 @@ function UserInfoUpdate() {
                     }
                   })}
                 />
-                {errors.userPw2 && <p>{errors.userPw2.message}</p>}
+                {errors.userPw2 && <p className="error_message">{errors.userPw2.message}</p>}
               </div>
             </div>
             <div className="d-flex justify-content-between text-secondary">
               <div>이름</div>
-              <div>
+              <div className="user_update_input">
                 <input
                   className="form-control"
                   type="text"
                   placeholder="이름을 입력해 주세요"
                   {...register('userName', { required: '이름은 필수 입력 항목입니다.' })}
                 />
-                {errors.userName && <p>{errors.userName.message}</p>}
+                {errors.userName && <p className="error_message">{errors.userName.message}</p>}
               </div>
             </div>
             <div className="d-flex justify-content-between text-secondary">
               <div>생일</div>
-              <div>{user.userBirth}</div>
+              <div className="user_update_text">{user.userBirth}</div>
             </div>
             <div className="d-flex justify-content-between text-secondary">
               <div>휴대폰번호</div>
-              <div>
+              <div className="user_update_input">
                 <input
                   className="form-control"
                   type="tel"
@@ -138,7 +138,7 @@ function UserInfoUpdate() {
                   title='010-xxxx-xxxx 형식'
                   {...register('userPhone', { required: '휴대폰 번호는 필수 입력 항목입니다.' })}
                 />
-                {errors.userPhone && <p>{errors.userPhone.message}</p>}
+                {errors.userPhone && <p className="error_message">{errors.userPhone.message}</p>}
               </div>
             </div>
             <div className="user_info_update_btn_box text-secondary">

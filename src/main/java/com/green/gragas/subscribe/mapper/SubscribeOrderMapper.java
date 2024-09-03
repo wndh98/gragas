@@ -11,4 +11,5 @@ public interface SubscribeOrderMapper {
     int insertOrderInfo(SubscribeOrder subscribeOrder);
     int soSelectNum(String userId);
     List<SubscribeOrder> soSelectList(int soNum);
+    int orderSelect(SubscribeOrder subscribeOrder);
 }

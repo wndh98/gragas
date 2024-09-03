@@ -16,4 +16,5 @@ public class SubscribeOrderServiceImpl implements SubscribeOrderService{
     }
     public int soSelectNum(String userId) {return som.soSelectNum(userId);}
     public List<SubscribeOrder> soSelectList(int soNum) {return som.soSelectList(soNum);}
+    public int orderSelect(SubscribeOrder subscribeOrder) {return som.orderSelect(subscribeOrder);}
 }

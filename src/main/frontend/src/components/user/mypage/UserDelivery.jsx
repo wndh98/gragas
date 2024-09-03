@@ -24,10 +24,13 @@ function UserDelivery() {
       <hr />
       <div className="container userSubAddr">
         <div className="text-center d-flex justify-content-between">
-          <div>현재 구독중인 배송지</div>
-          <div><button className="move_sub">구독하러가기</button></div>
+          <div className="text-secondary fs-5">현재 구독중인 배송지</div>
+          <div><a className="userAddrBtn text-primary" href="/subscribe/itemList">구독하러가기</a></div>
         </div>
-        <div className="text-center">구독을 안하고 계세요</div>
+        <div className="text-center">
+          <img className="user_sub_addr_img" src="/images/user/mypage/damhwabox.png" alt="" />
+          <div className="text-secondary">구독을 안하고 계세요</div>
+        </div>
       </div>
       <div className="userAddr container">
         <div className="userAddrHeader">그 외 배송지 목록</div>
