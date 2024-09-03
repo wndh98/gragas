@@ -68,10 +68,10 @@ function JoinForm() {
   };
 
   return (
-    <div className='join_wrap container'>
+    <div className='input_container container'>
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-form-box">
+        <div className="input-form-box id_input_box">
           <input
             className="form-control"
             type="email"
@@ -79,7 +79,7 @@ function JoinForm() {
             {...register('userId', { required: '이메일을 입력해주세요.' })}
           />
           {errors.userId && <p>{errors.userId.message}</p>}
-          <button type='button' onClick={checkDuplicate}>중복체크</button>
+          <button className='id_check_btn' type='button' onClick={checkDuplicate}>중복체크</button>
         </div>
         <div className="input-form-box">
           <input

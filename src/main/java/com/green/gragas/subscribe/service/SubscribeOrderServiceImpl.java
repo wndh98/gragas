@@ -11,7 +11,22 @@ import java.util.List;
 public class SubscribeOrderServiceImpl implements SubscribeOrderService{
     @Autowired
     private SubscribeOrderMapper som;
-    public int insertOrderInfo(SubscribeOrder subscribeOrder) {return som.insertOrderInfo(subscribeOrder); }
-    public int soSelectNum(String userId) {return som.soSelectNum(userId);}
+    public int insertPreOrderInfo(SubscribeOrder subscribeOrder) {
+        return som.insertPreOrderInfo(subscribeOrder);
+    }
+    public String soSelectId(String userId) {return som.soSelectId(userId);}
     public List<SubscribeOrder> soSelectList(int soNum) {return som.soSelectList(soNum);}
+    @Override
+    public int insertOrderInfo(SubscribeOrder subscribeOrder) {
+        int result = 0;
+        System.out.println(subscribeOrder.getSoId());
+        SubscribeOrder subsOrderSelect = som.subsOrderSelectId(subscribeOrder.getSoId());
+        System.out.println(subsOrderSelect.getSoId());
+        result = som.insertOrderInfo(subsOrderSelect);
+        if(result==0) return result;
+
+        som.subsPreOrderDelete(subscribeOrder.getSoId());
+        return 1;
+    }
+    public int orderSelect(SubscribeOrder subscribeOrder) {return som.orderSelect(subscribeOrder);}
 }

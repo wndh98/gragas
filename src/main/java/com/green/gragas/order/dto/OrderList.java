@@ -23,6 +23,8 @@ public class OrderList {
     private String olAddress;
     private String olAddressDetail;
     private String olMemo;
+    private String olUseCoupon;
+    private String olStatus;
 
 
 

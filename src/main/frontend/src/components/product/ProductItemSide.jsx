@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { getOcId, isOcId, setOcId } from "../../js/orderCart/cart";
 import { getUserId, isLogin } from "../../js/userInfo";
 import { useNavigate } from "react-router-dom";
+import { numberFormat } from "../../js/order";
 
 function ProductItemSide(props) {
     const navi = useNavigate();
@@ -32,9 +33,28 @@ function ProductItemSide(props) {
     setValue("piNum", piNum);
 
     function directBuy(data) {
-        console.log(data);
+        if (!isLogin()) {
+            alert("로그인후 이용가능합니다.");
+            navi("/loginForm");
+            return false;
+        }
+        data.ocId = crypto.randomUUID();
+        axios.post("/orderCart/select", data).then(response => {
+            console.log(response);
+            if (response.data != "") {
+                alert("이미 추가한 물건입니다.");
+                return false;
+            } else {
+                axios.post("/orderCart/saveCart", data).then(result => {
+                    if (result.data == 1) {
+                        navi(`/order/orderForm/${data.ocId}`);
+                    }
+                });
+            }
+        });
     }
     function addCart(data) {
+        console.log(data);
         if (!isLogin()) {
             alert("로그인후 이용가능합니다.");
             navi("/loginForm")
@@ -46,7 +66,7 @@ function ProductItemSide(props) {
             if (response.data != "") {
                 alert("이미 추가한 물건입니다.");
                 return false;
-            }else{
+            } else {
                 axios.post("/orderCart/saveCart", data).then(result => {
                     if (result.data == 1) {
                         alert("장바구니에 물건을 담았습니다.");
@@ -80,7 +100,7 @@ function ProductItemSide(props) {
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button" id="button-minus">-</button>
                         </div>
-                        <input type="text" class="form-control quantity-input" id="quantity" value="1" readonly {...register("poCnt")} />
+                        <input type="text" class="form-control quantity-input" id="quantity" value="1" readonly {...register("ocCnt")} />
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="button-plus">+</button>
                         </div>
@@ -90,7 +110,7 @@ function ProductItemSide(props) {
                     총 상품가격
                 </div>
                 <div className="select-wrapper position-sticky top-0 border border-secondary-subtle" style={{ height: "40px" }}>
-                    {price}
+                    {numberFormat(price)}원
                 </div>
                 <div className="buttons">
                     <div className="button cart-button-gift-button">

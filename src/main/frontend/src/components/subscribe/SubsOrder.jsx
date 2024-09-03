@@ -55,7 +55,10 @@ function SubsOrder(props) {
                 <div className="container">
                     <div className='d-flex flex-column justify-content-center align-items-center'>
                         <div className='border p-4 rounded mt-4'>
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <div>
+                                <button className='otherButton btn btn-outline-secondary'>배송지 추가하기</button>
+                            </div>
+                            {/* <form onSubmit={handleSubmit(onSubmit)}>
                                 <input type="hidden" {...register("siNum")} value={siNum} />
                                 <input type="hidden" {...register("userId")} value={userId} />
                                 <div className='input-form-box'><label htmlFor="soName">수령인</label>
@@ -87,7 +90,7 @@ function SubsOrder(props) {
                                         {...register("mdAddr", { required: { value: true, message: "주소를 입력해 주세요" } })} />
                                     <br />
                                     <input
-                                        id='mAddrDe'
+                                        id='mdAddrDetail'
                                         className='form-control'
                                         placeholder="상세주소를 입력해 주세요"
                                         {...register("mdAddrDetail", { required: { value: true, message: "상세주소를 입력해 주세요" } })} />
@@ -103,8 +106,8 @@ function SubsOrder(props) {
                                         <option>파손의 위험이 있는 상품입니다. 배송시 주의해주세요.</option>
                                     </select>
                                 </div>
-                                <button className='otherButton btn btn-outline-secondary' type="submit" value={"배송지 저장하기"}>배송지 저장하기</button>
-                            </form>
+                                <button className='otherButton btn btn-outline-secondary' type="submit" value={"배송지 저장하기"}>배송지 저장하기</button> */}
+                            {/* </form> */}
                         </div>
                     </div>
                 </div>

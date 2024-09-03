@@ -49,7 +49,7 @@ function UserInfo() {
         <div className="userInfo">
           <div className="d-flex justify-content-between">
             <div className="user_info_title">회원정보</div>
-            <Link className="user_info_update_text" to="/mypage/userInfo/update">수정</Link>
+            <Link className="user_info_update_text text-primary" to="/mypage/userInfo/update">수정</Link>
           </div>
           <hr />
           <div className="d-flex justify-content-between text-secondary">

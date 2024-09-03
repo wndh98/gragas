@@ -93,6 +93,7 @@
 
 .userSubAddr {
     width: 390px;
+    padding: 40px 0;
 }
 
 .userAddrHeader {
@@ -143,7 +144,6 @@
 }
 
 .userAddrBtn {
-    width: 58px;
     margin: 0;
     text-decoration: underline;
 }
@@ -207,4 +207,118 @@
 
 .user_info_update_text {
     text-decoration: underline;
+}
+
+.mypage_order_list_nav_content {
+    margin-right: 10px;
+    color: grey;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mypage_order_list_nav_content span, .mypage_order_list_nav_content div {
+    font-size: 13px;
+}
+
+.mypage_sub_btn {
+    border: 1px solid rgb(224,224,224);
+    border-radius: 5px;
+    margin: 8px;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 5px 15px;
+}
+
+.mypage_sub_btn2 {
+    border: 1px solid rgb(224,224,224);
+    border-radius: 5px;
+    margin: 20px;
+    padding: 5px 8px;
+    width: 300px;
+    color: rgba(61,61,61, 0.8);
+    font-weight: 700;
+}
+
+.mypage_sub_btn2:hover{
+    background-color: rgb(224,224,224);
+}
+
+.user_update_input {
+    width: 250px;
+}
+
+.error_message {
+    font-size: 13px;
+    text-align: right;
+}
+
+.user_update_text {
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.user_sub_addr_img {
+    width: 200px;
+    padding-top: 35px;
+}
+
+.item_details {
+    width: 300px;
+    margin: auto;
+}
+
+.subscribe_title {
+    margin: 5px 0 15px;
+}
+
+.subscribe_status {
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid white(61,61,61, 0.16);
+    border-radius: 5px;
+    line-height: 200%;
+    background-color: rgba(61,61,61, 0.16);
+    width: 80px;
+    height: 25px;
+}
+
+.order_list_table {
+    border-radius: 5px;
+    margin-top: 15px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px rgba(61,61,61, 0.16);
+}
+
+.order_list_table th {
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(61,61,61, 0.16);
+    border-right: 1px solid rgba(61,61,61, 0.16);
+}
+
+.order_list_table td {
+    color: rgba(61,61,61, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid rgba(61,61,61, 0.16);
+}
+
+.order_list_table td a {
+    color: rgba(61,61,61, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid rgba(61,61,61, 0.16);
+}
+
+.order_list_table td a:hover {
+    color: rgba(61,61,61, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid rgba(61,61,61, 0.16);
+    text-decoration: underline;
+    cursor: pointer;
 }

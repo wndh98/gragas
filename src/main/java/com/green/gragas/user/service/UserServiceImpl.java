@@ -61,4 +61,19 @@ public class UserServiceImpl implements UserService {
     public int userListDelete(List<String> userId) {
         return um.userListDelete(userId);
     }
+
+    @Override
+    public void couponUpdate() {
+        um.couponUpdate();
+    }
+
+    @Override
+    public void useCouponUpdate(String userId) {
+        um.useCouponUpdate(userId);
+    }
+
+    @Override
+    public void adminInsert(String userId, String userPw) {
+        um.adminInsert(userId, userPw);
+    }
 }

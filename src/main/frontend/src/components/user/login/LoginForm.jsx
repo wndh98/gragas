@@ -6,15 +6,15 @@ import axios from 'axios';
 import { getCookie,setCookie,deleteCookie } from '../../../js/cookieJs';
 function LoginForm() {
   return (
-    <div className="container d-flex justify-content-center">
-      <div>
+    <div className="input_container container d-flex justify-content-center">
+      <div className='input_content'>
         <div>
           <div className="loginTitle">
             반가워요!
             <img src="/images/user/login-greeting-icon.png" alt="" />
           </div>
         </div>
-        <ApiLogin/>
+        {/* api 로그인 자리 */}
         <EmailLogin/>
       </div>
     </div>
@@ -40,7 +40,6 @@ function EmailLogin() {
     const user={userId:userId,userPw:userPw};
     
     axios.post("/login",user).then(response=>{
-      console.log(response);
       if(response.data > 0) {
         alert("로그인 성공");
         setCookie("isLogin",userId,1);

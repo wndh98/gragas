@@ -5,7 +5,7 @@ function SubsNote() {
             <div className="otherTitle">
                 정기 결제 및 배송 안내
             </div>
-            <ul>
+            <ul className='text-secondary'>
                 <li>종합 구독박스는 정해진 배송일에 배송됩니다. <br />
                     * 택배사 일정 및 지역에 따라 1~2일의 지연이 발생할 수 있습니다.</li>
                 <li>정기 구독 상품은 새벽도착이 불가합니다.</li>
