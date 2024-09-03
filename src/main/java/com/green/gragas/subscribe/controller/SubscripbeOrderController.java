@@ -26,4 +26,11 @@ public class SubscripbeOrderController {
         int result = sos.insertOrderInfo(subscribeOrder);
         return result;
     }
+
+    @PostMapping("/subscribe/order")
+    public int orderSelect(@RequestBody SubscribeOrder subscribeOrder) {
+        int result = 0;
+        result = sos.orderSelect(subscribeOrder);
+        return result;
+    }
 }

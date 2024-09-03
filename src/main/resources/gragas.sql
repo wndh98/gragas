@@ -185,7 +185,7 @@ create table `SUBSCRIBE_ITEM` (
 	`SI_TITLE` VARCHAR(255) not null,
 	`SI_ARRIVE` DATETIME not null,
 	primary key (`SI_NUM`)
-);
+);s
 create table `SUBSCRIBE_ORDER` (
 	`SO_NUM` INT not null auto_increment,
 	`SI_NUM` INT not null,

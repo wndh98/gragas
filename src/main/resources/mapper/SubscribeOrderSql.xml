@@ -24,4 +24,8 @@
         INSERT INTO subscribe_order (SI_NUM, USER_ID, SO_NAME, SO_TEL, SO_ADDR,SO_ADDR_DE,SO_MEMO)
         VALUES (#{siNum}, #{userId}, #{soName}, #{soTel}, #{soAddr}, #{soAddrDe}, #{soMemo})
     </insert>
+    <select id="orderSelect" parameterType="subscribeOrder" resultType="integer">
+        select count(*) from subscribe_order where user_id = #{userId} and si_Num = #{siNum}
+    </select>
+
 </mapper>
