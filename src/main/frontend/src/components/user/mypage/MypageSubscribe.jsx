@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function MypageSubscribe() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([{}]);
   const [selectedItem, setSelectedItem] = useState({});
   const navigate = useNavigate();
 

@@ -1,4 +1,4 @@
-create database gragasdb;
+-- create database gragasdb;
 
 use gragasdb;
 
@@ -361,7 +361,8 @@ create table `ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N'
 );
 -- 주문상세
 create table `ORDER_DETAIL` (
@@ -410,7 +411,8 @@ create table `PRE_ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N'
 );
 -- 주문전 주문상세
 create table `PRE_ORDER_DETAIL` (
@@ -435,8 +437,8 @@ ALTER TABLE `PRE_ORDER_DETAIL` ADD CONSTRAINT `PRE_FK_OL_ID` foreign key(OL_ID) 
 ALTER TABLE `ORDER_LIST` ADD CONSTRAINT `FK_OL_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 alter table `ORDER_DETAIL` add constraint `FK_OD_OL_ID` foreign key(OL_ID) references ORDER_LIST(OL_ID);
---alter table `ORDER_DETAIL` add constraint `FK_OD_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
---alter table `ORDER_DETAIL` add constraint `FK_OD_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
+-- alter table `ORDER_DETAIL` add constraint `FK_OD_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
+-- alter table `ORDER_DETAIL` add constraint `FK_OD_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
 
 alter table `ORDER_CART` add constraint `FK_OC_USER_ID` foreign key(USER_ID) references user(USER_ID);
 alter table `ORDER_CART` add constraint `FK_OC_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
@@ -451,4 +453,4 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
---insert into MEMBER_COUPON values('Yellow',100,'테스트1');
+insert into MEMBER_COUPON values('Yellow','',100,'테스트1');
