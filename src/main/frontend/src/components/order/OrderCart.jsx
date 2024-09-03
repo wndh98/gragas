@@ -11,8 +11,10 @@ function OrderCart(props) {
     const setAmount = props.setAmount;
     const deliveryPrice = props.deliveryPrice;
     const amount = props.amount;
-    const totalPrice=props.totalPrice;
-    const getValues=props.getValues;
+    const totalPrice = props.totalPrice;
+    const getValues = props.getValues;
+    const setTotalCnt = props.setTotalCnt;
+    const productPrice = props.productPrice;
     const watchUseCoupon = watch("useCoupon");
     const watchUsePoint = watch("usePoint", 0);
     const [cartList, setCartList] = useState([{}]);
@@ -21,21 +23,42 @@ function OrderCart(props) {
         axios.get(`/orderCart/list?ocId=${ocId}`)
             .then(response => {
                 setCartList([...(response.data)]);
+                let totalCnt = 0;
+                response.data.map((cart) => {
+                    totalCnt += cart.ocCnt;
+                });
+                setTotalCnt(totalCnt);
             })
     }, []);
-    useEffect(() => {
-
-        if ( getValues("usePoint") > user.userPoint) {
+    function changePoint(e) {
+        setValue("usePoint", e.target.value);
+        if (e.target.value >= user.userPoint) {
             setValue("usePoint", user.userPoint);
         }
-        if ( getValues("usePoint") < 0) {
+        if (e.target.value <= 0) {
             setValue("usePoint", 0);
         }
-        let newAmount = amount;
-        newAmount.value = totalPrice * 1 - getValues("usePoint") * 1;
+        let newAmount = { ...amount };
+        newAmount.value = totalPrice * 1 - e.target.value * 1;
+        if (watchUseCoupon == true) {
+            newAmount.value -= (user.mcSail * 1);
+        }
         setAmount(newAmount);
-    }, [watchUsePoint])
-    
+        console.log(1);
+    }
+    function changeCoupon(e) {
+        let newAmount = { ...amount };
+        if (e.target.checked == true) {
+
+            newAmount.value -= (user.mcSail * 1);
+            setValue("useCoupon", true);
+
+        } else {
+            newAmount.value += (user.mcSail * 1);
+            setValue("useCoupon", false);
+        }
+        setAmount(newAmount);
+    }
     return (
         <div className="d-flex flex-column mt-5 border rounded p-4">
             <h3 className="rounded p-3 mb-4">주문 목록</h3>
@@ -63,7 +86,7 @@ function OrderCart(props) {
 
                             <strong className="fs-3">쿠폰사용</strong>
                             <div>
-                                <input type="checkbox" className="form-check-input" {...register("useCoupon")} />
+                                <input type="checkbox" className="form-check-input" {...register("useCoupon")} onChange={changeCoupon} />
                             </div>
                         </div>
                         <div className="d-flex justify-content-between p-3">
@@ -85,7 +108,7 @@ function OrderCart(props) {
                 </div>
                 <div className="d-flex justify-content-between p-3 align-items-center">
                     <span>사용할포인트</span>
-                    <span><input type="number" className="form-control" {...register("usePoint")} pattern="[0-9]" /></span>
+                    <span><input type="number" className="form-control" {...register("usePoint")} pattern="[0-9]" onChange={changePoint} /></span>
                 </div>
             </div>
             <div className="mt-5 p-3 d-flex flex-column border rounded">
@@ -95,7 +118,7 @@ function OrderCart(props) {
                 </div>
                 <div className="d-flex justify-content-between p-3">
                     <span>상품금액</span>
-                    <span>{numberFormat(amount.value)}원</span>
+                    <span>{numberFormat(productPrice)}원</span>
                 </div>
                 <div className="d-flex justify-content-between p-3">
                     <span>배송비</span>

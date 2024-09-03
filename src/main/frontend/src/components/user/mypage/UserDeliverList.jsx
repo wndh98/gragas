@@ -18,7 +18,7 @@ function UserDeliveryList(props) {
             <span className="userAddrName">{deliverys.mdName}</span>
           </div>
           <div>
-            <button className="userAddrBtn text-secondary" onClick={moveAddrUpdate}>수정</button>
+            <button className="userAddrBtn text-primary" onClick={moveAddrUpdate}>수정</button>
           </div>
         </div>
         <div className="userAddrMargin">{deliverys.mdTel}</div>

@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { getCookie } from '../../js/cookieJs';
+import { numberFormat } from '../../js/order';
 
 function SubsDescription() {
     const { siNum } = useParams();
     const [items, setItems] = useState({});
     const [siTitles, setTitles] = useState([]);
-    const [selectedIndex, setSelectedIndex] = useState(null);
+    const [selectedIndex, setSelectedIndex] = useState(siNum);
     const [basicMap, setBasicMap] = useState(['basic', 'yakchungju', 'soju']);
     const navigate = useNavigate();
     const userId = getCookie("isLogin");
@@ -65,8 +66,8 @@ function SubsDescription() {
             </div>
         )
     }
-    const handleButtonClick = (index) => {
-        setSelectedIndex(index);
+    const handleButtonClick = (index,siNum) => {
+        setSelectedIndex(siNum);
         descriptionCategory(siTitles[index].siNum);
     };
     return (
@@ -77,8 +78,8 @@ function SubsDescription() {
                     {siTitles.map((item, index) => (
                             <button 
                                 key={item.siNum} 
-                                onClick={() => handleButtonClick(index)} 
-                                className={selectedIndex == index ? 'selected-button' : 'unselected-button'}>
+                                onClick={() => handleButtonClick(index,item.siNum)} 
+                                className={selectedIndex == item.siNum ? 'selected-button' : 'unselected-button'}>
                                 <img 
                                     onLoad={() => handleLoad(index)}
                                     src={`https://www.sooldamhwa.com/_next/image?url=%2Fimages%2Fmodules%2Fsubscribe%2Ficon_${basicMap[index]}_damhwabox.png&w=32&q=75`} 
@@ -102,7 +103,7 @@ function SubsDescription() {
                     <div>
                         <div className="smallMarginBox"/>
                         <div className='siSubject'>{items.siSubject}</div>
-                        <div className='siPrice'>월 {items.siPrice}원</div>
+                        <div className='siPrice'>월 {numberFormat(items.siPrice)}원</div>
                         <div className="smallMarginBox">
                             <div className='smallBox' style={{justifyContent : 'flex-start'}}>
                                 <p>단품 구매보다 저렴해요!</p>
@@ -114,8 +115,8 @@ function SubsDescription() {
                         <div className="smallMarginBox"></div>
                         <div className='smallFont'>배송일 {items.siArrive}</div>
                     </div>
-                    <div className='subscribeButton'>
-                        <button type='button' onClick={() => subscribeOrder(items.siNum)}><strong>구독 신청하기</strong></button>
+                    <div className='mt-5 w-75'>
+                        <button type='button' className='otherButton btn btn-primary mt-5 mb-0' onClick={() => subscribeOrder(items.siNum)}><strong>구독 신청하기</strong></button>
                     </div>
                 </div>
             </div>
@@ -123,7 +124,7 @@ function SubsDescription() {
                 <div className="blackBox">
                     <div className="desBar container">
                         <button>상품정보</button>
-                        <button>리뷰</button>
+                        {/* <button>리뷰</button> */}
                     </div>
                 </div>
                 <div className="desMain container">

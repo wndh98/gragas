@@ -39,5 +39,5 @@ public interface ProductService {
 
      void deleteFile(int piNum, String type);
 
-     List<ProductItem> productListPcNum(int pcNum);
+     List<ProductItem> productListPcNum(int pcNum,String orderType);
 }

@@ -8,26 +8,35 @@
         insert into PRE_ORDER_LIST(
         OL_ID,USER_ID,OL_PRICE,OL_DELI,OL_CNT,OL_PAYMENT,
         OL_PAY,OL_REGIST,OL_PAY_REGIST,OL_POINT,OL_NAME,OL_TEL,OL_ADDRESS,
-        OL_ADDRESS_DETAIL,OL_MEMO
+        OL_ADDRESS_DETAIL,OL_MEMO,OL_USE_COUPON,OL_STATUS
         )
         values(
         #{olId},#{userId},#{olPrice},#{olDeli},#{olCnt},#{olPayment},
-        #{olPay},now(),null,#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo}
+        #{olPay},now(),null,#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo},#{olUseCoupon},#{olStatus}
         )
     </insert>
     <insert id="orderListInsert" parameterType="orderList">
         insert into ORDER_LIST(
         OL_ID,USER_ID,OL_PRICE,OL_DELI,OL_CNT,OL_PAYMENT,
         OL_PAY,OL_REGIST,OL_PAY_REGIST,OL_POINT,OL_NAME,OL_TEL,OL_ADDRESS,
-        OL_ADDRESS_DETAIL,OL_MEMO
+        OL_ADDRESS_DETAIL,OL_MEMO,OL_USE_COUPON,OL_STATUS
         )
         values(
         #{olId},#{userId},#{olPrice},#{olDeli},#{olCnt},#{olPayment},
-        #{olPay},now(),now(),#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo}
+        #{olPay},now(),now(),#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo},#{olUseCoupon},#{olStatus}
         )
     </insert>
     <select id="preOrderListSelect" parameterType="string" resultType="orderList">
         select * from PRE_ORDER_LIST where OL_ID=#{olId};
+    </select>
+    <select id="selectOrderList" parameterType="map" resultType="orderList">
+        select * from ORDER_LIST where USER_ID=#{userId}
+        <if test="olStatus!=null and olStatus!=''">
+            and OL_STATUS=#{olStatus}
+        </if>
+    </select>
+    <select id="ordersCnt" parameterType="string" resultType="integer">
+        select count(*) from ORDER_LIST where OL_STATUS = #{olStatus}
     </select>
     <delete id="deletePreOrderList" parameterType="string">
         delete from PRE_ORDER_LIST where OL_ID=#{olId}

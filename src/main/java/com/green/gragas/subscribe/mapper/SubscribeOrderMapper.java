@@ -8,7 +8,11 @@ import java.util.List;
 @Mapper
 public interface SubscribeOrderMapper {
 
-    int insertOrderInfo(SubscribeOrder subscribeOrder);
-    int soSelectNum(String userId);
+    int insertPreOrderInfo(SubscribeOrder subscribeOrder);
+    String soSelectId(String userId);
     List<SubscribeOrder> soSelectList(int soNum);
+    SubscribeOrder subsOrderSelectId(String soId);
+    void subsPreOrderDelete(String soId);
+    int insertOrderInfo(SubscribeOrder subsOrderSelect);
+    int orderSelect(SubscribeOrder subscribeOrder);
 }

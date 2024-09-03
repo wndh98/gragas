@@ -139,6 +139,7 @@ CREATE TABLE PRODUCT_ITEM (
    PI_IMG   VARCHAR(255),
    PI_CONTENT   VARCHAR(255) NOT null,
    PI_PRICE INT NOT NULL,
+   PI_SAIL INT NOT NULL,
    PI_DEL VARCHAR(1) NOT NULL default 'N',
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
@@ -185,7 +186,7 @@ create table `SUBSCRIBE_ITEM` (
 	`SI_TITLE` VARCHAR(255) not null,
 	`SI_ARRIVE` DATETIME not null,
 	primary key (`SI_NUM`)
-);
+);s
 create table `SUBSCRIBE_ORDER` (
 	`SO_NUM` INT not null auto_increment,
 	`SI_NUM` INT not null,
@@ -361,7 +362,9 @@ create table `ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N',
+	`OL_STATUS` VARCHAR(10) not null default 'READY'
 );
 -- 주문상세
 create table `ORDER_DETAIL` (
@@ -375,8 +378,7 @@ create table `ORDER_DETAIL` (
 	`PO_SALE` int not null,
 	`OD_CNT` INT not null,
 	`OD_PRICE` INT not null,
-	`OD_POINT` INT not null default 0,
-	`OD_STATUS` VARCHAR(10) not null default 'READY'
+	`OD_POINT` INT not null default 0
 );
 
 
@@ -410,7 +412,9 @@ create table `PRE_ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N',
+	`OL_STATUS` VARCHAR(10) not null default 'READY'
 );
 -- 주문전 주문상세
 create table `PRE_ORDER_DETAIL` (
@@ -424,8 +428,7 @@ create table `PRE_ORDER_DETAIL` (
 	`PO_SALE` int not null,
 	`OD_CNT` INT not null,
 	`OD_PRICE` INT not null,
-	`OD_POINT` INT not null default 0,
-	`OD_STATUS` VARCHAR(10) not null default 'READY'
+	`OD_POINT` INT not null default 0
 );
 ALTER TABLE `PRE_ORDER_DETAIL` ADD CONSTRAINT `PRE_FK_OL_ID` foreign key(OL_ID) references PRE_ORDER_LIST(OL_ID) on delete cascade;
 

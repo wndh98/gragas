@@ -32,7 +32,7 @@ function AdminOptionUpdate(params) {
     axios.post("/option/update/" + poNum, data).then((response) => {
       if (response.data == 1) {
         alert("수정성공");
-        loc("/option/main");
+        loc("/product/main");
       } else {
         alert("실패");
       }

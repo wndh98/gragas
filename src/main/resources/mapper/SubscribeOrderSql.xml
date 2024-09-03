@@ -18,14 +18,27 @@
         <result property="soStatus" column="SO_STATUS"/>
 
     </resultMap>
-    <select id="soSelectOne" parameterType="integer" resultType="subscribeOrder">
-        select * from SUBSCRIBE_Order where SO_NUM = #{soNum}
+    <select id="subsOrderSelectId" parameterType="string" resultType="subscribeOrder">
+        select * from subscribe_pre_order where SO_ID = #{soId}
+    </select>
+    <select id="soSelectId" parameterType="string" resultType="subscribeOrder">
+        select * from SUBSCRIBE_Order where SO_ID = #{soId}
     </select>
     <select id="soSelectList" parameterType="string" resultType="integer">
         select SO_NUM from SUBSCRIBE_Order where USER_ID = #{userId}
     </select>
-    <insert id="insertOrderInfo" parameterType="subscribeOrder">
-        INSERT INTO subscribe_order (SO_ID,SI_NUM,USER_ID,SO_PRICE,SO_PAYMENT,SO_REGIST,SO_NAME,SO_TEL,SO_ADDR,SO_ADDR_DE,SO_MEMO)
+    <insert id="insertPreOrderInfo" parameterType="subscribeOrder">
+        INSERT INTO subscribe_pre_order (SO_ID,SI_NUM,USER_ID,SO_PRICE,SO_PAYMENT,SO_REGIST,SO_NAME,SO_TEL,SO_ADDR,SO_ADDR_DE,SO_MEMO)
         VALUES (#{soId},#{siNum},#{userId},#{soPrice},#{soPayment},now(),#{soName},#{soTel}, #{soAddr}, #{soAddrDe}, #{soMemo})
     </insert>
+    <insert id="insertOrderInfo" parameterType="subscribeOrder">
+        INSERT INTO SUBSCRIBE_Order (SO_ID,SI_NUM,USER_ID,SO_PRICE,SO_PAYMENT,SO_REGIST,SO_PAY_REGIST,SO_NAME,SO_TEL,SO_ADDR,SO_ADDR_DE,SO_MEMO)
+        VALUES (#{soId},#{siNum},#{userId},#{soPrice},#{soPayment},now(),now(),#{soName},#{soTel}, #{soAddr}, #{soAddrDe}, #{soMemo})
+    </insert>
+    <delete id="subsPreOrderDelete" parameterType="String">
+        delete from subscribe_pre_order where SO_ID = #{soId}
+    </delete>
+    <select id="orderSelect" parameterType="subscribeOrder" resultType="integer">
+        select count(*) from subscribe_order where user_id = #{userId} and si_Num = #{siNum}
+    </select>
 </mapper>

@@ -9,10 +9,11 @@ import SubsNote from './SubsNote';
 import SubsAgree from './SubsAgree';
 import SubsOrder from './SubsOrder';
 import SubsPayment from './SubsPayMent';
+import { numberFormat } from '../../js/order';
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
 function SubsPayForm() {
-    const soId = crypto.randomUUID();
+    const [soId, setSoId] = useState("");
     const { siNum } = useParams();
     const intSiNum = parseInt(siNum);
     const { register,handleSubmit, setValue } = useForm();
@@ -33,8 +34,9 @@ function SubsPayForm() {
     });
     useEffect(async () => {
         getUser(setUser);
-
-        setValue("soId", soId)
+        const generatedSoId = crypto.randomUUID();
+        setSoId(generatedSoId);
+        setValue("soId", generatedSoId);
         setValue("soPayment", "card")
     }, [])
     useEffect(() => {
@@ -60,7 +62,6 @@ function SubsPayForm() {
             .then(response => {
                 if (response.data && Array.isArray(response.data.deliveryList)) {
                     setDelivery(response.data.deliveryList);
-                    console.log(delivery);
                 } else {
                     console.error('Unexpected data format:', response.data);
                 }
@@ -77,6 +78,11 @@ function SubsPayForm() {
         if (selectedDeliveryId === member.mdNum) {
             setSelectedDeliveryId(null);
             setSelectClass("");
+            setValue("soName", "");
+            setValue("soTel", "");
+            setValue("soAddr", "");
+            setValue("soAddrDe","");
+            setValue("soMemo", "");
         } else {
             setSelectedDeliveryId(member.mdNum);
             setSelectClass("selectClass");
@@ -95,6 +101,8 @@ function SubsPayForm() {
             })
             .catch(e => { console.log(e) })
     }
+
+    console.log(soId);
     return (
         <main className='container'>
             <form onSubmit={handleSubmit(onSubmit)} className='formBox'>
@@ -136,7 +144,7 @@ function SubsPayForm() {
                                             <div className='fw-bold fs-3'>{item.siSubject}</div>
                                             <div>
                                                 <div className='text-end fs-5'>1개</div>
-                                                <div className='fs-3 mt-4 mb-4'><span className='text-primary fs-2'>{item.siPrice}</span>원/월</div>
+                                                <div className='fs-3 mt-4 mb-4'><span className='text-primary fs-2'>{numberFormat(item.siPrice)}</span>원/월</div>
                                             </div>
                                         </div>
                                         <div className="dateOrNote">

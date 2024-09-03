@@ -2,7 +2,7 @@ function salePercent(price, sale) {
     let percent = 100 % -(sale / price);
     // let percent = 100 - (sale * price * 100);
 
-    return (Math.ceil(percent * 100));
+    return (Math.ceil(percent));
 }
 
 function getPrice(price, sale) {
