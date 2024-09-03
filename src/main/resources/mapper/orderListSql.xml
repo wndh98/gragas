@@ -29,6 +29,15 @@
     <select id="preOrderListSelect" parameterType="string" resultType="orderList">
         select * from PRE_ORDER_LIST where OL_ID=#{olId};
     </select>
+    <select id="selectOrderList" parameterType="map" resultType="orderList">
+        select * from ORDER_LIST where USER_ID=#{userId}
+        <if test="olStatus!=null and olStatus!=''">
+            and OL_STATUS=#{olStatus}
+        </if>
+    </select>
+    <select id="ordersCnt" parameterType="string" resultType="integer">
+        select count(*) from ORDER_LIST where OL_STATUS = #{olStatus}
+    </select>
     <delete id="deletePreOrderList" parameterType="string">
         delete from PRE_ORDER_LIST where OL_ID=#{olId}
     </delete>
