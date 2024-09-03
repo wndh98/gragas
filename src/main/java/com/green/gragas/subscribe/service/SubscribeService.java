@@ -14,4 +14,6 @@ public interface SubscribeService {
     List<SubscribeItem> titleList();
     int subscribeUploadFile(SubscribeItem subscribeItem, MultipartFile siMainImg, MultipartFile siDesImg,String rootPath);
     int nextSiNum();
+    int getPrice(int siNum);
+    String getSiSubject(int siNum);
 }

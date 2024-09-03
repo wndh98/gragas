@@ -6,8 +6,8 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.green.gragas.delivery.mappers.DeliveryMapper">
     <insert id="insert" parameterType="delivery">
-        insert into member_delivery(`user_id`, `md_Name`, `md_tel`, `md_addr`,
-        `md_addrdetail`, `md_message`) values(#{userId}, #{mdName}, #{mdTel}
+        insert into member_delivery(`user_id`, `md_Name`, `md_tel`, `md_address`,
+        `MD_ADDRESS_DETAIL`, `md_message`) values(#{userId}, #{mdName}, #{mdTel}
             , #{mdAddr}, #{mdAddrDetail}, #{mdMessage})
     </insert>
     <select id="select" parameterType="integer" resultType="delivery">

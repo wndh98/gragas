@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from '../../../js/cookieJs';
 
 function MypageSubscribe() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([{}]);
   const [selectedItem, setSelectedItem] = useState({});
   const [activeButton, setActiveButton] = useState(0);
   const [subscribeStatus, setSubscribeStatus] = useState("구독 고민중");
