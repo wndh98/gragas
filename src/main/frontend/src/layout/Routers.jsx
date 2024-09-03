@@ -81,7 +81,7 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
-                <Route path="/subscribe/adminSubscribeList" element={<Layout><AdminSubscribeItemMain /></Layout>} />
+                <Route path="/subscribe/adminSubscribeList" element={<AuthRoute to="/loginForm"><AdminLayout><AdminSubscribeItemMain /></AdminLayout></AuthRoute>}/>
                 <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate /></Layout>} />
                 <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate /></Layout>} />
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
