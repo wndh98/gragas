@@ -8,22 +8,22 @@
         insert into PRE_ORDER_LIST(
         OL_ID,USER_ID,OL_PRICE,OL_DELI,OL_CNT,OL_PAYMENT,
         OL_PAY,OL_REGIST,OL_PAY_REGIST,OL_POINT,OL_NAME,OL_TEL,OL_ADDRESS,
-        OL_ADDRESS_DETAIL,OL_MEMO
+        OL_ADDRESS_DETAIL,OL_MEMO,OL_USE_COUPON
         )
         values(
         #{olId},#{userId},#{olPrice},#{olDeli},#{olCnt},#{olPayment},
-        #{olPay},now(),null,#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo}
+        #{olPay},now(),null,#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo},#{olUseCoupon}
         )
     </insert>
     <insert id="orderListInsert" parameterType="orderList">
         insert into ORDER_LIST(
         OL_ID,USER_ID,OL_PRICE,OL_DELI,OL_CNT,OL_PAYMENT,
         OL_PAY,OL_REGIST,OL_PAY_REGIST,OL_POINT,OL_NAME,OL_TEL,OL_ADDRESS,
-        OL_ADDRESS_DETAIL,OL_MEMO
+        OL_ADDRESS_DETAIL,OL_MEMO,OL_USE_COUPON
         )
         values(
         #{olId},#{userId},#{olPrice},#{olDeli},#{olCnt},#{olPayment},
-        #{olPay},now(),now(),#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo}
+        #{olPay},now(),now(),#{olPoint},#{olName},#{olTel},#{olAddress},#{olAddressDetail},#{olMemo},#{olUseCoupon}
         )
     </insert>
     <select id="preOrderListSelect" parameterType="string" resultType="orderList">

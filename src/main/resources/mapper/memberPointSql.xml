@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL Mapping -->
+<mapper namespace="com.green.gragas.user.mappers.MemberPointMapper">
+    <insert id="insertMemberPoint" parameterType="memberPoint">
+        insert into MEMBER_POINT(USER_ID,MP_SUBJECT,MP_POINT,MP_REGIST) values(#{userId},#{mpSubject},#{mpPoint},now())
+    </insert>
+</mapper>

@@ -361,7 +361,8 @@ create table `ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N'
 );
 -- 주문상세
 create table `ORDER_DETAIL` (
@@ -410,7 +411,8 @@ create table `PRE_ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N'
 );
 -- 주문전 주문상세
 create table `PRE_ORDER_DETAIL` (
