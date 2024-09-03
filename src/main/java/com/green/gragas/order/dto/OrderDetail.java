@@ -17,7 +17,6 @@ public class OrderDetail {
     private int odCnt;
     private int odPrice;
     private int odPoint;
-    private String odStatus;
     public OrderDetail(){}
     public OrderDetail(String olId,OrderCart orderCart){
         this.olId=olId;
@@ -30,7 +29,6 @@ public class OrderDetail {
         this.odCnt=orderCart.getOcCnt();
         this.odPrice=orderCart.getPrice();
         this.odPoint=orderCart.getPrice()/10;
-        this.odStatus="ready";
     }
 
 

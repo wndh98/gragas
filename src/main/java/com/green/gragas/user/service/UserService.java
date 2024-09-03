@@ -22,4 +22,8 @@ public interface UserService {
     User userSearchPw(User user);
 
     int userListDelete(List<String> userId);
+
+    void couponUpdate();
+    void useCouponUpdate(String userId);
+    void adminInsert(String userId, String userPw);
 }

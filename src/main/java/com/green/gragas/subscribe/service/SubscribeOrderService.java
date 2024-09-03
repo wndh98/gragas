@@ -10,4 +10,5 @@ public interface SubscribeOrderService {
     String soSelectId(String userId);
     List<SubscribeOrder> soSelectList(int soNum);
     int insertOrderInfo(SubscribeOrder subscribeOrder);
+    int orderSelect(SubscribeOrder subscribeOrder);
 }

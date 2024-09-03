@@ -1,3 +1,5 @@
+-- create database gragasdb;
+
 use gragasdb;
 
 select * from board_file;
@@ -45,14 +47,15 @@ DROP TABLE IF EXISTS MEMBER_DELIVERY;
 
 DROP TABLE IF EXISTS USER;
 
-DROP TABLE IF EXISTS MEMBER_CUPON;
+DROP TABLE IF EXISTS MEMBER_COUPON;
 
 -- 회원
 
 -- 쿠폰&회원등급테이블
 
-create table MEMBER_CUPON (
+create table MEMBER_COUPON (
 	USER_LEVEL VARCHAR(20) not null primary key,
+	UL_IMG VARCHAR(255),
 	MC_SAIL INT not null,
 	MC_SUBJECT VARCHAR(255) not null
 );
@@ -97,7 +100,7 @@ alter table `MEMBER_DELIVERY` add constraint `FK_MD_USER_ID` foreign key (USER_I
 
 alter table `MEMBER_POINT` add constraint `FK_MP_USER_ID` foreign key (USER_ID) references user(USER_ID) ;
 
-alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) references MEMBER_CUPON(USER_LEVEL);
+alter table `USER` add constraint `FK_USER_LEVEL` foreign key (USER_LEVEL) references MEMBER_COUPON(USER_LEVEL);
 
 
 
@@ -182,7 +185,7 @@ create table `SUBSCRIBE_ITEM` (
 	`SI_TITLE` VARCHAR(255) not null,
 	`SI_ARRIVE` DATETIME not null,
 	primary key (`SI_NUM`)
-);
+);s
 create table `SUBSCRIBE_ORDER` (
 	`SO_NUM` INT not null auto_increment,
 	`SI_NUM` INT not null,
@@ -358,7 +361,9 @@ create table `ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N',
+	`OL_STATUS` VARCHAR(10) not null default 'READY'
 );
 -- 주문상세
 create table `ORDER_DETAIL` (
@@ -372,8 +377,7 @@ create table `ORDER_DETAIL` (
 	`PO_SALE` int not null,
 	`OD_CNT` INT not null,
 	`OD_PRICE` INT not null,
-	`OD_POINT` INT not null default 0,
-	`OD_STATUS` VARCHAR(10) not null default 'READY'
+	`OD_POINT` INT not null default 0
 );
 
 
@@ -407,7 +411,9 @@ create table `PRE_ORDER_LIST` (
 	`OL_TEL` VARCHAR(255) not null,
 	`OL_ADDRESS` VARCHAR(255) not null,
 	`OL_ADDRESS_DETAIL` VARCHAR(255) not null,
-	`OL_MEMO` VARCHAR(255) null
+	`OL_MEMO` VARCHAR(255) null,
+	`OL_USE_COUPON` VARCHAR(1) NOT NULL default 'N',
+	`OL_STATUS` VARCHAR(10) not null default 'READY'
 );
 -- 주문전 주문상세
 create table `PRE_ORDER_DETAIL` (
@@ -421,8 +427,7 @@ create table `PRE_ORDER_DETAIL` (
 	`PO_SALE` int not null,
 	`OD_CNT` INT not null,
 	`OD_PRICE` INT not null,
-	`OD_POINT` INT not null default 0,
-	`OD_STATUS` VARCHAR(10) not null default 'READY'
+	`OD_POINT` INT not null default 0
 );
 ALTER TABLE `PRE_ORDER_DETAIL` ADD CONSTRAINT `PRE_FK_OL_ID` foreign key(OL_ID) references PRE_ORDER_LIST(OL_ID) on delete cascade;
 
@@ -432,8 +437,8 @@ ALTER TABLE `PRE_ORDER_DETAIL` ADD CONSTRAINT `PRE_FK_OL_ID` foreign key(OL_ID) 
 ALTER TABLE `ORDER_LIST` ADD CONSTRAINT `FK_OL_USER_ID` foreign key(USER_ID) references USER(USER_ID);
 
 alter table `ORDER_DETAIL` add constraint `FK_OD_OL_ID` foreign key(OL_ID) references ORDER_LIST(OL_ID);
---alter table `ORDER_DETAIL` add constraint `FK_OD_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
---alter table `ORDER_DETAIL` add constraint `FK_OD_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
+-- alter table `ORDER_DETAIL` add constraint `FK_OD_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM);
+-- alter table `ORDER_DETAIL` add constraint `FK_OD_PO_NUM` foreign key(PO_NUM) references PRODUCT_OPTION(PO_NUM);
 
 alter table `ORDER_CART` add constraint `FK_OC_USER_ID` foreign key(USER_ID) references user(USER_ID);
 alter table `ORDER_CART` add constraint `FK_OC_PI_NUM` foreign key(PI_NUM) references PRODUCT_ITEM(PI_NUM) ON DELETE CASCADE;
@@ -448,4 +453,4 @@ alter table `ORDER_CART` add constraint `FK_OC_PO_NUM` foreign key(PO_NUM) refer
 
 
 
---insert into MEMBER_CUPON values('Yellow',100,'테스트1');
+insert into MEMBER_COUPON values('Yellow','',100,'테스트1');

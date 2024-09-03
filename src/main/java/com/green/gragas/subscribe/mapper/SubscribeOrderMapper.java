@@ -14,4 +14,5 @@ public interface SubscribeOrderMapper {
     SubscribeOrder subsOrderSelectId(String soId);
     void subsPreOrderDelete(String soId);
     int insertOrderInfo(SubscribeOrder subsOrderSelect);
+    int orderSelect(SubscribeOrder subscribeOrder);
 }

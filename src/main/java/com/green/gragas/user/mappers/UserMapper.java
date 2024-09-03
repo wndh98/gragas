@@ -1,5 +1,6 @@
 package com.green.gragas.user.mappers;
 
+import com.green.gragas.user.dto.MemberPoint;
 import com.green.gragas.user.dto.User;
 import com.green.gragas.user.dto.UserSearchDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,12 @@ public interface UserMapper {
     User userSearchPw(User user);
 
     int userListDelete(List<String> userId);
+
+    void couponUpdate();
+
+    void adminInsert(String userId, String userPw);
+
+    void useCouponUpdate(String userId);
+
+    void updatePoint(MemberPoint memberPoint);
 }

@@ -38,4 +38,7 @@
     <delete id="subsPreOrderDelete" parameterType="String">
         delete from subscribe_pre_order where SO_ID = #{soId}
     </delete>
+    <select id="orderSelect" parameterType="subscribeOrder" resultType="integer">
+        select count(*) from subscribe_order where user_id = #{userId} and si_Num = #{siNum}
+    </select>
 </mapper>

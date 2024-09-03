@@ -12,6 +12,9 @@ function OrderPayment(props) {
     const onSubmit = props.onSubmit;
     const amount = props.amount;
     const setAmount = props.setAmount;
+    const deliveryPrice = props.deliveryPrice;
+    const setTotalPrice = props.setTotalPrice;
+    const setProductPrice = props.setProductPrice;
     const [widgets, setWidgets] = useState(null);
 
     const [user, setUser] = useState({});
@@ -26,16 +29,20 @@ function OrderPayment(props) {
             const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
             const getPrice = await axios.get(`/orderCart/totalPrice?ocId=${olId}`);
             const getProduct = await axios.get(`/orderCart/getProductName?ocId=${olId}`);
-            setAmount({ currency: "KRW", value: getPrice.data });
+            setAmount({ currency: "KRW", value: getPrice.data + deliveryPrice });
+            setProductPrice(getPrice.data);
+            setTotalPrice(getPrice.data + deliveryPrice);
             setProductName(getProduct.data + "");
             setWidgets(widgets);
         }
         fetchPaymentWidgets();
     }, [clientKey]);
     useEffect(() => {
-
+        if (widgets == null) {
+            return;
+        }
+        widgets.setAmount(amount);
     }, [amount])
-    useEffect(() => { console.log(productName) }, [productName])
     useEffect(() => {
         async function renderPaymentWidgets() {
             if (widgets == null) {
@@ -87,7 +94,7 @@ function OrderPayment(props) {
                                     try {
                                         // 먼저 onSubmit 핸들러의 작업을 실행합니다.
                                         const isSuccess = await onSubmit(data);
-                                        if (isSuccess == 0) { return; }
+                                        if (isSuccess != 1) { alert("다시시도하여주세요."); return; }
                                         // onSubmit 이후에 결제 요청을 보냅니다.
                                         await widgets?.requestPayment({
                                             orderId: olId,

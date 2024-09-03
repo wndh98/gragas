@@ -16,7 +16,6 @@ public class SubscribeOrderServiceImpl implements SubscribeOrderService{
     }
     public String soSelectId(String userId) {return som.soSelectId(userId);}
     public List<SubscribeOrder> soSelectList(int soNum) {return som.soSelectList(soNum);}
-
     @Override
     public int insertOrderInfo(SubscribeOrder subscribeOrder) {
         int result = 0;
@@ -29,4 +28,5 @@ public class SubscribeOrderServiceImpl implements SubscribeOrderService{
         som.subsPreOrderDelete(subscribeOrder.getSoId());
         return 1;
     }
+    public int orderSelect(SubscribeOrder subscribeOrder) {return som.orderSelect(subscribeOrder);}
 }

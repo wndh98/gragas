@@ -54,6 +54,7 @@ function ProductItemSide(props) {
         });
     }
     function addCart(data) {
+        console.log(data);
         if (!isLogin()) {
             alert("로그인후 이용가능합니다.");
             navi("/loginForm")
@@ -99,7 +100,7 @@ function ProductItemSide(props) {
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button" id="button-minus">-</button>
                         </div>
-                        <input type="text" class="form-control quantity-input" id="quantity" value="1" readonly {...register("poCnt")} />
+                        <input type="text" class="form-control quantity-input" id="quantity" value="1" readonly {...register("ocCnt")} />
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="button-plus">+</button>
                         </div>
