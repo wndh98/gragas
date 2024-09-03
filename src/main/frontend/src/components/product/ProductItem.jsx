@@ -1,14 +1,10 @@
 import React from "react";
 import './App.css';
-import InfoList from "./InfoList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductItemSide from "./ProductItemSide";
 import { salePercent } from "../../js/order";
-
-
-
 
 const information = [
     {
@@ -33,6 +29,8 @@ const information = [
     },
 
 ]
+
+
 function ProductItem() {
 
     const pathParam = useParams();
@@ -47,8 +45,10 @@ function ProductItem() {
         axios.get(viewUrl)
             .then(response => {
                 setProducts(response.data); // 가져온 상품정보를 상태에 저장
+
             })
             .catch(error => console.error("Fetching error:", error))
+
     }, []);
 
     useEffect(() => {
@@ -56,7 +56,7 @@ function ProductItem() {
             .then(response => {
 
                 setOptions(response.data); // 가져온 상품정보를 상태에 저장
-
+                console.log(response.data)
             })
             .catch(error => console.error("Fetching error:", error))
     }, []);
@@ -117,10 +117,16 @@ function ProductItem() {
                             </div>
                             <div className="info">
                                 <div className="infotable">
+
                                     {information.map((list) => {
 
                                         return (
-                                            <InfoList info={list.info} mation={list.mation} />
+
+                                            <div class="jsx-3608760935 flex">
+                                                <div class="jsx-3608760935 label">{list.info}</div>
+                                                <div class="jsx-3608760935 content">{list.mation}</div>
+                                            </div>
+
                                         );
                                     })}
                                 </div>
