@@ -1,5 +1,8 @@
 package com.green.gragas.subscribe.service;
 
+import com.green.gragas.subscribe.dto.SubscribeOrder;
+import com.green.gragas.subscribe.dto.SubscribePayment;
+import com.green.gragas.subscribe.mapper.SubscribeOrderMapper;
 import com.green.gragas.subscribe.mapper.SubscribePMMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +17,18 @@ import java.net.http.HttpResponse;
 public class SubscribePMServiceImpl implements SubscribePMService{
     @Autowired
     private SubscribePMMapper spmm;
-    public String createVirtualAccount() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tosspayments.com/v1/virtual-accounts"))
-                .header("Authorization", "Basic dGVzdF9za196WExrS0V5cE5BcldtbzUwblgzbG1lYXhZRzVSOg==")
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString("{\"amount\":15000,\"orderId\":\"B5Ex4dK4_OLQxy_VWD0ya\",\"orderName\":\"토스 티셔츠 외 2건\",\"customerName\":\"박토스\",\"bank\":\"20\"}"))
-                .build();
+    @Autowired
+    private SubscribeOrderMapper som;
 
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
-    }
+//    public int insertPMInfo(SubscribePayment spm) {
+//        int result = 0;
+//        System.out.println(spm.getSoId());
+//        SubscribeOrder subsOrderSelect = som.subsOrderSelectId(spm.getSoId());
+//        System.out.println(subsOrderSelect.getSoId());
+//        result = spmm.insertOrderInfo(subsOrderSelect);
+//        if(result==0) return result;
+//
+//        som.subsOrderDelete(spm.getSoId());
+//        return 1;
+//    }
 }

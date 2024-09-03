@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 import { getUser } from "../../js/userInfo";
-import SubsAgree from "./SubsAgree";
+import { setCookie } from "../../js/cookieJs";
 import axios from "axios";
 import './subs.css';
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 
 function SubsPayment(props) {
     const soId = props.soId;
+    setCookie("soId",soId,1);
     const siNum = props.siNum;
     const handleSubmit = props.handleSubmit;
     const onSubmit = props.onSubmit;
@@ -28,8 +29,8 @@ function SubsPayment(props) {
             const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
             const getPrice = await axios.get(`/subscribe/getPrice/${siNum}`)
             const itemSubject = await axios.get(`/subscribe/getSiSubject/${siNum}`)
-            // setAmount({ currency: "KRW", value: getPrice.data });
-            setAmount({ currency: "KRW", value: 10 });
+            setAmount({ currency: "KRW", value: getPrice.data });
+            // setAmount({ currency: "KRW", value: 10 });
             console.log(itemSubject)
             setSiSubject(itemSubject.data + "");
             setWidgets(widgets);
@@ -116,8 +117,8 @@ function SubsPayment(props) {
                                             orderName: siSubject,
                                             customerName: user.userName,
                                             customerEmail: user.userId,
-                                            successUrl: window.location.origin + "/order/success" + window.location.search,
-                                            failUrl: window.location.origin + "/order/fail" + window.location.search,
+                                            successUrl: window.location.origin + "/subscribe/success" + window.location.search,
+                                            failUrl: window.location.origin + "/subscribe/fail" + window.location.search,
                                         });
                                     } catch (error) {
                                         console.log(error);
