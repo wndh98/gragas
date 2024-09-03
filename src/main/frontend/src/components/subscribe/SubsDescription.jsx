@@ -114,8 +114,8 @@ function SubsDescription() {
                         <div className="smallMarginBox"></div>
                         <div className='smallFont'>배송일 {items.siArrive}</div>
                     </div>
-                    <div className='subscribeButton'>
-                        <button type='button' onClick={() => subscribeOrder(items.siNum)}><strong>구독 신청하기</strong></button>
+                    <div className='mt-5 w-75'>
+                        <button type='button' className='otherButton btn btn-primary mt-5 mb-0' onClick={() => subscribeOrder(items.siNum)}><strong>구독 신청하기</strong></button>
                     </div>
                 </div>
             </div>

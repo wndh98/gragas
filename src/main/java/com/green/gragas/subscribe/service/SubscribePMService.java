@@ -1,7 +1,9 @@
 package com.green.gragas.subscribe.service;
 
+import com.green.gragas.subscribe.dto.SubscribePayment;
+
 import java.io.IOException;
 
 public interface SubscribePMService {
-    String createVirtualAccount() throws IOException, InterruptedException;
+//    int insertPMInfo(SubscribePayment spm);
 }

@@ -12,7 +12,7 @@ import SubsPayment from './SubsPayMent';
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 
 function SubsPayForm() {
-    const soId = crypto.randomUUID();
+    const [soId, setSoId] = useState("");
     const { siNum } = useParams();
     const intSiNum = parseInt(siNum);
     const { register,handleSubmit, setValue } = useForm();
@@ -33,8 +33,9 @@ function SubsPayForm() {
     });
     useEffect(async () => {
         getUser(setUser);
-
-        setValue("soId", soId)
+        const generatedSoId = crypto.randomUUID();
+        setSoId(generatedSoId);
+        setValue("soId", generatedSoId);
         setValue("soPayment", "card")
     }, [])
     useEffect(() => {
@@ -95,6 +96,8 @@ function SubsPayForm() {
             })
             .catch(e => { console.log(e) })
     }
+
+    console.log(soId);
     return (
         <main className='container'>
             <form onSubmit={handleSubmit(onSubmit)} className='formBox'>

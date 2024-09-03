@@ -21,4 +21,6 @@ public class SubscribeOrder {
     private String soAddrDe;
     private String soMemo;
     private String soStatus;
+    private Date createdAt;
+    private Date updatedAt;
 }

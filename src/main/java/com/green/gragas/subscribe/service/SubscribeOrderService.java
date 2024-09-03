@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface SubscribeOrderService {
 
-    int insertOrderInfo(SubscribeOrder subscribeOrder);
-    int soSelectNum(String userId);
+    int insertPreOrderInfo(SubscribeOrder subscribeOrder);
+    String soSelectId(String userId);
     List<SubscribeOrder> soSelectList(int soNum);
+    int insertOrderInfo(SubscribeOrder subscribeOrder);
 }
