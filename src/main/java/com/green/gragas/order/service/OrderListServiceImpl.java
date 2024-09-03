@@ -12,7 +12,9 @@ import com.green.gragas.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderListServiceImpl implements OrderListService {
@@ -78,5 +80,18 @@ public class OrderListServiceImpl implements OrderListService {
         olm.deletePreOrderList(orderList.getOlId());
         ocm.deleteCartId(orderList.getOlId());
         return 1;
+    }
+
+    @Override
+    public List<OrderList> getOrderList(String userId,String olStatus) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("olStatus",olStatus);
+        return olm.selectOrderList(map);
+    }
+
+    @Override
+    public int ordersCnt(String olStatus) {
+        return olm.ordersCnt(olStatus);
     }
 }

@@ -4,9 +4,9 @@ import com.green.gragas.order.dto.OrderList;
 import com.green.gragas.order.service.OrderDetailService;
 import com.green.gragas.order.service.OrderListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -25,6 +25,18 @@ public class OrderController {
     public int orderSuccess(@RequestBody OrderList orderList){
         int result = 0;
         result = ols.orderListInsert(orderList);
+        return result;
+    }
+    @GetMapping("/order/list/{userId}")
+    public List<OrderList> getOrderList(@PathVariable("userId") String userId,@RequestParam(value = "olStatus",required = false) String olStatus){
+        List<OrderList> orderList = ols.getOrderList(userId,olStatus);
+        return orderList;
+    }
+
+    @GetMapping("/order/cnt/{olStatus}")
+    public int ordersCnt(@PathVariable("olStatus") String olStatus) {
+        int result = 0;
+        result = ols.ordersCnt(olStatus);
         return result;
     }
 

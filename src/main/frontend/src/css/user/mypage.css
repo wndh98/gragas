@@ -285,3 +285,40 @@
     width: 80px;
     height: 25px;
 }
+
+.order_list_table {
+    border-radius: 5px;
+    margin-top: 15px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px rgba(61,61,61, 0.16);
+}
+
+.order_list_table th {
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(61,61,61, 0.16);
+    border-right: 1px solid rgba(61,61,61, 0.16);
+}
+
+.order_list_table td {
+    color: rgba(61,61,61, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid rgba(61,61,61, 0.16);
+}
+
+.order_list_table td a {
+    color: rgba(61,61,61, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid rgba(61,61,61, 0.16);
+}
+
+.order_list_table td a:hover {
+    color: rgba(61,61,61, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid rgba(61,61,61, 0.16);
+    text-decoration: underline;
+    cursor: pointer;
+}
