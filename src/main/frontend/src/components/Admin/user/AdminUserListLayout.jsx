@@ -36,7 +36,9 @@ function AdminUserListLayout() {
       itemClass={"page-item"}
       linkClass={"page-link"}
       hideFirstLastPages={true}
-      onChange={handlePageChange}>
+      onChange={handlePageChange}
+      innerClass={"pagination justify-content-center"}
+      >
     </Pagination>);
   }
   function handlePageChange(nextPage) {
@@ -69,9 +71,9 @@ function AdminUserListLayout() {
 
   if (users.length == 0) {
     return (
-      <>
-        <table className="table">
-          <tr>
+      <div className="container">
+        <table className="table mt-5">
+          <tr className="table-secondary align-middle text-center">
             <td>아이디</td>
             <td>이름</td>
             <td>등급</td>
@@ -79,20 +81,20 @@ function AdminUserListLayout() {
             <td>탈퇴여부</td>
             <td>생성일</td>
           </tr>
-          <tr>
+          <tr className="text-center">
             <td colspan="6">유저가 없습니다.</td>
           </tr>
 
         </table>
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className="container">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <table className="table table-dark table-striped">
+          <table className="table mt-5">
             <tbody>
-              <tr>
+              <tr className="table-secondary align-middle text-center">
                 <td><button>삭제</button></td>
                 <td>아이디</td>
                 <td>이름</td>
@@ -111,7 +113,7 @@ function AdminUserListLayout() {
             {pagination}
           </nav>
         </form>
-      </>
+      </div>
     );
   }
 }
