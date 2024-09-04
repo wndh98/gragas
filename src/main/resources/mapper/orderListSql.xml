@@ -34,6 +34,7 @@
         <if test="olStatus!=null and olStatus!=''">
             and OL_STATUS=#{olStatus}
         </if>
+        order by OL_REGIST desc
     </select>
     <select id="ordersCnt" parameterType="string" resultType="integer">
         select count(*) from ORDER_LIST where OL_STATUS = #{olStatus}

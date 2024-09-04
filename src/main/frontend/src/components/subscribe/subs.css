@@ -358,3 +358,12 @@ label[for="agreeCheck"] {
 .formBox{
     width: 100%;
 }
+
+.moveTopBtn {
+    position: fixed;
+    bottom: 4rem;
+    right: 4rem;
+    width: 4rem;
+    height: 4rem;
+    cursor: pointer;
+   }

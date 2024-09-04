@@ -59,8 +59,10 @@ function MypageOrderList() {
                       <col width={"20%"} />
                       <col width={"8%"} />
                       <col width={"8%"} />
-                      <col width={"10%"} />
-                      <col width={"20%"} />
+                      <col width={"8%"} />
+                      <col width={"25%"} />
+                      <col />
+                      <col width={"12%"}/>
                     </colgroup>
                     <tr>
                       <th>주문번호</th>

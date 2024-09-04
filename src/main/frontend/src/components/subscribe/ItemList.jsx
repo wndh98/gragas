@@ -67,25 +67,29 @@ function ItemList() {
     }
     return (
         <>
-            <div>구독상품 목록</div>
-            <div className='dispFlex container-md itemDiv'>{items.map((item, index) => (
-                <div className='dispContent' key={item.siNum} onClick={() => subsDescription(item)}>
-                    <div className='subsItemBox otherInfo'>
-                        <div>{item.siMainImg ? <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" /> : '-'}
-                        </div>
-                        <div>
-                            <div className='imgBoxFlex'>
-                                <img onLoad={() => handleLoad(index)}
-                                    src={`https://www.sooldamhwa.com/_next/image?url=%2Fimages%2Fmodules%2Fsubscribe%2Ficon_${basicMap[index]}_damhwabox.png&w=32&q=75`}
-                                    alt="" style={{ width: '32px', height: '32px' }} />
-                                <h4>{item.siSubject}</h4>
+            <div className="container">
+                <div className='fs-2 fw-bold mt-5'>
+                    구독 박스를 선택해서 구성을 확인해보세요.
+                </div>
+                <div className='dispFlex container-md itemDiv'>{items.map((item, index) => (
+                    <div className='dispContent' key={item.siNum} onClick={() => subsDescription(item)}>
+                        <div className='subsItemBox otherInfo'>
+                            <div>{item.siMainImg ? <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" /> : '-'}
                             </div>
-                            <p className='text-secondary'>{item.siDescription}</p>
-                            {smallBox(index)}
+                            <div>
+                                <div className='imgBoxFlex'>
+                                    <img onLoad={() => handleLoad(index)}
+                                        src={`https://www.sooldamhwa.com/_next/image?url=%2Fimages%2Fmodules%2Fsubscribe%2Ficon_${basicMap[index]}_damhwabox.png&w=32&q=75`}
+                                        alt="" style={{ width: '32px', height: '32px' }} />
+                                    <h4>{item.siSubject}</h4>
+                                </div>
+                                <p className='text-secondary'>{item.siDescription}</p>
+                                {smallBox(index)}
+                            </div>
                         </div>
                     </div>
+                ))}
                 </div>
-            ))}
             </div>
         </>
     );
