@@ -27,7 +27,6 @@ function Header() {
             setIsLogin(false);
         }
     });
-
     return (
         <header className="p-3 text-bg-light">
             <div className="container">

@@ -96,7 +96,7 @@ public class SubscribeController {
         return result;
     }
     @PostMapping("/subscribe/deleteSubscribe/{siNum}")
-    public int subscribeDelete(@PathVariable int siNum){
+    public int subscribeDelete(@PathVariable("siNum") int siNum){
         sfs.deleteFolder(rootPath,siNum);
         int result = ss.subscribeDelete(siNum);
         return result;
