@@ -12,7 +12,7 @@ const SerList = () => {
 
     useEffect(() => {
         fetch(
-            `http://localhost:3000/total?_limit=${limit}&_start=${offset}`
+            `http://localhost:3000/total/products?_limit=${limit}&_start=${offset}`
         )
             .then((response) => response.json())
             .then((result) => {
