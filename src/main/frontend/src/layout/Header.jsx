@@ -27,7 +27,6 @@ function Header() {
             setIsLogin(false);
         }
     });
-
     return (
         <header className="p-3 text-bg-light">
             <div className="container">
@@ -35,6 +34,7 @@ function Header() {
                     <Link to="/main" className="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                         로고
                     </Link>
+                    {/* <a href="/main"><img src="public\images\GRAGAS_1.png" alt="" /></a> */}
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><Link to="/total" className="nav-link px-2 text-dark">상품</Link></li>
                         <li><Link to="/subscribe/itemList" className="nav-link px-2 text-dark">구독</Link></li>
