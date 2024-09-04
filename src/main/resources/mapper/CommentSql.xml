@@ -15,8 +15,9 @@
     </select>
     <select id="selectList" resultType="comment" parameterType="boardSearch">
         select c.*,u.USER_NAME from COMMENT_${boardType} c left join USER u on c.USER_ID = u.USER_ID
+        where B_NUM=#{bNum}
         <if test="keyword!=null and searchType!=null">
-            where ${searchType} like concat('%',#{keyword},'%')
+            and ${searchType} like concat('%',#{keyword},'%')
         </if>
         order by C_NUM desc limit #{startPage},#{pageSize}
     </select>

@@ -1,5 +1,6 @@
 package com.green.gragas.board.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
@@ -20,7 +21,8 @@ public class SearchDTO {
     private String boardType;     // 게시판 타입
     private String orderType="b_num";
     private String orderAsc="asc";
-
+    @JsonProperty("bNum")
+    private int bNum;
     public SearchDTO(int totalCnt) {
         this.totalCnt = totalCnt;
         setSearch();

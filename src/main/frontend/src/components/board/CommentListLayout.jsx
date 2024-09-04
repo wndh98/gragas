@@ -16,6 +16,7 @@ function CommentListLayout(props) {
     useEffect(() => {
         axios.get(commentListUrl)
             .then(response => {
+                console.log(response);
                 setCommentList([...(response.data.commentList)]);
                 setSearchDto(response.data.searchDto);
                 setPageNum(response.data.searchDto.pageNum);

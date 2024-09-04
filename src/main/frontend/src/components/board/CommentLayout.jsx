@@ -11,7 +11,7 @@ function CommentLayout(props) {
     const [pageNum, setPageNum] = useState(1);
     const [commentList, setCommentList] = useState([]);
     const [searchDto, setSearchDto] = useState({});
-    const commentListUrl = `/comment/${boardType}/list/${pageNum}`;
+    const commentListUrl = `/comment/${boardType}/list/${pageNum}/${bNum}`;
     return (
         <div className="p-5">
             <CommentListLayout

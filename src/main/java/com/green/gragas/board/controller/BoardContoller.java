@@ -30,7 +30,8 @@ public class BoardContoller {
     }
 
     @GetMapping("/board/{boardType}/list/{pageNum}")
-    public Map<String, Object> getBoardList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum) {
+    public Map<String, Object> getBoardList(@PathVariable("boardType") String boardType,
+                                            @PathVariable("pageNum") int pageNum) {
         Map<String, Object> map = bs.boardList(boardType, pageNum);
         return map;
     }
