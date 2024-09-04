@@ -235,6 +235,7 @@ create table `BOARD_REVIEW` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` INT null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 리뷰댓글
@@ -256,6 +257,7 @@ create table `BOARD_QA` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` INT null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 문의댓글
@@ -277,6 +279,7 @@ create table `BOARD_FREE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` INT null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 자유댓글
@@ -298,6 +301,7 @@ create table `BOARD_NOTICE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` INT null default 0,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 공지댓글
