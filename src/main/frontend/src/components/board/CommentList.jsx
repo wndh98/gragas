@@ -63,8 +63,11 @@ function CommentList(props) {
     }
 
     return (
-        <div>
-            <p>{comment.cContent}</p>
+        <>
+            <div class="border p-3 mb-3">
+                <strong>{comment.userName}</strong> <span class="text-muted">{comment.cRegist}</span>
+                <p>{comment.cContent}</p>
+            </div>
             {commentForm}
             {getUserId() == comment.userId || isAdmin() ?
                 <>
@@ -73,7 +76,7 @@ function CommentList(props) {
                 </>
                 : ""}
 
-        </div>
+        </>
 
     );
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getUser, getUserId, isAdmin } from "../../js/userInfo";
-
+const boardTypeList = { "free": "자유게시판", "qa": "Q&A게시판", "notice": "공지게시판" };
 function BoardForm() {
     const navi = useNavigate();
     const pathParam = useParams();
@@ -76,10 +76,12 @@ function BoardForm() {
         axios.post(ajaxUrl, formData, { headers: { "Content-Type": "multipart/form-data" } })
             .then((result) => {
                 if (result.data == 1) {
-                    alert("성공");
+                    alert("작성이 완료되었습니다.");
+                    navi(`/board/${boardType}/list/${pageNum}`);
                 }
                 else if (result.data == -1) {
                     alert("파일업로드실패");
+
                 } else {
                     alert("글입력실패");
                 }
@@ -88,6 +90,7 @@ function BoardForm() {
 
     return (
         <main className="container">
+            <h1 className="mt-5 text-center">{boardTypeList[boardType]}</h1>
             <form onSubmit={handleSubmit(onSubmit)} >
                 {/* <input type="hidden"  {...register("userId", { required: { value: true } })} value={board.userId} /> */}
                 <input type="hidden"  {...register("userId")} value={user.userId} />
