@@ -19,4 +19,6 @@ public class Comment {
     @JsonProperty("cRegist")
     private Date cRegist;
     private String boardType;
+
+    private String userName;
 }
