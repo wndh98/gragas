@@ -38,7 +38,7 @@ function AdminUserListLayout() {
       hideFirstLastPages={true}
       onChange={handlePageChange}
       innerClass={"pagination justify-content-center"}
-      >
+    >
     </Pagination>);
   }
   function handlePageChange(nextPage) {
@@ -52,6 +52,7 @@ function AdminUserListLayout() {
   }
 
   function onSubmit(data) {
+
     let newUrl = "/admin/user/list/" + searchDto.pageNum;
     axios.post("/admin/user/delete", [...(data.userId)])
       .then((result) => {
