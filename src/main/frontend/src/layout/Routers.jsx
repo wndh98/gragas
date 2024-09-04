@@ -71,7 +71,7 @@ function Routers() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/" element={<Layout><MainList /></Layout>} />
                 <Route path="/toss" element={<Layout><Toss /></Layout>} />
                 <Route path="/admin" element={<AdminLayout><AdminIndex /></AdminLayout>} />
                 <Route path="/test" element={<AuthRoute to="/loginForm"><AdminLayout><AdminIndex /></AdminLayout></AuthRoute>} />
@@ -80,7 +80,7 @@ function Routers() {
             </Routes>
             <Routes>
                 <Route path="/subscribe" element={<Layout><SubscribeMain /></Layout>} />
-                <Route path="/subscribe/adminSubscribeList" element={<AuthRoute to="/loginForm"><AdminLayout><AdminSubscribeItemMain /></AdminLayout></AuthRoute>}/>
+                <Route path="/subscribe/adminSubscribeList" element={<AuthRoute to="/loginForm"><AdminLayout><AdminSubscribeItemMain /></AdminLayout></AuthRoute>} />
                 <Route path="/subscribe/subsribeCreate" element={<Layout><AdminSubscribeCreate /></Layout>} />
                 <Route path="/subscribe/updateSubscribe/:siNum" element={<Layout><AdminSubscribeUpdate /></Layout>} />
                 <Route path="/subscribe/itemList" element={<Layout><ItemList /></Layout>} />
