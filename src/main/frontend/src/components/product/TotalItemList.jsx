@@ -13,15 +13,23 @@ function TotalItemList(props) {
     const [name, setNames] = useState([{}]);
     const [pcNums, setPcNums] = useState([{}]);
     const [orderType, setOrderType] = useState();
-    const [itemList, setItemLists] = useState();
-
     const [checkBox, setCheckBox] = useState([]);
+
+    const [serachItem, setSerachItem] = useState([{}]);
 
     let nameArr = [];
     let pcNumsArr = [];
+    // pcNums:[1,2,3]
+    // piAchol[10,20,30]
+    // piSweet[단만,안단맛]
+    // {pcNums:[1,2,3],piAchol:[10,20,30], piSweet[단만,안단맛]}
 
-    const typeList = [{ type: '주종', cate: name }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '신맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
 
+    const typeList = [{ type: '주종', cate: name, value: pcNums }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'], value: [0, 1, 2, 3] }, { type: '단맛', cate: ['약한', '중간', '강한'], value: [1, 2, 3] }, { type: '탄산', cate: ['약한', '중간', '강한'], value: [1, 2, 3] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'], value: [0, 1, 2, 3, 4] }]
+
+    const itemList = [
+        { pcNums: typeList.value }, { piAlcohol: [0, 1, 2, 3] }, { piSweet: [1, 2, 3] }, { piCarbonated: [1, 2, 3] }, { piPrice: [0, 1, 2, 3, 4] }
+    ]
     const [searchParams, setSearchParams] = useSearchParams();
     const navi = useNavigate();
 
@@ -30,15 +38,15 @@ function TotalItemList(props) {
         setOrderType(newOrderType)
         navi(`/total?orderType=${newOrderType}`);
 
-
     }
+
     const handleCheck = (e) => {
+        // console.log(e);
         setCheckBox(<img className='cpzm' src="/images/product/icon_checked_square.png" alt="checkbox" />)
-
-        const newItemLists = e.target.value;
-        setItemLists(newItemLists)
-        navi(`/total?pcNums=${newItemLists}`);
-
+        // console.log(e.target.attributes[2].value)
+        const newItemLists = e.target.attributes[2].value;
+        setSerachItem(newItemLists)
+        navi(`/total?pcNum=${newItemLists}`);
     }
 
     useEffect(() => {
@@ -52,7 +60,7 @@ function TotalItemList(props) {
 
     useEffect(() => {
 
-        axios.get(`/product/listPcNum/${pcNums.pcNum}?orderType=${orderType}`)
+        axios.get(`/product/listPcNum/${serachItem}?orderType=${orderType}`)
             .then((response) => {
                 setProducts(response.data);
             })
@@ -70,8 +78,7 @@ function TotalItemList(props) {
                 setPcNums(pcNumsArr);
             })
             .catch(error => console.error("Fetching error:", error))
-    }, [pcNums]); // orderType 또는 orderDesc가 변경되면 다시 호출
-
+    }, [orderType]); // orderType 또는 orderDesc가 변경되면 다시 호출
 
     return (
 
@@ -81,8 +88,9 @@ function TotalItemList(props) {
                 <div className='spdla typetwo'>
                     <div className='flextype'>
                         <div className='filter-container'>
+
                             {typeList.map(type => {
-                                return (<TList type={type} cate={props.cate} boxClose={boxClose} setBoxClose={setBoxClose} />);
+                                return (<TList type={type} cate={type.cate} boxClose={boxClose} setBoxClose={setBoxClose} handleCheck={handleCheck} />);
                             })}
                         </div>
                         {/* <Type />버튼 누르면 튀어나오게 */}
@@ -131,20 +139,25 @@ function TotalItemList(props) {
     );
 }
 
-function Type({ props, handleCheck }) {
+function Type(props) {
 
     const cate = props.cate;
     const checkBox = props.checkBox;
+    const handleCheck = props.handleCheck;
+    const value = props.value;
+
     return (
         <div width="350px" className='spdla typebox'>
             <div className='spdla tybox'>
                 {cate.map((testItem, testIndex) => {
+                    console.log(testItem)
                     return (
                         <div className='spdla mutlple'>
                             <div class="check-box flex">
                                 <div class="sc-d5ff5581-0 hNTfqe">
-                                    <button type="button" onClick={handleCheck()} class="custom-checkbox" value={cate.pcNum}>
-                                        <img src="/images/product/icon_unchecked_square.png" alt="checkbox" /></button>
+                                    <button type="button" onClick={(e) => { handleCheck(e); }} class="custom-checkbox" value={value[testIndex]}>
+                                        <img src="/images/product/icon_unchecked_square.png" alt="checkbox" value={value[testIndex]} />
+                                    </button>
                                     {checkBox}
                                 </div>
                                 <button class="option-text" key={testIndex}>{testItem}</button>
@@ -164,6 +177,7 @@ function TList(props) {
     const cate = props.cate;
     const boxClose = props.boxClose;
     const setBoxClose = props.setBoxClose;
+    const handleCheck = props.handleCheck;
     const [boxoff, setBoxon] = useState();
     const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
@@ -172,7 +186,7 @@ function TList(props) {
             if (isOpen) {
                 setIsOpen(false);
             } else if (boxClose == type.type) {
-                setBoxon(<Type cate={type.cate} />);
+                setBoxon(<Type cate={type.cate} handleCheck={handleCheck} value={type.value} />);
                 setIsOpen(true);
             }
         }

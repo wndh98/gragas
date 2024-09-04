@@ -1,13 +1,11 @@
 package com.green.gragas.product.service;
 
-import com.green.gragas.board.dto.BoardFile;
 import com.green.gragas.product.dto.ProductEvent;
 import com.green.gragas.product.dto.ProductItem;
 import com.green.gragas.product.dto.SearchDTO;
 import com.green.gragas.product.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -30,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductItem> productListPcNum(int pcNum,String orderType) {
+    public List<ProductItem> productListPcNum(int pcNum, String orderType) {
         SearchDTO searchDTO = new SearchDTO(1,1,pcNum);
         if(orderType!=null) {
             if (orderType.equals("NUM_DESC")) {
@@ -44,6 +42,7 @@ public class ProductServiceImpl implements ProductService {
                 searchDTO.setOrderAsc("ASC");
             }
         }
+
         return pm.productListPcNum(searchDTO);
     }
 

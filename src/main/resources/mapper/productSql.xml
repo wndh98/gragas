@@ -12,8 +12,15 @@
         <if test="pcNum!=0 or searchType!=null or keyword!=null">
             where
             <if test="pcNum!=0">
-                PC_NUM=#{pcNum}
+<!--                <foreach item="item" index="index" collection="pcNum"-->
+<!--                         open="PC_NUM in (" separator="," close=")">-->
+<!--                    #{item}-->
+<!--                    PC_NUM in (1,2,3)-->
+<!--                </foreach>-->
+                PC_NUM in (#{pcNum})
             </if>
+
+
             <if test="searchType!=null and keyword!=null">
                 <if test="pcNum!=0">
                     and

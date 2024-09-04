@@ -127,7 +127,7 @@ function SubsPayForm() {
                                         </div>
                                     ))
                                 ) : (
-                                    <SubsOrder setDelivery={setDelivery} />
+                                    <SubsOrder/>
                                 )}
                             </div>
 
@@ -138,7 +138,7 @@ function SubsPayForm() {
                             <div className="itemDesc">
                                 <div className="otherTitle fs-3">구독 상품 정보</div>
                                 <div>
-                                    <div><img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="" /></div>
+                                    <div><img className='img-thumbnail' src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="" /></div>
                                     <div>
                                         <div className="subsItemInfo">
                                             <div className='fw-bold fs-3'>{item.siSubject}</div>
@@ -154,7 +154,9 @@ function SubsPayForm() {
                                             <div className='fw-bold'>배송일</div>
                                             <div className='text-secondary px-4 mt-2'>{item.siArrive}</div>
                                             <br />
-                                            <SubsNote />
+                                            <SubsNote 
+                                             siSubject={item.siSubject}
+                                            />
                                         </div>
                                     </div>
                                 </div>

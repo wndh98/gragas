@@ -65,9 +65,15 @@ function CartLayout() {
                                 </tr>
                             );
                         })}
-                        <tr>
-                            <td colSpan={5} className="text-center"><button type="button" className="btn btn-success" onClick={() => { buyCart() }}>구매</button></td>
-                        </tr>
+                        {cartList.length > 0 ?
+                            <tr>
+                                <td colSpan={5} className="text-center"><button type="button" className="btn btn-success" onClick={() => { buyCart() }}>구매</button></td>
+                            </tr> :
+                            <tr>
+                                <td colSpan={5} className="text-center">상품이 없습니다.</td>
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
 
