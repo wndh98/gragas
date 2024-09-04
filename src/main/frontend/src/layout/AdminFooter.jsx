@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 function AdminFooter() {
     return (
-        <div className="container">
-            <footer className="py-3 my-4">
+        <div className="text-bg-light">
+            <footer className="container py-3 my-4 text-bg-light">
                 <ul className="nav justify-content-center border-bottom pb-3 mb-3">
                     <li className="nav-item"><Link to="/main" className="nav-link px-2 text-body-secondary">홈</Link></li>
                     <li className="nav-item"><Link to="/total" className="nav-link px-2 text-body-secondary">상품</Link></li>
