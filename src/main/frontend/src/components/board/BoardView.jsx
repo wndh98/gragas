@@ -6,6 +6,7 @@ import CommentForm from "./CommentForm";
 import CommentListLayout from "./CommentListLayout";
 import CommentLayout from "./CommentLayout";
 import { getUserId, isAdmin, isLogin } from "../../js/userInfo";
+const boardTypeList = { "free": "자유게시판", "qa": "Q&A게시판", "notice": "공지게시판" };
 function BoardView() {
     const pathParam = useParams();
     const boardType = pathParam.boardType; // 무슨게시판인지
@@ -63,53 +64,46 @@ function BoardView() {
     }
     return (
         <main className="container">
-            <table className="table mt-5 table-bordered">
-                <tbody>
-                    <tr>
-                        <td>{board.bSubject}</td>
-                    </tr>
-                    <tr>
-                        <td>{board.bWriter}</td>
-                    </tr>
-                    <tr>
+            <h1 className="mt-5 text-center">{boardTypeList[boardType]}</h1>
+            <div className="mt-5 p-5 border rounded">
+                <h3>{board.bSubject}</h3>
 
-                        <td>{board.bView}</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    download files
-                                </button>
-                                <ul class="dropdown-menu">
-                                    {fileList.map((file) => {
-                                        return (
-                                            <li><button type="button" className="dropdown-item" onClick={() => { downloadFile(file) }}>{file.bfOName}</button></li>);
-                                    })}
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style={{ whiteSpace: "pre-wrap" }}>{board.bContent}</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {getUserId() == board.userId || isAdmin() ?
-                                <>
-                                    <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum} className="btn btn-warning">수정</Link>
-                                    <button type="button" className="btn btn-danger" onClick={() => { deleteBoard() }}> 삭제</button>
-                                </>
-                                : ""
-                            }
-
-
-                            <Link to={`/board/${boardType}/write/${pageNum}/${bNum}`} className="btn btn-dark" > 답글</Link>
-                        </td>
-                    </tr>
-                </tbody>
-            </table >
+                <div className="mb-3 text-muted">
+                    <span>작성자: {board.bWriter}</span> |
+                    <span className="ms-2">작성일: {board.bRegist}</span> |
+                    <span className="ms-2">조회수: {board.bView}</span>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        다운로드
+                    </button>
+                    <ul class="dropdown-menu">
+                        {fileList.map((file) => {
+                            return (
+                                <li><button type="button" className="dropdown-item" onClick={() => { downloadFile(file) }}>{file.bfOName}</button></li>);
+                        })}
+                    </ul>
+                </div>
+                <hr />
+                <div className="p-2" style={{ whiteSpace: "pre-wrap" }}>
+                    {board.bContent}
+                </div>
+            </div>
             {isLogin() ? <CommentLayout bNum={bNum} boardType={boardType}></CommentLayout> : ""}
+
+            <div className="d-flex justify-content-between p-5">
+                <Link to={`/board/${boardType}/list/${pageNum}`} className="btn btn-primary">목록으로</Link>
+                <div>
+                    {getUserId() == board.userId || isAdmin() ?
+                        <>
+                            <Link to={"/board/" + boardType + "/update/" + pageNum + "/" + bNum} className="btn btn-warning">수정</Link>
+                            <button type="button" className="btn btn-danger ms-2" onClick={() => { deleteBoard() }}> 삭제</button>
+                        </>
+                        : ""
+                    }
+                    <Link to={`/board/${boardType}/write/${pageNum}/${bNum}`} className="btn btn-dark ms-2  " > 답글</Link>
+                </div>
+            </div>
 
             {/* <CommentListLayout bNum={bNum} boardType={boardType}></CommentListLayout> */}
             {/* <CommentForm bNum={bNum} boardType={boardType}></CommentForm> */}

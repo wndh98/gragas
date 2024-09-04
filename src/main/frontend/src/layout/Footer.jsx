@@ -9,7 +9,7 @@ function Footer() {
                     <li className="nav-item"><Link to="#" className="nav-link px-2 text-body-secondary">홈</Link></li>
                     <li className="nav-item"><Link to="#" className="nav-link px-2 text-body-secondary">상품</Link></li>
                     <li className="nav-item"><Link to="/subscribe/itemList" className="nav-link px-2 text-body-secondary">구독</Link></li>
-                    <li className="nav-item"><Link to="#" className="nav-link px-2 text-body-secondary">게시판</Link></li>
+                    <li className="nav-item"><Link to="/board/free/list/1" className="nav-link px-2 text-body-secondary">게시판</Link></li>
                     <li className="nav-item"><Link to="#" className="nav-link px-2 text-body-secondary">이벤트</Link></li>
                 </ul>
                 <p className="text-center text-body-secondary">그린컴퓨터아카데미</p>

@@ -14,7 +14,7 @@
         select * from COMMENT_${boardType} where C_NUM=#{cNum}
     </select>
     <select id="selectList" resultType="comment" parameterType="boardSearch">
-        select * from COMMENT_${boardType}
+        select c.*,u.USER_NAME from COMMENT_${boardType} c left join USER u on c.USER_ID = u.USER_ID
         <if test="keyword!=null and searchType!=null">
             where ${searchType} like concat('%',#{keyword},'%')
         </if>
