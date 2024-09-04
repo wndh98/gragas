@@ -32,12 +32,12 @@ public class SubscribeController {
     private String rootPath;
 
     @GetMapping("/subscribe/getPrice/{siNum}")
-    public int getPrice(@PathVariable int siNum){
+    public int getPrice(@PathVariable("siNum") int siNum){
         int siPrice = ss.getPrice(siNum);
         return siPrice;
     }
     @GetMapping("/subscribe/getSiSubject/{siNum}")
-    public String getSiSubject(@PathVariable int siNum){
+    public String getSiSubject(@PathVariable("siNum") int siNum){
         String siSubject = ss.getSiSubject(siNum);
         return siSubject;
     }
@@ -47,7 +47,7 @@ public class SubscribeController {
         return sublist;
     }
     @GetMapping("/subscribe/description/{siNum}")
-    public SubscribeItem selectSubsItem(@PathVariable int siNum){
+    public SubscribeItem selectSubsItem(@PathVariable("siNum") int siNum){
             SubscribeItem sItem = ss.selectSubsItem(siNum);
             return sItem;
     }
