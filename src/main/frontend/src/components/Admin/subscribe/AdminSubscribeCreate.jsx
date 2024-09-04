@@ -51,9 +51,9 @@ function AdminSubscribeCreate() {
     }
 
     return (
-        <div>
+        <div className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <table className="admin_board_wrap" id="user-admin">
+                <table className="admin_board_wrap table table-bordered" id="user-admin">
                     <thead className="admin_boardList">
                         <tr>
                             <th>구독상품명</th>
