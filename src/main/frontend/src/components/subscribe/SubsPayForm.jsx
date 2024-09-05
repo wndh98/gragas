@@ -16,7 +16,7 @@ function SubsPayForm() {
     const [soId, setSoId] = useState("");
     const { siNum } = useParams();
     const intSiNum = parseInt(siNum);
-    const { register,handleSubmit, setValue } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [amount, setAmount] = useState({});
@@ -33,7 +33,7 @@ function SubsPayForm() {
         siArrive: ''
     });
     function generateUUID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             const r = Math.random() * 16 | 0;
             const v = c === 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
@@ -48,7 +48,7 @@ function SubsPayForm() {
     }, [])
     useEffect(() => {
         setValue("userId", user.userId);
-        setValue("siNum",intSiNum);
+        setValue("siNum", intSiNum);
     }, [user])
 
     useEffect(() => {
@@ -88,7 +88,7 @@ function SubsPayForm() {
             setValue("soName", "");
             setValue("soTel", "");
             setValue("soAddr", "");
-            setValue("soAddrDe","");
+            setValue("soAddrDe", "");
             setValue("soMemo", "");
         } else {
             setSelectedDeliveryId(member.mdNum);
@@ -103,7 +103,6 @@ function SubsPayForm() {
     function onSubmit(data) {
         console.log(data);
         axios.post("/subsOrder/insert", data)
-        console.log(data)
             .then(response => {
                 return response.data;
             })
@@ -135,7 +134,7 @@ function SubsPayForm() {
                                         </div>
                                     ))
                                 ) : (
-                                    <SubsOrder/>
+                                    <SubsOrder />
                                 )}
                             </div>
 
@@ -162,8 +161,8 @@ function SubsPayForm() {
                                             <div className='fw-bold'>배송일</div>
                                             <div className='text-secondary px-4 mt-2'>{item.siArrive}</div>
                                             <br />
-                                            <SubsNote 
-                                             siSubject={item.siSubject}
+                                            <SubsNote
+                                                siSubject={item.siSubject}
                                             />
                                         </div>
                                     </div>
