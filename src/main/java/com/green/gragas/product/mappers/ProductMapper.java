@@ -28,7 +28,7 @@ public interface ProductMapper {
 
     int peventDelete(int piNum);
 
-    List<ProductItem> peventList(int eiNum);
+    List<ProductItem> peventList(SearchDTO productSearch);
 
 
     List<ProductEvent> peventListPe(ProductEvent productEvent);

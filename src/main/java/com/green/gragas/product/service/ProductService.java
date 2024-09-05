@@ -26,7 +26,7 @@ public interface ProductService {
 
      int peventDelete(int piNum);
 
-     List<ProductItem> peventList(int eiNum);
+     List<ProductItem> peventList(int eiNum,String orderType);
 
      List<ProductEvent> peventList(int eiNum,int piNum);
 
