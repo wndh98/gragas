@@ -26,7 +26,6 @@ function CommentForm(props) {
     let commentSubmitUrl;
     if (mode == "write") { commentSubmitUrl = `/comment/${boardType}/write`; }
     else if (mode == "update") { commentSubmitUrl = `/comment/${boardType}/update/${cNum}`; }
-
     useEffect(() => {
         if (mode == "update") {
             const getCommentUrl = `/comment/${boardType}/select/${cNum}`;

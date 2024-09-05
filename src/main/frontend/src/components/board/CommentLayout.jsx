@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 import CommentListLayout from "./CommentListLayout";
+import { isLogin } from "../../js/userInfo";
 
 function CommentLayout(props) {
     const bNum = props.bNum;
@@ -25,18 +26,21 @@ function CommentLayout(props) {
                 setSearchDto={setSearchDto}
                 commentListUrl={commentListUrl}
             />
-            <CommentForm
-                bNum={bNum}
-                boardType={boardType}
-                pageNum={pageNum}
-                setPageNum={setPageNum}
-                commentList={commentList}
-                setCommentList={setCommentList}
-                searchDto={searchDto}
-                setSearchDto={setSearchDto}
-                commentListUrl={commentListUrl}
-                mode={"write"}
-            />
+            {
+                isLogin() ? <CommentForm
+                    bNum={bNum}
+                    boardType={boardType}
+                    pageNum={pageNum}
+                    setPageNum={setPageNum}
+                    commentList={commentList}
+                    setCommentList={setCommentList}
+                    searchDto={searchDto}
+                    setSearchDto={setSearchDto}
+                    commentListUrl={commentListUrl}
+                    mode={"write"} /> : ""
+            }
+
+
         </div>
 
     );

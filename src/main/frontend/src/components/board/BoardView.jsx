@@ -89,7 +89,7 @@ function BoardView() {
                     {board.bContent}
                 </div>
             </div>
-            {isLogin() ? <CommentLayout bNum={bNum} boardType={boardType}></CommentLayout> : ""}
+            <CommentLayout bNum={bNum} boardType={boardType}></CommentLayout>
 
             <div className="d-flex justify-content-between p-5">
                 <Link to={`/board/${boardType}/list/${pageNum}`} className="btn btn-primary">목록으로</Link>
