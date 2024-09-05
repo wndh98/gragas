@@ -97,7 +97,7 @@ function SubsDescription() {
             </div>
             <div className="container subs_box">
                 <div className='col main_div1'>
-                    <img className='subs_img img-thumbnail' src={`http://localhost:8080/upload/subscribe/${items.siNum}/${items.siMainImg}`} alt="Main" style={{ width: '464px', height: '464px' }} />
+                    <img className='subs_img img-thumbnail' src={`http://192.168.110.87:8080/upload/subscribe/${items.siNum}/${items.siMainImg}`} alt="Main" style={{ width: '464px', height: '464px' }} />
                 </div>
                 <div className='col main_div2'>
                     <div>
@@ -129,7 +129,7 @@ function SubsDescription() {
                 </div>
                 <div className="desMain container">
                     <div className="siDescription">
-                        <img src={`http://localhost:8080/upload/subscribe/${items.siNum}/${items.siDesImg}`} alt="Des" className='des_img' />
+                        <img src={`http://192.168.110.87:8080/upload/subscribe/${items.siNum}/${items.siDesImg}`} alt="Des" className='des_img' />
                     </div>
                 </div>
             </div>
