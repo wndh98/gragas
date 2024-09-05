@@ -65,8 +65,8 @@ function MyPage() {
         <nav className="myPageNav col-8 d-flex">
           <MyPageNav name="구독관리" url="/images/user/mypage/subscribe.jpg" onClick={() => handleNavClick(<MypageSubscribe />)} />
           <MyPageNav name="주문내역" url="/images/user/mypage/orders.jpg" onClick={() => handleNavClick(<MypageOrderList />)} />
-          <MyPageNav name="취소/환불내역" url="/images/user/mypage/return.jpg" onClick={() => handleNavClick(<MypageRefund />)} />
-          <MyPageNav name="리뷰" url="/images/user/mypage/review.jpg" onClick={() => handleNavClick(<MypageReview />)} />
+{/*           <MyPageNav name="취소/환불내역" url="/images/user/mypage/return.jpg" onClick={() => handleNavClick(<MypageRefund />)} />
+          <MyPageNav name="리뷰" url="/images/user/mypage/review.jpg" onClick={() => handleNavClick(<MypageReview />)} /> */}
           <MyPageNav name="회원정보" url="/images/user/mypage/memberInfo.jpg" onClick={() => handleNavClick(<UserInfo />)} />
           <MyPageNav name="배송지관리" url="/images/user/mypage/delivery.jpg" onClick={() => handleNavClick(<UserDelivery />)} />
         </nav>

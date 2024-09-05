@@ -18,5 +18,5 @@ public interface OrderListMapper {
 
     List<OrderList> selectOrderList(Map<String,Object> map);
 
-    int ordersCnt(String olStatus);
+    int ordersCnt(Map<String,Object> map);
 }

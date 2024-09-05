@@ -85,7 +85,10 @@ public class OrderListServiceImpl implements OrderListService {
     }
 
     @Override
-    public int ordersCnt(String olStatus) {
-        return olm.ordersCnt(olStatus);
+    public int ordersCnt(String userId, String olStatus) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("olStatus",olStatus);
+        return olm.ordersCnt(map);
     }
 }
