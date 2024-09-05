@@ -33,10 +33,10 @@ public class OrderController {
         return orderList;
     }
 
-    @GetMapping("/order/cnt/{olStatus}")
-    public int ordersCnt(@PathVariable("olStatus") String olStatus) {
+    @GetMapping("/order/cnt/{userId}")
+    public int ordersCnt(@PathVariable("userId") String userId, @RequestParam("olStatus") String olStatus) {
         int result = 0;
-        result = ols.ordersCnt(olStatus);
+        result = ols.ordersCnt(userId, olStatus);
         return result;
     }
 

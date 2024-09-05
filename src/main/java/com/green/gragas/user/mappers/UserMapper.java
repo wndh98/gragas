@@ -12,30 +12,17 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
     User findByUserId(@Param("userId") String userId);
-
     List<User> userList(UserSearchDTO pageNum);
-
     User userCheck(String userId);
-
     int userJoin(User user);
-
     List<User> userSearchIdList(User user);
-
     int totalCnt();
-
     int userDelete(String userId);
-
     int userUpdate(User user);
-
     User userSearchPw(User user);
-
     int userListDelete(List<String> userId);
-
     void couponUpdate();
-
     void adminInsert(String userId, String userPw);
-
     void useCouponUpdate(String userId);
-
     void updatePoint(MemberPoint memberPoint);
 }

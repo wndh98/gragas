@@ -8,7 +8,7 @@ function AdminUserList(props) {
     const register = props.register;
     const [selectedUsers, setSelectedUsers] = useState([]);
     return (
-        <tr>
+        <tr className="text-center">
             <td><input type="checkbox" {...register("userId")} value={users.userId}  className="form-check-input" /></td>
             <td>
                 {/* <Link to={"admin/user/view/" + searchDto.pageNum + "/" + users.userId}> */}
