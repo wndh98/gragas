@@ -97,8 +97,8 @@ public class ProductController {
     }
 
     @GetMapping("/pevent/list/{eiNum}")
-    public List<ProductItem> peventList(@PathVariable("eiNum") int eiNum) {
-        List<ProductItem> list = ps.peventList(eiNum);
+    public List<ProductItem> peventList(@PathVariable("eiNum") int eiNum,@RequestParam(value = "orderType",required = false)String orderType) {
+        List<ProductItem> list = ps.peventList(eiNum,orderType);
         return list;
     }
 

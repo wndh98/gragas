@@ -26,7 +26,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
     @Override
     public List<ProductItem> productListPcNum(int pcNum, String orderType) {
         SearchDTO searchDTO = new SearchDTO(1,1,pcNum);
@@ -101,9 +100,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    @Override
-    public List<ProductItem> peventList(int eiNum) {
-        return pm.peventList(eiNum);
+    public List<ProductItem> peventList(int eiNum,String orderType) {
+        SearchDTO productSearch= new SearchDTO(1,1,eiNum);
+        productSearch.setEiNum(eiNum);
+            if(orderType!=null) {
+                if (orderType.equals("NUM_DESC")) {
+                    productSearch.setOrderType("PI_NUM");
+                    productSearch.setOrderAsc("DESC");
+                } else if (orderType.equals("PRICE_DESC")) {
+                    productSearch.setOrderType("PI_PRICE");
+                    productSearch.setOrderAsc("DESC");
+                } else if (orderType.equals("PRICE_ASC")) {
+                    productSearch.setOrderType("PI_PRICE");
+                    productSearch.setOrderAsc("ASC");
+                }
+            }
+            return pm.peventList(productSearch);
     }
 
 

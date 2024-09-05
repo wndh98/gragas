@@ -1,11 +1,10 @@
 import './App.css';
 import React from 'react';
-import Boxes from './Boxes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import EventBoxes from './EventBoxes';
-
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 function ProductEventMain(props) {
@@ -14,28 +13,38 @@ function ProductEventMain(props) {
     const product = props.product;
 
     const [boxClose, setBoxClose] = useState(false);
-    // const [products, setProducts] = useState([]);
     const [procate, setProcates] = useState([]);
     const [proList, setProList] = useState([]);
     const [event, setEvents] = useState([]);
     const [tList, setTList] = useState([{}]);
     const [name, setNames] = useState([{}]);
     const [pcNums, setPcNums] = useState([{}]);
+    const [orderType, setOrderType] = useState();
 
     let nameArr = [];
     let pcNumsArr = [];
 
-    const typeList = [{ type: '주종', cate: tList }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '신맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
+    const typeList = [{ type: '주종', cate: tList }, { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navi = useNavigate();
 
-    // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
+    function changeOrderType(e) {
+        const newOrderType = e.target.value;
+        setOrderType(newOrderType)
+        navi(`/productEventMain/3?orderType=${newOrderType}`);
+
+    }
     useEffect(() => {
 
-        axios.get("/pevent/list/" + eiNum)
+        axios.get(`/pevent/list/${eiNum}?orderType=${orderType}`)
+
             .then(response => {
                 setEvents(response.data)
             })
             .catch(error => console.error("Fetching error:", error))
+
+
         axios.get("/procate/list")
             .then(response => {
 
@@ -50,11 +59,20 @@ function ProductEventMain(props) {
             .catch(error => console.error("Fetching error:", error))
 
 
-    }, []);
+    }, [orderType]);
 
     return (
 
         <div>
+            <div className='tnfdlfwlehdiv'>
+                <span className='tnfdlfwlehspan'>
+                    <span className='tnfdlfwlehspan2'>
+
+                        <img className='tnfdlfwleh' src="/images/product/background-pc.avif" alt="" />
+                    </span>
+                </span>
+
+            </div>
             <div className='spdla type'>
                 <div className='spdla typetwo'>
                     <div className='flextype'>
@@ -74,7 +92,12 @@ function ProductEventMain(props) {
                                 <div className='spdla search'>{event.length}</div>
                                 <div>건의 결과가 있어요</div></div>
                             <div className='filter-wrapper'>
-                                <div class="MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiNativeSelect-root css-1f63zq5"><select class="MuiNativeSelect-select MuiNativeSelect-standard MuiInputBase-input MuiInput-input css-1vynybe" id="outlined-age-native-simple" name="age"><option value="recommend">추천순</option><option value="released_at">최신순</option><option value="rating">평점순</option><option value="star_count">리뷰 많은 순</option><option value="selling_count">판매순</option><option value="price_high">높은 가격순</option><option value="price_low">낮은 가격순</option><option value="discount_high">할인율 높은 순</option></select><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconStandard css-1utq5rl" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon"><path d="M7 10l5 5 5-5z"></path></svg></div>
+                                <div class="MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiNativeSelect-root css-1f63zq5"><select class="MuiNativeSelect-select MuiNativeSelect-standard MuiInputBase-input MuiInput-input css-1vynybe" id="outlined-age-native-simple" name="orderType" onChange={changeOrderType}>
+                                    <option value="NUM_DESC">최신순</option>
+                                    <option value="PRICE_DESC">높은 가격순</option>
+                                    <option value="PRICE_ASC">낮은 가격순</option>
+                                </select>
+                                    <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconStandard css-1utq5rl" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon"><path d="M7 10l5 5 5-5z"></path></svg></div>
                             </div>
                         </div>
 

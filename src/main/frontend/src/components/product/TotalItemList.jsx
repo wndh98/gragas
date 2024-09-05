@@ -60,7 +60,7 @@ function TotalItemList(props) {
 
     useEffect(() => {
 
-        axios.get(`/product/listPcNum/${serachItem}?orderType=${orderType}`)
+        axios.get(`/product/listPcNum/0?orderType=${orderType}`)
             .then((response) => {
                 setProducts(response.data);
             })
