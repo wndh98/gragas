@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../../css/user/login.css';
 import axios from 'axios';
 
-import { getCookie,setCookie,deleteCookie } from '../../../js/cookieJs';
+import { getCookie, setCookie, deleteCookie } from '../../../js/cookieJs';
 function LoginForm() {
   return (
     <div className="input_container container d-flex justify-content-center">
@@ -15,14 +15,14 @@ function LoginForm() {
           </div>
         </div>
         {/* api 로그인 자리 */}
-        <EmailLogin/>
+        <EmailLogin />
       </div>
     </div>
   );
 }
 
 function ApiLogin() {
-  return(
+  return (
     <div className="api">
       <div className="kakaoLogin">카카오 로그인</div>
       <div className="naverLogin">네이버 로그인</div>
@@ -37,18 +37,23 @@ function EmailLogin() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const user={userId:userId,userPw:userPw};
-    
-    axios.post("/login",user).then(response=>{
-      if(response.data > 0) {
+    const user = { userId: userId, userPw: userPw };
+
+    axios.post("/login", user).then(response => {
+      console.log(response);
+      if (response.data == 2) {
+        alert("관리자 로그인");
+        setCookie("isLogin", userId, 1);
+        navigate("/admin");
+      } else if (response.data == 1) {
         alert("로그인 성공");
-        setCookie("isLogin",userId,1);
+        setCookie("isLogin", userId, 1);
         navigate("/");
-      }else if(response.data == 0) {
+      } else if (response.data == 0) {
         alert("아이디 불일치");
-      }else if(response.data == -1){
+      } else if (response.data == -1) {
         alert("비밀번호 불일치");
-      }else {
+      } else {
         alert("삭제된 아이디 입니다.");
       }
     });
@@ -58,18 +63,18 @@ function EmailLogin() {
   const moveJoinForm = () => {
     navigate("/user/joinForm");
   }
-  
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
-      <div className='input-form-box'>
-          <input className='form-control' type="text" onChange={(e) => setUserId(e.target.value)} placeholder="아이디를 입력해 주세요"/>
+        <div className='input-form-box'>
+          <input className='form-control' type="text" onChange={(e) => setUserId(e.target.value)} placeholder="아이디를 입력해 주세요" />
         </div>
         <div className='input-form-box'>
-        <input className='form-control' type="password" onChange={(e) => setUserPw(e.target.value)} placeholder='비밀번호를 입력해 주세요'/>
+          <input className='form-control' type="password" onChange={(e) => setUserPw(e.target.value)} placeholder='비밀번호를 입력해 주세요' />
         </div>
         <div className='button-login-box'>
-          <input className='btn btn-primary btn-xs col-12' type="submit" value="로그인"/>
+          <input className='btn btn-primary btn-xs col-12' type="submit" value="로그인" />
         </div>
       </form>
       <button className='btn btn-secondary btn-xs col-12' onClick={moveJoinForm}>이메일 회원가입</button>

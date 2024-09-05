@@ -82,6 +82,11 @@ public class UserController {
         if(user2.getUserDel().equals("Y")) return -2;
 
         if (pwEncoder.matches(user.getUserPw(), user2.getUserPw())) {
+            if(user2.getUserId().equals("admin")) {
+                result = 2;
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", user2.getUserId());
+            }
             result = 1;
             HttpSession session = request.getSession();
             session.setAttribute("userId", user.getUserId());
