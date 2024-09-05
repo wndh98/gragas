@@ -52,9 +52,10 @@ function AdminUserListLayout() {
   }
 
   function onSubmit(data) {
-
+    const newUserId = [...(data.userId)];
+    console.log(newUserId);
     let newUrl = "/admin/user/list/" + searchDto.pageNum;
-    axios.post("/admin/user/delete", [...(data.userId)])
+    axios.post("/admin/user/delete", newUserId)
       .then((result) => {
         if (result.data > 0) {
           axios.get(newUrl)
