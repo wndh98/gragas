@@ -74,7 +74,7 @@ function ItemList() {
                 <div className='dispFlex container-md itemDiv'>{items.map((item, index) => (
                     <div className='dispContent' key={item.siNum} onClick={() => subsDescription(item)}>
                         <div className='subsItemBox otherInfo'>
-                            <div>{item.siMainImg ? <img src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" /> : '-'}
+                            <div>{item.siMainImg ? <img src={`http://192.168.110.87:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="Main" /> : '-'}
                             </div>
                             <div>
                                 <div className='imgBoxFlex'>
