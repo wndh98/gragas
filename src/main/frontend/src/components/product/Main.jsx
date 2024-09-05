@@ -28,7 +28,7 @@ function Main(props) {
 
   // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
   useEffect(() => {
-    axios.get("/product/list")
+    axios.get("/product/listPcNum/" + pcNum)
       .then(response => {
         console.log(response.data);
         // const newArr=division(response.data,3);
@@ -43,7 +43,7 @@ function Main(props) {
 
       <div id={`carouselExampleControls${pcNum}`} class="carousel slide spdla mainbox" data-bs-interval="false" data-bs-theme="dark">
         <div className='spdla hb'>
-          <img src={`http://localhost:8080/upload/procate/${cateList.pcNum}/${cateList.pcImg}`} alt='메달' width="45" height="45"></img>
+          <img src={`http://192.168.110.87:8080/upload/procate/${cateList.pcNum}/${cateList.pcImg}`} alt='메달' width="45" height="45"></img>
           <div className='spdla tle'>
             <div color="#000" text-decoration="none" class="sc-4bfd0cf4-0 ejEHhD"><span class="font title2-bold">{cateList.pcName}</span></div>
             <div color="rgba(61, 61, 61, 0.6)" text-decoration="none" class="sc-4bfd0cf4-0 bXHhAM"><span class="font body-bold"></span></div>

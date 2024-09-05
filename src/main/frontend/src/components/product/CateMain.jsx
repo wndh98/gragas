@@ -24,7 +24,7 @@ function CateMain(props) {
 
     useEffect(() => {
 
-        axios.get("/product/list/" + pcNum)
+        axios.get("/product/listPcNum/" + pcNum)
             .then(response => {
                 setProducts(response.data);
             })
