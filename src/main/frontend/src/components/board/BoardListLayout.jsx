@@ -5,6 +5,7 @@ import BoardList from "./BoardList";
 import Pagination from "react-js-pagination";
 import { useForm } from "react-hook-form";
 import { isLogin, getUserId, isAdmin } from "../../js/userInfo";
+const boardTypeList = { "free": "자유게시판", "qa": "Q&A게시판", "notice": "공지게시판" };
 function BoardListLayout() {
     const pathParam = useParams();
     const boardType = pathParam.boardType;
@@ -27,7 +28,14 @@ function BoardListLayout() {
                 setPagination(paginationCreate(searchDto));
             });
     }, [])
-
+    useEffect(() => {
+        axios.get(listUrl)
+            .then((result) => {
+                setBoards([...(result.data.boardList)]);
+                setSearchDto((result.data.searchDto));
+                setPagination(paginationCreate(searchDto));
+            });
+    }, [boardType])
     useEffect(() => {
         setPagination(paginationCreate(searchDto));
         navi("/board/" + boardType + "/list/" + searchDto.pageNum);
@@ -78,9 +86,10 @@ function BoardListLayout() {
 
     return (
         <main className="container">
+            <h1 className="mt-5 text-center">{boardTypeList[boardType]}</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <table className="table mt-5">
-                    <tbody>
+                <table className="table mt-5 table-hover">
+                    <thead>
                         <tr className="table-secondary align-middle text-center">
                             <th>게시글번호</th>
                             <th>게시글제목</th>
@@ -88,7 +97,10 @@ function BoardListLayout() {
                             <th>등록일</th>
                             <th>조회수</th>
                         </tr>
-                        {boards.length == 0 ? <tr><td colSpan="6">등록된게시물이 없습니다.</td></tr> : ""}
+                    </thead>
+                    <tbody>
+
+                        {boards.length == 0 ? <tr><td colSpan="6" className="text-center p-5">등록된게시물이 없습니다.</td></tr> : ""}
                         {boards.map(board => {
                             return (<BoardList boards={board} searchDto={searchDto} register={register}></BoardList>);
                         })}
@@ -98,11 +110,12 @@ function BoardListLayout() {
                     {isLogin() == true ? <Link to={"/board/" + boardType + "/write/" + searchDto.pageNum} className="btn btn-success">글쓰기</Link> : ""}
                     {isAdmin() ? <input type="submit" value="삭제" className="btn btn-danger" /> : ""}
                 </div>
+
                 <nav aria-label="Page navigation">
                     {pagination}
                 </nav>
             </form>
-        </main>
+        </main >
     );
 }
 

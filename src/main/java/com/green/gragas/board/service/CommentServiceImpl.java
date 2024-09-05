@@ -21,10 +21,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Map<String, Object> commentList(String boardType, int pageNum) {
+    public Map<String, Object> commentList(String boardType, int pageNum,int bNum) {
         Map<String, Object> map = new HashMap<>();
         int totalCnt = cm.totalCnt(boardType);
         SearchDTO search = new SearchDTO(totalCnt, pageNum, boardType);
+        search.setBNum(bNum);
         map.put("searchDto", search);
         map.put("commentList", cm.selectList(search));
         return map;

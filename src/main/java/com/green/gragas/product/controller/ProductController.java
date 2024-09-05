@@ -37,6 +37,7 @@ public class ProductController {
     @GetMapping("/product/listPcNum/{pcNum}")
     public List<ProductItem> productListPcNum(@PathVariable("pcNum") int pcNum,@RequestParam(value = "orderType",required = false)String orderType) {
         List<ProductItem> list = ps.productListPcNum(pcNum,orderType);
+
         return list;
     }
 

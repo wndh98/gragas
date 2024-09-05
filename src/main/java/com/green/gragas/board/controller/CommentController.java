@@ -28,9 +28,9 @@ public class CommentController {
         result = cs.commentUpdate(comment);
         return result;
     }
-    @GetMapping("/comment/{boardType}/list/{pageNum}")
-    public  Map<String, Object> getCommentList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum) {
-        Map<String, Object> map = cs.commentList(boardType, pageNum);
+    @GetMapping("/comment/{boardType}/list/{pageNum}/{bNum}")
+    public  Map<String, Object> getCommentList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum, @PathVariable("bNum") int bNum) {
+        Map<String, Object> map = cs.commentList(boardType, pageNum,bNum);
         return map;
     }
     @GetMapping("/comment/{boardType}/select/{cNum}")

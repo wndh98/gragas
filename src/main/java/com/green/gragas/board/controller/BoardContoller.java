@@ -30,7 +30,8 @@ public class BoardContoller {
     }
 
     @GetMapping("/board/{boardType}/list/{pageNum}")
-    public Map<String, Object> getBoardList(@PathVariable("boardType") String boardType, @PathVariable("pageNum") int pageNum) {
+    public Map<String, Object> getBoardList(@PathVariable("boardType") String boardType,
+                                            @PathVariable("pageNum") int pageNum) {
         Map<String, Object> map = bs.boardList(boardType, pageNum);
         return map;
     }
@@ -69,7 +70,8 @@ public class BoardContoller {
     }
 
     @PostMapping("/board/{boardType}/write")
-    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles, @RequestParam(value = "bFileNum", required = false) int[] bFileNum) {
+    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType,
+                          @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles, @RequestParam(value = "bFileNum", required = false) int[] bFileNum) {
 //        System.out.println(Arrays.toString(bFileNum));
 //        return 0;
         int result = bs.boardWrite(boardType, board, bFiles, bFileNum);
@@ -77,7 +79,8 @@ public class BoardContoller {
     }
 
     @PostMapping("/board/{boardType}/update/{bNum}")
-    public int updateBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles, @RequestParam(value = "bFileNum", required = false) Integer[] bFileNum) {
+    public int updateBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles,
+                           @RequestParam(value = "bFileNum", required = false) Integer[] bFileNum) {
         List<Integer> bfileList = null;
         if (bFileNum != null && bFileNum.length != 0) {
             bfileList = Arrays.asList(bFileNum);

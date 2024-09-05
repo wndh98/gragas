@@ -8,7 +8,7 @@ import java.util.Map;
 public interface CommentService {
     int commentWrite(Comment comment);
 
-    Map<String, Object> commentList(String boardType, int pageNum);
+    Map<String, Object> commentList(String boardType, int pageNum,int bNum);
 
     int deleteComment(Comment comment);
 
