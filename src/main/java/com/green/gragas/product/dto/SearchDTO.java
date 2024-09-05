@@ -18,6 +18,7 @@ public class SearchDTO {
     private String keyword;       // 검색 키워드
     private String searchType;    // 검색 유형
     private int pcNum;     // 게시판 타입
+    private int eiNum;     // 게시판 타입
 
     private String orderType = "pi_num";
     private String orderAsc = "desc";
@@ -38,6 +39,10 @@ public class SearchDTO {
         this.totalCnt = totalCnt;
         this.pageNum = pageNum;
         setSearch();
+    }
+
+    public SearchDTO() {
+
     }
 
     public void setSearch() {

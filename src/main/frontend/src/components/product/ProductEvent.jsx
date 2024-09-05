@@ -33,7 +33,7 @@ function ProductEvent() {
 
                     <div>
                         <Link to={"/productEventMain/" + product.eiNum}
-                            {...register("eiNum")}>  <img src={`http://localhost:8080/upload/event/${product.eiNum}/${product.eiContent}`} alt="" value={product.eiNum} /></Link>
+                            {...register("eiNum")}>  <img src={`http://192.168.110.87:8080/upload/event/${product.eiNum}/${product.eiContent}`} alt="" value={product.eiNum} /></Link>
                     </div>
                 );
             })}

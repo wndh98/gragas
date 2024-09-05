@@ -11,7 +11,7 @@ function Boxes(props) {
                 <a href={"/productItem/" + product.piNum}>
                     <div className='image-weapper'>
                         <span className='spdla tmvps'>
-                            <img className='boximg' src={`http://localhost:8080/upload/product/${product.piNum}/${product.piImg}`} alt="img" />
+                            <img className='boximg' src={`http://192.168.110.87:8080/upload/product/${product.piNum}/${product.piImg}`} alt="img" />
                         </span>
                     </div>
 
