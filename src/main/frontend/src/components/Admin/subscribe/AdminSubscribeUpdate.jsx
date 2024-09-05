@@ -69,10 +69,10 @@ function AdminSubscribeUpdate() {
     }
 
     return (
-        <div>
+        <div className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register("siNum")} value={siNum} />
-                <table className="admin_board_wrap" id="user-admin">
+                <table className="admin_board_wrap table table-bordered" id="user-admin">
                     <tbody>
                         <tr>
                             <th>구독상품명</th>
