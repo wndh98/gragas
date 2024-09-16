@@ -69,7 +69,7 @@ function ProductItem() {
                     <div className="qhdms wper">
                         <div className="detail-box" id="image">
                             <div className="swiper last-box">
-                                <img alt="" id="soju" src={`http://localhost:8080/upload/product/${product.piNum}/${product.piImg}`}>
+                                <img alt="" id="soju" src={`http://192.168.110.87:8080/upload/product/${product.piNum}/${product.piImg}`}>
                                 </img>
                             </div>
                         </div>
@@ -135,7 +135,7 @@ function ProductItem() {
                     </div>
                     <div className="sc-dfc3cf52-0 gGztHs">
                         <p>
-                            <img src={`http://localhost:8080/upload/product/${product.piNum}/${product.piContent}`} alt="data-center-image" />
+                            <img src={`http://192.168.110.87:8080/upload/product/${product.piNum}/${product.piContent}`} alt="data-center-image" />
                         </p>
                     </div>
                 </div>

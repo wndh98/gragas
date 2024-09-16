@@ -5,29 +5,21 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.green.gragas.product.mappers.ProductMapper">
     <select id="productList" resultType="productItem">
-        select * from Product_Item
+        select * from Product_Item where PI_DEL ='N'
     </select>
     <select id="productListPcNum" resultType="productItem" parameterType="productSearch">
-        select * from Product_Item
-        <if test="pcNum!=0 or searchType!=null or keyword!=null">
-            where
+        select * from Product_Item where PI_DEL ='N'
             <if test="pcNum!=0">
 <!--                <foreach item="item" index="index" collection="pcNum"-->
 <!--                         open="PC_NUM in (" separator="," close=")">-->
 <!--                    #{item}-->
 <!--                    PC_NUM in (1,2,3)-->
 <!--                </foreach>-->
-                PC_NUM in (#{pcNum})
+                and PC_NUM in (#{pcNum})
             </if>
-
-
             <if test="searchType!=null and keyword!=null">
-                <if test="pcNum!=0">
-                    and
-                </if>
-                ${searchType} like concat('%',#{keyword},'%')
+                and ${searchType} like concat('%',#{keyword},'%')
             </if>
-        </if>
         order by ${orderType} ${orderAsc} limit #{startPage},#{pageSize}
     </select>
 
@@ -64,14 +56,15 @@
     </update>
 
 
-    <select id="peventList" resultType="productItem" parameterType="integer">
+    <select id="peventList" resultType="productItem" parameterType="productSearch" >
         SELECT *
         FROM Product_ITEM
-        WHERE PI_NUM IN (
+        WHERE PI_DEL ='N' And PI_NUM IN (
         SELECT PI_NUM
         FROM Product_EVENT
         WHERE EI_NUM = #{eiNum}
         )
+        order by ${orderType} ${orderAsc}
         <!--        select * from Product_EVENT where EI_NUM=#{eiNum}-->
     </select>
 

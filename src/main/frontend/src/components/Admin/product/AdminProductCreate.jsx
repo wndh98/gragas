@@ -83,7 +83,7 @@ function AdminProductCreate() {
                             <td><input type="text" {...register("piName")} /></td>
                         </tr>
                         <tr>알콜도수
-                            <td><input type="text" {...register("piAlcohol")} /></td>
+                            <td><input type="number" {...register("piAlcohol")} /></td>
                         </tr>
 
                         <tr><th>맛</th><td>
@@ -103,13 +103,13 @@ function AdminProductCreate() {
 
 
                         <tr>가격
-                            <td><input type="number" {...register("poPrice")} /></td>
+                            <td><input type="number" {...register("piPrice")} /></td>
                         </tr>
                         <tr>세일가
-                            <td><input type="number" {...register("poSale")} /></td>
+                            <td><input type="number" {...register("piSale")} /></td>
                         </tr>
                         <tr>재고
-                            <td><input type="text" {...register("poCnt")} /></td>
+                            <td><input type="number" {...register("poCnt")} /></td>
                         </tr>
 
 

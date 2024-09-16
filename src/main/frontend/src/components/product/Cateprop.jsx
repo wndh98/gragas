@@ -12,7 +12,7 @@ function Cateprop(props) {
         <div className="cateprops">
             <Link rel="nosublink" to={`CateMain/${procate.pcNum}`}>
                 <div className="catecon">
-                    <span className="spdlatmxkdlfa"><img className="dlalwltmxkdlf" src={`http://localhost:8080/upload/procate/${procate.pcNum}/${procate.pcImg}`} alt="탁주 아이콘" /></span>
+                    <span className="spdlatmxkdlfa"><img className="dlalwltmxkdlf" src={`http://192.168.110.87:8080/upload/procate/${procate.pcNum}/${procate.pcImg}`} alt="탁주 아이콘" /></span>
 
                 </div>
                 {procate.pcName}

@@ -16,7 +16,7 @@ function EventBoxes(props) {
 
                     <div className='image-weapper'>
                         <span className='spdla tmvps'>
-                            <img className='boximg' src={`http://localhost:8080/upload/product/${eventList.piNum}/${eventList.piImg}`} alt="img" />
+                            <img className='boximg' src={`http://192.168.110.87:8080/upload/product/${eventList.piNum}/${eventList.piImg}`} alt="img" />
                         </span>
                     </div>
 
