@@ -148,12 +148,12 @@ public class UserController {
         us.couponUpdate();
     }
 
-/*    @GetMapping("/test")
+    @GetMapping("/test")
     public void adminCreate() {
         String userId = "admin";
         String userPw = "1234";
 
         userPw = (pwEncoder.encode(userPw));
         us.adminInsert(userId, userPw);
-    }*/
+    }
 }

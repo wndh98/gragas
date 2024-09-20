@@ -2,7 +2,7 @@
 
 use gragasdb;
 
-select * from board_file;
+
 drop table if exists `ORDER_DETAIL`;
 drop table if exists `ORDER_LIST`;
 drop table if exists `ORDER_CART`;
@@ -186,7 +186,7 @@ create table `SUBSCRIBE_ITEM` (
 	`SI_TITLE` VARCHAR(255) not null,
 	`SI_ARRIVE` DATETIME not null,
 	primary key (`SI_NUM`)
-);s
+);
 create table `SUBSCRIBE_ORDER` (
 	`SO_NUM` INT not null auto_increment,
 	`SI_NUM` INT not null,
@@ -235,6 +235,7 @@ create table `BOARD_REVIEW` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` int default 0 not null,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 리뷰댓글
@@ -256,6 +257,7 @@ create table `BOARD_QA` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` int default 0 not null,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 문의댓글
@@ -277,6 +279,7 @@ create table `BOARD_FREE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` int default 0 not null,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 자유댓글
@@ -298,6 +301,7 @@ create table `BOARD_NOTICE` (
 	`B_WRITER` VARCHAR(255) not null,
 	`B_CONTENT` TEXT null,
 	`B_STAR` tinyint null,
+	`B_VIEW` int default 0 not null,
 	`B_REGIST` DATETIME not null default NOW()
 );
 -- 공지댓글

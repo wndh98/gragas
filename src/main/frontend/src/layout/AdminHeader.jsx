@@ -1,6 +1,14 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { isAdmin } from "../js/userInfo";
 
 function AdminHeader() {
+    useEffect(()=>{
+        if(!isAdmin()){
+            alert("관리자만 접근 가능합니다.");
+            window.history.back();
+        }
+    },[]);
     return (
         <div className="container">
             <header className="d-flex justify-content-center py-3">

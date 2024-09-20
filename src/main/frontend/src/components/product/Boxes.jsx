@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { salePercent } from "../../js/order";
+import imagePath from '../../js/urlPath';
 function Boxes(props) {
     const product = props.product;
 
@@ -11,7 +12,7 @@ function Boxes(props) {
                 <a href={"/productItem/" + product.piNum}>
                     <div className='image-weapper'>
                         <span className='spdla tmvps'>
-                            <img className='boximg' src={`http://192.168.110.87:8080/upload/product/${product.piNum}/${product.piImg}`} alt="img" />
+                            <img className='boximg' src={`${imagePath()}/upload/product/${product.piNum}/${product.piImg}`} alt="img" />
                         </span>
                     </div>
 

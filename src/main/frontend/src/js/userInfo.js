@@ -13,7 +13,7 @@ function isLogin() {
     return !!getCookie("isLogin");
 }
 function isAdmin() {
-    return getCookie("isLoing") === "admin"
+    return getCookie("isLogin") === "admin"
 }
 function getUserId() {
     return getCookie("isLogin");
