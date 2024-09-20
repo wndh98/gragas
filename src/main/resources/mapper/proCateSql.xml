@@ -71,4 +71,9 @@
     <select id="procateCount" resultType="integer" parameterType="integer">
         select count(*) from PRODUCT_ITEM where PC_NUM=#{pcNum}
     </select>
+    <select id="procateCountList" resultType="integer" parameterType="list">
+        select count(*) from PRODUCT_ITEM where PC_NUM=#{pcNum}
+    </select>
+
+
 </mapper>

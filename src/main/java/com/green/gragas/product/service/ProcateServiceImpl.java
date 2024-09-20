@@ -45,6 +45,8 @@ public class ProcateServiceImpl implements ProcateService {
 
     public int procateDelete(List<Integer> pcNum) {
         int result = 0;
+        result = cm.procateCountList(pcNum);
+        if (result > 0) return -1;
         for (int num : pcNum) {
             result = cm.procateDelete(num);
             if (result == 0) break;
@@ -58,15 +60,6 @@ public class ProcateServiceImpl implements ProcateService {
         result = cm.procateCount(pcNum);
         if (result > 0) return -1;
         return cm.procateDelete(pcNum);
-    }
-
-    public int procateDeleteList(List<Integer> pcNum) {
-        int result = 0;
-        for (int num : pcNum) {
-            result = cm.procateDelete(num);
-            if (result == 0) break;
-        }
-        return result;
     }
 
     @Override

@@ -69,6 +69,8 @@ public class ProductController {
         proop.setPiNum(nextPiNum);
         proop.setPoCnt(product.getPoCnt());
         proop.setPoName(product.getPiName());
+        proop.setPoPrice(product.getPiPrice());
+        proop.setPoSale(product.getPiSale());
         int result = ps.productInsert(product);
         if (result != 1) return result;
         result = os.proopInsert(proop);
@@ -304,7 +306,6 @@ public class ProductController {
     @PostMapping("/option/insert")
     public int proopInsert(@RequestBody ProductOption proop) {
         int result = os.proopInsert(proop);
-
         return result;
     }
 

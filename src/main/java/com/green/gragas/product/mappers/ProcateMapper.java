@@ -20,6 +20,7 @@ public interface ProcateMapper {
     int procateDelete(int pcNum);
 
     int procateCount(int pcNum);
+    int procateCountList(List<Integer> pcNum);
     /*=========================================event=========================================*/
     List<EventItem> proeventList();
 
@@ -37,6 +38,7 @@ public interface ProcateMapper {
     int nextEiNum();
 
     int nextPcNum();
+
 
 
 }

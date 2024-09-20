@@ -11,12 +11,11 @@ function AdminProcatetUpdate(params) {
   const [products, setProducts] = useState([]);
   const viewUrl = "/procate/view/" + pcNum;
 
-  // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
   useEffect(() => {
     axios.get(viewUrl)
       .then(response => {
 
-        setProducts(response.data); // 가져온 상품정보를 상태에 저장
+        setProducts(response.data); 
       })
       .catch(error => console.error("Fetching error:", error))
   }, []);
@@ -54,10 +53,12 @@ function AdminProcatetUpdate(params) {
   }
 
   function procateDelete(event) {
-    console.log(pcNum)
+
     event.preventDefault();
     axios.get('/procate/delete/' + pcNum)
+    
       .then(response => {
+        console.log(response.data)
         if (response.data == 1) {
           alert("성공");
           loc("/procate/main");

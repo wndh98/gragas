@@ -9,7 +9,7 @@ function AdminOptionUpdate(params) {
   const poNum = pathParam.poNum;
 
   const [option, setOptions] = useState([]);
-  const viewUrl = "/option/view/" + poNum;
+  const viewUrl = "/option/viewPoNum/" + poNum;
 
   // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
   useEffect(() => {
@@ -47,7 +47,7 @@ function AdminOptionUpdate(params) {
       .then(response => {
         if (response.data == 1) {
           alert("성공");
-          loc("/option/main");
+          loc("/option/main/" + poNum);
         } else {
           alert("실패");
         }

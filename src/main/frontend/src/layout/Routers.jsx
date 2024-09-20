@@ -122,7 +122,7 @@ function Routers() {
                 <Route path="/event/create" element={<AdminLayout><AdminEventCreate /></AdminLayout>} />
                 <Route path="/event/update/:eiNum" element={<AdminLayout><AdminEventUpdate /></AdminLayout>} />
                 <Route path="/option/main/:piNum" element={<AdminLayout><AdminOptionMain /></AdminLayout>} />
-                <Route path="/option/create" element={<AdminLayout><AdminOptionCreate /></AdminLayout>} />
+                <Route path="/option/create/:piNum" element={<AdminLayout><AdminOptionCreate /></AdminLayout>} />
                 <Route path="/option/update/:poNum" element={<AdminLayout><AdminOptionUpdate /></AdminLayout>} />
             </Routes>
             <Routes>

@@ -81,7 +81,6 @@ function AdminProductMain(props) {
                             <td>탄산</td>
                             <td>가격</td>
                             <td>세일가</td>
-                            <td>재고</td>
                             <td>Content</td>
                             <td>이미지</td>
                             <td>옵션</td>
@@ -103,7 +102,6 @@ function AdminProductMain(props) {
                                     <td value={product.piCarbonated}>{product.piCarbonated}</td>
                                     <td value={product.piPrice}>{product.piPrice}</td>
                                     <td value={product.piSale}>{product.piSale}</td>
-                                    <td value={product.poCnt}>{product.poCnt}</td>
                                     <td value={product.piContent}>{product.piContent}</td>
                                     <td value={product.piImg}>{product.piImg}</td>
                                     <td><Link to={"/option/main/" + product.piNum} className="btn btn-primary">수정</Link></td>

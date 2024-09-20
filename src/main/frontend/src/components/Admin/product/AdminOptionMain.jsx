@@ -70,7 +70,7 @@ function AdminOptionMain() {
                     </tbody>
                 </table>
                 <div className="d-flex justify-content-end">
-                    <Link to="/option/create" className="btn btn-primary">옵션추가</Link>
+                    <Link to={"/option/create/" +piNum} className="btn btn-primary">옵션추가</Link>
                     <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(optionDelete)}>옵션삭제</button>
 
                 </div>

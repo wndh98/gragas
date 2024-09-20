@@ -2,33 +2,34 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { useNavigate } from "react-router-dom";
 function AdminProcateMain() {
     const { register, handleSubmit, formState: { error } } = useForm();
     const [procates, setProcates] = useState([]);
     const listUrl = "/procate/list";
-
-    // Axios를 사용하여 Promise기반으로 상품정보를 가져오는 함수
-
+ 
     axios.get(listUrl)
         .then(response => {
-            setProcates(response.data); // 가져온 상품정보를 상태에 저장
+            setProcates(response.data);
         })
         .catch(error => console.error("Fetching error:", error));
-
+        
+    const loc = useNavigate();
     function procateDelete(data) {
-
+        console.log(data)
         let pcNum = [...(data.pcNum)];
-
+        
         axios.post('/procate/deleteList', pcNum)
             .then(response => {
+               
                 if (response.data == 1) {
                     alert("성공");
-                } else {
-                    alert("실패");
-                }
+                    loc("/procate/main");
+                } else if (response.data == -1) {
+                    alert("참조하고 있는 아이템이 있습니다. 삭제 후 다시 시도해 주세요");
+                  }
             })
-    }// 컴포넌트 마운트시 상품정보 가져오기 함수호출
+    }
 
     return (
 
@@ -63,8 +64,8 @@ function AdminProcateMain() {
 
 
                 <div className="d-flex justify-content-end">
-                    <Link to="/procate/create" className="btn btn-primary">상품추가</Link>
-                    <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(procateDelete)}>상품삭제</button>
+                    <Link to="/procate/create" className="btn btn-primary">카테고리추가</Link>
+                    <button type="button" className="btn btn-danger ms-2" onClick={handleSubmit(procateDelete)}>카테고리삭제</button>
 
                 </div>
             </form>
