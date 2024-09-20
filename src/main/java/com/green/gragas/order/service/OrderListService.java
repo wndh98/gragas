@@ -11,5 +11,5 @@ public interface OrderListService {
 
     List<OrderList> getOrderList(String userId,String olStatus);
 
-    int ordersCnt(String olStatus);
+    int ordersCnt(String userId, String olStatus);
 }

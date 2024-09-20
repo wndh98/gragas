@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ProHeader from './ProHeader';
-
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 function CateMain(props) {
@@ -16,15 +16,23 @@ function CateMain(props) {
     const [products, setProducts] = useState([]);
     const [procate, setProcates] = useState([]);
     const [pcNums, setPcNums] = useState([{}]);
-
+    const [orderType, setOrderType] = useState();
     let pcNumsArr = [];
     const typeList = [
         { type: '도수', cate: ['0%-10%', '10%-20%', '20%-30%', '30%이상'] }, { type: '단맛', cate: ['약한', '중간', '강한'] }, { type: '탄산', cate: ['약한', '중간', '강한'] }, { type: '가격', cate: ['~1만원', '1만원~3만원', '1만원~3만원', '5만원~10만원', '10만원 이상'] }]
     // console.log(...procate)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navi = useNavigate();
 
+    function changeOrderType(e) {
+        const newOrderType = e.target.value;
+        setOrderType(newOrderType)
+        navi(`/main/CateMain/${pcNum}?orderType=${newOrderType}`);
+
+    }
     useEffect(() => {
 
-        axios.get("/product/listPcNum/" + pcNum)
+        axios.get(`/product/listPcNum/0?orderType=${orderType}`)
             .then(response => {
                 setProducts(response.data);
             })
@@ -39,7 +47,7 @@ function CateMain(props) {
                 setPcNums(pcNumsArr);
             })
             .catch(error => console.error("Fetching error:", error))
-    }, []);
+    }, [orderType]);
 
     return (
 
@@ -67,7 +75,11 @@ function CateMain(props) {
                                 <div className='spdla search'>{products.length}</div>
                                 <div>건의 결과가 있어요</div></div>
                             <div className='filter-wrapper'>
-                                <div class="MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiNativeSelect-root css-1f63zq5"><select class="MuiNativeSelect-select MuiNativeSelect-standard MuiInputBase-input MuiInput-input css-1vynybe" id="outlined-age-native-simple" name="age"><option value="recommend">추천순</option><option value="released_at">최신순</option><option value="rating">평점순</option><option value="star_count">리뷰 많은 순</option><option value="selling_count">판매순</option><option value="price_high">높은 가격순</option><option value="price_low">낮은 가격순</option><option value="discount_high">할인율 높은 순</option></select><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconStandard css-1utq5rl" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon"><path d="M7 10l5 5 5-5z"></path></svg></div>
+                                <div class="MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiNativeSelect-root css-1f63zq5"> <select class="MuiNativeSelect-select MuiNativeSelect-standard MuiInputBase-input MuiInput-input css-1vynybe" id="outlined-age-native-simple" name="orderType" onChange={changeOrderType}>
+                                    <option value="NUM_DESC">최신순</option>
+                                    <option value="PRICE_DESC">높은 가격순</option>
+                                    <option value="PRICE_ASC">낮은 가격순</option>
+                                </select><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconStandard css-1utq5rl" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowDropDownIcon"><path d="M7 10l5 5 5-5z"></path></svg></div>
                             </div>
                         </div>
 
@@ -100,7 +112,7 @@ function Type(props) {
 
 
     const handleCheck = () => {
-        setCheckBox(<img className='cpzm' src="/images/product/icon_checked_square.png" alt="checkbox" />)
+        setCheckBox()
     }
 
     const cate = props.cate;

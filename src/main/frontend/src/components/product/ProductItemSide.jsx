@@ -5,7 +5,7 @@ import { getOcId, isOcId, setOcId } from "../../js/orderCart/cart";
 import { getUserId, isLogin } from "../../js/userInfo";
 import { useNavigate } from "react-router-dom";
 import { numberFormat } from "../../js/order";
-
+import { v4 as uuidv4 } from "uuid";
 function ProductItemSide(props) {
     const navi = useNavigate();
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -38,7 +38,8 @@ function ProductItemSide(props) {
             navi("/loginForm");
             return false;
         }
-        data.ocId = crypto.randomUUID();
+        // data.ocId = crypto.randomUUID();
+        data.ocId = uuidv4();
         axios.post("/orderCart/select", data).then(response => {
             console.log(response);
             if (response.data != "") {

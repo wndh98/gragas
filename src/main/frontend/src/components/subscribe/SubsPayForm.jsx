@@ -16,7 +16,7 @@ function SubsPayForm() {
     const [soId, setSoId] = useState("");
     const { siNum } = useParams();
     const intSiNum = parseInt(siNum);
-    const { register,handleSubmit, setValue } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [amount, setAmount] = useState({});
@@ -32,16 +32,23 @@ function SubsPayForm() {
         siPayDate: '',
         siArrive: ''
     });
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
     useEffect(async () => {
         getUser(setUser);
-        const generatedSoId = crypto.randomUUID();
+        const generatedSoId = generateUUID();
         setSoId(generatedSoId);
         setValue("soId", generatedSoId);
         setValue("soPayment", "card")
     }, [])
     useEffect(() => {
         setValue("userId", user.userId);
-        setValue("siNum",intSiNum);
+        setValue("siNum", intSiNum);
     }, [user])
 
     useEffect(() => {
@@ -81,7 +88,7 @@ function SubsPayForm() {
             setValue("soName", "");
             setValue("soTel", "");
             setValue("soAddr", "");
-            setValue("soAddrDe","");
+            setValue("soAddrDe", "");
             setValue("soMemo", "");
         } else {
             setSelectedDeliveryId(member.mdNum);
@@ -127,7 +134,7 @@ function SubsPayForm() {
                                         </div>
                                     ))
                                 ) : (
-                                    <SubsOrder/>
+                                    <SubsOrder />
                                 )}
                             </div>
 
@@ -138,7 +145,7 @@ function SubsPayForm() {
                             <div className="itemDesc">
                                 <div className="otherTitle fs-3">구독 상품 정보</div>
                                 <div>
-                                    <div><img className='img-thumbnail' src={`http://localhost:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="" /></div>
+                                    <div><img className='img-thumbnail' src={`http://192.168.110.87:8080/upload/subscribe/${item.siNum}/${item.siMainImg}`} alt="" /></div>
                                     <div>
                                         <div className="subsItemInfo">
                                             <div className='fw-bold fs-3'>{item.siSubject}</div>
@@ -154,8 +161,8 @@ function SubsPayForm() {
                                             <div className='fw-bold'>배송일</div>
                                             <div className='text-secondary px-4 mt-2'>{item.siArrive}</div>
                                             <br />
-                                            <SubsNote 
-                                             siSubject={item.siSubject}
+                                            <SubsNote
+                                                siSubject={item.siSubject}
                                             />
                                         </div>
                                     </div>
@@ -175,30 +182,6 @@ function SubsPayForm() {
                             setIsVisible={setIsVisible}
                         ></SubsPayment>
                     </div>
-                    {/* <div className="mt-5 col-6 border p-4 rounded">
-                        <div className="container">
-                            <div className="spmAgreeBox">
-                                <div>
-                                    <div>
-                                        <div>
-                                            <input type="checkbox" name="agreeCheck" id="agreeCheck" className='form-check-input-checked-bg-image' />
-                                            <label htmlFor="agreeCheck">구매자의 정보수집ㆍ이용에 동의(필수)</label>
-                                        </div>
-                                        <div>
-                                            <button className='btn btn-secondary' onClick={handleClick}>보기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                {isVisible && <SubsAgree />}
-                            </div>
-                        </div>
-                    </div> */}
-                    {/* <div className="mt-5 col-6 rounded">
-                        <button type='submit' className='otherButton btn btn-primary'>구독 신청하기</button>
-                    </div> */}
-
                 </div>
             </form>
         </main>

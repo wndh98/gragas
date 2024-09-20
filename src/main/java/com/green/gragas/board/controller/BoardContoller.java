@@ -70,7 +70,8 @@ public class BoardContoller {
     }
 
     @PostMapping("/board/{boardType}/write")
-    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles, @RequestParam(value = "bFileNum", required = false) int[] bFileNum) {
+    public int writeBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType,
+                          @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles, @RequestParam(value = "bFileNum", required = false) int[] bFileNum) {
 //        System.out.println(Arrays.toString(bFileNum));
 //        return 0;
         int result = bs.boardWrite(boardType, board, bFiles, bFileNum);
@@ -78,7 +79,8 @@ public class BoardContoller {
     }
 
     @PostMapping("/board/{boardType}/update/{bNum}")
-    public int updateBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles, @RequestParam(value = "bFileNum", required = false) Integer[] bFileNum) {
+    public int updateBoard(@RequestPart("board") Board board, @PathVariable("boardType") String boardType, @RequestParam(value = "bFile", required = false) MultipartFile[] bFiles,
+                           @RequestParam(value = "bFileNum", required = false) Integer[] bFileNum) {
         List<Integer> bfileList = null;
         if (bFileNum != null && bFileNum.length != 0) {
             bfileList = Arrays.asList(bFileNum);

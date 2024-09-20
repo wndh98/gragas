@@ -23,7 +23,6 @@ function MypageOrderList() {
       })
     setActiveButton('ALL');
   }
-  console.log(orderList);
   return (
     <div className="top_nav container">
       <div style={{ margin: '0 40px' }}>
@@ -100,7 +99,7 @@ function OrdersNav(props) {
   const [orderCnt, setOrderCnt] = useState();
 
   useEffect(() => {
-    axios.get(`/order/cnt/${olStatus}`)
+    axios.get(`/order/cnt/${userId}?olStatus=${olStatus}`)
       .then(response => {
         setOrderCnt(response.data);
       })

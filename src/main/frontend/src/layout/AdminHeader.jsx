@@ -1,9 +1,16 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { isAdmin } from "../js/userInfo";
 import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
 import { isAdmin } from "../js/userInfo";
 
 function AdminHeader() {
+    useEffect(()=>{
+        if(!isAdmin()){
+            alert("관리자만 접근 가능합니다.");
+            window.history.back();
+        }
+    },[]);
     // const navi=useNavigate();
     // useEffect(() => {
     //     if (!isAdmin()) {alert("잘못된 접근입니다.");navi("/"); }
@@ -42,6 +49,7 @@ function AdminHeader() {
                 </ul>
             </header>
         </div>
+
     );
 }
 export default AdminHeader;

@@ -7,14 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface DeliveryMapper {
-
     int insert(Delivery delivery);
-
     List<Delivery> deliveryList(String userId);
-
     Delivery select(int mdNum);
-
     int update(Delivery delivery);
-
     int delete(int mdNum);
 }

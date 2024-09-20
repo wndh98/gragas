@@ -18,7 +18,7 @@
     <select id="userCheck" resultType="user" parameterType="string">
         SELECT u.*, mc.UL_IMG,mc.MC_SAIL
         FROM user u
-        JOIN MEMBER_COUPON mc ON u.USER_LEVEL = mc.USER_LEVEL
+        left JOIN MEMBER_COUPON mc ON u.USER_LEVEL = mc.USER_LEVEL
         WHERE u.USER_ID = #{userId}
     </select>
     <insert id="userJoin" parameterType="user">
@@ -37,10 +37,10 @@
         select * from User where user_id=#{userId} and user_name=#{userName}
             and user_birth=#{userBirth}
     </select>
-    <update id="userListDelete" parameterType="list">
+    <update id="userListDelete" parameterType="java.util.List">
         update user set user_del = 'Y'
         where
-        <foreach item="userId" index="index" collection="userId" open="user_id in (" separator="," close=")">
+        <foreach item="userId" index="index" collection="list" open="USER_ID in (" separator="," close=")">
             #{userId}
         </foreach>
     </update>

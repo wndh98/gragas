@@ -34,7 +34,7 @@ function BoardForm() {
     useEffect(() => {
         setValue("userId", user.userId);
         setValue("bWriter", user.userName);
-        if (mode === "update") {
+        if (mode === "update" && user.userId!=null) {
             if (user.userId != getUserId() && !isAdmin()) {
                 alert("잘못된접근입니다.");
                 navi(-1);

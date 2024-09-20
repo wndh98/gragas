@@ -1,6 +1,7 @@
 import React from "react";
 import './App.css';
 import { Link } from "react-router-dom";
+import imagePath from "../../js/urlPath";
 
 
 function Cateprop(props) {
@@ -10,9 +11,9 @@ function Cateprop(props) {
 
     return (
         <div className="cateprops">
-            <Link rel="nosublink" to={`CateMain/${procate.pcNum}`}>
+            <Link rel="nosublink" to={`/main/CateMain/${procate.pcNum}`}>
                 <div className="catecon">
-                    <span className="spdlatmxkdlfa"><img className="dlalwltmxkdlf" src={`http://192.168.110.87:8080/upload/procate/${procate.pcNum}/${procate.pcImg}`} alt="탁주 아이콘" /></span>
+                    <span className="spdlatmxkdlfa"><img className="dlalwltmxkdlf" src={`${imagePath()}/upload/procate/${procate.pcNum}/${procate.pcImg}`} alt="탁주 아이콘" /></span>
 
                 </div>
                 {procate.pcName}
