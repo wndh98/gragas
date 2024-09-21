@@ -4,6 +4,7 @@ import com.green.gragas.product.dto.ProductOption;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProopMapper {
@@ -23,4 +24,6 @@ public interface ProopMapper {
     List<ProductOption> proopListPi(int piNum);
 
     ProductOption proopSelectOne(int piNum);
+
+    void updatePoCnt(Map<String, Integer> poMap);
 }

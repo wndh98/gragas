@@ -27,8 +27,8 @@ public class OrderCartController {
         return ocs.getProductName(ocId);
     }
     @GetMapping("/orderCart/list")
-    public List<OrderCart> getOrderCartList(@RequestParam("ocId") String ocId) {
-        return ocs.getOrderCartList(ocId);
+    public List<OrderCart> getOrderCartList(@RequestParam("userId") String userId) {
+        return ocs.getOrderCartList(userId);
     }
 
     @PostMapping("/orderCart/select")

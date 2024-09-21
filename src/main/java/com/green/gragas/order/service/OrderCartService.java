@@ -12,7 +12,7 @@ public interface OrderCartService {
 
     int deleteCart(int ocNum);
 
-    List<OrderCart> getOrderCartList(String ocId);
+    List<OrderCart> getOrderCartList(String userId);
 
     OrderCart getOrderCart(OrderCart orderCart);
 

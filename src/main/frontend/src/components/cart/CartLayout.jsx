@@ -3,13 +3,20 @@ import { getOcId } from "../../js/orderCart/cart";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { getUserId, isLogin } from "../../js/userInfo";
 
 function CartLayout() {
     const ocId = getOcId();
     const [cartList, setCartList] = useState([{}]);
     const navi = useNavigate();
+    
     useEffect(() => {
-        axios.get(`/orderCart/list?ocId=${ocId}`).then(response => {
+        if(!isLogin()){
+            alert("로그인후 이용해주세요.");
+            navi("/loginForm");
+        }
+        
+        axios.get(`/orderCart/list?userId=${getUserId()}`).then(response => {
             setCartList(response.data);
             console.log(response);
         })
@@ -25,6 +32,9 @@ function CartLayout() {
             }
         })
     }
+    //TODO
+    //설렉트 박스 바꿀시 value 변경
+
     function changeCnt(cart, event) {
         const ocCnt = event.target.value;
         cart.ocCnt = ocCnt;
@@ -55,7 +65,7 @@ function CartLayout() {
                                     <td>{cart.poName}</td>
                                     <td>{cart.poSale}</td>
                                     <td>
-                                        <select className="form-control" onChange={(e) => { changeCnt(cart, e) }} defaultValue={cart.ocCnt}>
+                                        <select className="form-control" onChange={(e) => { changeCnt(cart, e); }} value={cart.ocCnt}>
                                             {Array.from({ length: cart.poCnt }, (_, i) => (
                                                 <option value={i + 1} >{i + 1}</option>
                                             ))}

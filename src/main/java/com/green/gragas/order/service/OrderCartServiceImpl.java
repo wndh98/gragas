@@ -28,8 +28,8 @@ public class OrderCartServiceImpl implements OrderCartService {
     }
 
     @Override
-    public List<OrderCart> getOrderCartList(String ocId) {
-        return ocm.selectOrderCartList(ocId);
+    public List<OrderCart> getOrderCartList(String userId) {
+        return ocm.selectOrderCartList(userId);
     }
 
     @Override

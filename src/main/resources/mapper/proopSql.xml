@@ -26,7 +26,9 @@
     <update id="proopUpdate" parameterType="productOption">
         update PRODUCT_OPTION set PO_NAME=#{poName},PO_CNT=#{poCnt} where PO_NUM=#{poNum}
     </update>
-
+    <update id="updatePoCnt" parameterType="Map">
+        update PRODUCT_OPTION set PO_CNT = #{poCnt} + PO_CNT where PO_NUM=#{poNum}
+    </update>
     <delete id="proopDelete" parameterType="integer">
         delete from PRODUCT_OPTION where PO_NUM=#{poNum}
     </delete>

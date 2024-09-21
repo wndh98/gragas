@@ -139,7 +139,7 @@ CREATE TABLE PRODUCT_ITEM (
    PI_IMG   VARCHAR(255),
    PI_CONTENT   VARCHAR(255) NOT null,
    PI_PRICE INT NOT NULL,
-   PI_SAIL INT NOT NULL,
+   PI_SALE INT NOT NULL,
    PI_DEL VARCHAR(1) NOT NULL default 'N',
    FOREIGN KEY(PC_NUM) references PRODUCT_CATE(PC_NUM)
 );
@@ -396,7 +396,9 @@ create table `ORDER_CART` (
 	`PI_NUM` INT not null,
 	`PO_NUM` INT not null,
 	`USER_ID` VARCHAR(50) not null,
-	`OC_CNT` INT not null
+	`OC_CNT` INT not null,
+	`USER_ID` VARCHAR(50) not null,
+	constraint 'FK_OC_USER_ID' foreign key USER_ID references USER(USER_ID)
 );
 
 

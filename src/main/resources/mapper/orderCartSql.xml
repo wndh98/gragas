@@ -8,7 +8,7 @@
         insert into ORDER_CART(OC_ID,PI_NUM,PO_NUM,USER_ID,OC_CNT) values(#{ocId},#{piNum},#{poNum},#{userId},#{ocCnt})
     </insert>
     <select id="selectOrderCartList" resultType="orderCart" parameterType="string">
-        select oc.*,pi.PI_NAME,pi.PI_IMG,po.PO_NAME,po.PO_PRICE,po.PO_SALE,po.PO_CNT from ORDER_CART oc LEFT JOIN PRODUCT_ITEM pi on oc.PI_NUM = pi.PI_NUM LEFT JOIN PRODUCT_OPTION po on oc.PO_NUM=po.PO_NUM  where OC_ID=#{ocId}
+        select oc.*,pi.PI_NAME,pi.PI_IMG,po.PO_NAME,po.PO_PRICE,po.PO_SALE,po.PO_CNT from ORDER_CART oc LEFT JOIN PRODUCT_ITEM pi on oc.PI_NUM = pi.PI_NUM LEFT JOIN PRODUCT_OPTION po on oc.PO_NUM=po.PO_NUM  where USER_ID=#{userId}
     </select>
     <select id="selectOrderCart" resultType="orderCart" parameterType="orderCart">
         select oc.*,pi.PI_NAME,pi.PI_IMG,po.PO_NAME,po.PO_PRICE,po.PO_SALE,po.PO_CNT from ORDER_CART oc LEFT JOIN PRODUCT_ITEM pi on oc.PI_NUM = pi.PI_NUM LEFT JOIN PRODUCT_OPTION po on oc.PO_NUM=po.PO_NUM  where OC_ID=#{ocId} and oc.PI_NUM=#{piNum} and oc.PO_NUM=#{poNum} limit 1
