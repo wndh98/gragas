@@ -39,6 +39,15 @@
     <select id="ordersCnt" parameterType="map" resultType="integer">
         select count(*) from ORDER_LIST where USER_ID=#{userId} and OL_STATUS = #{olStatus}
     </select>
+    <select id="totalCnt" resultType="integer">
+        select count(*) from ORDER_LIST;
+    </select>
+    <select id="selectList" resultType="orderList">
+        select * from ORDER_LIST
+        <where>
+            
+        </where>
+    </select>
     <delete id="deletePreOrderList" parameterType="string">
         delete from PRE_ORDER_LIST where OL_ID=#{olId}
     </delete>

@@ -39,12 +39,12 @@ function AdminHeader() {
                             <li><Link className="dropdown-item" to="/subscribe/adminSubscribeList">구독관리</Link></li>
                         </ul>
                     </li>
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                         <button className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">주문관리</button>
                         <ul class="dropdown-menu">
-                            <li><Link className="dropdown-item" to="">주문관리</Link></li>
+                            <li><Link className="dropdown-item" to="/admin/order/list/1">주문관리</Link></li>
                         </ul>
-                    </li> */}
+                    </li>
                 </ul>
             </header>
         </div>

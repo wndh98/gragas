@@ -18,7 +18,6 @@ function CartLayout() {
         
         axios.get(`/orderCart/list?userId=${getUserId()}`).then(response => {
             setCartList(response.data);
-            console.log(response);
         })
     }, [])
     function cartDelete(cart) {
@@ -39,7 +38,10 @@ function CartLayout() {
         const ocCnt = event.target.value;
         cart.ocCnt = ocCnt;
         axios.post("/orderCart/updateCart", cart).then(response => {
-            console.log(response);
+                    
+            axios.get(`/orderCart/list?userId=${getUserId()}`).then(response => {
+                setCartList(response.data);
+            })
         })
     }
     function buyCart() {

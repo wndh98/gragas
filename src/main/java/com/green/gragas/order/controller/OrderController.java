@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OrderController {
@@ -39,5 +40,10 @@ public class OrderController {
         result = ols.ordersCnt(userId, olStatus);
         return result;
     }
+    @GetMapping("/order/list/{pageNum}")
+    public Map<String, Object> adminOrderList(@PathVariable("pageNum") int pageNum){
+        Map<String, Object> map = ols.adminOrderList(pageNum);
+        return map;
 
+    }
 }

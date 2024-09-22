@@ -1,6 +1,7 @@
 package com.green.gragas.order.mapper;
 
 import com.green.gragas.order.dto.OrderList;
+import com.green.gragas.order.dto.OrderSearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface OrderListMapper {
     List<OrderList> selectOrderList(Map<String,Object> map);
 
     int ordersCnt(Map<String,Object> map);
+
+    int totalCnt();
+
+    List<OrderList> selectList(OrderSearchDto search);
 }

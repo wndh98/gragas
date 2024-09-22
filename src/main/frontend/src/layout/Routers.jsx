@@ -64,6 +64,7 @@ import OrderFormLayout from "../components/order/OrderFormLayout";
 import OrderSuccess from "../components/order/OrderSuccess";
 
 import Toss from "../components/Toss";
+import AdminOrderList from "../components/admin/order/AdminOrderList";
 
 
 function Routers() {
@@ -136,9 +137,10 @@ function Routers() {
                 <Route path="/order/orderForm" element={<AuthRoute to="/loginForm"><Layout><OrderFormLayout /></Layout></AuthRoute>} />
                 <Route path="/order/success" element={<AuthRoute to="/loginForm"><Layout><OrderSuccess /></Layout></AuthRoute>} />
                 <Route path="/order/orderForm/:ocId" element={<AuthRoute to="/loginForm"><Layout><OrderFormLayout /></Layout></AuthRoute>} />
-
+                <Route path="/admin/order/list/:pageNum" element={<AuthRoute to="/loginForm"><AdminLayout><AdminOrderList /></AdminLayout></AuthRoute>} />
             </Routes>
         </BrowserRouter>
+
     );
 }
 

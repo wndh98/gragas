@@ -1,8 +1,10 @@
 package com.green.gragas.order.service;
 
+import com.green.gragas.board.dto.SearchDTO;
 import com.green.gragas.order.dto.OrderCart;
 import com.green.gragas.order.dto.OrderDetail;
 import com.green.gragas.order.dto.OrderList;
+import com.green.gragas.order.dto.OrderSearchDto;
 import com.green.gragas.order.mapper.OrderCartMapper;
 import com.green.gragas.order.mapper.OrderDetailMapper;
 import com.green.gragas.order.mapper.OrderListMapper;
@@ -97,5 +99,15 @@ public class OrderListServiceImpl implements OrderListService {
         map.put("userId",userId);
         map.put("olStatus",olStatus);
         return olm.ordersCnt(map);
+    }
+
+    @Override
+    public Map<String, Object> adminOrderList(int pageNum) {
+        Map<String, Object> map = new HashMap<>();
+        int totalCnt = olm.totalCnt();
+        OrderSearchDto search = new OrderSearchDto(totalCnt, pageNum);
+        map.put("OrderSearchDto", search);
+        map.put("orderList", olm.selectList(search));
+        return map;
     }
 }
